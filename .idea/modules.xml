@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://E:\iti\graduationProject\TalentedInc\Projects.iml" filepath="E:\iti\graduationProject\TalentedInc\Projects.iml" />
       <module fileurl="file://$PROJECT_DIR$/TalentedInc.iml" filepath="$PROJECT_DIR$/TalentedInc.iml" />
+      <module fileurl="file://E:\....ITI\Android\Final Project\TalentedInc\TalentedInc.iml" filepath="E:\....ITI\Android\Final Project\TalentedInc\TalentedInc.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\....ITI\Android\Final Project\TalentedInc\app\app.iml" filepath="E:\....ITI\Android\Final Project\TalentedInc\app\app.iml" />
     </modules>
   </component>
 </project>

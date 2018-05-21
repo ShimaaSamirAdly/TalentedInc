@@ -1,4 +1,4 @@
-package inc.talentedinc.ui.activities;
+package inc.talentedinc.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

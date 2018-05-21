@@ -1,4 +1,4 @@
-package inc.talentedinc.ui.activities;
+package inc.talentedinc.view.activities;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import inc.talentedinc.R;
-import inc.talentedinc.ui.fragmnts.HistoryFragment;
-import inc.talentedinc.ui.fragmnts.NotificationFragment;
-import inc.talentedinc.ui.fragmnts.ProfileFragment;
-import inc.talentedinc.ui.fragmnts.UpComingCoursesFragment;
+import inc.talentedinc.view.fragmnts.HistoryFragment;
+import inc.talentedinc.view.fragmnts.NotificationFragment;
+import inc.talentedinc.view.fragmnts.ProfileFragment;
+import inc.talentedinc.view.fragmnts.UpComingCoursesFragment;
 
 public class HomeActivity extends AppCompatActivity {
 

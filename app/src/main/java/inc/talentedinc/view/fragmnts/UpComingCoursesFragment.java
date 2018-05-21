@@ -1,8 +1,6 @@
-package inc.talentedinc.ui.fragmnts;
+package inc.talentedinc.view.fragmnts;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -23,7 +21,7 @@ import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
 import inc.talentedinc.listener.UpComingListener;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
-import inc.talentedinc.ui.activities.UpComingDetailsActivity;
+import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
 
