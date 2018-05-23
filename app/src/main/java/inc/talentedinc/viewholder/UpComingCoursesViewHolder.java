@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import inc.talentedinc.R;
-import inc.talentedinc.listener.UpComingListener;
+import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
 
 /**
@@ -19,14 +19,14 @@ import inc.talentedinc.model.Result;
 public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private Context context;
-    private UpComingListener listener;
+    private HomeListener listener;
     private View itemView;
     private TextView txtName;
     private TextView txtRate;
     private TextView txtDate;
     private CircleImageView img;
     private Result courseModel;
-    public UpComingCoursesViewHolder(View itemView , UpComingListener listener , Context context) {
+    public UpComingCoursesViewHolder(View itemView , HomeListener listener , Context context) {
         super(itemView);
         this.context=context;
         this.itemView= itemView;
