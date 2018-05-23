@@ -10,6 +10,8 @@ import inc.talentedinc.R;
 
 public class ProfileFragment extends Fragment {
 
+    /****************************** asmaa *************************/
+
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -29,6 +31,8 @@ public class ProfileFragment extends Fragment {
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
         return view;
     }
+    /******************************  *************************/
+
 
 
 }

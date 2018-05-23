@@ -27,6 +27,8 @@ import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
 
 public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,UpComingListener {
 
+    /****************************** asmaa *************************/
+
     private RecyclerView recyclerView;
     private int page=1;
     private boolean isLoading = false;
@@ -47,6 +49,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +58,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         initView(view);
         return view;
     }
+    /****************************** *************************/
+
+    /****************************** asmaa *************************/
 
     private void initView(View v){
 
@@ -143,4 +149,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
         startActivity(switchToDetails );
     }
+
+    /******************************  *************************/
+
 }

@@ -11,6 +11,8 @@ import inc.talentedinc.R;
 
 public class HistoryFragment extends Fragment {
 
+    /****************************** asmaa *************************/
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -31,6 +33,7 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
+    /****************************** *************************/
 
 
 }

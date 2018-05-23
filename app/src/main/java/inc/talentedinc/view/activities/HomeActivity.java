@@ -19,6 +19,8 @@ import inc.talentedinc.view.fragmnts.UpComingCoursesFragment;
 
 public class HomeActivity extends AppCompatActivity {
 
+    /****************************** asmaa *************************/
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     @Override
@@ -32,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
     }
+    /***************************************************************/
+
+    /****************************** asmaa *************************/
 
     private void setupTabIcons() {
         int[] tabIcons = {
@@ -47,6 +52,9 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
     }
+    /******************************  *************************/
+
+    /****************************** asmaa *************************/
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -56,6 +64,10 @@ public class HomeActivity extends AppCompatActivity {
         adapter.addFrag(new ProfileFragment(), "profile");
         viewPager.setAdapter(adapter);
     }
+
+    /******************************  *************************/
+
+    /****************************** asmaa *************************/
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -86,4 +98,6 @@ public class HomeActivity extends AppCompatActivity {
             return null;
         }
     }
+    /******************************  *************************/
+
 }
