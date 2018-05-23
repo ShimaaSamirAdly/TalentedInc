@@ -31,7 +31,6 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
         call.clone().enqueue(new Callback<MoviesData>() {
             @Override
             public void onResponse(Call<MoviesData> call, Response<MoviesData> response) {
-
                 data = new ArrayList<>();
                 if (response.body()!=null){
                     totalPage = response.body().getTotalPages();
@@ -41,7 +40,6 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
                     onCoursesResult.onSuccess(data);
                 }
             }
-
             @Override
             public void onFailure(Call<MoviesData> call, Throwable t) {
                 Log.e("error: ",t.getMessage());

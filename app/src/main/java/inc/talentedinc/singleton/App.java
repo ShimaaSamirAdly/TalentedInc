@@ -62,6 +62,7 @@ public class App {
         retrofit = builder.client(httpClient.build()).build();
 
         apiUpComingEndpoint = retrofit.create(ApiUpComingEndpoint.class);
+
     }
 
     public ApiUpComingEndpoint getUpComingApi() {
@@ -70,4 +71,8 @@ public class App {
         }
         return apiUpComingEndpoint;
     }
+
+
+
+
 }

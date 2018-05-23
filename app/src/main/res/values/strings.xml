@@ -11,7 +11,7 @@
     <string name="fb_login_protocol_scheme">fb2119638034933373</string>
     <string name="first_name_place_holder">First Name</string>
     <string name="last_name_hint">Last Name</string>
-    <string name="email_hint" >Email</string>
+    <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="phone_hint">Phone</string>
     <string name="male_radio_btn">Male</string>
@@ -19,5 +19,12 @@
     <string name="birthdate_btn">Date Of Birth</string>
     <string name="goto_signup_btn">Sign Up</string>
     <string name="signup_btn">Sign Up</string>
+    <string name="title_activity_button_navigation">ButtonNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_history">History</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_offerd">Offer Courses</string>
     <!--...........................................................................-->
 </resources>
