@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://E:\iti\graduationProject\TalentedInc\Projects.iml" filepath="E:\iti\graduationProject\TalentedInc\Projects.iml" />
       <module fileurl="file://$PROJECT_DIR$/TalentedInc.iml" filepath="$PROJECT_DIR$/TalentedInc.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
