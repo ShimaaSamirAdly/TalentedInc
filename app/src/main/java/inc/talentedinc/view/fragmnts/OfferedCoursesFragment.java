@@ -101,6 +101,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
 
     @Override
     public void showProgressBar() {
+        //
         myProgressBar.setVisibility(View.VISIBLE);
     }
 
