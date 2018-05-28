@@ -17,7 +17,9 @@
         android:layout_marginTop="27dp"
         android:ems="10"
         android:hint="@string/first_name_place_holder"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp" />
 
     <EditText
         android:id="@+id/last_name"
@@ -28,7 +30,9 @@
         android:layout_marginEnd="28dp"
         android:ems="10"
         android:hint="@string/last_name_hint"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="28dp" />
 
     <EditText
         android:id="@+id/email"
@@ -39,7 +43,8 @@
         android:layout_marginTop="92dp"
         android:ems="10"
         android:hint="@string/email_hint"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:layout_alignLeft="@+id/first_name" />
 
     <EditText
         android:id="@+id/password"
@@ -50,7 +55,8 @@
         android:layout_marginTop="159dp"
         android:ems="10"
         android:hint="@string/password_hint"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:layout_alignLeft="@+id/first_name" />
 
     <EditText
         android:id="@+id/phone"
@@ -60,14 +66,16 @@
         android:layout_centerVertical="true"
         android:ems="10"
         android:hint="@string/phone_hint"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:layout_alignLeft="@+id/first_name" />
 
     <RadioGroup
         android:layout_width="102dp"
         android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/first_name"
-        android:layout_marginBottom="168dp">
+        android:layout_marginBottom="168dp"
+        android:layout_alignLeft="@+id/first_name">
 
         <RadioButton
             android:id="@+id/male"
@@ -91,7 +99,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/first_name"
         android:layout_marginBottom="74dp"
-        android:text="@string/birthdate_btn" />
+        android:text="@string/birthdate_btn"
+        android:layout_alignLeft="@+id/first_name" />
 
     <TextView
         android:id="@+id/dob_txtvw"
@@ -107,7 +116,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="178dp"
-        android:layout_toEndOf="@+id/first_name" />
+        android:layout_toEndOf="@+id/first_name"
+        android:layout_toRightOf="@+id/first_name" />
 
     <Button
         android:id="@+id/sinup_btn"

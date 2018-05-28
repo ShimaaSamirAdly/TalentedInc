@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activities.SignUpActivity">
+
+
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="27dp"
+        android:ems="10"
+        android:hint="@string/first_name_place_holder"
+        android:inputType="textPersonName"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp" />
+
+    <EditText
+        android:id="@+id/last_name"
+        android:layout_width="133dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/first_name"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="@string/last_name_hint"
+        android:inputType="textPersonName"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="28dp" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/first_name"
+        android:layout_marginTop="92dp"
+        android:ems="10"
+        android:hint="@string/email_hint"
+        android:inputType="textEmailAddress"
+        android:layout_alignLeft="@+id/first_name" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="329dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/first_name"
+        android:layout_marginTop="159dp"
+        android:ems="10"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:layout_alignLeft="@+id/first_name" />
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/first_name"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="@string/phone_hint"
+        android:inputType="phone"
+        android:layout_alignLeft="@+id/first_name" />
+
+    <RadioGroup
+        android:layout_width="102dp"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/first_name"
+        android:layout_marginBottom="168dp"
+        android:layout_alignLeft="@+id/first_name">
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/male_radio_btn" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/female_radio_btn" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/dob_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/first_name"
+        android:layout_marginBottom="74dp"
+        android:text="@string/birthdate_btn"
+        android:layout_alignLeft="@+id/first_name" />
+
+    <TextView
+        android:id="@+id/dob_txtvw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dob_btn"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <Spinner
+        android:id="@+id/cities_spinner"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="178dp"
+        android:layout_toEndOf="@+id/first_name"
+        android:layout_toRightOf="@+id/first_name" />
+
+    <Button
+        android:id="@+id/sinup_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dob_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-74dp"
+        android:text="@string/signup_btn" />
+</RelativeLayout>
