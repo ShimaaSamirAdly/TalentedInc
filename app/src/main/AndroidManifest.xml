@@ -17,12 +17,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".view.activities.HomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
         <activity
             android:name=".view.activities.UpComingDetailsActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".view.activities.Signin">
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -76,8 +84,19 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.activities.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            </intent-filter>
+        </activity>
+
         <!-- ........................................................................ -->
-        <activity android:name=".view.activities.SignUpActivity" />
+
+        <!--<activity android:name=".view.activities.SignUpActivity" />-->
         <activity android:name=".view.activities.SignUpInterests" />
 
         //********************Shimaa****************************************
@@ -89,6 +108,26 @@
             </intent-filter>
         //*********************************************************************
         </activity>
+
+        <!---alaa..................................................................-->
+        <activity android:name=".view.activities.LoginActivity">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activities.CreateCourseActivity">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+   <!--............................alaa.....................................................-->
+
     </application>
 
 </manifest>
