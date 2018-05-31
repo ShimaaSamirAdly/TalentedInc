@@ -56,4 +56,11 @@
     <string name="Description">Description</string>
     <string name="Category">Category</string>
     <string name="Create">Create</string>
+
+    <!--...............................................................................-->
+    <!--...................................Shimaa......................................-->
+
+    <string name="SelectYourInterests">Select Your Interests</string>
+
+    <!--...............................................................................-->
 </resources>
