@@ -2,6 +2,7 @@
 <ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark">
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,6 +38,16 @@
             android:textColor="@android:color/white"
             android:layout_margin="15dp"
             android:id="@+id/tvOverView"/>
+
+
+        <hyogeun.github.com.colorratingbarlib.ColorRatingBar
+            android:id="@+id/rating_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rating="3"
+            app:changeable="false"
+            app:empty_color="#f0f000"
+            app:progress_color="#00f0f0" />
 
     </LinearLayout>
 
