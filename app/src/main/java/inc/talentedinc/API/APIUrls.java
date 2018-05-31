@@ -15,5 +15,9 @@ public class APIUrls {
     public static final String SEARCH_UPCOMING="/3/search/movie";
     public static final String HISTORY="/3/discover/movie";
 
+    //alaa
+    public static final String USER_LOGIN = "/api/users";
+
+
 
 }
