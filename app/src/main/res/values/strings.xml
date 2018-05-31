@@ -26,5 +26,13 @@
     <string name="title_history">History</string>
     <string name="title_profile">Profile</string>
     <string name="title_offerd">Offer Courses</string>
+    <string name="email_label" >E-mail Address</string>
+    <string name="password_label">Password</string>
+    <string name="phone_label">Phone Number</string>
+    <string name="city_label">City</string>
+    <string name="next_btn">Next</string>
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last Name</string>
+    <string name="gender_label">Gender</string>
     <!--...........................................................................-->
 </resources>

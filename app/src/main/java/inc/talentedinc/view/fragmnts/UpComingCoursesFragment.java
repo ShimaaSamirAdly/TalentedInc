@@ -64,11 +64,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
         presenter = new UpComingCoursesPresenter(Factory.provideUpComing());
-        if (ActionUtils.isInternetConnected(getActivity())) {
-            presenter.setView(page, this);
-        }else{
-            ActionUtils.showToast(getActivity(), "Connection Error");
-        }
+//        if (ActionUtils.isInternetConnected(getActivity())) {
+//            presenter.setView(page, this);
+//        }else{
+//            ActionUtils.showToast(getActivity(), "Connection Error");
+//        }
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         upcomingCoursesAdapter = new UpcomingCoursesAdapter(gridLayoutManager,this);

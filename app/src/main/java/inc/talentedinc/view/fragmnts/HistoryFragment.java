@@ -68,11 +68,11 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
         presenter = new HistoryPresenter(Factory.provideHistory());
-        if (ActionUtils.isInternetConnected(getActivity())) {
+//        if (ActionUtils.isInternetConnected(getActivity())) {
             presenter.setView(page, this);
-        }else{
-            ActionUtils.showToast(getActivity(), "Connection Error");
-        }
+//        }else{
+//            ActionUtils.showToast(getActivity(), "Connection Error");
+//        }
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         upcomingCoursesAdapter = new UpcomingCoursesAdapter(gridLayoutManager,this);

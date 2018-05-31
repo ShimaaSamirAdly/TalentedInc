@@ -1,37 +1,25 @@
 package inc.talentedinc.view.activities;
 
-import android.support.v4.app.DialogFragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Set;
-
 import inc.talentedinc.R;
+import inc.talentedinc.adapter.SignUPViewPagerAdapter;
 import inc.talentedinc.model.User;
-import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
-import inc.talentedinc.view.fragmnts.DatePickerFragment;
 
-public class SignUpActivity extends AppCompatActivity implements SetDateTextView,AdapterView.OnItemSelectedListener {
+public class SignUpActivity extends AppCompatActivity {
 
     /******************************mina*************************/
     private TextView dobTxtVw;
-    private Spinner citiesSpinner;
+    private Button nextBtn;
     private User signedUpUser = new User();
-    private EditText firstName;
-    private EditText lastName;
-    private EditText email;
-    private EditText password;
-    private EditText phone;
-    private RadioButton male;
-    private RadioButton female;
+    private ViewPager signUpViewPager;
+    private SignUPViewPagerAdapter signUPViewPagerAdapter;
+
     /***********************************************************/
 
     @Override
@@ -42,90 +30,67 @@ public class SignUpActivity extends AppCompatActivity implements SetDateTextView
         /******************************mina*************************/
 
 
-        final DatePickerFragment newFragment = new DatePickerFragment();
-        newFragment.setDateSetter(this);
+        nextBtn = (Button) findViewById(R.id.next_button);
 
-        Button dobBtn = (Button) findViewById(R.id.dob_btn);
-        dobBtn.setOnClickListener(new View.OnClickListener() {
+        nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newFragment.show(getSupportFragmentManager(), "datePicker");
+                performNext();
             }
         });
 
-        dobTxtVw = (TextView) findViewById(R.id.dob_txtvw);
-        firstName = (EditText)findViewById(R.id.first_name);
-        lastName = (EditText)findViewById(R.id.last_name);
-        email = (EditText)findViewById(R.id.email);
-        password = (EditText)findViewById(R.id.password);
-        phone = (EditText)findViewById(R.id.phone);
-        male = (RadioButton) findViewById(R.id.male);
-        female = (RadioButton) findViewById(R.id.female);
-
-        Button signupBtn = (Button) findViewById(R.id.sinup_btn);
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performSignup();
-            }
-        });
-
-        //setting cities spinner
-        citiesSpinner = (Spinner) findViewById(R.id.cities_spinner);
-        citiesSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.cities_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        citiesSpinner.setAdapter(adapter);
+        signUpViewPager = (ViewPager) findViewById(R.id.sign_up_view_pager);
+        signUPViewPagerAdapter = new SignUPViewPagerAdapter(getSupportFragmentManager());
+        signUpViewPager.setAdapter(signUPViewPagerAdapter);
 
         /***********************************************************/
     }
 
-
     /******************************mina*************************/
 
-    @Override
-    public void setDateTextView(String date) {
-        dobTxtVw.setText(date);
-        signedUpUser.setUserDob(date);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0 :
-                signedUpUser.setCity("Cairo");
+    private void performNext() {
+        switch (signUpViewPager.getCurrentItem()){
+            case 0:
+                getFirstSignupData();
+                signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
                 break;
-            case 1 :
-                signedUpUser.setCity("Alexandria");
+
+            case 1:
+                getSecondSignupData();
+                signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
+                break;
+
+            case 2:
                 break;
         }
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        signedUpUser.setCity("");
+    private void getFirstSignupData() {
+        User tempUser = signUPViewPagerAdapter.getFirstSignUpFragment().getUser();
+        signedUpUser.setEmail(tempUser.getEmail());
+        signedUpUser.setPassword(tempUser.getPassword());
+        signedUpUser.setPhone(tempUser.getPhone());
+        signedUpUser.setCity(tempUser.getCity());
     }
 
+    private void getSecondSignupData(){
+        User tempUser = signUPViewPagerAdapter.getSecondSignUpFragment().getUser();
+        signedUpUser.setFirstName(tempUser.getFirstName());
+        signedUpUser.setLastName(tempUser.getLastName());
+        signedUpUser.setUserDob(tempUser.getUserDob());
+        signedUpUser.setGender(tempUser.getGender());
+    }
 
-    private void performSignup(){
-        signedUpUser.setFirstName(firstName.getText().toString());
-        signedUpUser.setLastName(lastName.getText().toString());
-        signedUpUser.setEmail(email.getText().toString());
-        signedUpUser.setPassword(password.getText().toString());
-        signedUpUser.setPhone(phone.getText().toString());
-        if(male.isSelected()){
-            signedUpUser.setGender('m');
+    @Override
+    public void onBackPressed() {
+        if (signUpViewPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() - 1);
         }
-
-        if (female.isSelected()){
-            signedUpUser.setGender('f');
-        }
-
-        //intent to go to interests
-
     }
 
     /***********************************************************/
