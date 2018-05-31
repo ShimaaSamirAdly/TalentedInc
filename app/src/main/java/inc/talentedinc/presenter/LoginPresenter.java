@@ -1,5 +1,6 @@
 package inc.talentedinc.presenter;
 
+import inc.talentedinc.interactor.login.UserLoginImpl;
 import inc.talentedinc.interactor.login.UserLoginInter;
 import inc.talentedinc.listener.OnLoginResult;
 import inc.talentedinc.model.response.MainResponse;
@@ -14,9 +15,9 @@ public class LoginPresenter {
    private UserLoginInter userLoginInter ;
    private MainResponse mainResponse = new MainResponse() ;
 
-    LoginPresenter(UserLoginInter userLoginInter ){
+     public  LoginPresenter(){
 
-        this.userLoginInter = userLoginInter ;
+        userLoginInter = new UserLoginImpl() ;
     }
 
 

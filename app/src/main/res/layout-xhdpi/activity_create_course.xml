@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,9 +13,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
         android:text="@string/CourseName"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/courseName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="@string/CourseName" />
 
     <EditText
@@ -24,9 +31,17 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView"
         android:layout_alignBottom="@+id/textView"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="55dp"
         android:layout_toEndOf="@+id/textView"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/startDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -34,20 +49,33 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView"
         android:layout_below="@+id/courseName"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:text="@string/StartDate"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/startDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:text="@string/StartDate" />
 
     <EditText
         android:id="@+id/startDate"
-        android:layout_width="wrap_content"
+        android:layout_width="111dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView2"
         android:layout_alignBottom="@+id/textView2"
         android:layout_centerHorizontal="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/pickStart"
+        app:layout_constraintEnd_toStartOf="@+id/pickStart"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/courseName" />
 
     <TextView
         android:id="@+id/textView3"
@@ -55,18 +83,27 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/textView2"
         android:layout_below="@+id/textView2"
-        android:layout_marginTop="86dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:text="@string/EndDate"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/endDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:text="@string/EndDate" />
 
     <EditText
         android:id="@+id/endDate"
-        android:layout_width="wrap_content"
+        android:layout_width="107dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView3"
         android:layout_alignStart="@+id/startDate"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="126dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -74,28 +111,38 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView3"
         android:layout_below="@+id/endDate"
-        android:layout_marginTop="81dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:text="@string/Cost"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/cost"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
         tools:text="@string/Cost" />
 
     <EditText
         android:id="@+id/cost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="111dp"
+        android:layout_height="42dp"
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignStart="@+id/endDate"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="186dp" />
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="wrap_content"
+        android:layout_width="25dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/cost"
         android:layout_alignBottom="@+id/cost"
-        android:layout_marginStart="36dp"
         android:layout_toEndOf="@+id/cost"
         android:text="@string/LE"
+        tools:layout_editor_absoluteX="275dp"
+        tools:layout_editor_absoluteY="202dp"
         tools:text="@string/LE" />
 
     <Button
@@ -105,6 +152,8 @@
         android:layout_alignBottom="@+id/startDate"
         android:layout_alignStart="@+id/textView5"
         android:text="@string/Pick"
+        tools:layout_editor_absoluteX="246dp"
+        tools:layout_editor_absoluteY="67dp"
         tools:text="@string/Pick" />
 
     <Button
@@ -113,45 +162,49 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView5"
         android:layout_alignTop="@+id/endDate"
-        android:text="@string/PickE" />
+        android:text="@string/PickE"
+        tools:layout_editor_absoluteX="246dp"
+        tools:layout_editor_absoluteY="126dp" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="19dp"
         android:layout_alignStart="@+id/textView2"
         android:layout_below="@+id/cost"
-        android:layout_marginTop="65dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:text="@string/numberOfApplicants"
+        app:layout_constraintBottom_toTopOf="@+id/categories_snippir"
+        app:layout_constraintEnd_toStartOf="@+id/NumOfApplicants"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cost"
         tools:text="@string/numberOfApplicants" />
 
     <EditText
         android:id="@+id/NumOfApplicants"
-        android:layout_width="wrap_content"
+        android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView6"
         android:layout_alignStart="@+id/cost"
         android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView6"
-        android:layout_marginTop="70dp"
-        android:text="@string/Description"
-        tools:text="@string/Description"
-        android:id="@+id/textView8" />
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="177dp"
+        tools:layout_editor_absoluteY="232dp" />
 
     <EditText
         android:id="@+id/description"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignStart="@+id/NumOfApplicants"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="337dp" />
 
     <TextView
         android:id="@+id/textView9"
@@ -160,7 +213,15 @@
         android:layout_alignBaseline="@+id/create"
         android:layout_alignBottom="@+id/create"
         android:layout_alignStart="@+id/textView8"
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="100dp"
         android:text="@string/Category"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/categories_snippir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
         tools:text="@string/Category" />
 
     <Button
@@ -168,16 +229,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="41dp"
+        android:layout_marginBottom="47dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="246dp"
+        android:layout_marginTop="37dp"
         android:layout_toEndOf="@+id/description"
+        android:layout_toRightOf="@+id/description"
         android:text="@string/Create"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description"
         tools:text="@string/Create" />
 
     <Spinner
         android:id="@+id/categories_snippir"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="213dp"
+        android:layout_height="38dp"
         android:layout_alignBottom="@+id/textView9"
-        android:layout_alignStart="@+id/description" />
+        android:layout_alignStart="@+id/description"
+        tools:layout_editor_absoluteX="119dp"
+        tools:layout_editor_absoluteY="288dp" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView6"
+        android:layout_marginBottom="198dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/Description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        tools:text="@string/Description" />
+
+</android.support.constraint.ConstraintLayout>

@@ -56,4 +56,9 @@
     <string name="Description">Description</string>
     <string name="Category">Category</string>
     <string name="Create">Create</string>
+    <string name="Email">Email</string>
+    <string name="EmailAddress">E-mail Address</string>
+    <string name="SignIn">Sign In</string>
+    <string name="ForgetPassword">Forget Password ?</string>
+    <string name="OrLoginWith">Or sign in with</string>
 </resources>
