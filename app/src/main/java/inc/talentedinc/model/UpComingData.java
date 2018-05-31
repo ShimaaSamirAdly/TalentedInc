@@ -8,7 +8,7 @@ package inc.talentedinc.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MoviesData implements Serializable {
+public class UpComingData implements Serializable {
 
     private int page;
     private int totalResults;

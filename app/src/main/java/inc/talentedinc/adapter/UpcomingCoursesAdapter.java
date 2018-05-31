@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import inc.talentedinc.R;
-import inc.talentedinc.listener.UpComingListener;
+import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.utilitis.EndlessAdapter;
 import inc.talentedinc.viewholder.UpComingCoursesViewHolder;
@@ -18,8 +18,8 @@ import inc.talentedinc.viewholder.UpComingCoursesViewHolder;
 
 public class UpcomingCoursesAdapter extends EndlessAdapter<Result> {
 
-    private UpComingListener listener;
-    public UpcomingCoursesAdapter(LinearLayoutManager linearLayoutManager,UpComingListener listener) {
+    private HomeListener listener;
+    public UpcomingCoursesAdapter(LinearLayoutManager linearLayoutManager,HomeListener listener) {
         super(linearLayoutManager);
         this.listener=listener;
         setLoadingView(R.layout.item_loader);

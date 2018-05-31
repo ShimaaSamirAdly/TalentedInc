@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -25,7 +26,9 @@ dependencies {
     implementation 'com.android.support:design:27.0.2'
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
     testImplementation 'junit:junit:4.12'
+    /***************************** Asmaa ****************************/
     // retrofit2 to request web service and apis
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -39,6 +42,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.+'
     //progress
     implementation 'com.github.rey5137:material:1.+'
+    /** ************************************************************/
+
 //    androidTestImplementation 'com.android.support.test:runner:0.5'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
@@ -46,4 +51,13 @@ dependencies {
     //facebook login
     implementation 'com.facebook.android:facebook-login:[4,5)'
     /** ************************************************************/
+
+    //**********************Shimaa*******************************
+//    compile 'com.google.firebase:firebase-core:12.0.1'
+    compile 'com.google.firebase:firebase-storage:9.2.1'
+    compile 'com.google.firebase:firebase-auth:9.2.1'
 }
+
+apply plugin: 'com.google.gms.google-services'
+
+//************************************************************

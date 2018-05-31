@@ -10,6 +10,8 @@ import inc.talentedinc.R;
 
 public class NotificationFragment extends Fragment {
 
+    /****************************** asmaa *************************/
+
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -29,5 +31,6 @@ public class NotificationFragment extends Fragment {
         return view;
     }
 
+    /******************************  *************************/
 
 }

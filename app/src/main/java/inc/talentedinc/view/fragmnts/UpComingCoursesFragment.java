@@ -8,24 +8,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.rey.material.widget.ProgressView;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.UpcomingCoursesAdapter;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
-import inc.talentedinc.listener.UpComingListener;
+import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
 
-public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,UpComingListener {
+public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,HomeListener {
+
+    /****************************** asmaa *************************/
 
     private RecyclerView recyclerView;
     private int page=1;
@@ -47,6 +46,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +55,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         initView(view);
         return view;
     }
+    /****************************** *************************/
+
+    /****************************** asmaa *************************/
 
     private void initView(View v){
 
@@ -143,4 +146,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
         startActivity(switchToDetails );
     }
+
+    /******************************  *************************/
+
 }

@@ -1,4 +1,4 @@
-package inc.talentedinc.interactor.upcoming;
+package inc.talentedinc.interactor.history;
 
 import android.util.Log;
 
@@ -18,16 +18,16 @@ import retrofit2.Response;
  * Created by asmaa on 05/21/2018.
  */
 
-public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteractor {
+public class NetworkHistoryInteractor implements HistoryInteractor {
 
     private ApiHomeEndpoint mApi = AppRetrofit.getInstance().getHomeApi();
     private ArrayList<Result> data;
 
     public  static int totalPage = 1000;
     @Override
-    public void getUpComingCourses(int page, final OnCoursesResult onCoursesResult) {
+    public void getHistory(int page, final OnCoursesResult onCoursesResult) {
         Call<UpComingData> call;
-        call = mApi.getUpComing(APIUrls.API_KEY,page);
+        call = mApi.getHistory(APIUrls.API_KEY,page);
         call.clone().enqueue(new Callback<UpComingData>() {
             @Override
             public void onResponse(Call<UpComingData> call, Response<UpComingData> response) {

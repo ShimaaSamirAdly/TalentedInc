@@ -6,7 +6,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import inc.talentedinc.API.APIUrls;
-import inc.talentedinc.API.ApiUpComingEndpoint;
+import inc.talentedinc.API.ApiHomeEndpoint;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,24 +18,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * singleton class to manage my app and don't create more objects from my connection api
  */
-public class App {
+public class AppRetrofit {
 
 
-    public static App App = null;
+    public static AppRetrofit App = null;
     private Retrofit retrofit;
-    private ApiUpComingEndpoint apiUpComingEndpoint;
+    private ApiHomeEndpoint apiHomeEndpoint;
     private OkHttpClient.Builder httpClient;
     private Retrofit.Builder builder;
 
-    private App() {
+    private AppRetrofit() {
         initialization();
 
     }
 
-    public static synchronized App getInstance() {
+    public static synchronized AppRetrofit getInstance() {
 
         if (App == null) {
-            App = new App();
+            App = new AppRetrofit();
         }
         return App;
     }
@@ -61,13 +61,18 @@ public class App {
                 .addConverterFactory(GsonConverterFactory.create());
         retrofit = builder.client(httpClient.build()).build();
 
-        apiUpComingEndpoint = retrofit.create(ApiUpComingEndpoint.class);
+        apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
+
     }
 
-    public ApiUpComingEndpoint getUpComingApi() {
-        if(apiUpComingEndpoint == null) {
+    public ApiHomeEndpoint getHomeApi() {
+        if(apiHomeEndpoint == null) {
             initialization();
         }
-        return apiUpComingEndpoint;
+        return apiHomeEndpoint;
     }
+
+
+
+
 }

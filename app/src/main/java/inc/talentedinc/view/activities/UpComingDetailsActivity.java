@@ -13,6 +13,8 @@ import inc.talentedinc.utilitis.ActionUtils;
 
 public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails{
 
+    /****************************** asmaa *************************/
+
     public static final String COURSE ="course";
     private UpComingDetailsPresenter presenter;
 
@@ -26,6 +28,10 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         initView();
     }
 
+    /****************************** *************************/
+
+    /****************************** asmaa *************************/
+
     private void initView(){
         img=findViewById(R.id.img);
         tvName =findViewById(R.id.tvname);
@@ -35,6 +41,9 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         presenter = new UpComingDetailsPresenter();
         presenter.setView((Result) getIntent().getSerializableExtra(COURSE),this);
     }
+    /******************************  *************************/
+
+    /****************************** asmaa *************************/
 
     @Override
     public void showProgress() {
@@ -86,5 +95,7 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     public void showDone(String msg) {
         ActionUtils.showToast(this,msg);
     }
+
+    /******************************  *************************/
 
 }
