@@ -56,4 +56,6 @@
     <string name="Description">Description</string>
     <string name="Category">Category</string>
     <string name="Create">Create</string>
+    <string name="register_btn">Register</string>
+    <string name="comment_hint">Write a comment .....</string>
 </resources>
