@@ -67,6 +67,20 @@
         </activity>
 
         <!-- ........................................................................ -->
+        <!---alaa..................................................................-->
+        <activity android:name=".view.activities.LoginActivity" />
+        <activity android:name=".view.activities.CreateCourseActivity">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+   <!--............................alaa.....................................................-->
+
     </application>
 
 </manifest>

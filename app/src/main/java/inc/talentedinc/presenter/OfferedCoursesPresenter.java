@@ -3,7 +3,7 @@ package inc.talentedinc.presenter;
 import java.util.ArrayList;
 
 import inc.talentedinc.interactor.offeredcourse.OfferedCoursesFetcher;
-import inc.talentedinc.model.Course;
+import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
 public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
@@ -23,7 +23,7 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
     }
 
     @Override
-    public void notifyFragmentWithOfferedCourses(ArrayList<Course> offeredCourses) {
+    public void notifyFragmentWithOfferedCourses(ArrayList<MinaCourse> offeredCourses) {
         endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.showData(offeredCourses);
     }

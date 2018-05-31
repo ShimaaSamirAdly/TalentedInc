@@ -7,6 +7,7 @@ import javax.net.ssl.SSLSession;
 
 import inc.talentedinc.API.APIUrls;
 import inc.talentedinc.API.ApiHomeEndpoint;
+import inc.talentedinc.API.ApiLogin;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,6 +27,8 @@ public class AppRetrofit {
     private ApiHomeEndpoint apiHomeEndpoint;
     private OkHttpClient.Builder httpClient;
     private Retrofit.Builder builder;
+    private ApiLogin apiLogin ;
+
 
     private AppRetrofit() {
         initialization();
@@ -62,6 +65,7 @@ public class AppRetrofit {
         retrofit = builder.client(httpClient.build()).build();
 
         apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
+        apiLogin = retrofit.create(ApiLogin.class);
 
     }
 
@@ -71,7 +75,13 @@ public class AppRetrofit {
         }
         return apiHomeEndpoint;
     }
-
+//alaa----------------------------------------------------
+    public ApiLogin getApiLogin (){
+        if (apiLogin == null){
+            initialization();
+        }
+        return apiLogin ;
+    }
 
 
 

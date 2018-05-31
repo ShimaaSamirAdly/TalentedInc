@@ -9,17 +9,17 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
-import inc.talentedinc.model.Course;
+import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.viewholder.OfferedCoursesViewHolder;
 
 public class CoursesViewAdapter extends RecyclerView.Adapter<OfferedCoursesViewHolder> {
 
 
-    private ArrayList<Course> offeredCourses;
+    private ArrayList<MinaCourse> offeredCourses;
     private View offeredCourseView;
     private OfferedCoursesViewHolder offeredCoursesViewHolder;
 
-    public CoursesViewAdapter(ArrayList<Course> offeredCourses) {
+    public CoursesViewAdapter(ArrayList<MinaCourse> offeredCourses) {
         this.offeredCourses = offeredCourses;
     }
 
@@ -33,7 +33,7 @@ public class CoursesViewAdapter extends RecyclerView.Adapter<OfferedCoursesViewH
 
     @Override
     public void onBindViewHolder(@NonNull OfferedCoursesViewHolder holder, int position) {
-        holder.getCourseTextView().setText("Course : "+offeredCourses.get(position).getPublishedCoursePK().getPublishedCourseId());
+        holder.getCourseTextView().setText("MinaCourse : "+offeredCourses.get(position).getPublishedCoursePK().getPublishedCourseId());
     }
 
     @Override
