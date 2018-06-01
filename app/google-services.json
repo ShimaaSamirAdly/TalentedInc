@@ -1,39 +1,39 @@
 {
   "project_info": {
-    "project_number": "141665190539",
-    "firebase_url": "https://talentedinc-1526949631201.firebaseio.com",
-    "project_id": "talentedinc-1526949631201",
-    "storage_bucket": "talentedinc-1526949631201.appspot.com"
+    "project_number": "70103351534",
+    "firebase_url": "https://talentedinc-bba9a.firebaseio.com",
+    "project_id": "talentedinc-bba9a",
+    "storage_bucket": "talentedinc-bba9a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:141665190539:android:7541dcaf2aafe6c5",
+        "mobilesdk_app_id": "1:70103351534:android:7541dcaf2aafe6c5",
         "android_client_info": {
           "package_name": "inc.talentedinc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "141665190539-r86lkaoc2r47d6cjovh4tbu3d3beufuu.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "141665190539-7akcen3umvemccv2h3np4bju8dbgb9t2.apps.googleusercontent.com",
+          "client_id": "70103351534-pqor5ijf7klko3ka17mdcj7ga3d0t3hj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "inc.talentedinc",
-            "certificate_hash": "2e2395992db0602b61a5d6d5cd54de5b8009e3dc"
+            "certificate_hash": "0e5c5662e8c35ed966cc0b7f4f7816490043c512"
           }
         },
         {
-          "client_id": "141665190539-v9nj7vns7blu08qsv8hqut60c5t6ith5.apps.googleusercontent.com",
+          "client_id": "70103351534-e8vclnb1r77beetq4thv5300luosrk39.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "70103351534-e8vclnb1r77beetq4thv5300luosrk39.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDDa495UHjAc3SQdVDwcFOqD1KWoA7UZLQ"
+          "current_key": "AIzaSyC2AlfoczHgsbiYgDhwHCdTQ9DLYQwjJi4"
         }
       ],
       "services": {
@@ -44,7 +44,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "141665190539-r86lkaoc2r47d6cjovh4tbu3d3beufuu.apps.googleusercontent.com",
+              "client_id": "70103351534-e8vclnb1r77beetq4thv5300luosrk39.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
