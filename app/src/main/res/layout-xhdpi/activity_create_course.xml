@@ -128,10 +128,16 @@
         android:layout_height="42dp"
         android:layout_alignBottom="@+id/textView4"
         android:layout_alignStart="@+id/endDate"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="186dp" />
+        app:layout_constraintBottom_toTopOf="@+id/NumOfApplicants"
+        app:layout_constraintEnd_toStartOf="@+id/pickEnd"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/pickEnd" />
 
     <TextView
         android:id="@+id/textView5"
@@ -151,9 +157,15 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/startDate"
         android:layout_alignStart="@+id/textView5"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="14dp"
         android:text="@string/Pick"
-        tools:layout_editor_absoluteX="246dp"
-        tools:layout_editor_absoluteY="67dp"
+        app:layout_constraintBottom_toTopOf="@+id/pickEnd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/startDate"
+        app:layout_constraintTop_toBottomOf="@+id/courseName"
         tools:text="@string/Pick" />
 
     <Button
@@ -162,9 +174,15 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView5"
         android:layout_alignTop="@+id/endDate"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
         android:text="@string/PickE"
-        tools:layout_editor_absoluteX="246dp"
-        tools:layout_editor_absoluteY="126dp" />
+        app:layout_constraintBottom_toTopOf="@+id/NumOfApplicants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/endDate"
+        app:layout_constraintTop_toBottomOf="@+id/pickStart" />
 
     <TextView
         android:id="@+id/textView6"
@@ -190,10 +208,15 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView6"
         android:layout_alignStart="@+id/cost"
+        android:layout_marginBottom="11dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="11dp"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="232dp" />
+        app:layout_constraintBottom_toTopOf="@+id/categories_snippir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cost"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <EditText
         android:id="@+id/description"
@@ -201,10 +224,15 @@
         android:layout_height="42dp"
         android:layout_alignBottom="@+id/textView8"
         android:layout_alignStart="@+id/NumOfApplicants"
+        android:layout_marginBottom="98dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="41dp"
         android:ems="10"
         android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="337dp" />
+        app:layout_constraintBottom_toTopOf="@+id/create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/categories_snippir" />
 
     <TextView
         android:id="@+id/textView9"
@@ -248,8 +276,13 @@
         android:layout_height="38dp"
         android:layout_alignBottom="@+id/textView9"
         android:layout_alignStart="@+id/description"
-        tools:layout_editor_absoluteX="119dp"
-        tools:layout_editor_absoluteY="288dp" />
+        android:layout_marginEnd="79dp"
+        android:layout_marginStart="119dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView8"

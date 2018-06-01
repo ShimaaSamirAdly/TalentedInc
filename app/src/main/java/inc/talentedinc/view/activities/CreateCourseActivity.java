@@ -8,13 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.Course;
+import inc.talentedinc.presenter.CreateCoursePresenter;
 import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
 import inc.talentedinc.view.fragmnts.DatePickerFragment;
 
-public class CreateCourseActivity extends AppCompatActivity implements SetDateTextView,AdapterView.OnItemSelectedListener {
+public class CreateCourseActivity extends AppCompatActivity implements CreateCoursePresenter.CreateCourseView, SetDateTextView,AdapterView.OnItemSelectedListener {
 
     private EditText courseName ;
     private EditText startDate ;
@@ -29,6 +31,7 @@ public class CreateCourseActivity extends AppCompatActivity implements SetDateTe
     private Course course ;
 
     private boolean flag = true ;
+    private CreateCoursePresenter createCoursePresenter ;
 
 
     //----------------------------------Alaa------------------------------------------------------//
@@ -78,6 +81,10 @@ public class CreateCourseActivity extends AppCompatActivity implements SetDateTe
                 createCourse();
             }
         });
+
+
+
+        createCoursePresenter = new CreateCoursePresenter(this);
 
      //-------------------------------------------------------------------------------------------//
     }
@@ -135,7 +142,23 @@ public class CreateCourseActivity extends AppCompatActivity implements SetDateTe
         course.setDescription(description.getText().toString());
         course.setNumOfApplicants(Integer.parseInt(numOfApplicants.getText().toString()));
 
-        //hyro7 lel offered courses//
+        createCoursePresenter.courseCreated(course);
+
+    }
+
+    @Override
+    public void successToCreateCourse() {
+        Toast.makeText(this,"done",Toast.LENGTH_LONG).show();
+
+        //intent
+        //save to shared prepherence
+    }
+
+
+    @Override
+    public void failToCreateCourse() {
+
+        Toast.makeText(this,"Fail",Toast.LENGTH_LONG).show();
 
     }
 }

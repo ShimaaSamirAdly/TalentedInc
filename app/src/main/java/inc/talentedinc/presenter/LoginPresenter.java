@@ -29,12 +29,10 @@ public class LoginPresenter {
             view.showProgress();
             getUserData(mail , password);
         }
-        else{
+        else {
             view.hideProgress();
             view.sendUserData(mainResponse);
         }
-
-
     }
 
 
