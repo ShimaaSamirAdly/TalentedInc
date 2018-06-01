@@ -2,11 +2,11 @@ package inc.talentedinc.presenter;
 
 import java.util.ArrayList;
 
-import inc.talentedinc.model.Course;
+import inc.talentedinc.model.MinaCourse;
 
 public interface OfferedCoursesPresenterInt {
 
     void fetchCourses();
-    void notifyFragmentWithOfferedCourses(ArrayList<Course> offeredCourses);
+    void notifyFragmentWithOfferedCourses(ArrayList<MinaCourse> offeredCourses);
     void notifyFragmentWithError();
 }

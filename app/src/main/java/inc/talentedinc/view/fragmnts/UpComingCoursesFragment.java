@@ -8,11 +8,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+
 import com.rey.material.widget.ProgressView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import inc.talentedinc.R;
-import inc.talentedinc.adapter.UpcomingCoursesAdapter;
+import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
 import inc.talentedinc.listener.HomeListener;
@@ -22,7 +26,7 @@ import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
 
-public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,HomeListener {
+public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,HomeListener, View.OnClickListener {
 
     /****************************** asmaa *************************/
 
@@ -32,9 +36,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     private boolean moreDataAvailable = true;
 
     private UpComingCoursesPresenter presenter;
-    private UpcomingCoursesAdapter upcomingCoursesAdapter;
+    private HomeAdapter upcomingCoursesAdapter;
     private ArrayList<Result> dataResult = new ArrayList<>();
     private ProgressView progressView;
+    private EditText edSearh;
+    private ImageView imgBg;
 
 
     public UpComingCoursesFragment() {
@@ -61,17 +67,21 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
     private void initView(View v){
 
+        // hide keyboard when launch screen
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        imgBg = v.findViewById(R.id.imgBg);
+        edSearh = v.findViewById(R.id.txtSearch);
+        edSearh.setOnClickListener(this);
+
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
         presenter = new UpComingCoursesPresenter(Factory.provideUpComing());
-//        if (ActionUtils.isInternetConnected(getActivity())) {
-//            presenter.setView(page, this);
-//        }else{
-//            ActionUtils.showToast(getActivity(), "Connection Error");
-//        }
+
+        presenter.setView(page, this);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        upcomingCoursesAdapter = new UpcomingCoursesAdapter(gridLayoutManager,this);
+        upcomingCoursesAdapter = new HomeAdapter(HomeAdapter.UPCOMING,gridLayoutManager,this);
         upcomingCoursesAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(upcomingCoursesAdapter);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {
@@ -90,7 +100,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         upcomingCoursesAdapter.setLoading(true);
         presenter.getHomeData(page);
     }
-
 
     @Override
     public void showProgress() {
@@ -147,6 +156,15 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         startActivity(switchToDetails );
     }
 
-    /******************************  *************************/
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.txtSearch:
+                imgBg.setVisibility(View.GONE);
+                break;
+        }
+    }
+
+    /*************************************************************/
 
 }

@@ -3,10 +3,14 @@ package inc.talentedinc.viewholder;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.like.LikeButton;
+
 import inc.talentedinc.R;
+import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
 
@@ -22,11 +26,15 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private TextView txtName;
     private TextView txtRate;
     private TextView txtDate;
-    private CircleImageView img;
+    private ImageView img;
     private Result courseModel;
-//    private LikeButton likeButton;
-    public UpComingCoursesViewHolder(View itemView , HomeListener listener , Context context) {
+    private ImageView imgRte;
+    private LikeButton likeButton;
+    private EditText etComment;
+    private String s;
+    public UpComingCoursesViewHolder(String s,View itemView , HomeListener listener , Context context) {
         super(itemView);
+        this.s=s;
         this.context=context;
         this.itemView= itemView;
         this.listener=listener;
@@ -34,13 +42,19 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         initializeViews();
     }
     private void initializeViews() {
-        txtName = itemView.findViewById(R.id.tvname);
-        txtRate = itemView.findViewById(R.id.tvRate);
-        txtDate = itemView.findViewById(R.id.tvDate);
-        img = itemView.findViewById(R.id.img);
-//        likeButton = itemView.findViewById(R.id.thumb_button);
-//        likeButton.setOnClickListener(this);
-//        likeButton.setOnAnimationEndListener(context);
+        txtName = itemView.findViewById(R.id.textView10);
+        txtRate = itemView.findViewById(R.id.textView11);
+        txtDate = itemView.findViewById(R.id.textView12);
+        img = itemView.findViewById(R.id.imageView);
+        etComment=itemView.findViewById(R.id.editText);
+        etComment.setOnClickListener(this);
+        imgRte = itemView.findViewById(R.id.imageView2);
+        if (s.equals(HomeAdapter.HISTORY)){
+            imgRte.setVisibility(View.VISIBLE);
+        }
+        imgRte.setOnClickListener(this);
+        likeButton = itemView.findViewById(R.id.thumb_button);
+        likeButton.setOnClickListener(this);
     }
 
     public void setData(Result course){
@@ -55,6 +69,21 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+//             starts rate
+            case R.id.imageView2:
+
+                break;
+
+//                like
+            case R.id.thumb_button:
+
+                break;
+//                comment
+            case R.id.editText:
+
+                break;
+        }
         listener.onCourseClicked(courseModel);
     }
 }

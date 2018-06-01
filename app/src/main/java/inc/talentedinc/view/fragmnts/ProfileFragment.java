@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import inc.talentedinc.R;
+import inc.talentedinc.view.activities.HomeActivity;
 
 public class ProfileFragment extends Fragment {
 
@@ -29,7 +30,11 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
+        initView(view);
         return view;
+    }
+    void initView(View v){
+        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
     }
     /******************************  *************************/
 

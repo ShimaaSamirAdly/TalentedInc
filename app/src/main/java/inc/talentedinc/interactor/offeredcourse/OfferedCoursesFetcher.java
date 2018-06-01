@@ -1,11 +1,8 @@
 package inc.talentedinc.interactor.offeredcourse;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
-import inc.talentedinc.model.Course;
+import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,15 +17,15 @@ public class OfferedCoursesFetcher {
     }
 
     public void fetchCourses(String baseUrl){
-        RetrofitHandler.getOfferedCoursesService(baseUrl).getOfferedCourses().enqueue(new Callback<ArrayList<Course>>() {
+        RetrofitHandler.getOfferedCoursesService(baseUrl).getOfferedCourses().enqueue(new Callback<ArrayList<MinaCourse>>() {
             @Override
-            public void onResponse(Call<ArrayList<Course>> call, Response<ArrayList<Course>> response) {
-                ArrayList<Course> fetshedCourses = response.body();
+            public void onResponse(Call<ArrayList<MinaCourse>> call, Response<ArrayList<MinaCourse>> response) {
+                ArrayList<MinaCourse> fetshedCourses = response.body();
                 offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(fetshedCourses);
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Course>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<MinaCourse>> call, Throwable t) {
                 offeredCoursesPresenterInt.notifyFragmentWithError();
             }
         });

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.rey.material.widget.ProgressView;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
-import inc.talentedinc.adapter.UpcomingCoursesAdapter;
+import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
 import inc.talentedinc.listener.HomeListener;
@@ -36,9 +37,10 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     private boolean moreDataAvailable = true;
 
     private HistoryPresenter presenter;
-    private UpcomingCoursesAdapter upcomingCoursesAdapter;
+    private HomeAdapter upcomingCoursesAdapter;
     private ArrayList<Result> dataResult = new ArrayList<>();
     private ProgressView progressView;
+    private LinearLayout linearLayoutSearch;
 
 
     public HistoryFragment() {
@@ -65,6 +67,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     private void initView(View v){
 
+        linearLayoutSearch =v.findViewById(R.id.ll2);
+        linearLayoutSearch.setVisibility(View.GONE);
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
         presenter = new HistoryPresenter(Factory.provideHistory());
@@ -75,7 +79,7 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 //        }
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
-        upcomingCoursesAdapter = new UpcomingCoursesAdapter(gridLayoutManager,this);
+        upcomingCoursesAdapter = new HomeAdapter(HomeAdapter.HISTORY,gridLayoutManager,this);
         upcomingCoursesAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(upcomingCoursesAdapter);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {

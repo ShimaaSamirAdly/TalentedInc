@@ -1,7 +1,5 @@
 package inc.talentedinc.view.fragmnts;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,19 +15,16 @@ import java.util.ArrayList;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.CoursesViewAdapter;
-import inc.talentedinc.model.Course;
+import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class OfferedCoursesFragment extends Fragment implements EndlessScrollHandler {
 
     RecyclerView coursesRecyclerView;
-    ArrayList<Course> offeredCourses;
+    ArrayList<MinaCourse> offeredCourses;
     LinearLayoutManager coursesLayoutManager;
     CoursesViewAdapter coursesViewAdapter;
     ProgressBar myProgressBar;
@@ -87,7 +82,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
     }
 
     @Override
-    public void showData(ArrayList<Course> courses) {
+    public void showData(ArrayList<MinaCourse> courses) {
         Log.i("showData",courses.toString());
         itShouldLoadMore = true;
         offeredCourses.addAll(courses);

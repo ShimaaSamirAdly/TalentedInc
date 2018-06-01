@@ -49,13 +49,11 @@
             <!--app:empty_color="#f0f000"-->
             <!--app:progress_color="#00f0f0" />-->
 
-        <me.zhanghai.android.materialratingbar.MaterialRatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialRatingBar.RatingBar" />
+        <!--<me.zhanghai.android.materialratingbar.MaterialRatingBar-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--style="@style/Widget.MaterialRatingBar.RatingBar" />-->
 
     </LinearLayout>
-
-
 
 </ScrollView>

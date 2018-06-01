@@ -10,21 +10,27 @@ public class User {
     @SerializedName("userId")
     @Expose
     private Integer userId;
+    //required
     @SerializedName("firstName")
     @Expose
     private String firstName;
+    //required
     @SerializedName("lastName")
     @Expose
     private String lastName;
+    //required
     @SerializedName("userDob")
     @Expose
     private String userDob;
+    //required
     @SerializedName("email")
     @Expose
     private String email;
+    //required
     @SerializedName("password")
     @Expose
     private String password;
+    //required
     @SerializedName("gender")
     @Expose
     private Character gender;
