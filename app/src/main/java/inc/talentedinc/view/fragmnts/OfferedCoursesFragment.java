@@ -14,8 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
-import inc.talentedinc.adapter.CoursesViewAdapter;
+import inc.talentedinc.adapter.OfferedCoursesViewAdapter;
 import inc.talentedinc.model.MinaCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
@@ -24,9 +25,9 @@ import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 public class OfferedCoursesFragment extends Fragment implements EndlessScrollHandler {
 
     RecyclerView coursesRecyclerView;
-    ArrayList<MinaCourse> offeredCourses;
+    ArrayList<OfferedCourse> offeredCourses;
     LinearLayoutManager coursesLayoutManager;
-    CoursesViewAdapter coursesViewAdapter;
+    OfferedCoursesViewAdapter offeredCoursesViewAdapter;
     ProgressBar myProgressBar;
     Boolean itShouldLoadMore;
     OfferedCoursesPresenterInt offeredCoursesPresenterInt;
@@ -61,6 +62,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
                     if (!recyclerView.canScrollVertically(RecyclerView.FOCUS_DOWN)) {
                         if (itShouldLoadMore) {
                             //loadMore();
+                            showProgressBar();
                             offeredCoursesPresenterInt.fetchCourses();
                             itShouldLoadMore = false;
                         }
@@ -75,18 +77,20 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
     public void onResume() {
         super.onResume();
         offeredCourses = new ArrayList<>();
-        coursesViewAdapter = new CoursesViewAdapter(offeredCourses);
-        coursesRecyclerView.setAdapter(coursesViewAdapter);
+        offeredCoursesViewAdapter = new OfferedCoursesViewAdapter(offeredCourses);
+        coursesRecyclerView.setAdapter(offeredCoursesViewAdapter);
+        showProgressBar();
         offeredCoursesPresenterInt.fetchCourses();
         itShouldLoadMore = false;
     }
 
     @Override
-    public void showData(ArrayList<MinaCourse> courses) {
+    public void showData(ArrayList<OfferedCourse> courses) {
         Log.i("showData",courses.toString());
+        hideProgressBar();
         itShouldLoadMore = true;
         offeredCourses.addAll(courses);
-        coursesViewAdapter.notifyDataSetChanged();
+        offeredCoursesViewAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -102,6 +106,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
 
     @Override
     public void makeErrorToast() {
+        hideProgressBar();
         itShouldLoadMore = true;
         Toast.makeText(getContext(), "Error fetching course", Toast.LENGTH_SHORT).show();
     }
