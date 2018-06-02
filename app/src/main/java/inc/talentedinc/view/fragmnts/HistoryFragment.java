@@ -3,6 +3,7 @@ package inc.talentedinc.view.fragmnts;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -41,6 +42,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     private ArrayList<Result> dataResult = new ArrayList<>();
     private ProgressView progressView;
     private LinearLayout linearLayoutSearch;
+    private AlertDialog commentDialog ,rateDialog;
+
 
 
     public HistoryFragment() {
@@ -99,6 +102,39 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         presenter.getHomeData(page);
     }
 
+    private void commentDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
+        builder.setView(dialogView);
+
+        commentDialog = builder.create();
+        if (dialogView != null) {
+
+
+        }
+
+        commentDialog.show();
+
+    }
+
+
+    private void rateDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        View dialogView = this.getLayoutInflater().inflate(R.layout.custom_rate_dialog, null);
+        builder.setView(dialogView);
+
+        rateDialog = builder.create();
+        if (dialogView != null) {
+
+
+        }
+
+        rateDialog.show();
+
+    }
+
 
     @Override
     public void showProgress() {
@@ -153,6 +189,23 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         Intent switchToDetails = new Intent(getActivity(),UpComingDetailsActivity.class);
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
         startActivity(switchToDetails );
+    }
+
+    @Override
+    public void onRateClick() {
+        rateDialog();
+
+    }
+
+    @Override
+    public void onLikeClick() {
+
+    }
+
+    @Override
+    public void onCommentClick() {
+        commentDialog();
+
     }
 
     /****************************** *************************/

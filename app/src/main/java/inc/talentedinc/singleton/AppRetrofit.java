@@ -7,6 +7,7 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
 import inc.talentedinc.API.APIUrls;
+import inc.talentedinc.API.ApiCreateCourse;
 import inc.talentedinc.API.ApiHomeEndpoint;
 import inc.talentedinc.API.ApiLogin;
 import inc.talentedinc.utilitis.ActionUtils;
@@ -36,6 +37,7 @@ public class AppRetrofit {
     private OkHttpClient httpClient;
     private Retrofit.Builder builder;
     private ApiLogin apiLogin ;
+    private ApiCreateCourse apiCreateCourse ;
 
 
     private AppRetrofit() {
@@ -104,7 +106,7 @@ public class AppRetrofit {
         retrofit = builder.client(httpClient).build();
         apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
         apiLogin = retrofit.create(ApiLogin.class);
-
+        apiCreateCourse = retrofit.create(ApiCreateCourse.class);
     }
 
     public ApiHomeEndpoint getHomeApi() {
@@ -120,7 +122,15 @@ public class AppRetrofit {
         }
         return apiLogin ;
     }
+//alaa------------------------------------------------------
+    public ApiCreateCourse getApiCreateCourse(){
+        if(apiCreateCourse == null){
+            initialization();
 
+        }
+        return apiCreateCourse;
+
+    }
 
 
 }

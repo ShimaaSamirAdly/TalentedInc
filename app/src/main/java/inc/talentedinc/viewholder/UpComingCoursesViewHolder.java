@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.HomeAdapter;
@@ -18,7 +20,7 @@ import inc.talentedinc.model.Result;
  * Created by asmaa on 05/21/2018.
  */
 
-public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnAnimationEndListener, OnLikeListener {
 
     private Context context;
     private HomeListener listener;
@@ -30,7 +32,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private Result courseModel;
     private ImageView imgRte;
     private LikeButton likeButton;
-    private EditText etComment;
+    private TextView etComment;
     private String s;
     public UpComingCoursesViewHolder(String s,View itemView , HomeListener listener , Context context) {
         super(itemView);
@@ -46,6 +48,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         txtRate = itemView.findViewById(R.id.textView11);
         txtDate = itemView.findViewById(R.id.textView12);
         img = itemView.findViewById(R.id.imageView);
+        img.setOnClickListener(this);
         etComment=itemView.findViewById(R.id.editText);
         etComment.setOnClickListener(this);
         imgRte = itemView.findViewById(R.id.imageView2);
@@ -54,7 +57,9 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         }
         imgRte.setOnClickListener(this);
         likeButton = itemView.findViewById(R.id.thumb_button);
-        likeButton.setOnClickListener(this);
+        likeButton.setOnLikeListener(this);
+        likeButton.setOnAnimationEndListener(this);
+
     }
 
     public void setData(Result course){
@@ -72,18 +77,47 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         switch (view.getId()){
 //             starts rate
             case R.id.imageView2:
-
+                listener.onRateClick();
                 break;
 
 //                like
             case R.id.thumb_button:
+//                if (likeButton.isLiked()){
+//                    likeButton.setLiked(false);
+//                }else {
+//                    likeButton.setLiked(true);
+//                }
 
                 break;
 //                comment
             case R.id.editText:
+                listener.onCommentClick();
 
                 break;
+                // to details
+            case R.id.imageView:
+                listener.onCourseClicked(courseModel);
+                break;
         }
-        listener.onCourseClicked(courseModel);
+    }
+
+    @Override
+    public void onAnimationEnd(LikeButton likeButton) {
+    }
+
+    @Override
+    public void liked(LikeButton likeButton) {
+        listener.onLikeClick();
+
+        //API
+
+    }
+
+    @Override
+    public void unLiked(LikeButton likeButton) {
+        listener.onLikeClick();
+
+        //API
+
     }
 }

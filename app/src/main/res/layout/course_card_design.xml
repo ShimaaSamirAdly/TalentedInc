@@ -114,7 +114,7 @@
                 app:like_drawable="@drawable/thumb_on"
                 app:unlike_drawable="@drawable/thumb_off" />
 
-            <EditText
+            <TextView
                 android:id="@+id/editText"
                 android:layout_width="189dp"
                 android:layout_height="wrap_content"
