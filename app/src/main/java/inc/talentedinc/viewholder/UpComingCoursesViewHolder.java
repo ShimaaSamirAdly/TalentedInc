@@ -3,12 +3,16 @@ package inc.talentedinc.viewholder;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
+import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import inc.talentedinc.R;
+import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
 
@@ -16,7 +20,7 @@ import inc.talentedinc.model.Result;
  * Created by asmaa on 05/21/2018.
  */
 
-public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, OnAnimationEndListener, OnLikeListener {
 
     private Context context;
     private HomeListener listener;
@@ -24,10 +28,15 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private TextView txtName;
     private TextView txtRate;
     private TextView txtDate;
-    private CircleImageView img;
+    private ImageView img;
     private Result courseModel;
-    public UpComingCoursesViewHolder(View itemView , HomeListener listener , Context context) {
+    private ImageView imgRte;
+    private LikeButton likeButton;
+    private TextView etComment;
+    private String s;
+    public UpComingCoursesViewHolder(String s,View itemView , HomeListener listener , Context context) {
         super(itemView);
+        this.s=s;
         this.context=context;
         this.itemView= itemView;
         this.listener=listener;
@@ -35,10 +44,22 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         initializeViews();
     }
     private void initializeViews() {
-        txtName = itemView.findViewById(R.id.tvname);
-        txtRate = itemView.findViewById(R.id.tvRate);
-        txtDate = itemView.findViewById(R.id.tvDate);
-        img = itemView.findViewById(R.id.img);
+        txtName = itemView.findViewById(R.id.textView10);
+        txtRate = itemView.findViewById(R.id.textView11);
+        txtDate = itemView.findViewById(R.id.textView12);
+        img = itemView.findViewById(R.id.imageView);
+        img.setOnClickListener(this);
+        etComment=itemView.findViewById(R.id.editText);
+        etComment.setOnClickListener(this);
+        imgRte = itemView.findViewById(R.id.imageView2);
+        if (s.equals(HomeAdapter.HISTORY)){
+            imgRte.setVisibility(View.VISIBLE);
+        }
+        imgRte.setOnClickListener(this);
+        likeButton = itemView.findViewById(R.id.thumb_button);
+        likeButton.setOnLikeListener(this);
+        likeButton.setOnAnimationEndListener(this);
+
     }
 
     public void setData(Result course){
@@ -53,6 +74,50 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     @Override
     public void onClick(View view) {
-        listener.onCourseClicked(courseModel);
+        switch (view.getId()){
+//             starts rate
+            case R.id.imageView2:
+                listener.onRateClick();
+                break;
+
+//                like
+            case R.id.thumb_button:
+//                if (likeButton.isLiked()){
+//                    likeButton.setLiked(false);
+//                }else {
+//                    likeButton.setLiked(true);
+//                }
+
+                break;
+//                comment
+            case R.id.editText:
+                listener.onCommentClick();
+
+                break;
+                // to details
+            case R.id.imageView:
+                listener.onCourseClicked(courseModel);
+                break;
+        }
+    }
+
+    @Override
+    public void onAnimationEnd(LikeButton likeButton) {
+    }
+
+    @Override
+    public void liked(LikeButton likeButton) {
+        listener.onLikeClick();
+
+        //API
+
+    }
+
+    @Override
+    public void unLiked(LikeButton likeButton) {
+        listener.onLikeClick();
+
+        //API
+
     }
 }

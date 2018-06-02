@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
-
 import inc.talentedinc.R;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
@@ -40,6 +39,10 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         tvOverView=findViewById(R.id.tvOverView);
         presenter = new UpComingDetailsPresenter();
         presenter.setView((Result) getIntent().getSerializableExtra(COURSE),this);
+//        ColorRatingBar colorRatingBar = new ColorRatingBar(this);
+//        colorRatingBar.setRatingProgressColor(R.color.colorPrimary);
+//        colorRatingBar.setRatingEmptyColor(R.color.colorAccent);
+//        colorRatingBar.setRating(3.0f);
     }
     /******************************  *************************/
 

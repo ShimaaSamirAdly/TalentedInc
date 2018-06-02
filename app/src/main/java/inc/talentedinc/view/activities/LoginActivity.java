@@ -96,8 +96,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
                 if (email.getText() != null && password.getText() != null){
-                    //a3mlo initialize ezay ??
 
+                    loginPresenter = new LoginPresenter();
                     loginPresenter.setView(email.getText().toString() , password.getText().toString() , this);
 
                 }

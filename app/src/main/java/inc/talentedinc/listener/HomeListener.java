@@ -8,5 +8,8 @@ import inc.talentedinc.model.Result;
 
 public interface HomeListener {
     void onCourseClicked(Result result);
+    void onRateClick();
+    void onLikeClick();
+    void onCommentClick();
 
 }
