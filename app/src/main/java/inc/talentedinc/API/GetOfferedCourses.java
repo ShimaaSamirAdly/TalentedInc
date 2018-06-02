@@ -1,4 +1,4 @@
-package inc.talentedinc.interactor.offeredcourse;
+package inc.talentedinc.API;
 
 import java.util.ArrayList;
 

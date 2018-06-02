@@ -2,9 +2,11 @@ package inc.talentedinc.interactor.offeredcourse;
 
 import java.util.ArrayList;
 
+import inc.talentedinc.API.GetOfferedCourses;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
+import inc.talentedinc.singleton.AppRetrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,8 +19,9 @@ public class OfferedCoursesFetcher {
         this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
     }
 
-    public void fetchCourses(String baseUrl){
-        RetrofitHandler.getOfferedCoursesService(baseUrl).getOfferedCourses().enqueue(new Callback<ArrayList<OfferedCourse>>() {
+    public void fetchCourses() {
+
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class).getOfferedCourses().enqueue(new Callback<ArrayList<OfferedCourse>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourse>> call, Response<ArrayList<OfferedCourse>> response) {
                 ArrayList<OfferedCourse> fetshedCourses = response.body();
