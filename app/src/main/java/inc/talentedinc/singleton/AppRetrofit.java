@@ -111,12 +111,10 @@ public class AppRetrofit {
 
     void login(){
         apiLogin = retrofit.create(ApiLogin.class);
-
     }
 
     void createCourse(){
         apiCreateCourse = retrofit.create(ApiCreateCourse.class);
-
     }
 
     public ApiHomeEndpoint getHomeApi() {
