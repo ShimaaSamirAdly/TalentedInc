@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -16,6 +17,7 @@ import inc.talentedinc.adapter.SignUPViewPagerAdapter;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.signup.SignUpPresenter;
 import inc.talentedinc.presenter.signup.SignUpPresenterImpl;
+import inc.talentedinc.utilitis.SignupValidator;
 import inc.talentedinc.view.fragmnts.ProfileFragment;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
     private User signedUpUser = new User();
     private ViewPager signUpViewPager;
     private SignUPViewPagerAdapter signUPViewPagerAdapter;
+    private SignupValidator signupValidator = SignupValidator.getValidationInstance();
 
     /***********************************************************/
 
@@ -62,15 +65,17 @@ public class SignUpActivity extends AppCompatActivity {
     /******************************mina*************************/
 
     private void performNext() {
-        switch (signUpViewPager.getCurrentItem()){
+        switch (signUpViewPager.getCurrentItem()) {
             case 0:
-                getFirstSignupData();
-                signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
+                if(getFirstSignupData()) {
+                    signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
+                }
                 break;
 
             case 1:
-                getSecondSignupData();
-                signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
+                if(getSecondSignupData()) {
+                    signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
+                }
                 break;
 /************************************************Shimaa*************************************/
             case 2:
@@ -79,24 +84,56 @@ public class SignUpActivity extends AppCompatActivity {
                 presenter.insertUser(signedUpUser);
                 switchToProfile();
                 break;
- /********************************************************************************************/
+            /********************************************************************************************/
         }
     }
 
-    private void getFirstSignupData() {
+    private boolean getFirstSignupData() {
         User tempUser = signUPViewPagerAdapter.getFirstSignUpFragment().getUser();
-        signedUpUser.setEmail(tempUser.getEmail());
-        signedUpUser.setPassword(tempUser.getPassword());
-        signedUpUser.setPhone(tempUser.getPhone());
+        if (signupValidator.validatemail(tempUser.getEmail())) {
+            signedUpUser.setEmail(tempUser.getEmail());
+            if (signupValidator.validatePassword(tempUser.getPassword())) {
+                signedUpUser.setPassword(tempUser.getPassword());
+                if (signupValidator.validatePhone(tempUser.getPhone())) {
+                    signedUpUser.setPhone(tempUser.getPhone());
+                }else {
+                    Toast.makeText(this, "invalid phone number", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            } else {
+                Toast.makeText(this, "password mus be at least 6 characters", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        } else {
+            Toast.makeText(this, "invalid email format", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         signedUpUser.setCity(tempUser.getCity());
+        return true;
     }
 
-    private void getSecondSignupData(){
+    private boolean getSecondSignupData() {
         User tempUser = signUPViewPagerAdapter.getSecondSignUpFragment().getUser();
-        signedUpUser.setFirstName(tempUser.getFirstName());
-        signedUpUser.setLastName(tempUser.getLastName());
-        signedUpUser.setUserDob(tempUser.getUserDob());
+        if(signupValidator.validateNotEmptyString(tempUser.getFirstName())){
+            signedUpUser.setFirstName(tempUser.getFirstName());
+            if(signupValidator.validateNotEmptyString(tempUser.getLastName())){
+                signedUpUser.setLastName(tempUser.getLastName());
+                if(signupValidator.validateNotEmptyString(tempUser.getUserDob())){
+                    signedUpUser.setUserDob(tempUser.getUserDob());
+                }else{
+                    Toast.makeText(this,"you have to enter a valid date of birth",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }else{
+                Toast.makeText(this,"you have to enter you last name",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }else{
+            Toast.makeText(this,"you have to enter you first name",Toast.LENGTH_SHORT).show();
+            return false;
+        }
         signedUpUser.setGender(tempUser.getGender());
+        return true;
     }
 
     @Override
@@ -115,7 +152,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     /********************Shimaa*********************************/
 
-    private void getThirdSignUpData(){
+    private void getThirdSignUpData() {
 
         User user = signUPViewPagerAdapter.getThirdSignUpFragment().getUser();
         signedUpUser.setCategoryCollection(user.getCategoryCollection());
@@ -123,7 +160,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void switchToProfile(){
+    public void switchToProfile() {
 
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("user", (Serializable) signedUpUser);

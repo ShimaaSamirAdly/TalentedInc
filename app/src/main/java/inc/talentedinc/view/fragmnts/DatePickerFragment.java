@@ -13,6 +13,7 @@ import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private SetDateTextView dateSetter;
+    private int year;
 
     public DatePickerFragment(){}
 
@@ -24,8 +25,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
+        year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH)+1;
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         // Create a new instance of DatePickerDialog and return it
@@ -34,6 +35,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
         String date = ""+day+"/"+month+"/"+year;
-        dateSetter.setDateTextView(date);
+        dateSetter.setDateTextView(date,year);
     }
 }

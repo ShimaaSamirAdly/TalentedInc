@@ -11,9 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.User;
+import inc.talentedinc.utilitis.SignupValidator;
 import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
 
 
@@ -28,6 +30,7 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
     private TextView dobTxtView;
     private FragmentManager supportFragmentManager;
     private User user = new User();
+    private SignupValidator signupValidator = SignupValidator.getValidationInstance();
 //    ...................................................................................
 
     public SecondSignUpFragment() {
@@ -52,6 +55,8 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
         firstNameTxt = (EditText)secondSignupView.findViewById(R.id.first_name_edt_txt);
         lastNameTxt = (EditText)secondSignupView.findViewById(R.id.last_name_edt_txt);
         maleRadio = (RadioButton)secondSignupView.findViewById(R.id.male_radio);
+        // male radio button checked by default
+        maleRadio.setChecked(true);
         femaleRadio = (RadioButton)secondSignupView.findViewById(R.id.female_radio);
         dobTxtView = (TextView)secondSignupView.findViewById(R.id.dob_txt);
         //DOB button
@@ -71,8 +76,13 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
 
 //    ............................................. mina .......................................
     @Override
-    public void setDateTextView(String date) {
-        dobTxtView.setText(date);
+    public void setDateTextView(String date, int year) {
+        if(signupValidator.validateDob(year)){
+            dobTxtView.setText(date);
+        }else {
+            dobTxtView.setText("");
+            Toast.makeText(getContext(), "invalid date of birth", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setSupportFragmentManager(FragmentManager supportFragmentManager) {
