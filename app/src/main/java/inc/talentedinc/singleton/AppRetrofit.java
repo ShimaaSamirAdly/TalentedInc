@@ -103,9 +103,6 @@ public class AppRetrofit {
                 .addConverterFactory(GsonConverterFactory.create());
         retrofit = builder.client(httpClient).build();
 
-        apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
-        apiLogin = retrofit.create(ApiLogin.class);
-
     }
 
     void home(){
