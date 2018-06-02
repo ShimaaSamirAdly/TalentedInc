@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import inc.talentedinc.R;
+import inc.talentedinc.view.activities.HomeActivity;
 
 public class NotificationFragment extends Fragment {
 
@@ -31,6 +32,9 @@ public class NotificationFragment extends Fragment {
         return view;
     }
 
+    void initView(View v){
+        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+    }
     /******************************  *************************/
 
 }
