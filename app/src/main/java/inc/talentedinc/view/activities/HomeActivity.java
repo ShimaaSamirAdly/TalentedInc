@@ -73,6 +73,16 @@ public class HomeActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
 
     }
+
+    @Override
+    public void onBackPressed() {
+         super.onBackPressed();
+//        final UpComingCoursesFragment fragment = (UpComingCoursesFragment) getSupportFragmentManager().findFragmentByTag("upComing");
+//        if (getFragmentManager().getBackStackEntryCount() < 0) {
+//            finish();
+//        }
+    }
+
     /******************************  *************************/
 
 }

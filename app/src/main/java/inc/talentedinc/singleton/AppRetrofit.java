@@ -104,14 +104,26 @@ public class AppRetrofit {
                 .addConverterFactory(GsonConverterFactory.create());
 
         retrofit = builder.client(httpClient).build();
+    }
+
+    void home(){
         apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
+    }
+
+    void login(){
         apiLogin = retrofit.create(ApiLogin.class);
+
+    }
+
+    void createCourse(){
         apiCreateCourse = retrofit.create(ApiCreateCourse.class);
+
     }
 
     public ApiHomeEndpoint getHomeApi() {
         if(apiHomeEndpoint == null) {
             initialization();
+            home();
         }
         return apiHomeEndpoint;
     }
@@ -119,6 +131,7 @@ public class AppRetrofit {
     public ApiLogin getApiLogin (){
         if (apiLogin == null){
             initialization();
+            login();
         }
         return apiLogin ;
     }
@@ -126,7 +139,7 @@ public class AppRetrofit {
     public ApiCreateCourse getApiCreateCourse(){
         if(apiCreateCourse == null){
             initialization();
-
+            createCourse();
         }
         return apiCreateCourse;
 
