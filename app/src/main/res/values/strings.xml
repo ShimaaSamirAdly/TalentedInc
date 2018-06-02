@@ -34,6 +34,7 @@
     <string name="first_name_label">First Name</string>
     <string name="last_name_label">Last Name</string>
     <string name="gender_label">Gender</string>
+    <string name="request_button">Request</string>
     <!--...........................................................................-->
     <!--..................................alaa......................................-->
 
@@ -71,4 +72,5 @@
     <string name="catgories">Categories</string>
     <string name="cities">Cities</string>
     <string name="ok">OK</string>
+    <!--................................................................................-->
 </resources>
