@@ -30,7 +30,6 @@ import static com.facebook.FacebookSdk.getCacheDir;
  */
 public class AppRetrofit {
 
-
     public static AppRetrofit App = null;
     private Retrofit retrofit;
     private ApiHomeEndpoint apiHomeEndpoint;
