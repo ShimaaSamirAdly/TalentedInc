@@ -21,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class AppRetrofit {
 
-
     public static AppRetrofit App = null;
     private Retrofit retrofit;
     private ApiHomeEndpoint apiHomeEndpoint;
