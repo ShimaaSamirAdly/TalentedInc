@@ -69,6 +69,7 @@ public class AppRetrofit {
 
     }
 
+
     public ApiHomeEndpoint getHomeApi() {
         if(apiHomeEndpoint == null) {
             initialization();
@@ -84,5 +85,10 @@ public class AppRetrofit {
     }
 
 
+    public Retrofit getRetrofitInstance(){
+
+        initialization();
+        return retrofit;
+    }
 
 }

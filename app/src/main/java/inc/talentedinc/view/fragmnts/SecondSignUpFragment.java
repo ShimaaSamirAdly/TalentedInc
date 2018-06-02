@@ -3,6 +3,7 @@ package inc.talentedinc.view.fragmnts;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,6 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
         maleRadio = (RadioButton)secondSignupView.findViewById(R.id.male_radio);
         femaleRadio = (RadioButton)secondSignupView.findViewById(R.id.female_radio);
         dobTxtView = (TextView)secondSignupView.findViewById(R.id.dob_txt);
-
         //DOB button
         dobBtn = (Button)secondSignupView.findViewById(R.id.dob_btn);
         final DatePickerFragment newFragment = new DatePickerFragment();

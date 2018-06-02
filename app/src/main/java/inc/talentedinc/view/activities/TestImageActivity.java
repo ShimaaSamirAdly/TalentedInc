@@ -87,31 +87,31 @@ public class TestImageActivity extends AppCompatActivity {
                     img.setDrawingCacheEnabled(true);
                     img.buildDrawingCache();
 
-                    StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
-                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            imgUrl = taskSnapshot.getDownloadUrl();
-                            Log.i("url", String.valueOf(imgUrl));
-                            Toast.makeText(TestImageActivity.this, ""+imgUrl, Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(TestImageActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
+//                    StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
+//                    ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                            progressDialog.dismiss();
+//                            imgUrl = taskSnapshot.getDownloadUrl();
+//                            Log.i("url", String.valueOf(imgUrl));
+//                            Toast.makeText(TestImageActivity.this, ""+imgUrl, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(TestImageActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+//                                    .getTotalByteCount());
+//                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+//                        }
+//                    });
                 }
-
+//
             }
         });
 

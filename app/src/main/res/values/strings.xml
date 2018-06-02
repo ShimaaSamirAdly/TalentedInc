@@ -63,4 +63,7 @@
     <string name="SelectYourInterests">Select Your Interests</string>
 
     <!--...............................................................................-->
+    <string name="register_btn">Register</string>
+    <string name="comment_hint">Write a comment .....</string>
+
 </resources>
