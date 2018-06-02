@@ -172,6 +172,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         filterDialog.show();
     }
 
+    
 
 
     @Override

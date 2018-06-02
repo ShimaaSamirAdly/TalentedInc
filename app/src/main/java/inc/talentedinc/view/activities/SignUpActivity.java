@@ -1,5 +1,7 @@
 package inc.talentedinc.view.activities;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,9 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.SignUPViewPagerAdapter;
 import inc.talentedinc.model.User;
+import inc.talentedinc.presenter.signup.SignUpPresenter;
+import inc.talentedinc.presenter.signup.SignUpPresenterImpl;
+import inc.talentedinc.view.fragmnts.ProfileFragment;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -21,6 +28,12 @@ public class SignUpActivity extends AppCompatActivity {
     private SignUPViewPagerAdapter signUPViewPagerAdapter;
 
     /***********************************************************/
+
+    /*****************************Shimaa***********************/
+
+    private SignUpPresenter presenter;
+
+    /**********************************************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +72,14 @@ public class SignUpActivity extends AppCompatActivity {
                 getSecondSignupData();
                 signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
                 break;
-
+/************************************************Shimaa*************************************/
             case 2:
+                getThirdSignUpData();
+                presenter = new SignUpPresenterImpl(this);
+                presenter.insertUser(signedUpUser);
+                switchToProfile();
                 break;
+ /********************************************************************************************/
         }
     }
 
@@ -94,4 +112,24 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     /***********************************************************/
+
+    /********************Shimaa*********************************/
+
+    private void getThirdSignUpData(){
+
+        User user = signUPViewPagerAdapter.getThirdSignUpFragment().getUser();
+        signedUpUser.setCategoryCollection(user.getCategoryCollection());
+        signedUpUser.setUserType(user.getUserType());
+    }
+
+
+    public void switchToProfile(){
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("user", (Serializable) signedUpUser);
+        intent.putExtra("direction", "profile");
+        startActivity(intent);
+    }
+
+    /************************************************************/
 }

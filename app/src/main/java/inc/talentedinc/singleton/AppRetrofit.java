@@ -30,14 +30,13 @@ import static com.facebook.FacebookSdk.getCacheDir;
  */
 public class AppRetrofit {
 
-
     public static AppRetrofit App = null;
     private Retrofit retrofit;
     private ApiHomeEndpoint apiHomeEndpoint;
     private OkHttpClient httpClient;
     private Retrofit.Builder builder;
     private ApiLogin apiLogin ;
-    private ApiCreateCourse apiCreateCourse ;
+    private ApiCreateCourse apiCreateCourse;
 
 
     private AppRetrofit() {
@@ -102,16 +101,28 @@ public class AppRetrofit {
         builder = new Retrofit.Builder()
                 .baseUrl(APIUrls.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
-
         retrofit = builder.client(httpClient).build();
+
+    }
+
+    void home(){
         apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
+
+
+    }
+    void login(){
         apiLogin = retrofit.create(ApiLogin.class);
+
+
+    }
+    void createCourse(){
         apiCreateCourse = retrofit.create(ApiCreateCourse.class);
     }
 
     public ApiHomeEndpoint getHomeApi() {
         if(apiHomeEndpoint == null) {
             initialization();
+            home();
         }
         return apiHomeEndpoint;
     }
@@ -119,18 +130,23 @@ public class AppRetrofit {
     public ApiLogin getApiLogin (){
         if (apiLogin == null){
             initialization();
+            login();
         }
         return apiLogin ;
     }
-//alaa------------------------------------------------------
-    public ApiCreateCourse getApiCreateCourse(){
-        if(apiCreateCourse == null){
-            initialization();
 
-        }
-        return apiCreateCourse;
 
+    public Retrofit getRetrofitInstance(){
+
+        initialization();
+        return retrofit;
     }
 
-
+    public ApiCreateCourse getApiCreateCourse() {
+        if (apiCreateCourse == null){
+            initialization();
+            createCourse();
+        }
+        return apiCreateCourse ;
+    }
 }

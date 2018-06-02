@@ -43,6 +43,7 @@ dependencies {
     // recyclerView and card to get list with performance and good design
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
+
     //progress
     implementation 'com.github.rey5137:material:1.+'
     compile 'com.android.support:multidex:1.0.1'
@@ -50,11 +51,29 @@ dependencies {
     /*****************************mina****************************/
     //facebook login
     implementation 'com.facebook.android:facebook-login:[4,5)'
-    /** ************************************************************/
-    //    -----------------------alaa------------------------------------------
-    implementation 'com.android.support:support-annotations:27.1.1'
+    /***************************************************************/
+
+
+//    -----------------------alaa------------------------------------------
+    implementation 'com.android.support:support-annotations:27.1.1s'
     implementation 'com.google.android.gms:play-services-auth:9.2.1'
     implementation 'com.google.code.gson:gson:2.6.2'
     // -----------------------------------------------------------------------
+
+    //**********************Shimaa*******************************
+//    compile 'com.google.firebase:firebase-core:12.0.1'
+    compile 'com.google.firebase:firebase-storage:9.2.1'
+    compile 'com.google.firebase:firebase-auth:9.2.1'
+    implementation 'de.hdodenhof:circleimageview:2.+'
+
+    //*************************************************************
 }
+
+//**************************Shimaa***************************
+
 apply plugin: 'com.google.gms.google-services'
+
+//************************************************************
+
+
+
