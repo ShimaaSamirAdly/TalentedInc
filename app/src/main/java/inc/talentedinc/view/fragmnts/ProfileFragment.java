@@ -39,6 +39,9 @@ import inc.talentedinc.presenter.profile.ProfilePresenterImpl;
 
 import static android.app.Activity.RESULT_OK;
 
+import inc.talentedinc.view.activities.HomeActivity;
+
+
 public class ProfileFragment extends Fragment {
 
     /****************************** asmaa *************************/
@@ -96,6 +99,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
+
 
         /******************************Shimaa*******************************************/
 
@@ -257,6 +261,13 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+
+//        initView(view);
+//        return view;
+//    }
+//    void initView(View v){
+//        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+//    }
 
     /******************************  *************************/
 

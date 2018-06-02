@@ -22,6 +22,7 @@ public class APIUrls {
 
     //alaa
     public static final String USER_LOGIN = "/api/users";
+    public static final String CREATE_COURSE = "/offeredcourse/createofferedcoursebyinstructor";
 
 
 
