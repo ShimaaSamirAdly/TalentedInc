@@ -27,7 +27,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:support-vector-drawable:27.0.2'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
     /***************************** Asmaa ****************************/
     // Like icon
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.github.rey5137:material:1.+'
     implementation 'com.android.support:multidex:1.0.1'
     /***************************************************************/
+
     /*****************************mina****************************/
     //facebook login
     implementation 'com.facebook.android:facebook-login:[4,5)'
