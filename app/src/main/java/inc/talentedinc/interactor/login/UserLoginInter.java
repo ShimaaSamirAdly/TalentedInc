@@ -1,6 +1,7 @@
 package inc.talentedinc.interactor.login;
 
 import inc.talentedinc.listener.OnLoginResult;
+import inc.talentedinc.model.UserLogin;
 
 /**
  * Created by Alaa on 5/23/2018.
@@ -8,6 +9,6 @@ import inc.talentedinc.listener.OnLoginResult;
 
 public interface UserLoginInter {
 
-     void sendLoginRequest(String email, String password, OnLoginResult onresult);
+     void sendLoginRequest(UserLogin userLogin, OnLoginResult onresult);
 
 }

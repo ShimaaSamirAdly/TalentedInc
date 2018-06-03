@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         /******************************mina*************************/
 
 
-        nextBtn = (Button) findViewById(R.id.next_button);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +58,12 @@ public class SignUpActivity extends AppCompatActivity {
         signUpViewPager = (ViewPager) findViewById(R.id.sign_up_view_pager);
         signUPViewPagerAdapter = new SignUPViewPagerAdapter(getSupportFragmentManager());
         signUpViewPager.setAdapter(signUPViewPagerAdapter);
+
+        Intent intent =getIntent();
+        if(intent.getSerializableExtra(LoginActivity.INTENT_USER)!= null){
+            signedUpUser = (User) intent.getSerializableExtra(LoginActivity.INTENT_USER);
+            signUpViewPager.setCurrentItem(2);
+        }
 
         /***********************************************************/
     }

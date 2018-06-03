@@ -1,5 +1,6 @@
 package inc.talentedinc.listener;
 
+import inc.talentedinc.model.User;
 import inc.talentedinc.model.response.MainResponse;
 
 /**
@@ -7,6 +8,6 @@ import inc.talentedinc.model.response.MainResponse;
  */
 
 public interface OnLoginResult {
-    void onSucess(MainResponse response);
+    void onSucess(User user);
     void onFailure();
 }

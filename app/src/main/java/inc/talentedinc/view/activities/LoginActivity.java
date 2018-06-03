@@ -1,15 +1,25 @@
 package inc.talentedinc.view.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -20,7 +30,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
 import inc.talentedinc.R;
+import inc.talentedinc.model.User;
+import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import inc.talentedinc.presenter.LoginPresenter;
 
@@ -28,6 +45,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener {
 
+ //*************************************************************************************************//
+
+//---------------------------------------Alaa------------------------------------------------------//
 
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
@@ -36,12 +56,25 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private TextView email ;
     private TextView password ;
     private LoginPresenter loginPresenter ;
+    private UserLogin userLogin ;
+    private Button loginBtn;
 
+//--------------------------------------------------------------------------------------------------//
+
+    /******************************************mina************************************/
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+    public static String INTENT_USER = "user_from_social";
+
+    /***************************************************************************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //---------------------------------Alaa--------------------------------------------------//
+
         btnSignIn = findViewById(R.id.sign_in_button);
         btnSignIn.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -51,6 +84,60 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+        userLogin = new UserLogin();
+
+
+        loginBtn = findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(this);
+
+
+        //------------------------------------------------------------------------------------//
+
+        /******************************************mina************************************/
+
+
+        //facebook login
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        //setting permissions
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                makeGraphCall(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                exception.printStackTrace();
+            }
+        });
+
+
+        // to generate hash key
+
+
+//                try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "inc.talentedinc",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
+
+        /***************************************************************************************/
 
     }
 
@@ -59,6 +146,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    //------------------------------------------------------------------------------------//
+    //------------------------------------Alaa--------------------------------------------//
 
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -82,7 +171,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             Log.i("Error",result.getStatus().toString());
         }
     }
+    //------------------------------------------------------------------------------------//
 
+//---------------------------------------Alaa------------------------------------------------------//
 
     @Override
     public void onClick(View view) {
@@ -91,23 +182,31 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         switch (id) {
             case R.id.sign_in_button:
                 signIn();
+
                 break;
+
             case  R.id.login_btn :
+
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
                 if (email.getText() != null && password.getText() != null){
 
                     loginPresenter = new LoginPresenter();
-                    loginPresenter.setView(email.getText().toString() , password.getText().toString() , this);
+
+                    userLogin.setEmail(email.getText().toString());
+
+                    userLogin.setPassword( password.getText().toString());
+                    Log.i("das","ethabb");
+                    loginPresenter.setView( userLogin, this);
 
                 }
-
-
                 break;
 
 
         }
     }
+    //------------------------------------------------------------------------------------//
+    //---------------------------------------Alaa-------------------------------------------------//
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -125,10 +224,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         }
     }
 
+    //------------------------------------------------------------------------------------//
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        //---------------------------------------Alaa------------------------------------------------------//
+
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
             // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
@@ -140,7 +243,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             // If the user has not previously signed in on this device or the sign-in has expired,
             // this asynchronous branch will attempt to sign in the user silently.  Cross-device
             // single sign-on will occur in this branch.
-            showProgressDialog();
+            //showProgressDialog();
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(GoogleSignInResult googleSignInResult) {
@@ -149,11 +252,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 }
             });
         }
-
-
+//---------------------------------------------------------------------------------------------------//
 
     }
 
+//---------------------------------------Alaa------------------------------------------------------//
 
     private void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -191,17 +294,80 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     }
 
     @Override
-    public void sendUserData(MainResponse response) {
+    public void sendUserData(User response) {
 
-        Intent sendToHome = new Intent(this , HomeActivity.class);
-
-        sendToHome.putExtra("userId",response.getUserId());
-        startActivity(sendToHome);
+        if(response !=null) {
+            Log.i("userEmail", response.getEmail());
+            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("userFirstName",response.getFirstName());
+            editor.putString("userLastName",response.getLastName());
+            editor.putString("userEmail",response.getEmail());
+            editor.putInt("userId",response.getUserId());
+            editor.commit();
+            Intent sendToHome = new Intent(this, HomeActivity.class);
+            sendToHome.putExtra("userId", response.getFirstName());
+            startActivity(sendToHome);
+        }
 
     }
 
     @Override
     public void loginInvalid() {
-        Toast.makeText(this,"Please enter a valid Email or Password",Toast.LENGTH_SHORT );
+        Toast.makeText(this,"Please enter a valid Email or Password",Toast.LENGTH_SHORT ).show();
     }
+
+    //---------------------------End of Alaa-----------------------------------------------------//
+    //**********************************************************************************************//
+
+    /******************************************mina************************************/
+
+    //make graph call with user access token to get profile data
+    private void makeGraphCall(final LoginResult loginResult) {
+        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.i("LoginActivity", response.toString());
+                        if (object != null) {
+                            //user to send to interests activity
+                            User user = createUser(object, loginResult);
+                            //go to categories to complete sign up
+                            gotoCategories(user);
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+    // create user from facebook data to pass to interests activity
+    private User createUser(JSONObject userJson, LoginResult loginResult) {
+
+        User user = new User();
+        try {
+            user.setEmail(userJson.getString("email"));
+            user.setFirstName(userJson.getString("name"));
+            user.setFbId(userJson.getString("id"));
+            user.setImgUrl("http://graph.facebook.com/" + userJson.getString("id") + "/picture?type=large");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user.setFbToken(loginResult.getAccessToken().getToken());
+
+        return user;
+    }
+
+
+    private void gotoCategories(User user){
+
+        Intent intent = new Intent(this,SignUpActivity.class);
+        intent.putExtra(LoginActivity.INTENT_USER,user);
+        startActivity(intent);
+    }
+    /***************************************************************************************/
+
+
 }
