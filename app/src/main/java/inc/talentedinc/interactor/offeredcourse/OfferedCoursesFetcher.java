@@ -2,8 +2,12 @@ package inc.talentedinc.interactor.offeredcourse;
 
 import java.util.ArrayList;
 
+import inc.talentedinc.API.GetOfferedCourses;
 import inc.talentedinc.model.MinaCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
+import inc.talentedinc.singleton.AppRetrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,16 +20,17 @@ public class OfferedCoursesFetcher {
         this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
     }
 
-    public void fetchCourses(String baseUrl){
-        RetrofitHandler.getOfferedCoursesService(baseUrl).getOfferedCourses().enqueue(new Callback<ArrayList<MinaCourse>>() {
+    public void fetchCourses() {
+
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class).getOfferedCourses().enqueue(new Callback<OfferedCoursesResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<MinaCourse>> call, Response<ArrayList<MinaCourse>> response) {
-                ArrayList<MinaCourse> fetshedCourses = response.body();
-                offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(fetshedCourses);
+            public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
+                OfferedCoursesResponse offeredCoursesResponse = response.body();
+                offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
             }
 
             @Override
-            public void onFailure(Call<ArrayList<MinaCourse>> call, Throwable t) {
+            public void onFailure(Call<OfferedCoursesResponse> call, Throwable t) {
                 offeredCoursesPresenterInt.notifyFragmentWithError();
             }
         });

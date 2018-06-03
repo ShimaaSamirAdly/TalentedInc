@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import inc.talentedinc.interactor.offeredcourse.OfferedCoursesFetcher;
 import inc.talentedinc.model.MinaCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
 public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
 
-    String BASE_URL = "https://c1b268ef-f1b9-44c3-8bd1-38ae8a2bd213.mock.pstmn.io/";
+    String BASE_URL = "https://f940191e-5b7a-4c0d-8e45-05b482b2e6e8.mock.pstmn.io/";
     EndlessScrollHandler endlessScrollHandler;
 
     public OfferedCoursesPresenter(EndlessScrollHandler endlessScrollHandler) {
@@ -17,20 +18,20 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
 
     @Override
     public void fetchCourses() {
-        endlessScrollHandler.showProgressBar();
+        //endlessScrollHandler.showProgressBar();
         OfferedCoursesFetcher offeredCoursesFetcher = new OfferedCoursesFetcher(this);
-        offeredCoursesFetcher.fetchCourses(BASE_URL);
+        offeredCoursesFetcher.fetchCourses();
     }
 
     @Override
-    public void notifyFragmentWithOfferedCourses(ArrayList<MinaCourse> offeredCourses) {
-        endlessScrollHandler.hideProgressBar();
+    public void notifyFragmentWithOfferedCourses(ArrayList<OfferedCourse> offeredCourses) {
+        //endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.showData(offeredCourses);
     }
 
     @Override
     public void notifyFragmentWithError() {
-        endlessScrollHandler.hideProgressBar();
+        //endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.makeErrorToast();
     }
 }

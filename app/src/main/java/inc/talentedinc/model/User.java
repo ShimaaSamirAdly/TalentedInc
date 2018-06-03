@@ -3,9 +3,10 @@ package inc.talentedinc.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Collection;
 
-public class User {
+public class User implements Serializable{
 
     @SerializedName("userId")
     @Expose
@@ -81,13 +82,13 @@ public class User {
     private Collection<Object> publishedCourseCollection = null;
     @SerializedName("categoryCollection")
     @Expose
-    private Collection<Object> categoryCollection = null;
+    private Collection<Categories> categoryCollection = null;
     @SerializedName("admin")
     @Expose
     private Object admin;
     @SerializedName("instructor")
     @Expose
-    private Object instructor;
+    private Instructor instructor;
     @SerializedName("publishedCourseHasUserCollection")
     @Expose
     private Collection<Object> publishedCourseHasUserCollection = null;
@@ -283,11 +284,11 @@ public class User {
         this.publishedCourseCollection = publishedCourseCollection;
     }
 
-    public Collection<Object> getCategoryCollection() {
+    public Collection<Categories> getCategoryCollection() {
         return categoryCollection;
     }
 
-    public void setCategoryCollection(Collection<Object> categoryCollection) {
+    public void setCategoryCollection(Collection<Categories> categoryCollection) {
         this.categoryCollection = categoryCollection;
     }
 
@@ -299,11 +300,11 @@ public class User {
         this.admin = admin;
     }
 
-    public Object getInstructor() {
+    public Instructor getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(Object instructor) {
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 

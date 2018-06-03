@@ -5,4 +5,11 @@ package inc.talentedinc.utilitis;
  */
 
 public class ValidationUtility {
+
+    public static boolean validateEmptyString(String string){
+        if(string.equals("") || string.trim().length()==0 || string.equals(null) || string == null){
+            return false;
+        }
+        return true;
+    }
 }

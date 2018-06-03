@@ -18,9 +18,9 @@ import inc.talentedinc.model.User;
 import inc.talentedinc.view.callbackinterfaces.SignupActivityHandler;
 
 
-public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-//    ............................. mina .............................
+    //    ............................. mina .............................
     private EditText emailTxt;
     private EditText passwordTxt;
     private EditText phoneTxt;
@@ -66,16 +66,18 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
         return firstSignup;
     }
 
-//    ............................................. mina .....................................
+    //    ............................................. mina .....................................
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (position) {
-            case 0 :
+            case 0:
                 user.setCity("Cairo");
                 break;
-            case 1 :
+            case 1:
                 user.setCity("Alexandria");
                 break;
+            default:
+                user.setCity("Alexandria");
         }
     }
 
@@ -89,7 +91,7 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
         return user;
     }
 
-    private void fillUser(){
+    private void fillUser() {
         user.setEmail(emailTxt.getText().toString());
         user.setPassword(passwordTxt.getText().toString());
         user.setPhone(phoneTxt.getText().toString());

@@ -34,6 +34,7 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
                 data = new ArrayList<>();
                 if (response.body()!=null){
                     totalPage = response.body().getTotalPages();
+                    Log.i("totalItem",response.body().getTotalPages()+"" );
                     for (int i = 0; i < response.body().getResults().size(); i++) {
                         data.add(response.body().getResults().get(i));
                     }

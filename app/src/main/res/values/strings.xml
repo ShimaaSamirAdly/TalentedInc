@@ -34,6 +34,12 @@
     <string name="first_name_label">First Name</string>
     <string name="last_name_label">Last Name</string>
     <string name="gender_label">Gender</string>
+    <string name="request_button">Request</string>
+    <string name="email_signup_hint">example@exampl.com</string>
+    <string name="password_signup_hint">******</string>
+    <string name="phone_sign_up_hint">201*********</string>
+    <string name="first_name_hint">first name ...</string>
+    <string name="last_name_signup_hint">last name .....</string>
     <!--...........................................................................-->
     <!--..................................alaa......................................-->
 
@@ -56,14 +62,29 @@
     <string name="Description">Description</string>
     <string name="Category">Category</string>
     <string name="Create">Create</string>
-    <!--<<<<<<< HEAD-->
+
+    <!--...............................................................................-->
+    <!--...................................Shimaa......................................-->
+
+    <string name="SelectYourInterests">Select Your Interests</string>
+
+    <!--...............................................................................-->
+
     <string name="Email">Email</string>
     <string name="EmailAddress">E-mail Address</string>
     <string name="SignIn">Sign In</string>
     <string name="ForgetPassword">Forget Password ?</string>
     <string name="OrLoginWith">Or sign in with</string>
-    <!--=======-->
     <string name="register_btn">Register</string>
     <string name="comment_hint">Write a comment .....</string>
-    <!--&gt;>>>>>> 21603c9267e3ff7cc40a818385aad9b9daa39763-->
+    <string name="search">Search ...</string>
+    <string name="title_activity_main2p">Main2pActivity</string>
+    <string name="comment">Comment</string>
+    <string name="cancel">Cancel</string>
+    <string name="rate">rate</string>
+    <string name="catgories">Categories</string>
+    <string name="cities">Cities</string>
+    <string name="ok">OK</string>
+    <!--................................................................................-->
+
 </resources>

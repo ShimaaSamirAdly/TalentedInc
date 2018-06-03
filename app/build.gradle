@@ -4,10 +4,11 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "inc.talentedinc"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -20,15 +21,18 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support:support-v4:27.0.2'
-    implementation 'com.android.support:design:27.0.2'
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-vector-drawable:27.0.2'
-    testImplementation 'junit:junit:4.12'
     /***************************** Asmaa ****************************/
+    // Like icon
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+    // stars rate
+    implementation 'me.zhanghai.android.materialratingbar:library:1.3.1'
     // retrofit2 to request web service and apis
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -37,31 +41,38 @@ dependencies {
     // to consume image from API
     implementation 'com.github.bumptech.glide:glide:3.+'
     // recyclerView and card to get list with performance and good design
-    implementation 'com.android.support:recyclerview-v7:27.0.2'
-    implementation 'com.android.support:cardview-v7:27.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'de.hdodenhof:circleimageview:2.+'
     //progress
     implementation 'com.github.rey5137:material:1.+'
-    /** ************************************************************/
-
-//    androidTestImplementation 'com.android.support.test:runner:0.5'
-//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-/*****************************mina****************************/
+    implementation 'com.android.support:multidex:1.0.1'
+    /***************************************************************/
+    /*****************************mina****************************/
     //facebook login
     implementation 'com.facebook.android:facebook-login:[4,5)'
-    /** ************************************************************/
+    /***************************************************************/
 
 //    -----------------------alaa------------------------------------------
-    implementation 'com.android.support:support-annotations:27.0.2'
+    implementation 'com.android.support:support-annotations:27.1.1s'
     implementation 'com.google.android.gms:play-services-auth:9.2.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.google.code.gson:gson:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.4.1'
     // -----------------------------------------------------------------------
 
+    //**********************Shimaa*******************************
+//    compile 'com.google.firebase:firebase-core:12.0.1'
+    implementation 'com.google.firebase:firebase-storage:9.2.1'
+    implementation 'com.google.firebase:firebase-auth:9.2.1'
+    implementation 'de.hdodenhof:circleimageview:2.+'
 
+    //*************************************************************
 }
+
+//**************************Shimaa***************************
+
 apply plugin: 'com.google.gms.google-services'
+
+//************************************************************
+
+
+

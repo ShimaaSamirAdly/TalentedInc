@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import inc.talentedinc.R;
+import inc.talentedinc.view.activities.HomeActivity;
 
 public class NotificationFragment extends Fragment {
 
@@ -28,9 +29,16 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notification, container, false);
+        initView(view);
         return view;
     }
+//        ***************************** Asmaa ***************************************
 
+    void initView(View v){
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.NOTIFICATION);
+
+        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+    }
     /******************************  *************************/
 
 }
