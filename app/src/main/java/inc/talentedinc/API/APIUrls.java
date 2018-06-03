@@ -9,20 +9,21 @@ package inc.talentedinc.API;
  */
 public class APIUrls {
 
-    //************************************ Asmaa ********************************
     public static final String API_KEY="005f422fa64ad9f31cd41964b94b2cf3";
-   // public static final String BASE_URL="https://dea8e368-9010-4635-94c8-9e386b378683.mock.pstmn.io";
-   public static final String BASE_URL= "http://api.themoviedb.org/";
 
+   // public static final String BASE_URL="https://tal-company.herokuapp.com";
+    public static final String DISCOVER_MOV3IES="/3/discover/movie";
+    public static final String SEARCH_MOVIES="/3/search/movie";
+
+    public static final String BASE_URL="http://api.themoviedb.org";
     public static final String UPCOMING="/3/discover/movie";
     public static final String SEARCH_UPCOMING="/3/search/movie";
     public static final String HISTORY="/3/discover/movie";
 
-    //*********************************************************************************
-
     //alaa
     public static final String USER_LOGIN = "/api/users";
-    public static final String CREATE_COURSE = "/api/createcourse";
+    public static final String CREATE_COURSE = "/offeredcourse/createofferedcoursebyinstructor";
+
 
 
 

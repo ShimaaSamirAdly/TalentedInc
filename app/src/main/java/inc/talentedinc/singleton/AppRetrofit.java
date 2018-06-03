@@ -36,7 +36,7 @@ public class AppRetrofit {
     private OkHttpClient httpClient;
     private Retrofit.Builder builder;
     private ApiLogin apiLogin ;
-    private ApiCreateCourse apiCreateCourse ;
+    private ApiCreateCourse apiCreateCourse;
 
 
     private AppRetrofit() {
@@ -101,14 +101,14 @@ public class AppRetrofit {
         builder = new Retrofit.Builder()
                 .baseUrl(APIUrls.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
-
         retrofit = builder.client(httpClient).build();
     }
 
     void home(){
         apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
-    }
 
+
+    }
     void login(){
         apiLogin = retrofit.create(ApiLogin.class);
     }
@@ -132,15 +132,19 @@ public class AppRetrofit {
         }
         return apiLogin ;
     }
-//alaa------------------------------------------------------
-    public ApiCreateCourse getApiCreateCourse(){
-        if(apiCreateCourse == null){
+
+
+    public Retrofit getRetrofitInstance(){
+
+        initialization();
+        return retrofit;
+    }
+
+    public ApiCreateCourse getApiCreateCourse() {
+        if (apiCreateCourse == null){
             initialization();
             createCourse();
         }
-        return apiCreateCourse;
-
+        return apiCreateCourse ;
     }
-
-
 }

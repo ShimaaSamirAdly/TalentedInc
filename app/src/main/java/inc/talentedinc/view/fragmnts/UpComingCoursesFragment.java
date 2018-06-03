@@ -28,6 +28,7 @@ import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.utilitis.ValidationUtility;
+import inc.talentedinc.view.activities.HomeActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
@@ -75,6 +76,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
     private void initView(View v){
 
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.UPCOMING);
         // hide keyboard when launch screen
         imgFilter= v.findViewById(R.id.imgFilter);
         imgFilter.setOnClickListener(this);
@@ -251,9 +253,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.txtSearch:
-                imgBg.setVisibility(View.GONE);
-                break;
+//            case R.id.txtSearch:
+//                //imgBg.setVisibility(View.GONE);
+//                break;
             case R.id.imgFilter:
                 filterDialog();
                 break;

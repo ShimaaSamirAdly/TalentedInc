@@ -9,13 +9,16 @@ import inc.talentedinc.R;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
 import inc.talentedinc.utilitis.ActionUtils;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails{
+public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails, MaterialRatingBar.OnRatingChangeListener {
 
     /****************************** asmaa *************************/
 
     public static final String COURSE ="course";
     private UpComingDetailsPresenter presenter;
+    private MaterialRatingBar ratingBar;
+
 
     private ImageView img;
     private TextView tvName, tvVote, tvId, tvOverView;
@@ -32,6 +35,8 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     /****************************** asmaa *************************/
 
     private void initView(){
+        ratingBar = findViewById(R.id.mRating);
+        ratingBar.setOnRatingChangeListener(this);
         img=findViewById(R.id.img);
         tvName =findViewById(R.id.tvname);
         tvId =findViewById(R.id.tvId);
@@ -97,6 +102,12 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     @Override
     public void showDone(String msg) {
         ActionUtils.showToast(this,msg);
+    }
+
+    @Override
+    public void onRatingChanged(MaterialRatingBar ratingBar, float rating) {
+        ActionUtils.showToast(this, rating+"");
+
     }
 
     /******************************  *************************/

@@ -70,16 +70,16 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             Log.i("response", "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
-            String personPhotoUrl = acct.getPhotoUrl().toString();
+//            String personPhotoUrl = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
 
             Log.i("userData", "Name: " + personName + ", email: " + email
-                    + ", Image: " + personPhotoUrl);
+                    );
 
 
         } else {
             // Signed out, show unauthenticated UI.
-            Log.i("Error","result not succeded");
+            Log.i("Error",result.getStatus().toString());
         }
     }
 
