@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import inc.talentedinc.presenter.LoginPresenter;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginView ,
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginView,
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -35,10 +36,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private ProgressDialog mProgressDialog;
     private static final int RC_SIGN_IN = 007;
     private SignInButton btnSignIn;
-    private TextView email ;
-    private TextView password ;
-    private LoginPresenter loginPresenter ;
-    private UserLogin userLogin ;
+    private TextView email;
+    private TextView password;
+    private LoginPresenter loginPresenter;
+    private UserLogin userLogin;
+    private Button loginBtn ;
 
 
     @Override
@@ -55,13 +57,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         userLogin = new UserLogin();
+        loginBtn = findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(this);
     }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
 
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -77,12 +80,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             String email = acct.getEmail();
 
             Log.i("userData", "Name: " + personName + ", email: " + email
-                    );
+            );
 
 
         } else {
             // Signed out, show unauthenticated UI.
-            Log.i("Error",result.getStatus().toString());
+            Log.i("Error", result.getStatus().toString());
         }
     }
 
@@ -94,27 +97,19 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         switch (id) {
             case R.id.sign_in_button:
                 signIn();
-
                 break;
 
-            case  R.id.login_btn :
-
+            case R.id.login_btn:
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
-              //  if (email.getText() != null && password.getText() != null){
-
-                    loginPresenter = new LoginPresenter();
-
-                    userLogin.setEmail(email.getText().toString());
-
-                    userLogin.setPassword( password.getText().toString());
-                    Log.i("das","ethabb");
-                    loginPresenter.setView( userLogin, this);
-
-              //  }
+                //  if (email.getText() != null && password.getText() != null){
+                loginPresenter = new LoginPresenter();
+                userLogin.setEmail(email.getText().toString());
+                userLogin.setPassword(password.getText().toString());
+                Log.i("das", "ethabb");
+                loginPresenter.setView(userLogin, this);
+                //  }
                 break;
-
-
         }
     }
 
@@ -160,7 +155,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         }
 
 
-
     }
 
 
@@ -202,16 +196,16 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     @Override
     public void sendUserData(User response) {
 
-        Log.i("userEmail",response.getEmail());
+        Log.i("userEmail", response.getEmail());
 
-        Intent sendToHome = new Intent(this , HomeActivity.class);
-        sendToHome.putExtra("userId",response.getFirstName());
+        Intent sendToHome = new Intent(this, HomeActivity.class);
+        sendToHome.putExtra("userId", response.getFirstName());
         startActivity(sendToHome);
 
     }
 
     @Override
     public void loginInvalid() {
-        Toast.makeText(this,"Please enter a valid Email or Password",Toast.LENGTH_SHORT ).show();
+        Toast.makeText(this, "Please enter a valid Email or Password", Toast.LENGTH_SHORT).show();
     }
 }

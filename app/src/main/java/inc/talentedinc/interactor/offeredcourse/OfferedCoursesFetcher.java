@@ -22,7 +22,7 @@ public class OfferedCoursesFetcher {
 
     public void fetchCourses() {
 
-        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class).getOfferedCourses().enqueue(new Callback<OfferedCoursesResponse>() {
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class).getOfferedCourses(0).enqueue(new Callback<OfferedCoursesResponse>() {
             @Override
             public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
                 OfferedCoursesResponse offeredCoursesResponse = response.body();
