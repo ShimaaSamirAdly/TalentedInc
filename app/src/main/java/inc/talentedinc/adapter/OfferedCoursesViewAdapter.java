@@ -36,12 +36,12 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
     public void onBindViewHolder(@NonNull OfferedCoursesViewHolder holder, int position) {
 
         holder.getOfferedCourseNameTxt().setText(offeredCourses.get(position).getName());
-        if(offeredCourses.get(position).getInstructorId()!= null){
-            holder.getOfferedCourseCreatorTxt().setText("Instructor : "+offeredCourses.get(position).getInstructorId().getUserId());
+        if(offeredCourses.get(position).getCourseCreator()!= null){
+            holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getCourseCreator().getFirstName()+" "+offeredCourses.get(position).getCourseCreator().getLastName());
         }else {
             holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getHostingWorkSpaceId().getName());
         }
-        holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate()+"1/6/2018");
+        holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate());
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

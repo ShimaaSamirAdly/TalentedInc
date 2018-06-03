@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import inc.talentedinc.API.GetOfferedCourses;
 import inc.talentedinc.model.MinaCourse;
+import inc.talentedinc.model.User;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
@@ -26,7 +27,7 @@ public class OfferedCoursesFetcher {
             @Override
             public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
                 OfferedCoursesResponse offeredCoursesResponse = response.body();
-                offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
+                getCoursesUsers(offeredCoursesResponse.getContent());
             }
 
             @Override
@@ -34,5 +35,25 @@ public class OfferedCoursesFetcher {
                 offeredCoursesPresenterInt.notifyFragmentWithError();
             }
         });
+    }
+
+    private void getCoursesUsers(ArrayList<OfferedCourse> offeredCourses) {
+        for (final OfferedCourse offeredCourse : offeredCourses) {
+            if (offeredCourse.getInstructorId() != null) {
+                AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class).getUser(offeredCourse.getInstructorId().getUserId()).enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        offeredCourse.setCourseCreator(response.body());
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        offeredCourse.setCourseCreator(null);
+                    }
+                });
+            }
+        }
+
+        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCourses);
     }
 }

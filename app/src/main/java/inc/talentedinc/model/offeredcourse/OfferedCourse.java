@@ -3,6 +3,8 @@ package inc.talentedinc.model.offeredcourse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import inc.talentedinc.model.User;
+
 public class OfferedCourse {
 
     @SerializedName("offeredCourseId")
@@ -26,6 +28,8 @@ public class OfferedCourse {
     @SerializedName("hostingWorkSpaceId")
     @Expose
     private OfferedCourseWorkspace hostingWorkSpaceId;
+
+    private User courseCreator;
 
     public Integer getOfferedCourseId() {
         return offeredCourseId;
@@ -81,5 +85,13 @@ public class OfferedCourse {
 
     public void setHostingWorkSpaceId(OfferedCourseWorkspace hostingWorkSpaceId) {
         this.hostingWorkSpaceId = hostingWorkSpaceId;
+    }
+
+    public User getCourseCreator() {
+        return courseCreator;
+    }
+
+    public void setCourseCreator(User courseCreator) {
+        this.courseCreator = courseCreator;
     }
 }
