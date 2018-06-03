@@ -1,7 +1,9 @@
 package inc.talentedinc.view.activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -230,11 +232,18 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         if(response !=null) {
             Log.i("userEmail", response.getEmail());
-
+            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("userFirstName",response.getFirstName());
+            editor.putString("userLastName",response.getLastName());
+            editor.putString("userEmail",response.getEmail());
+            editor.putInt("userId",response.getUserId());
+            editor.commit();
             Intent sendToHome = new Intent(this, HomeActivity.class);
             sendToHome.putExtra("userId", response.getFirstName());
             startActivity(sendToHome);
         }
+
     }
 
     @Override

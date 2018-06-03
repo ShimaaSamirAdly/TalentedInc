@@ -18,7 +18,7 @@ public class LoginPresenter {
     LoginView  view ;
    private UserLoginInter userLoginInter ;
    private MainResponse mainResponse = new MainResponse() ;
-   private User userLogged = new User();
+   private User userLogged ;
 
      public  LoginPresenter(){
 
@@ -32,7 +32,7 @@ public class LoginPresenter {
         this.view =view;
         if (userLogged == null){
             view.showProgress();
-            Log.i("d5l",userLogin.getEmail());
+            Log.i("d5l","ra7 el presenter");
             getUserData(userLogin);
         }
         else {
