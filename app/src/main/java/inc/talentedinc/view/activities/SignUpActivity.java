@@ -59,6 +59,12 @@ public class SignUpActivity extends AppCompatActivity {
         signUPViewPagerAdapter = new SignUPViewPagerAdapter(getSupportFragmentManager());
         signUpViewPager.setAdapter(signUPViewPagerAdapter);
 
+        Intent intent =getIntent();
+        if(intent.getSerializableExtra(LoginActivity.INTENT_USER)!= null){
+            signedUpUser = (User) intent.getSerializableExtra(LoginActivity.INTENT_USER);
+            signUpViewPager.setCurrentItem(2);
+        }
+
         /***********************************************************/
     }
 

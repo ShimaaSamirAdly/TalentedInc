@@ -13,6 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -22,6 +29,11 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Arrays;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.User;
@@ -48,6 +60,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private Button loginBtn;
 
 //--------------------------------------------------------------------------------------------------//
+
+    /******************************************mina************************************/
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+    public static String INTENT_USER = "user_from_social";
+
+    /***************************************************************************************/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +92,52 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
 
         //------------------------------------------------------------------------------------//
+
+        /******************************************mina************************************/
+
+
+        //facebook login
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.login_button);
+        //setting permissions
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                makeGraphCall(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                exception.printStackTrace();
+            }
+        });
+
+
+        // to generate hash key
+
+
+//                try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "inc.talentedinc",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//
+//        } catch (NoSuchAlgorithmException e) {
+//
+//        }
+
+        /***************************************************************************************/
 
     }
 
@@ -253,6 +319,55 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
     //---------------------------End of Alaa-----------------------------------------------------//
     //**********************************************************************************************//
+
+    /******************************************mina************************************/
+
+    //make graph call with user access token to get profile data
+    private void makeGraphCall(final LoginResult loginResult) {
+        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.i("LoginActivity", response.toString());
+                        if (object != null) {
+                            //user to send to interests activity
+                            User user = createUser(object, loginResult);
+                            //go to categories to complete sign up
+                            gotoCategories(user);
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+    // create user from facebook data to pass to interests activity
+    private User createUser(JSONObject userJson, LoginResult loginResult) {
+
+        User user = new User();
+        try {
+            user.setEmail(userJson.getString("email"));
+            user.setFirstName(userJson.getString("name"));
+            user.setFbId(userJson.getString("id"));
+            user.setImgUrl("http://graph.facebook.com/" + userJson.getString("id") + "/picture?type=large");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        user.setFbToken(loginResult.getAccessToken().getToken());
+
+        return user;
+    }
+
+
+    private void gotoCategories(User user){
+
+        Intent intent = new Intent(this,SignUpActivity.class);
+        intent.putExtra(LoginActivity.INTENT_USER,user);
+        startActivity(intent);
+    }
+    /***************************************************************************************/
 
 
 }
