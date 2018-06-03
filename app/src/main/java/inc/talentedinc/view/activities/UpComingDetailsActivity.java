@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+
 import inc.talentedinc.R;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
@@ -18,7 +19,6 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     public static final String COURSE ="course";
     private UpComingDetailsPresenter presenter;
     private MaterialRatingBar ratingBar;
-
 
     private ImageView img;
     private TextView tvName, tvVote, tvId, tvOverView;
@@ -34,16 +34,18 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
     /****************************** asmaa *************************/
 
+
     private void initView(){
         ratingBar = findViewById(R.id.mRating);
         ratingBar.setOnRatingChangeListener(this);
         img=findViewById(R.id.img);
-        tvName =findViewById(R.id.tvname);
-        tvId =findViewById(R.id.tvId);
-        tvVote=findViewById(R.id.tvVote);
-        tvOverView=findViewById(R.id.tvOverView);
-        presenter = new UpComingDetailsPresenter();
-        presenter.setView((Result) getIntent().getSerializableExtra(COURSE),this);
+//        tvName =findViewById(R.id.tvname);
+//        tvId =findViewById(R.id.tvId);
+//        tvVote=findViewById(R.id.tvVote);
+//        tvOverView=findViewById(R.id.tvOverView);
+//        presenter = new UpComingDetailsPresenter();
+//        presenter.setView((Result) getIntent().getSerializableExtra(COURSE),this);
+
 //        ColorRatingBar colorRatingBar = new ColorRatingBar(this);
 //        colorRatingBar.setRatingProgressColor(R.color.colorPrimary);
 //        colorRatingBar.setRatingEmptyColor(R.color.colorAccent);
@@ -95,8 +97,6 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
     @Override
     public void isFav(boolean isFav) {
-
-
     }
 
     @Override
@@ -107,7 +107,6 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     @Override
     public void onRatingChanged(MaterialRatingBar ratingBar, float rating) {
         ActionUtils.showToast(this, rating+"");
-
     }
 
     /******************************  *************************/

@@ -7,6 +7,7 @@
     <color name="red">#e90019</color>
 
     <color name="search">#f2f2f2</color>
-    <color name="bg">#cccccc</color>
+    <color name="bg">#f2f2f2</color>
     <color name="button">#59b0a9</color>
+    <color name="orange">#e27c3e</color>
 </resources>
