@@ -21,6 +21,8 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 
 import inc.talentedinc.R;
+import inc.talentedinc.model.User;
+import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import inc.talentedinc.presenter.LoginPresenter;
 
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private TextView email ;
     private TextView password ;
     private LoginPresenter loginPresenter ;
+    private UserLogin userLogin ;
 
 
     @Override
@@ -51,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
+        userLogin = new UserLogin();
     }
 
     private void signIn() {
@@ -91,18 +94,24 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         switch (id) {
             case R.id.sign_in_button:
                 signIn();
+
                 break;
+
             case  R.id.login_btn :
+
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
-                if (email.getText() != null && password.getText() != null){
+              //  if (email.getText() != null && password.getText() != null){
 
                     loginPresenter = new LoginPresenter();
-                    loginPresenter.setView(email.getText().toString() , password.getText().toString() , this);
 
-                }
+                    userLogin.setEmail(email.getText().toString());
 
+                    userLogin.setPassword( password.getText().toString());
+                    Log.i("das","ethabb");
+                    loginPresenter.setView( userLogin, this);
 
+              //  }
                 break;
 
 
@@ -191,17 +200,18 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     }
 
     @Override
-    public void sendUserData(MainResponse response) {
+    public void sendUserData(User response) {
+
+        Log.i("userEmail",response.getEmail());
 
         Intent sendToHome = new Intent(this , HomeActivity.class);
-
-        sendToHome.putExtra("userId",response.getUserId());
+        sendToHome.putExtra("userId",response.getFirstName());
         startActivity(sendToHome);
 
     }
 
     @Override
     public void loginInvalid() {
-        Toast.makeText(this,"Please enter a valid Email or Password",Toast.LENGTH_SHORT );
+        Toast.makeText(this,"Please enter a valid Email or Password",Toast.LENGTH_SHORT ).show();
     }
 }

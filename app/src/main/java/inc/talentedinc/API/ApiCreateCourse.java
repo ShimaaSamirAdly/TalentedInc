@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 /**
  * Created by Alaa on 6/1/2018.
@@ -15,6 +16,6 @@ import retrofit2.http.POST;
 public interface ApiCreateCourse {
 
 
-    @POST(APIUrls.CREATE_COURSE)
+    @PUT(APIUrls.CREATE_COURSE)
     Call<Object> createCourse(@Body Course course);
 }

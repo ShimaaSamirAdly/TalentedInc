@@ -4,6 +4,8 @@ import android.util.Log;
 
 import inc.talentedinc.API.ApiLogin;
 import inc.talentedinc.listener.OnLoginResult;
+import inc.talentedinc.model.User;
+import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import inc.talentedinc.singleton.AppRetrofit;
 import retrofit2.Call;
@@ -19,19 +21,20 @@ public class UserLoginImpl implements UserLoginInter {
 
 
     @Override
-    public void sendLoginRequest(String email, String password , final OnLoginResult onresult ) {
+    public void sendLoginRequest(UserLogin userLogin, final OnLoginResult onresult ) {
 
-        apiLogin.checkUserLogin(email , password ).enqueue(new Callback<MainResponse>() {
+        apiLogin.checkUserLogin(userLogin).enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
-                onresult.onSucess(response.body());
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.i("nela ",response.body().getEmail());
 
-                Log.i("check",response.body().getStatus());
+                onresult.onSucess(response.body());
             }
 
             @Override
-            public void onFailure(Call<MainResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 call.cancel();
+                Log.i("baz",call.toString());
                 onresult.onFailure();
             }
         });

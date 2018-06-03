@@ -1,0 +1,174 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="inc.talentedinc.view.fragmnts.FirstCreateCourse">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+
+        android:layout_alignParentTop="true"
+
+        android:layout_marginEnd="292dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/CourseName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/CourseName"
+        android:layout_marginRight="292dp"
+        android:layout_marginLeft="27dp" />
+
+    <EditText
+        android:id="@+id/courseName"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+
+        android:layout_marginEnd="22dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="9dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginRight="22dp"
+        android:layout_marginLeft="27dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/courseName"
+
+        android:layout_marginEnd="321dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/StartDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseName"
+        tools:text="@string/StartDate"
+        android:layout_marginRight="321dp"
+        android:layout_marginLeft="27dp" />
+
+    <EditText
+        android:id="@+id/startDate"
+        android:layout_width="246dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView2"
+        android:layout_alignBottom="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/pickStart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_below="@+id/textView2"
+
+        android:layout_marginEnd="328dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/EndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDate"
+        tools:text="@string/EndDate"
+        android:layout_marginRight="328dp"
+        android:layout_marginLeft="27dp" />
+
+    <EditText
+        android:id="@+id/endDate"
+        android:layout_width="247dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_marginEnd="33dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/pickEnd"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:layout_marginRight="33dp"
+        android:layout_marginLeft="27dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/endDate"
+
+        android:layout_marginEnd="355dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Cost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDate"
+        tools:text="@string/Cost"
+        android:layout_marginRight="355dp"
+        android:layout_marginLeft="27dp" />
+
+    <EditText
+        android:id="@+id/cost"
+        android:layout_width="359dp"
+        android:layout_height="42dp"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_marginEnd="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="9dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/pickStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/startDate"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="42dp"
+        android:text="@string/Pick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseName"
+        tools:text="@string/Pick"
+        android:layout_marginRight="16dp" />
+
+    <Button
+        android:id="@+id/pickEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/endDate"
+
+        android:layout_marginBottom="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="45dp"
+        android:text="@string/PickE"
+        app:layout_constraintBottom_toTopOf="@+id/cost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickStart"
+        android:layout_marginRight="16dp" />
+
+
+</android.support.constraint.ConstraintLayout>

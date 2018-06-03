@@ -26,7 +26,7 @@
     <string name="title_history">History</string>
     <string name="title_profile">Profile</string>
     <string name="title_offerd">Offer Courses</string>
-    <string name="email_label" >E-mail Address</string>
+    <string name="email_label">E-mail Address</string>
     <string name="password_label">Password</string>
     <string name="phone_label">Phone Number</string>
     <string name="city_label">City</string>
@@ -56,14 +56,14 @@
     <string name="Description">Description</string>
     <string name="Category">Category</string>
     <string name="Create">Create</string>
-<!--<<<<<<< HEAD-->
+    <!--<<<<<<< HEAD-->
     <string name="Email">Email</string>
     <string name="EmailAddress">E-mail Address</string>
     <string name="SignIn">Sign In</string>
     <string name="ForgetPassword">Forget Password ?</string>
     <string name="OrLoginWith">Or sign in with</string>
-<!--=======-->
+    <!--=======-->
     <string name="register_btn">Register</string>
     <string name="comment_hint">Write a comment .....</string>
-<!--&gt;>>>>>> 21603c9267e3ff7cc40a818385aad9b9daa39763-->
+    <!--&gt;>>>>>> 21603c9267e3ff7cc40a818385aad9b9daa39763-->
 </resources>

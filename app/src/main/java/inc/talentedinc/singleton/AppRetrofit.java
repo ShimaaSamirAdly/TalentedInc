@@ -65,7 +65,6 @@ public class AppRetrofit {
                 .baseUrl(APIUrls.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create());
         retrofit = builder.client(httpClient.build()).build();
-
         apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
         apiLogin = retrofit.create(ApiLogin.class);
         apiCreateCourse = retrofit.create(ApiCreateCourse.class);

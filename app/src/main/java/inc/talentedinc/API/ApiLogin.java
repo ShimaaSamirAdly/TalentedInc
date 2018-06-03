@@ -1,7 +1,10 @@
 package inc.talentedinc.API;
 
+import inc.talentedinc.model.User;
+import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -13,8 +16,7 @@ import retrofit2.http.POST;
 public interface ApiLogin {
 
 
-    @FormUrlEncoded
-    @POST("/api/users?")
-    Call<MainResponse> checkUserLogin(@Field("email") String userEmail, @Field("password") String userPassword);
+    @POST(APIUrls.USER_LOGIN)
+    Call<User> checkUserLogin(@Body UserLogin userLogin);
 
 }

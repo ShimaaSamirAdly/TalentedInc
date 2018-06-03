@@ -1,8 +1,12 @@
 package inc.talentedinc.presenter;
 
+import android.util.Log;
+
 import inc.talentedinc.interactor.login.UserLoginImpl;
 import inc.talentedinc.interactor.login.UserLoginInter;
 import inc.talentedinc.listener.OnLoginResult;
+import inc.talentedinc.model.User;
+import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 
 /**
@@ -14,6 +18,7 @@ public class LoginPresenter {
     LoginView  view ;
    private UserLoginInter userLoginInter ;
    private MainResponse mainResponse = new MainResponse() ;
+   private User userLogged = new User();
 
      public  LoginPresenter(){
 
@@ -23,33 +28,35 @@ public class LoginPresenter {
 
 
 
-    public void setView(String mail , String password , LoginView  view) {
+    public void setView(UserLogin userLogin, LoginView  view) {
         this.view =view;
-        if (mainResponse == null){
+        if (userLogged == null){
             view.showProgress();
-            getUserData(mail , password);
+            Log.i("d5l",userLogin.getEmail());
+            getUserData(userLogin);
         }
         else {
             view.hideProgress();
-            view.sendUserData(mainResponse);
+            view.sendUserData(userLogged);
         }
     }
 
 
 
-    private void getUserData (final String mail , String  password ) {
+    private void getUserData (UserLogin userLogin ) {
         view.showProgress();
-        userLoginInter.sendLoginRequest(mail, password, new OnLoginResult() {
+        userLoginInter.sendLoginRequest(userLogin, new OnLoginResult() {
             @Override
-            public void onSucess(MainResponse response) {
-
-                mainResponse = response ;
+            public void onSucess(User user) {
+                Log.i("tmam",user.getFirstName());
+                userLogged = user ;
                 view.hideProgress();
-                view.sendUserData(mainResponse);
+                view.sendUserData(userLogged);
             }
 
             @Override
             public void onFailure() {
+                Log.i("zft","fail");
                 view.hideProgress();
                 view.loginInvalid();
             }
@@ -62,7 +69,7 @@ public class LoginPresenter {
     public  interface  LoginView{
         void showProgress();
         void hideProgress();
-        void sendUserData(MainResponse response);
+        void sendUserData(User user);
         void loginInvalid();
     }
 

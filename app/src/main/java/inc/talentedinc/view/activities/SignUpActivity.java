@@ -30,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
         /******************************mina*************************/
 
 
-        nextBtn = (Button) findViewById(R.id.next_button);
+        nextBtn = (Button) findViewById(R.id.nextBtn);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
