@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener {
 
+ //*************************************************************************************************//
+
+//---------------------------------------Alaa------------------------------------------------------//
 
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
@@ -39,12 +43,16 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private TextView password ;
     private LoginPresenter loginPresenter ;
     private UserLogin userLogin ;
+    private Button loginBtn;
 
-
+//--------------------------------------------------------------------------------------------------//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //---------------------------------Alaa--------------------------------------------------//
+
         btnSignIn = findViewById(R.id.sign_in_button);
         btnSignIn.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -55,6 +63,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
         userLogin = new UserLogin();
+
+
+        loginBtn = findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(this);
+
+
+        //------------------------------------------------------------------------------------//
+
     }
 
     private void signIn() {
@@ -62,6 +78,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    //------------------------------------------------------------------------------------//
+    //------------------------------------Alaa--------------------------------------------//
 
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -85,7 +103,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             Log.i("Error",result.getStatus().toString());
         }
     }
+    //------------------------------------------------------------------------------------//
 
+//---------------------------------------Alaa------------------------------------------------------//
 
     @Override
     public void onClick(View view) {
@@ -101,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
-              //  if (email.getText() != null && password.getText() != null){
+                if (email.getText() != null && password.getText() != null){
 
                     loginPresenter = new LoginPresenter();
 
@@ -111,12 +131,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                     Log.i("das","ethabb");
                     loginPresenter.setView( userLogin, this);
 
-              //  }
+                }
                 break;
 
 
         }
     }
+    //------------------------------------------------------------------------------------//
+    //---------------------------------------Alaa-------------------------------------------------//
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
@@ -134,10 +156,14 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         }
     }
 
+    //------------------------------------------------------------------------------------//
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        //---------------------------------------Alaa------------------------------------------------------//
+
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
         if (opr.isDone()) {
             // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
@@ -149,7 +175,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             // If the user has not previously signed in on this device or the sign-in has expired,
             // this asynchronous branch will attempt to sign in the user silently.  Cross-device
             // single sign-on will occur in this branch.
-            showProgressDialog();
+            //showProgressDialog();
             opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
                 @Override
                 public void onResult(GoogleSignInResult googleSignInResult) {
@@ -158,11 +184,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 }
             });
         }
-
-
+//---------------------------------------------------------------------------------------------------//
 
     }
 
+//---------------------------------------Alaa------------------------------------------------------//
 
     private void showProgressDialog() {
         if (mProgressDialog == null) {
@@ -202,16 +228,22 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     @Override
     public void sendUserData(User response) {
 
-        Log.i("userEmail",response.getEmail());
+        if(response !=null) {
+            Log.i("userEmail", response.getEmail());
 
-        Intent sendToHome = new Intent(this , HomeActivity.class);
-        sendToHome.putExtra("userId",response.getFirstName());
-        startActivity(sendToHome);
-
+            Intent sendToHome = new Intent(this, HomeActivity.class);
+            sendToHome.putExtra("userId", response.getFirstName());
+            startActivity(sendToHome);
+        }
     }
 
     @Override
     public void loginInvalid() {
         Toast.makeText(this,"Please enter a valid Email or Password",Toast.LENGTH_SHORT ).show();
     }
+
+    //---------------------------End of Alaa-----------------------------------------------------//
+    //**********************************************************************************************//
+
+
 }

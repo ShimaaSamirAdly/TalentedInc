@@ -79,7 +79,7 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
 
 
     @Override
-    public void setDateTextView(String date) {
+    public void setDateTextView(String date,int year) {
         if (flag == true){
             startDate.setText(date);
             course.setStartDate(date);
