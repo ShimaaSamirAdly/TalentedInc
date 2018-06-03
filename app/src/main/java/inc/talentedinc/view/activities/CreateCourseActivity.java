@@ -117,7 +117,7 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
     }
 
     @Override
-    public void setDateTextView(String date) {
+    public void setDateTextView(String date,int year) {
         if (flag == true){
             startDate.setText(date);
             course.setStartDate(date);

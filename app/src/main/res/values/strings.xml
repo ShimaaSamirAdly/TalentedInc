@@ -35,6 +35,11 @@
     <string name="last_name_label">Last Name</string>
     <string name="gender_label">Gender</string>
     <string name="request_button">Request</string>
+    <string name="email_signup_hint">example@exampl.com</string>
+    <string name="password_signup_hint">******</string>
+    <string name="phone_sign_up_hint">201*********</string>
+    <string name="first_name_hint">first name ...</string>
+    <string name="last_name_signup_hint">last name .....</string>
     <!--...........................................................................-->
     <!--..................................alaa......................................-->
 
