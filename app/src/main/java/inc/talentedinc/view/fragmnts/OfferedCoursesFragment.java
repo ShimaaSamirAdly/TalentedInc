@@ -19,6 +19,7 @@ import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
+import inc.talentedinc.view.activities.HomeActivity;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
 
@@ -46,6 +47,12 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_offered_courses, container, false);
+        //***************************** Asmaa ***************************************
+
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.OFFERD);
+        // *****************************  ***************************************
+
+
 
         itShouldLoadMore = true;
         myProgressBar = (ProgressBar) view.findViewById(R.id.offered_course_pBar);

@@ -95,8 +95,13 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_profile, container, false);
 
+//        ***************************** Asmaa ***************************************
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
+
+//        ********************************************************************
 
         /******************************Shimaa*******************************************/
+
 
         profileImage = view.findViewById(R.id.profileImage);
         pickImage = view.findViewById(R.id.pickImage);
@@ -129,7 +134,7 @@ public class ProfileFragment extends Fragment {
 
         user = (User) getActivity().getIntent().getSerializableExtra("user");
 
-        Log.i("type", ""+user.getUserType());
+        //Log.i("type", ""+user.getUserType());
         userName.setText(user.getFirstName()+" " + user.getLastName());
         email.setText(user.getEmail());
         phone.setText(user.getPhone());

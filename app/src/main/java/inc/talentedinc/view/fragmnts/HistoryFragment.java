@@ -26,10 +26,12 @@ import inc.talentedinc.presenter.HistoryPresenter;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
+import inc.talentedinc.view.activities.HomeActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 
-public class HistoryFragment extends Fragment implements UpComingCoursesPresenter.ViewListener, HomeListener {
+public class HistoryFragment extends Fragment implements UpComingCoursesPresenter.ViewListener, HomeListener, MaterialRatingBar.OnRatingChangeListener {
 
     /****************************** asmaa *************************/
     private RecyclerView recyclerView;
@@ -69,6 +71,7 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     /****************************** asmaa *************************/
 
     private void initView(View v){
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.HISTORY);
 
         linearLayoutSearch =v.findViewById(R.id.ll2);
         linearLayoutSearch.setVisibility(View.GONE);
@@ -127,6 +130,9 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
         rateDialog = builder.create();
         if (dialogView != null) {
+           MaterialRatingBar ratingBar =dialogView.findViewById(R.id.mRating);
+           ratingBar.setOnRatingChangeListener(this);
+
 
 
         }
@@ -205,6 +211,12 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void onCommentClick() {
         commentDialog();
+
+    }
+
+    @Override
+    public void onRatingChanged(MaterialRatingBar ratingBar, float rating) {
+        ActionUtils.showToast(getActivity(),rating+"");
 
     }
 

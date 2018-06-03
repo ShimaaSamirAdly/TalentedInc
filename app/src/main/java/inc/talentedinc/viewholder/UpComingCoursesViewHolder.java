@@ -11,6 +11,7 @@ import com.like.LikeButton;
 import com.like.OnAnimationEndListener;
 import com.like.OnLikeListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.listener.HomeListener;
@@ -28,7 +29,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private TextView txtName;
     private TextView txtRate;
     private TextView txtDate;
-    private ImageView img;
+    private CircleImageView img;
     private Result courseModel;
     private ImageView imgRte;
     private LikeButton likeButton;
@@ -59,7 +60,6 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         likeButton = itemView.findViewById(R.id.thumb_button);
         likeButton.setOnLikeListener(this);
         likeButton.setOnAnimationEndListener(this);
-
     }
 
     public void setData(Result course){

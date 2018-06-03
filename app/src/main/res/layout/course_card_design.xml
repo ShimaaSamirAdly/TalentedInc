@@ -24,10 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView"
                 android:layout_width="@dimen/hundred_dp"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/hundred_dp"
                 android:layout_marginBottom="@dimen/eight_dp"
                 android:layout_marginLeft="@dimen/eight_dp"
                 android:layout_marginStart="@dimen/eight_dp"

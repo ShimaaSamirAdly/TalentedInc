@@ -52,6 +52,7 @@
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/mRating"
             style="@style/Widget.MaterialRatingBar.RatingBar" />
 
     </LinearLayout>
