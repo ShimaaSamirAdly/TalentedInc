@@ -1,5 +1,7 @@
 package inc.talentedinc.factory;
 
+import inc.talentedinc.interactor.commentLike.CommentLikeInteractor;
+import inc.talentedinc.interactor.commentLike.NetworkCommentLikeInteractor;
 import inc.talentedinc.interactor.history.HistoryInteractor;
 import inc.talentedinc.interactor.history.NetworkHistoryInteractor;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
@@ -17,5 +19,9 @@ public class Factory {
 
     public static HistoryInteractor provideHistory(){
         return new NetworkHistoryInteractor();
+    }
+
+    public static CommentLikeInteractor provideCommentLike(){
+        return new NetworkCommentLikeInteractor();
     }
 }

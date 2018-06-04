@@ -6,6 +6,7 @@ package inc.talentedinc.API;
 
 import inc.talentedinc.model.UpComingData;
 import inc.talentedinc.model.response.BaseResponse;
+import inc.talentedinc.model.response.CoursesResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -19,8 +20,8 @@ public interface ApiHomeEndpoint {
 
     // upcoming
     @GET(APIUrls.UPCOMING)
-    Call<UpComingData> getUpComing(@Query("api_key") String apiKey,
-                                   @Query("page") int page);
+    Call<CoursesResponse> getUpComing(@Query("api_key") String apiKey,
+                                      @Query("page") int page);
     // search
     @GET(APIUrls.SEARCH_UPCOMING)
     Call<UpComingData> getSearchResult(@Query("api_key") String apiKey,

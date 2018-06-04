@@ -50,7 +50,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     /****************************** asmaa *************************/
 
     private RecyclerView recyclerView;
-    private int page=1;
+    private int page=0;
     private boolean isLoading = false;
     private boolean moreDataAvailable = true;
 
@@ -112,22 +112,23 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
-        presenter = new UpComingCoursesPresenter(Factory.provideUpComing());
-
-        presenter.setView(page, this);
+        presenter = new UpComingCoursesPresenter(Factory.provideUpComing(),Factory.provideCommentLike());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+
         upcomingCoursesAdapter = new HomeAdapter(HomeAdapter.UPCOMING,gridLayoutManager,this);
         upcomingCoursesAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(upcomingCoursesAdapter);
+
+        presenter.setView(page, this);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {
             @Override
             public void onLoadMore() {
-                if (!isLoading && moreDataAvailable ) {
-                    isLoading = true;
-                    loadMoreData();
-                }
+//                if (!isLoading && moreDataAvailable ) {
+//                    isLoading = true;
+//                    loadMoreData();
+//                }
             }
         });
 
@@ -274,6 +275,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
 
     @Override
+    public void showToast(String s) {
+        ActionUtils.showToast(getActivity(),s);
+    }
+
+    @Override
     public void onCourseClicked(Result result) {
         Intent switchToDetails = new Intent(getActivity(),UpComingDetailsActivity.class);
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
@@ -296,6 +302,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     public void onCommentClick() {
         commentDialog();
 
+    }
+
+    @Override
+    public void onInstructorClick(int instracturId) {
+        //// switch to instractur Profile
     }
 
     @Override
