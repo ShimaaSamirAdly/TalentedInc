@@ -29,12 +29,15 @@ public class CategoriesInteractorImpl implements CategoriesInteractor {
             @Override
             public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
                 Log.i("conn", "Success");
+                Log.i("callDone",response.body().toString());
+
                 listener.onSuccess(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Categories>> call, Throwable t) {
                 Log.i("conn", "failed");
+                Log.i("callFail","notYet");
             }
         });
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,8 @@ public class SecondCreateCourse extends Fragment implements AdapterView.OnItemSe
     private Spinner categories;
     private Course course  = new Course();
     private List<Categories> allCategories ;
-    private String[]  receivedCategories ;
+    private  List<String> receivedCategories = new ArrayList<String>();
+    ;
     private CategoriesPresenter categoriesPresenter ;
 
 
@@ -56,39 +58,17 @@ public class SecondCreateCourse extends Fragment implements AdapterView.OnItemSe
         categoriesPresenter = new CategoriesPresenter(this);
         categoriesPresenter.getCategories();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>( getContext(),
-                android.R.layout.simple_list_item_1, receivedCategories);
-
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.categories , android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categories.setAdapter(adapter);
-
-
            return  secondCreation ;
     }
 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        switch (position){
-//            case 0 :
-//                course.setCategory("Arts");
-//                break;
-//
-//            case 1 :
-//                course.setCategory("Music");
-//                break;
-//
-//            case 2 :
-//                course.setCategory("Fashion");
-//                break;
-//            case 3 :
-//                course.setCategory("IT");
-//                break;
-//        }
-             course.setCategory(allCategories.get(position));
 
+
+                if(allCategories !=null) {
+                    course.setCategory(allCategories.get(position));
+                }
     }
 
     @Override
@@ -106,9 +86,26 @@ public class SecondCreateCourse extends Fragment implements AdapterView.OnItemSe
     @Override
     public void recievedCategories(List<Categories> categories) {
         allCategories = categories ;
-        for (int i = 0 ; i < allCategories.size() ; i++){
-            receivedCategories[i] = allCategories.get(i).getName();
+
+        if (allCategories != null){
+            Log.i("gab",allCategories.get(0).getName());
+
+            for (int i = 0 ; i < allCategories.size() ; i++){
+                receivedCategories.add(allCategories.get(i).getName()) ;
+            }
+            addItemsToSnipper();
         }
     }
+
+    private void addItemsToSnipper(){
+        if(receivedCategories.size()>0) {
+            Log.i("helloCategory", receivedCategories.get(1));
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>( getContext(),
+                    android.R.layout.simple_list_item_1, receivedCategories);
+            categories.setAdapter(adapter);
+        }
+
+    }
+
 }
 

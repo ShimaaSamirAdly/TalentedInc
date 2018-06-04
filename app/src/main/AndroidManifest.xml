@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     //***********************shimaa*****************************
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     //**********************************************************
     <application
         android:allowBackup="true"
@@ -20,27 +21,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".view.activities.UpComingDetailsActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt;-->
+                <!--&lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;&ndash;&gt;-->
+            <!--</intent-filter>-->
         </activity>
 
         <activity
             android:name=".view.activities.Signin"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--</intent-filter>-->
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -92,28 +93,30 @@
 
         <!-- <activity android:name=".view.activities.SignUpActivity" /> -->
         <activity android:name=".view.activities.SignUpInterests" />
+
         //********************Shimaa****************************************
         <activity android:name=".view.activities.TestImageActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            </intent-filter>
+                <!--&lt;!&ndash; <category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;-->
+            <!--</intent-filter>-->
 
             //*********************************************************************
         </activity>
 
-        <!-- -alaa.................................................................. -->
+        <!--.......................................-alaa.................................................................. -->
         <activity android:name=".view.activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            </intent-filter>
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".view.activities.CreateCourseActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".view.activities.OthersProfileActivity"></activity>

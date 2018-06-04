@@ -30,10 +30,12 @@ public class CategoriesPresenter {
             @Override
             public void onSuccess(List<Categories> categoriesList) {
                 view.recievedCategories(categoriesList);
+                Log.i("categoryGat","done");
             }
 
             @Override
             public void onFailed() {
+
                 Log.i("fail", "faild to get categories");
             }
         });
