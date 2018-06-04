@@ -27,8 +27,8 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private HomeListener listener;
     private View itemView;
     private TextView txtName;
-    private TextView txtRate;
-    private TextView txtDate;
+    private TextView txtonInstructorName;
+    private TextView txtDate , tvLikes , tvComments;
     private CircleImageView img;
     private Result courseModel;
     private ImageView imgRte;
@@ -46,8 +46,12 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     }
     private void initializeViews() {
         txtName = itemView.findViewById(R.id.textView10);
-        txtRate = itemView.findViewById(R.id.textView11);
-        txtDate = itemView.findViewById(R.id.textView12);
+        txtonInstructorName = itemView.findViewById(R.id.textView15);
+        txtonInstructorName.setOnClickListener(this);
+        txtDate = itemView.findViewById(R.id.textView20);
+        tvLikes =itemView.findViewById(R.id.textView13);
+        tvComments =itemView.findViewById(R.id.textView14);
+
         img = itemView.findViewById(R.id.imageView);
         img.setOnClickListener(this);
         etComment=itemView.findViewById(R.id.editText);
@@ -64,11 +68,13 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     public void setData(Result course){
         this.courseModel=course;
-        txtName.setText(courseModel.getTitle());
-        txtRate.setText(String.valueOf(courseModel.getVote_count()));
-        txtDate.setText(courseModel.getRelease_date());
-        if(courseModel.getPoster_path() != null ) {
-            Glide.with(context).load("http://image.tmdb.org/t/p/w185/"+courseModel.getPoster_path()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(img);
+        txtName.setText(courseModel.getName());
+        txtonInstructorName.setText("Asmaa");
+        txtDate.setText(courseModel.getStartDate());
+        tvLikes.setText(String.valueOf(courseModel.getNumberOfLikes()));
+        tvComments.setText(String.valueOf(courseModel.getNumberOfComments()));
+        if(courseModel.getImageUrl() != null ) {
+          //  Glide.with(context).load("http://image.tmdb.org/t/p/w185/"+courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(img);
         }
     }
 
@@ -79,15 +85,9 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
             case R.id.imageView2:
                 listener.onRateClick();
                 break;
-
-//                like
-            case R.id.thumb_button:
-//                if (likeButton.isLiked()){
-//                    likeButton.setLiked(false);
-//                }else {
-//                    likeButton.setLiked(true);
-//                }
-
+//                instractur Name
+            case R.id.textView15:
+                listener.onInstructorClick(courseModel.getInstructorId().getUserId());
                 break;
 //                comment
             case R.id.editText:
