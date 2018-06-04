@@ -85,6 +85,7 @@
     <string name="catgories">Categories</string>
     <string name="cities">Cities</string>
     <string name="ok">OK</string>
+    <string name="duration">Duration</string>
     <!--................................................................................-->
 
 </resources>

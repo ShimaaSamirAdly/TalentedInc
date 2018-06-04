@@ -1,8 +1,16 @@
 package inc.talentedinc.presenter;
 
+import android.util.Log;
+
+import java.util.List;
+
+import inc.talentedinc.interactor.categories.CategoriesInteractor;
+import inc.talentedinc.interactor.categories.CategoriesInteractorImpl;
 import inc.talentedinc.interactor.createcourse.CreateCourseImpl;
 import inc.talentedinc.interactor.createcourse.CreateCourseInter;
+import inc.talentedinc.listener.CategoriesListener;
 import inc.talentedinc.listener.OnCreateCourse;
+import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Course;
 
 /**
@@ -33,6 +41,8 @@ public class CreateCoursePresenter  {
         });
 
     }
+
+
 
 
 
