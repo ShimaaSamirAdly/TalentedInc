@@ -99,13 +99,15 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
         user.setLastName(lastNameTxt.getText().toString());
         user.setUserDob(dobTxtView.getText().toString());
 
-        if (maleRadio.isSelected()) {
+        if (maleRadio.isChecked()) {
             user.setGender('m');
         }
 
-        if (femaleRadio.isSelected()) {
+        if (femaleRadio.isChecked()) {
             user.setGender('f');
         }
+
+//        Log.i("userGen", user.getGender().toString());
     }
 //    ........................................................................................
 }

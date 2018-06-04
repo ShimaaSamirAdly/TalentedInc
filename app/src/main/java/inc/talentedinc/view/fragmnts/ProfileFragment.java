@@ -19,14 +19,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.PortofolioAdapter;
 import inc.talentedinc.adapter.SignUpInterestsAdapter;
 import inc.talentedinc.model.Categories;
+import inc.talentedinc.model.Instructor;
 import inc.talentedinc.model.InstructorVideos;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.profile.ProfilePresenter;
@@ -34,7 +40,11 @@ import inc.talentedinc.presenter.profile.ProfilePresenterImpl;
 
 import static android.app.Activity.RESULT_OK;
 
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.activities.HomeActivity;
+import inc.talentedinc.view.activities.OthersProfileActivity;
+import inc.talentedinc.view.activities.TestImageActivity;
+import inc.talentedinc.view.customviews.ExpandableHeightGridView;
 
 
 public class ProfileFragment extends Fragment {
@@ -55,10 +65,10 @@ public class ProfileFragment extends Fragment {
     private EditText dob;
     private EditText location;
     private ImageView editInterests;
-    private GridView interestsGridView;
+    private ExpandableHeightGridView interestsGridView;
     private TextView portofolioText;
     private ImageView editPortofolio;
-    private GridView portofolioGridView;
+    private ExpandableHeightGridView portofolioGridView;
     private TextView videosText;
     private ImageView editVideos;
     private LinearLayout videosLayout;
@@ -77,15 +87,16 @@ public class ProfileFragment extends Fragment {
 
     /*****************************************************************/
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    public ProfileFragment(){
 
+    }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
     }
 
@@ -93,12 +104,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-//        ***************************** Asmaa ***************************************
-        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
-
-//        ********************************************************************
 
         /******************************Shimaa*******************************************/
 
@@ -120,8 +127,10 @@ public class ProfileFragment extends Fragment {
         location.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
         editInterests = view.findViewById(R.id.edit_interests);
         interestsGridView = view.findViewById(R.id.interestsGridView);
+        interestsGridView.setExpanded(true);
         portofolioText = view.findViewById(R.id.portofolioText);
         portofolioGridView = view.findViewById(R.id.portofolioGridView);
+        portofolioGridView.setExpanded(true);
         editPortofolio = view.findViewById(R.id.edit_portofolio);
         videosText = view.findViewById(R.id.videosText);
         videosLayout = view.findViewById(R.id.videosLayout);
@@ -132,19 +141,6 @@ public class ProfileFragment extends Fragment {
 
         profilePresenter = new ProfilePresenterImpl(this, getContext());
 
-        user = (User) getActivity().getIntent().getSerializableExtra("user");
-
-        //Log.i("type", ""+user.getUserType());
-        userName.setText(user.getFirstName()+" " + user.getLastName());
-        email.setText(user.getEmail());
-        phone.setText(user.getPhone());
-        dob.setText(user.getUserDob());
-        location.setText(user.getCity());
-
-        interestsAdapter = new SignUpInterestsAdapter(getActivity(), (List<Categories>) user.getCategoryCollection());
-        interestsGridView.setAdapter(interestsAdapter);
-
-        setProfileType();
 
         pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,10 +201,10 @@ public class ProfileFragment extends Fragment {
     }
 
 
-    public void setProfileType(){
+    public void setProfileType(User user){
 
         Log.i("type", ""+user.getUserType());
-        if(user.getUserType() == 0){
+        if(user.getInstructor() == null){
             portofolioText.setVisibility(View.GONE);
             portofolioGridView.setVisibility(View.GONE);
             editPortofolio.setVisibility(View.GONE);
@@ -223,13 +219,28 @@ public class ProfileFragment extends Fragment {
 
         }else{
 
-            portofolioAdapter = new PortofolioAdapter(getActivity(), user.getInstructor().getInstructorImagesCollection());
-            portofolioGridView.setAdapter(portofolioAdapter);
+           // portofolioAdapter = new PortofolioAdapter(getActivity(), user.getInstructor().getInstructorImagesCollection());
+            //portofolioGridView.setAdapter(portofolioAdapter);
 
-            Collection<InstructorVideos> videosUrls = user.getInstructor().getInstructorUrlsCollection();
-            while (videosUrls.iterator().hasNext()){
+            InstructorVideos v = new InstructorVideos(1, "urlVideo");
+            Collection<InstructorVideos> nb = new ArrayList<>();
+            nb.add(new InstructorVideos(1, "hhhhhhh"));
+            nb.add(new InstructorVideos(1, "iiiiiiii"));
+            nb.add(new InstructorVideos(1, "ppppppp"));
+            nb.add(new InstructorVideos(1, "oooooooooo"));
+            nb.add(new InstructorVideos(1, "oooooooooooooooo"));
+            nb.add(new InstructorVideos(1, "eeeeeeeeeeeeeee"));
+            nb.add(new InstructorVideos(1, "rrrrrrrrrrrrrrrr"));
+            user.setInstructor(new Instructor());
+            user.getInstructor().setInstructorUrlsCollection(nb);
+            videosLayout.removeAllViews();
+           Collection<InstructorVideos> videosUrls = user.getInstructor().getInstructorUrlsCollection();
+            Iterator iter = videosUrls.iterator();
+            while (iter.hasNext()){
                 final TextView urlText = new TextView(getContext());
-                urlText.setText(videosUrls.iterator().next().getUrlValue());
+                InstructorVideos video = (InstructorVideos) iter.next();
+                urlText.setText(video.getUrlValue());
+                videosLayout.addView(urlText);
 
                 urlText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -247,6 +258,8 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.i("res", "onResult");
+
         if(requestCode == PICK_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
 
             filePath = data.getData();
@@ -254,6 +267,7 @@ public class ProfileFragment extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                 profileImage.setImageBitmap(bitmap);
+                profilePresenter.uploadImage(filePath, user);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -261,13 +275,66 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    public void setProfileImage(String imageUrl){
 
-//        initView(view);
-//        return view;
-//    }
-//    void initView(View v){
-//        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
-//    }
+//        Log.i("imgUrl", user.getImgUrl());
+        Glide.with(getActivity())
+                .load("" + imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(profileImage);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Bundle bundle = getArguments();
+
+        if(bundle != null) {
+            user = (User) bundle.getSerializable("user");
+            if(user.getInstructor() != null) {
+                editVideos.setVisibility(View.GONE);
+                editSkills.setVisibility(View.GONE);
+                editPortofolio.setVisibility(View.GONE);
+
+            }
+
+            editInterests.setVisibility(View.GONE);
+            editBasicInfo.setVisibility(View.GONE);
+            pickImage.setVisibility(View.GONE);
+
+        }else {
+        user = SharedPrefrencesSingleton.getSharedPrefUser(getContext());
+            ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+        }
+
+        userName.setText(user.getFirstName()+" " + user.getLastName());
+        email.setText(user.getEmail());
+        phone.setText(user.getPhone());
+        dob.setText(user.getUserDob());
+        location.setText(user.getCity());
+
+        if(user.getImgUrl() != null) {
+            setProfileImage(user.getImgUrl());
+        }
+
+        Log.i("interests", ""+user.getCategoryCollection().size());
+        interestsAdapter = new SignUpInterestsAdapter(getActivity(), (List<Categories>) user.getCategoryCollection());
+        interestsGridView.setAdapter(interestsAdapter);
+
+        setProfileType(user);
+
+        initView();
+
+    }
+
+    //*******************************************************************************
+
+    //***************************** Asmaa ***************************************
+    void initView(){
+
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
+
+    }
 
     /******************************  *************************/
 

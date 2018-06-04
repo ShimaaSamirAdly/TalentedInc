@@ -96,6 +96,12 @@ public class User implements Serializable{
     @Expose
     private Collection<Object> userCommentOnPublishedCourseCollection = null;
 
+    private int followingNumber;
+
+    private int followersNumber;
+
+    private boolean following;
+
 
     public User() {
     }
@@ -322,5 +328,29 @@ public class User implements Serializable{
 
     public void setUserCommentOnPublishedCourseCollection(Collection<Object> userCommentOnPublishedCourseCollection) {
         this.userCommentOnPublishedCourseCollection = userCommentOnPublishedCourseCollection;
+    }
+
+    public int getFollowingNumber() {
+        return followingNumber;
+    }
+
+    public int getFollowersNumber() {
+        return followersNumber;
+    }
+
+    public boolean isFollowing() {
+        return following;
+    }
+
+    public void setFollowingNumber(int followingNumber) {
+        this.followingNumber = followingNumber;
+    }
+
+    public void setFollowersNumber(int followersNumber) {
+        this.followersNumber = followersNumber;
+    }
+
+    public void setFollowing(boolean following) {
+        this.following = following;
     }
 }
