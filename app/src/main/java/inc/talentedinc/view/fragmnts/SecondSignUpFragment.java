@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.User;
@@ -89,13 +90,15 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
         user.setLastName(lastNameTxt.getText().toString());
         user.setUserDob(dobTxtView.getText().toString());
 
-        if (maleRadio.isSelected()) {
+        if (maleRadio.isChecked()) {
             user.setGender('m');
         }
 
-        if (femaleRadio.isSelected()) {
+        if (femaleRadio.isChecked()) {
             user.setGender('f');
         }
+
+//        Log.i("userGen", user.getGender().toString());
     }
 //    ........................................................................................
 }

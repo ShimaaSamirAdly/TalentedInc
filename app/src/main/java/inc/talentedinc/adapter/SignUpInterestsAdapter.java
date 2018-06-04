@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.util.List;
@@ -31,7 +30,8 @@ public class SignUpInterestsAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        Log.i("count", ""+categories.size());
+        return categories.size();
     }
 
     public Object getItem(int position) {
@@ -45,34 +45,30 @@ public class SignUpInterestsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Toast.makeText(mContext, "adapteer", Toast.LENGTH_LONG).show();
+
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Log.i("ada", "adapter");
-            grid = new View(mContext);
+
             grid = inflater.inflate(R.layout.interests_grid_items, parent, false);
-        Log.i("setView", "adapter");
+
             ImageView imageView = grid.findViewById(R.id.img);
             TextView text = grid.findViewById(R.id.txt);
 //            imageView.setLayoutParams(new ViewGroup.LayoutParams(150, 150));
 //            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //            imageView.setPadding(8, 8, 8, 8);
-            imageView.setImageResource(mThumbIds[position]);
-//            text.setText(categories.get(position).getName());
-//            grid.setId(categories.get(position).getCategoryId());
+        Categories category = categories.get(position);
+        String categoryName = category.getName();
+            imageView.setImageResource(mContext.getResources().
+                    getIdentifier(categoryName.toLowerCase(), "drawable", mContext.getPackageName()));
+        text.setText(category.getName());
+        grid.setId(category.getCategoryId());
+
 
         return grid;
     }
 
 
-    private Integer[] mThumbIds = {
-            R.drawable.camerahd, R.drawable.camerahd,
-            R.drawable.camerahd, R.drawable.camerahd,
-            R.drawable.camerahd, R.drawable.camerahd,
-            R.drawable.camerahd, R.drawable.camerahd,
-            R.drawable.camerahd, R.drawable.camerahd,
-            R.drawable.camerahd, R.drawable.camerahd
-    };
+
 
 //    public void setCategories(List<Categories> categories){
 //

@@ -26,7 +26,7 @@ public class UserLoginImpl implements UserLoginInter {
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
                 onresult.onSucess(response.body());
 
-                Log.i("check",response.body().getStatus());
+//                Log.i("check",response.body().getStatus());
             }
 
             @Override

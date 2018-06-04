@@ -13,13 +13,12 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/skillsText"
                 android:layout_width="match_parent"
-                android:layout_height="33dp"
+                android:layout_height="37dp"
                 android:layout_marginTop="8dp"
                 android:background="#cccccc"
                 android:paddingLeft="20dp"
@@ -68,7 +67,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="match_parent"
                 android:layout_height="33dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:background="#cccccc"
                 android:paddingLeft="20dp"
                 android:paddingTop="2dp"
@@ -93,34 +92,6 @@
                 app:layout_constraintHorizontal_bias="0.92"
                 app:layout_constraintStart_toStartOf="@+id/textView21"
                 app:layout_constraintTop_toTopOf="@+id/textView21"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="139dp"
-                android:layout_height="108dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="128dp"
-                android:src="@drawable/com_facebook_profile_picture_blank_portrait"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/pickImage"
-                android:layout_width="45dp"
-                android:layout_height="36dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/photo"
-                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
-                app:layout_constraintEnd_toEndOf="@+id/profileImage"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/profileImage"
-                app:layout_constraintTop_toTopOf="@+id/profileImage"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
@@ -225,9 +196,8 @@
 
             <EditText
                 android:id="@+id/email"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:layout_marginEnd="102dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
                 android:enabled="false"
@@ -235,53 +205,46 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
             <EditText
                 android:id="@+id/phone"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="39dp"
-                android:layout_marginEnd="102dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView9"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <EditText
                 android:id="@+id/dob"
-                android:layout_width="200dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="102dp"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView10"
                 app:layout_constraintTop_toBottomOf="@+id/phone" />
 
             <EditText
                 android:id="@+id/location"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="38dp"
-                android:layout_marginEnd="102dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
                 android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
                 app:layout_constraintTop_toBottomOf="@+id/dob" />
 
-            <GridView
+            <inc.talentedinc.view.customviews.ExpandableHeightGridView
                 android:id="@+id/interestsGridView"
                 android:layout_width="379dp"
                 android:layout_height="wrap_content"
@@ -290,9 +253,9 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:horizontalSpacing="2dp"
-                android:numColumns="3"
+                android:numColumns="2"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="0dp"
+                android:verticalSpacing="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -312,7 +275,7 @@
                 app:layout_constraintTop_toTopOf="@+id/portofolioText"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <GridView
+            <inc.talentedinc.view.customviews.ExpandableHeightGridView
                 android:id="@+id/portofolioGridView"
                 android:layout_width="379dp"
                 android:layout_height="wrap_content"
@@ -346,7 +309,7 @@
             <LinearLayout
                 android:id="@+id/videosLayout"
                 android:layout_width="378dp"
-                android:layout_height="8dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
@@ -362,14 +325,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="264dp"
+                android:layout_marginTop="204dp"
                 android:text="150\nFollowers"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/profileImage"
-                app:layout_constraintHorizontal_bias="0.48"
+                app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -379,14 +342,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="264dp"
+                android:layout_marginTop="204dp"
                 android:text="250\nFollowing"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.431"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toEndOf="@+id/profileImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -409,10 +372,12 @@
                 android:id="@+id/skillsLayout"
                 android:layout_width="378dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toStartOf="parent"
@@ -425,8 +390,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:visibility="gone"
                 android:src="@drawable/com_facebook_close"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/textView16"
                 app:layout_constraintEnd_toEndOf="@+id/textView16"
                 app:layout_constraintHorizontal_bias="0.926"
@@ -434,8 +399,58 @@
                 app:layout_constraintTop_toTopOf="@+id/textView16"
                 app:layout_constraintVertical_bias="1.0" />
 
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="364dp"
+                android:layout_height="190dp"
+                android:src="@drawable/bg_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profileImage"
+                android:layout_width="157dp"
+                android:layout_height="124dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="56dp"
+                android:src="@drawable/com_facebook_profile_picture_blank_portrait"
+                app:civ_border_color="#cccccc"
+                app:civ_border_width="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView11"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="@+id/imageView11"
+                app:layout_constraintTop_toTopOf="@+id/imageView11" />
+
+            <ImageView
+                android:id="@+id/pickImage"
+                android:layout_width="45dp"
+                android:layout_height="36dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/photo"
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
+                app:layout_constraintVertical_bias="1.0" />
+
 
         </android.support.constraint.ConstraintLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnFloatingAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_content_add"
+            app:borderWidth="0dp"
+            app:fabSize="normal"
+            app:layout_behavior="inc.talentedinc.view.customviews.ScrollAwareFABBehavior" />
     </ScrollView>
 
 </RelativeLayout>
