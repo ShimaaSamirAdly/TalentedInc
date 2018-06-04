@@ -28,8 +28,8 @@
         </activity>
         <activity
             android:name=".view.activities.UpComingDetailsActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
@@ -74,7 +74,7 @@
         </activity>
         <activity
             android:name=".view.activities.SignUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- ........................................................................ -->
 
@@ -87,12 +87,12 @@
         </activity>
 
         <!-- -alaa.................................................................. -->
-        <activity android:name=".view.activities.LoginActivity"></activity>
-        <activity android:name=".view.activities.CreateCourseActivity"></activity>
+        <activity android:name=".view.activities.LoginActivity" />
+        <activity android:name=".view.activities.CreateCourseActivity" />
 
         <!-- ............................alaa..................................................... -->
 
-
+        <activity android:name=".view.activities.OfferedCourseDetailsActivity"></activity>
     </application>
 
 </manifest>
