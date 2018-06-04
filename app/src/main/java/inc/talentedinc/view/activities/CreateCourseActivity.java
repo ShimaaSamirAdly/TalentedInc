@@ -1,6 +1,7 @@
 package inc.talentedinc.view.activities;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,26 +12,26 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import inc.talentedinc.R;
+import inc.talentedinc.adapter.CreateCourseViewPagerAdapter;
 import inc.talentedinc.model.Course;
 import inc.talentedinc.presenter.CreateCoursePresenter;
 import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
 import inc.talentedinc.view.fragmnts.DatePickerFragment;
 
-public class CreateCourseActivity extends AppCompatActivity implements CreateCoursePresenter.CreateCourseView, SetDateTextView,AdapterView.OnItemSelectedListener {
+public class CreateCourseActivity extends AppCompatActivity implements CreateCoursePresenter.CreateCourseView {
 
-    private EditText courseName ;
-    private EditText startDate ;
-    private EditText endDate ;
-    private EditText cost ;
-    private EditText numOfApplicants ;
-    private EditText description ;
-    private Spinner categories;
-    private Button pickStart ;
-    private Button pickEnd ;
+    //-----------------------------------------------------------------------------------------//
+
+    private Button nextBtn ;
+    private Course createdCourse = new Course() ;
+    private ViewPager viewPager ;
+    private CreateCourseViewPagerAdapter createCourseViewPagerAdapter ;
+
+    //-----------------------------------------------------------------------------------------//
+
+
     private Button create ;
-    private Course course ;
 
-    private boolean flag = true ;
     private CreateCoursePresenter createCoursePresenter ;
 
 
@@ -40,39 +41,22 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
-        course = new Course() ;
-        final DatePickerFragment datePickerFragment = new DatePickerFragment();
-        datePickerFragment.setDateSetter(this);
-        courseName = findViewById(R.id.courseName);
-        startDate = findViewById(R.id.startDate);
-        endDate = findViewById(R.id.endDate);
-        cost = findViewById(R.id.cost);
-        numOfApplicants = findViewById(R.id.NumOfApplicants);
-        description = findViewById(R.id.description);
-        pickStart  = findViewById(R.id.pickStart);
-        pickEnd = findViewById(R.id.pickEnd);
-        categories = findViewById(R.id.categories_snippir);
-        categories.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.categories, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        categories.setAdapter(adapter);
 
-        pickStart.setOnClickListener(new View.OnClickListener() {
+    //------------------------------------Alaa--------------------------------------------------//
+
+        nextBtn = findViewById(R.id.nextBtn);
+        viewPager = findViewById(R.id.create_course_view_pager);
+        createCourseViewPagerAdapter = new CreateCourseViewPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(createCourseViewPagerAdapter);
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datePickerFragment.show(getSupportFragmentManager() , "DateStart");
-                flag = true;
+                nextAction();
             }
         });
 
-        pickEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                datePickerFragment.show(getSupportFragmentManager(),"DateEnded");
-                flag = false ;
-            }
-        });
+
 
         create = findViewById(R.id.create);
         create.setOnClickListener(new View.OnClickListener() {
@@ -90,59 +74,16 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (position){
-            case 0 :
-                course.setCategory("Arts");
-                break;
-
-            case 1 :
-                course.setCategory("Music");
-                break;
-
-            case 2 :
-                course.setCategory("Fashion");
-                break;
-            case 3 :
-                course.setCategory("IT");
-                break;
-        }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        course.setCategory("");
-    }
-
-    @Override
-    public void setDateTextView(String date) {
-        if (flag == true){
-            startDate.setText(date);
-            course.setStartDate(date);
-
-        }
-        else {
-            endDate.setText(date);
-            course.setEndDate(date);
-
-        }
 
 
-    }
 
 
     private void createCourse(){
         //set data to course //
-        course.setCourseName(courseName.getText().toString());
-        course.setStartDate(startDate.getText().toString());
-        course.setEndDate(endDate.getText().toString());
-        course.setCost(Integer.parseInt( cost.getText().toString()));
-        course.setDescription(description.getText().toString());
-        course.setNumOfApplicants(Integer.parseInt(numOfApplicants.getText().toString()));
+        getSecondFragmentData();
+        createdCourse.setDuration(15);
 
-        createCoursePresenter.courseCreated(course);
+        createCoursePresenter.courseCreated(createdCourse);
 
     }
 
@@ -161,4 +102,49 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
         Toast.makeText(this,"Fail",Toast.LENGTH_LONG).show();
 
     }
+
+    public void nextAction (){
+
+        switch (viewPager.getCurrentItem()){
+            case 0 :
+                getFirstFragmentData();
+                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
+                create.setVisibility(View.VISIBLE);
+                nextBtn.setVisibility(View.GONE);
+                break;
+
+        }
+
+    }
+
+    public void getFirstFragmentData(){
+        Course firstCourse = createCourseViewPagerAdapter.getFirstCreateCourse().getCourse();
+        createdCourse.setCourseName(firstCourse.getCourseName());
+        createdCourse.setStartDate(firstCourse.getStartDate());
+        createdCourse.setEndDate(firstCourse.getEndDate());
+        createdCourse.setCost(firstCourse.getCost());
+    }
+    public void getSecondFragmentData(){
+        Course secondCourse = createCourseViewPagerAdapter.getSecondCreateCourse().getCourse();
+        createdCourse.setNumOfApplicants(secondCourse.getNumOfApplicants());
+        createdCourse.setDescription(secondCourse.getDescription());
+        createdCourse.setCategory(secondCourse.getCategory());
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+            create.setVisibility(View.GONE);
+            nextBtn.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

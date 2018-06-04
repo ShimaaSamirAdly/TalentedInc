@@ -14,7 +14,20 @@ public class Course {
     private Integer numOfApplicants ;
     private String description ;
     private String category ;
+    private Integer duration;
+
+//  private Integer instructorId ;
+
     //ana hna na2s el imstructor
+
+
+    public void setDuration(Integer duration) {
+        this.duration = duration;
+    }
+
+    public Integer getDuration() {
+        return duration;
+    }
 
     public void setCategory(String category) {
         this.category = category;

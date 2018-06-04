@@ -20,7 +20,7 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
     public void fetchCourses() {
         //endlessScrollHandler.showProgressBar();
         OfferedCoursesFetcher offeredCoursesFetcher = new OfferedCoursesFetcher(this);
-        offeredCoursesFetcher.fetchCourses(BASE_URL);
+        offeredCoursesFetcher.fetchCourses();
     }
 
     @Override

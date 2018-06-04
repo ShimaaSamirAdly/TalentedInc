@@ -24,10 +24,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageView"
                 android:layout_width="@dimen/hundred_dp"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/hundred_dp"
                 android:layout_marginBottom="@dimen/eight_dp"
                 android:layout_marginLeft="@dimen/eight_dp"
                 android:layout_marginStart="@dimen/eight_dp"
@@ -68,14 +68,10 @@
                 android:id="@+id/textView11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/eight_dp"
-                android:layout_marginLeft="@dimen/eight_dp"
-                android:layout_marginRight="@dimen/eight_dp"
                 android:layout_marginStart="@dimen/eight_dp"
                 android:layout_marginTop="@dimen/eight_dp"
-                android:text="TextView"
                 android:lines="1"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                android:text="@string/by"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
@@ -83,14 +79,10 @@
                 android:id="@+id/textView12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/eight_dp"
-                android:layout_marginLeft="@dimen/eight_dp"
-                android:layout_marginRight="@dimen/eight_dp"
                 android:layout_marginStart="@dimen/eight_dp"
                 android:layout_marginTop="@dimen/eight_dp"
-                android:text="TextView"
                 android:lines="1"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                android:text="@string/StartD"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -181,6 +173,33 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="35dp"
+                android:text="TextView"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintStart_toEndOf="@+id/textView11"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -2,23 +2,38 @@ package inc.talentedinc.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.rey.material.widget.ProgressView;
+
+import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import inc.talentedinc.R;
+import inc.talentedinc.factory.Factory;
+import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
 import inc.talentedinc.utilitis.ActionUtils;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails{
+public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails, MaterialRatingBar.OnRatingChangeListener, View.OnClickListener {
 
     /****************************** asmaa *************************/
 
     public static final String COURSE ="course";
     private UpComingDetailsPresenter presenter;
+    private MaterialRatingBar ratingBar;
 
-    private ImageView img;
-    private TextView tvName, tvVote, tvId, tvOverView;
+    private CircleImageView imgCourse;
+    private TextView tvCourseName, tvInstructorName, tvWorkspaceName, tvLocation,tvDescription ,tvStartD,tvEndD,tvDuration;
+    private Button btnRegister;
+    private TextView tvCommentsNum , tvLikesNum;
+    private ProgressView progressView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +46,27 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
     /****************************** asmaa *************************/
 
+
     private void initView(){
-        img=findViewById(R.id.img);
-        tvName =findViewById(R.id.tvname);
-        tvId =findViewById(R.id.tvId);
-        tvVote=findViewById(R.id.tvVote);
-        tvOverView=findViewById(R.id.tvOverView);
-        presenter = new UpComingDetailsPresenter();
-        presenter.setView((Result) getIntent().getSerializableExtra(COURSE),this);
-//        ColorRatingBar colorRatingBar = new ColorRatingBar(this);
-//        colorRatingBar.setRatingProgressColor(R.color.colorPrimary);
-//        colorRatingBar.setRatingEmptyColor(R.color.colorAccent);
-//        colorRatingBar.setRating(3.0f);
+//        ratingBar = findViewById(R.id.mRating);
+//        ratingBar.setOnRatingChangeListener(this);
+        imgCourse=findViewById(R.id.imgCourse);
+        progressView = findViewById(R.id.pv_load);
+        tvCourseName=findViewById(R.id.tvCourseUser);
+        tvInstructorName=findViewById(R.id.tvCourseUser);
+        tvInstructorName.setOnClickListener(this);
+        tvWorkspaceName=findViewById(R.id.tvWorkSpace);
+        tvWorkspaceName.setOnClickListener(this);
+        tvLocation=findViewById(R.id.tvLocation);
+        tvDescription=findViewById(R.id.tvDisc);
+        tvStartD =findViewById(R.id.tvStart);
+        tvEndD=findViewById(R.id.tvEnd);
+        tvDescription=findViewById(R.id.tvDuration);
+        btnRegister =findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(this);
+        presenter = new UpComingDetailsPresenter(Factory.provideCommentLike());
+        presenter.setView((Result) getIntent().getExtras().getSerializable(COURSE),this);
+
     }
     /******************************  *************************/
 
@@ -50,53 +74,109 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
     @Override
     public void showProgress() {
+        progressView.setVisibility(View.VISIBLE);
 
     }
 
     @Override
     public void hideProgress() {
+        progressView.setVisibility(View.GONE);
 
     }
 
     @Override
-    public void setTitle(String title) {
-        tvName.setText(title);
+    public void setCourseName(String name) {
+        tvCourseName.setText(name);
 
     }
 
     @Override
-    public void setOverview(String overview) {
-        tvOverView.setText(overview);
+    public void setWorkspaceName(String name) {
+        tvWorkspaceName.setText(name);
+
     }
 
     @Override
-    public void setPoster(String imgs) {
-        if(imgs != null ) {
-            Glide.with(this).load("http://image.tmdb.org/t/p/w185/"+imgs).centerCrop().placeholder(R.drawable.ic_launcher_background).into(img);
+    public void setInstructorName(String name) {
+        tvInstructorName.setText(name);
+
+    }
+
+    @Override
+    public void setLocation(String address) {
+        tvLocation.setText(address);
+
+    }
+
+    @Override
+    public void setLikes(int likes) {
+
+
+    }
+
+    @Override
+    public void setCommentsNum(int comments) {
+
+    }
+
+    @Override
+    public void setDuration(String duration) {
+        tvDescription.setText(duration);
+
+    }
+
+    @Override
+    public void setStartDate(String startD) {
+        tvStartD.setText(startD);
+
+    }
+
+    @Override
+    public void setEndDate(String endD) {
+        tvEndD.setText(endD);
+
+    }
+
+    @Override
+    public void setDescription(String description) {
+        tvDescription.setText(description);
+
+    }
+
+    @Override
+    public void setComments(ArrayList<CourseComment> comments) {
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+        ActionUtils.showToast(this, msg);
+
+
+    }
+
+    @Override
+    public void onRatingChanged(MaterialRatingBar ratingBar, float rating) {
+        ActionUtils.showToast(this, rating+"");
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnRegister:
+                //Register
+                break;
+            case R.id.tvCourseName:
+                //switch to Instructor profile
+//                (Result) getIntent().getExtras().getSerializable(COURSE)
+                break;
+            case R.id.tvWorkSpace:
+                //switch to workSpace profile
+//                (Result) getIntent().getExtras().getSerializable(COURSE)
+                break;
+
         }
-    }
 
-    @Override
-    public void setVote(float vote) {
-        tvVote.setText(String.valueOf(vote));
-    }
-
-
-    @Override
-    public void setId(int id) {
-        tvId.setText(String.valueOf(id));
-
-    }
-
-    @Override
-    public void isFav(boolean isFav) {
-
-
-    }
-
-    @Override
-    public void showDone(String msg) {
-        ActionUtils.showToast(this,msg);
     }
 
     /******************************  *************************/

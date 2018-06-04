@@ -109,6 +109,7 @@ public class ProfileFragment extends Fragment {
 
         /******************************Shimaa*******************************************/
 
+
         profileImage = view.findViewById(R.id.profileImage);
         pickImage = view.findViewById(R.id.pickImage);
         userName = view.findViewById(R.id.userName);
@@ -140,20 +141,6 @@ public class ProfileFragment extends Fragment {
 
         profilePresenter = new ProfilePresenterImpl(this, getContext());
 
-//        user = SharedPrefrencesSingleton.getSharedPrefUser(getContext());
-//
-//        userName.setText(user.getFirstName()+" " + user.getLastName());
-//        email.setText(user.getEmail());
-//        phone.setText(user.getPhone());
-//        dob.setText(user.getUserDob());
-//        location.setText(user.getCity());
-//
-////        setProfileImage();
-//
-//        interestsAdapter = new SignUpInterestsAdapter(getActivity(), (List<Categories>) user.getCategoryCollection());
-//        interestsGridView.setAdapter(interestsAdapter);
-//
-//        setProfileType();
 
         pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -340,11 +327,12 @@ public class ProfileFragment extends Fragment {
 
     }
 
+    //*******************************************************************************
 
-    //        initView(view);
-//        return view;
-//    }
+    //***************************** Asmaa ***************************************
     void initView(){
+
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
 
     }
 

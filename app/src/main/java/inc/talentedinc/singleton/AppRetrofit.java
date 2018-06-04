@@ -105,24 +105,11 @@ public class AppRetrofit {
 
     }
 
-    void home(){
-        apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
-
-
-    }
-    void login(){
-        apiLogin = retrofit.create(ApiLogin.class);
-
-
-    }
-    void createCourse(){
-        apiCreateCourse = retrofit.create(ApiCreateCourse.class);
-    }
-
     public ApiHomeEndpoint getHomeApi() {
         if(apiHomeEndpoint == null) {
             initialization();
-            home();
+            apiHomeEndpoint = retrofit.create(ApiHomeEndpoint.class);
+
         }
         return apiHomeEndpoint;
     }
@@ -130,14 +117,13 @@ public class AppRetrofit {
     public ApiLogin getApiLogin (){
         if (apiLogin == null){
             initialization();
-            login();
+            apiLogin = retrofit.create(ApiLogin.class);
         }
         return apiLogin ;
     }
 
 
     public Retrofit getRetrofitInstance(){
-
         initialization();
         return retrofit;
     }
@@ -145,8 +131,9 @@ public class AppRetrofit {
     public ApiCreateCourse getApiCreateCourse() {
         if (apiCreateCourse == null){
             initialization();
-            createCourse();
+            apiCreateCourse = retrofit.create(ApiCreateCourse.class);
         }
         return apiCreateCourse ;
     }
+
 }

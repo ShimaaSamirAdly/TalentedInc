@@ -6,126 +6,155 @@ package inc.talentedinc.model;
  */
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Result implements Serializable {
+public class Result implements Serializable
+{
 
-    private int vote_count;
-    private int id;
-    private boolean video;
-    private float vote_average;
-    private String title;
-    private float popularity;
-    private String poster_path;
-    private String original_language;
-    private String original_title;
-    private String backdrop_path;
-    private boolean adult;
-    private String overview;
-    private String release_date;
+    private Integer offeredCourseId;
+    private String name;
+    private Integer durationHours;
+    private String startDate;
+    private String endDate;
+    private String description;
+    private Integer noOfApplicant;
+    private Integer cost;
+    private Object imageUrl;
+    private CategoryId categoryId;
+    private InstructorId instructorId;
+    private HostingWorkSpaceId hostingWorkSpaceId;
+    private Integer numberOfLikes;
+    private Integer numberOfComments;
+    private Boolean liked;
+    private ArrayList<CourseComment> courseComments ;
+    private final static long serialVersionUID = -8458613531321444255L;
 
-    public int getVote_count() {
-        return vote_count;
+    public Integer getOfferedCourseId() {
+        return offeredCourseId;
     }
 
-    public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
+    public void setOfferedCourseId(Integer offeredCourseId) {
+        this.offeredCourseId = offeredCourseId;
     }
 
-    public float getVote_average() {
-        return vote_average;
+    public String getName() {
+        return name;
     }
 
-    public void setVote_average(float vote_average) {
-        this.vote_average = vote_average;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOriginal_language() {
-        return original_language;
+    public Integer getDurationHours() {
+        return durationHours;
     }
 
-    public void setOriginal_language(String original_language) {
-        this.original_language = original_language;
+    public void setDurationHours(Integer durationHours) {
+        this.durationHours = durationHours;
     }
 
-    public String getOriginal_title() {
-        return original_title;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setOriginal_title(String original_title) {
-        this.original_title = original_title;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    public String getBackdrop_path() {
-        return backdrop_path;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setBackdrop_path(String backdrop_path) {
-        this.backdrop_path = backdrop_path;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public String getRelease_date() {
-        return release_date;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getId() {
-        return id;
+    public Integer getNoOfApplicant() {
+        return noOfApplicant;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNoOfApplicant(Integer noOfApplicant) {
+        this.noOfApplicant = noOfApplicant;
     }
 
-    public boolean isVideo() {
-        return video;
+    public Integer getCost() {
+        return cost;
     }
 
-    public void setVideo(boolean video) {
-        this.video = video;
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
-
-    public String getTitle() {
-        return title;
+    public Object getImageUrl() {
+        return imageUrl;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setImageUrl(Object imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public float getPopularity() {
-        return popularity;
+    public CategoryId getCategoryId() {
+        return categoryId;
     }
 
-    public void setPopularity(float popularity) {
-        this.popularity = popularity;
+    public void setCategoryId(CategoryId categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getPoster_path() {
-        return poster_path;
+    public InstructorId getInstructorId() {
+        return instructorId;
     }
 
-    public void setPoster_path(String poster_path) {
-        this.poster_path = poster_path;
+    public void setInstructorId(InstructorId instructorId) {
+        this.instructorId = instructorId;
     }
 
-    public boolean isAdult() {
-        return adult;
+    public HostingWorkSpaceId getHostingWorkSpaceId() {
+        return hostingWorkSpaceId;
     }
 
-    public void setAdult(boolean adult) {
-        this.adult = adult;
+    public void setHostingWorkSpaceId(HostingWorkSpaceId hostingWorkSpaceId) {
+        this.hostingWorkSpaceId = hostingWorkSpaceId;
     }
 
-    public String getOverview() {
-        return overview;
+    public Integer getNumberOfLikes() {
+        return numberOfLikes;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setNumberOfLikes(Integer numberOfLikes) {
+        this.numberOfLikes = numberOfLikes;
+    }
+
+    public Integer getNumberOfComments() {
+        return numberOfComments;
+    }
+
+    public void setNumberOfComments(Integer numberOfComments) {
+        this.numberOfComments = numberOfComments;
+    }
+
+    public Boolean getLiked() {
+        return liked;
+    }
+
+    public void setLiked(Boolean liked) {
+        this.liked = liked;
+    }
+
+    public ArrayList<CourseComment> getCourseComments() {
+        return courseComments;
+    }
+
+    public void setCourseComments(ArrayList<CourseComment> courseComments) {
+        this.courseComments = courseComments;
     }
 
 }
