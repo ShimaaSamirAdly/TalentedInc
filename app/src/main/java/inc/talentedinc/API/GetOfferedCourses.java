@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface GetOfferedCourses {
 
-    @GET("/offeredcourse/nodetails")
+    @GET("/offeredcourse")
         //@FormUrlEncoded
     Call<OfferedCoursesResponse> getOfferedCourses(@Query("page") int page);
 

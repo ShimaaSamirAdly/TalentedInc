@@ -17,6 +17,7 @@ import inc.talentedinc.R;
 import inc.talentedinc.adapter.OfferedCoursesViewAdapter;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.view.activities.HomeActivity;
@@ -26,7 +27,7 @@ import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 public class OfferedCoursesFragment extends Fragment implements EndlessScrollHandler {
 
     RecyclerView coursesRecyclerView;
-    ArrayList<OfferedCourse> offeredCourses;
+    ArrayList<OfferedCourseDetailed> offeredCourses;
     LinearLayoutManager coursesLayoutManager;
     OfferedCoursesViewAdapter offeredCoursesViewAdapter;
     ProgressBar myProgressBar;
@@ -85,6 +86,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
         super.onResume();
         offeredCourses = new ArrayList<>();
         offeredCoursesViewAdapter = new OfferedCoursesViewAdapter(offeredCourses);
+        offeredCoursesViewAdapter.setMyContext(getContext());
         coursesRecyclerView.setAdapter(offeredCoursesViewAdapter);
         showProgressBar();
         offeredCoursesPresenterInt.fetchCourses();
@@ -92,7 +94,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
     }
 
     @Override
-    public void showData(ArrayList<OfferedCourse> courses) {
+    public void showData(ArrayList<OfferedCourseDetailed> courses) {
         Log.i("showData",courses.toString());
         hideProgressBar();
         itShouldLoadMore = true;

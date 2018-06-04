@@ -86,7 +86,8 @@
         </activity>
 
         <!--offered course details activity-->
-        <activity android:name=".view.activities.OfferedCourseDetailsActivity"></activity>
+        <activity android:name=".view.activities.OfferedCourseDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <!-- ........................................................................ -->
 
