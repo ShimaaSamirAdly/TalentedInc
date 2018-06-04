@@ -14,6 +14,7 @@ import inc.talentedinc.interactor.categories.CategoriesInteractorImpl;
 import inc.talentedinc.interactor.signup.SignUpInteractor;
 import inc.talentedinc.interactor.signup.SignUpInteractorImpl;
 import inc.talentedinc.listener.CategoriesListener;
+import inc.talentedinc.listener.SignUpListener;
 import inc.talentedinc.listener.UserProfileListener;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.User;
@@ -25,7 +26,7 @@ import inc.talentedinc.view.fragmnts.ThirdSignUpFragment;
  * Created by MMM on 6/1/2018.
  */
 
-public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener, UserProfileListener {
+public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener, SignUpListener {
 
     ThirdSignUpFragment thirdSignUpFragment;
     SignUpActivity signUpActivity;
@@ -41,10 +42,11 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
         this.context = context;
     }
 
-    public SignUpPresenterImpl(SignUpActivity view){
+    public SignUpPresenterImpl(SignUpActivity view, Context context){
 
         this.signUpActivity = view;
         signUpInteractor = new SignUpInteractorImpl();
+        this.context = context;
         user =new User();
     }
 
@@ -57,6 +59,7 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
     @Override
     public void insertUser(User user) {
         this.user = user;
+//        Log.i("gender", user.getGender().toString());
         signUpInteractor.insertUser(user, this);
     }
 
@@ -73,8 +76,11 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
 
     }
 
+
     @Override
-    public void onSuccess() {
+    public void onSuccess(int userId) {
+
+        user.setUserId(userId);
         SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
@@ -83,11 +89,10 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
         editor.commit();
 
         signUpActivity.switchToProfile();
-
     }
-//
+
     @Override
-    public void onFailure() {
+    public void onFailure(String error) {
 
     }
 }

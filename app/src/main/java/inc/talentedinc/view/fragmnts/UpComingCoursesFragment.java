@@ -13,18 +13,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.rey.material.widget.ProgressView;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.HomeAdapter;
+import inc.talentedinc.adapter.SignUpInterestsAdapter;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
 import inc.talentedinc.listener.HomeListener;
+import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.utilitis.ValidationUtility;
@@ -33,12 +40,17 @@ import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,HomeListener, View.OnClickListener {
 
+
+    private List<Categories> categories ;
+    private SignUpInterestsAdapter interestsAdapter;
     /****************************** asmaa *************************/
 
     private RecyclerView recyclerView;
-    private int page=1;
+    private int page=0;
     private boolean isLoading = false;
     private boolean moreDataAvailable = true;
 
@@ -72,6 +84,19 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
     /****************************** *************************/
 
+    void obj(){
+        Categories c1 = new Categories(1,"aa");
+        Categories c2 = new Categories(1,"bb");
+        Categories c3 = new Categories(1,"cc");
+        categories=new ArrayList<>();
+        categories.add(c1);
+        categories.add(c2);
+        categories.add(c3);
+        interestsAdapter = new SignUpInterestsAdapter(getActivity(),categories);
+
+
+    }
+
     /****************************** asmaa *************************/
 
     private void initView(View v){
@@ -87,22 +112,23 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
-        presenter = new UpComingCoursesPresenter(Factory.provideUpComing());
-
-        presenter.setView(page, this);
+        presenter = new UpComingCoursesPresenter(Factory.provideUpComing(),Factory.provideCommentLike());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
+
         upcomingCoursesAdapter = new HomeAdapter(HomeAdapter.UPCOMING,gridLayoutManager,this);
         upcomingCoursesAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(upcomingCoursesAdapter);
+
+        presenter.setView(page, this);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {
             @Override
             public void onLoadMore() {
-                if (!isLoading && moreDataAvailable ) {
-                    isLoading = true;
-                    loadMoreData();
-                }
+//                if (!isLoading && moreDataAvailable ) {
+//                    isLoading = true;
+//                    loadMoreData();
+//                }
             }
         });
 
@@ -157,6 +183,29 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         filterDialog = builder.create();
         if (dialogView != null) {
+            obj();
+            Spinner spinnerCategories = dialogView.findViewById(R.id.spinnerCategories);
+            final ArrayAdapter<Categories> adapter =
+                    new ArrayAdapter<Categories>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, categories);
+            adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+            spinnerCategories.setAdapter(adapter);
+           /// spinnerCategories.setSelection(interestsAdapter.g);
+            // You can create an anonymous listener to handle the event when is selected an spinner item
+            spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view,
+                                           int position, long id) {
+                    // Here you get the current item (a User object) that is selected by its position
+                    Categories categories = adapter.getItem(position);
+                    // Here you can do the action you want to...
+//                    Toast.makeText(Main.this, "ID: " + user.getId() + "\nName: " + user.getName(),
+//                            Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapter) {  }
+            });
 
             Button cancelBtn = dialogView.findViewById(R.id.btnCancel);
 
@@ -226,6 +275,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
 
     @Override
+    public void showToast(String s) {
+        ActionUtils.showToast(getActivity(),s);
+    }
+
+    @Override
     public void onCourseClicked(Result result) {
         Intent switchToDetails = new Intent(getActivity(),UpComingDetailsActivity.class);
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
@@ -248,6 +302,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     public void onCommentClick() {
         commentDialog();
 
+    }
+
+    @Override
+    public void onInstructorClick(int instracturId) {
+        //// switch to instractur Profile
     }
 
     @Override

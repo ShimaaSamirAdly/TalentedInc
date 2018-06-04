@@ -5,9 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.lang.ref.PhantomReference;
-
 import inc.talentedinc.R;
 import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;

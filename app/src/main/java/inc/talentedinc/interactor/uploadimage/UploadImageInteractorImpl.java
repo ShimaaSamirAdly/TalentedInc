@@ -29,6 +29,9 @@ public class UploadImageInteractorImpl implements UploadImageInteractor {
     @Override
     public void uploadImage(Uri filePath, final UploadImageListener listener) {
 
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
         StorageReference ref = storageReference.child("image/" + UUID.randomUUID().toString());
                     ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

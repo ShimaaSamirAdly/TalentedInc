@@ -19,23 +19,23 @@ import retrofit2.Response;
 public class CategoriesInteractorImpl implements CategoriesInteractor {
 
 
-//    CategoryEndpoint categoryEndpoint = AppRetrofit.getInstance().create(CategoryEndpoint.class);
+    CategoryEndpoint categoryEndpoint = AppRetrofit.getInstance().getRetrofitInstance().create(CategoryEndpoint.class);
 
     @Override
     public void getAllCategories(final CategoriesListener listener) {
 
-//        Call<List<Categories>> call = categoryEndpoint.getAllCategories();
-//        call.enqueue(new Callback<List<Categories>>() {
-//            @Override
-//            public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
-//                Log.i("conn", "Success");
-//                listener.onSuccess(response.body());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Categories>> call, Throwable t) {
-//                Log.i("conn", "failed");
-//            }
-//        });
+        Call<List<Categories>> call = categoryEndpoint.getAllCategories();
+        call.enqueue(new Callback<List<Categories>>() {
+            @Override
+            public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
+                Log.i("conn", "Success");
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Categories>> call, Throwable t) {
+                Log.i("conn", "failed");
+            }
+        });
     }
 }

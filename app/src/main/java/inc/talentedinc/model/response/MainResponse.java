@@ -6,22 +6,22 @@ package inc.talentedinc.model.response;
 
 public class MainResponse {
 
-    private String status ;
-    private String userId ;
+//    private String status ;
+    private String user_id ;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 
     public String getUserId() {
-        return userId;
+        return user_id;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.user_id = userId;
     }
 }

@@ -1,5 +1,6 @@
 package inc.talentedinc.interactor.signup;
 
+import inc.talentedinc.listener.SignUpListener;
 import inc.talentedinc.listener.UserProfileListener;
 import inc.talentedinc.model.User;
 
@@ -9,5 +10,5 @@ import inc.talentedinc.model.User;
 
 public interface SignUpInteractor {
 
-    public void insertUser(User user, UserProfileListener listener);
+    public void insertUser(User user, SignUpListener listener);
 }

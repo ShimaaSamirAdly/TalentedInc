@@ -11,5 +11,6 @@ public interface HomeListener {
     void onRateClick();
     void onLikeClick();
     void onCommentClick();
+    void onInstructorClick(int instracturId);
 
 }

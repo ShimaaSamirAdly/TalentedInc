@@ -46,13 +46,16 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.+'
     //progress
     implementation 'com.github.rey5137:material:1.+'
-    implementation 'com.android.support:multidex:1.0.1'
-    /***************************************************************/
 
+    implementation 'com.android.support:multidex:1.0.1'
+
+    /** *************************************************************/
     /*****************************mina****************************/
     //facebook login
     implementation 'com.facebook.android:facebook-login:[4,5)'
-    /***************************************************************/
+    /** *************************************************************/
+
+    /** *************************************************************/
 
 //    -----------------------alaa------------------------------------------
     implementation 'com.android.support:support-annotations:27.1.1s'
@@ -74,6 +77,4 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 
 //************************************************************
-
-
 

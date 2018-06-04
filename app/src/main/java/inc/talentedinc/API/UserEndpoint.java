@@ -1,6 +1,7 @@
 package inc.talentedinc.API;
 
 import inc.talentedinc.model.User;
+import inc.talentedinc.model.response.MainResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -14,7 +15,7 @@ import retrofit2.http.PUT;
 public interface UserEndpoint {
 
     @POST("/users/add")
-    Call<User> insertUser(@Body User user);
+    Call<MainResponse> insertUser(@Body User user);
 
     @PUT("/users/update")
     Call<User> updateUser(@Body User user);

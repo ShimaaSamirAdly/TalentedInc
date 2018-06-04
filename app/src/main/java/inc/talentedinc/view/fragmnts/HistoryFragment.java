@@ -191,6 +191,11 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     @Override
+    public void showToast(String s) {
+
+    }
+
+    @Override
     public void onCourseClicked(Result result) {
         Intent switchToDetails = new Intent(getActivity(),UpComingDetailsActivity.class);
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
@@ -211,6 +216,11 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void onCommentClick() {
         commentDialog();
+
+    }
+
+    @Override
+    public void onInstructorClick(int instracturId) {
 
     }
 
