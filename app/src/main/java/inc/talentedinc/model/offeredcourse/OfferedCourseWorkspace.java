@@ -3,7 +3,9 @@ package inc.talentedinc.model.offeredcourse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OfferedCourseWorkspace {
+import java.io.Serializable;
+
+public class OfferedCourseWorkspace implements Serializable {
 
     @SerializedName("workSpaceId")
     @Expose

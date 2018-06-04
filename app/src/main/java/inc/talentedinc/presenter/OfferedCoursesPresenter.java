@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import inc.talentedinc.interactor.offeredcourse.OfferedCoursesFetcher;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
 public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
@@ -24,7 +25,7 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
     }
 
     @Override
-    public void notifyFragmentWithOfferedCourses(ArrayList<OfferedCourse> offeredCourses) {
+    public void notifyFragmentWithOfferedCourses(ArrayList<OfferedCourseDetailed> offeredCourses) {
         //endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.showData(offeredCourses);
     }

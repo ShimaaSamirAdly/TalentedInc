@@ -56,7 +56,7 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         tvWorkspaceName=findViewById(R.id.course_creator_txt);
         tvWorkspaceName.setOnClickListener(this);
         tvLocation=findViewById(R.id.tvLocation);
-        tvDescription=findViewById(R.id.tvDisc);
+        tvDescription=findViewById(R.id.offered_course_desc_txt);
         tvStartD =findViewById(R.id.start_date_txt);
         tvEndD=findViewById(R.id.tvEnd);
         tvDescription=findViewById(R.id.duration_txt);

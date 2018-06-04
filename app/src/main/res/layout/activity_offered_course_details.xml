@@ -149,7 +149,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
                         <TextView
-                            android:id="@+id/tvDisc"
+                            android:id="@+id/offered_course_desc_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
@@ -173,7 +173,7 @@
                             android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tvDisc"></LinearLayout>
+                            app:layout_constraintTop_toBottomOf="@+id/offered_course_desc_txt"></LinearLayout>
 
                         <TextView
                             android:id="@+id/textView42"
@@ -278,7 +278,7 @@
                             android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/duration_txt"/>
+                            app:layout_constraintTop_toBottomOf="@+id/duration_txt" />
 
 
                         <TextView
@@ -296,7 +296,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
                         <TextView
-                            android:id="@+id/no_of_applicants_txt"
+                            android:id="@+id/no_applicants_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="10dp"
@@ -320,7 +320,7 @@
                             android:orientation="horizontal"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/no_of_applicants_txt"/>
+                            app:layout_constraintTop_toBottomOf="@+id/no_applicants_txt" />
 
                         <Button
                             android:id="@+id/btnRegister"

@@ -9,7 +9,7 @@ public class OfferedCoursesResponse {
 
     @SerializedName("content")
     @Expose
-    private ArrayList<OfferedCourse> content = null;
+    private ArrayList<OfferedCourseDetailed> content = null;
     @SerializedName("last")
     @Expose
     private Boolean last;
@@ -32,11 +32,11 @@ public class OfferedCoursesResponse {
     @Expose
     private Integer numberOfElements;
 
-    public ArrayList<OfferedCourse> getContent() {
+    public ArrayList<OfferedCourseDetailed> getContent() {
         return content;
     }
 
-    public void setContent(ArrayList<OfferedCourse> content) {
+    public void setContent(ArrayList<OfferedCourseDetailed> content) {
         this.content = content;
     }
 

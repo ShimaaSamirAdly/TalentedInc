@@ -6,6 +6,7 @@ import inc.talentedinc.API.GetOfferedCourses;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.User;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.singleton.AppRetrofit;
@@ -37,8 +38,8 @@ public class OfferedCoursesFetcher {
         });
     }
 
-    private void getCoursesUsers(ArrayList<OfferedCourse> offeredCourses) {
-        for (final OfferedCourse offeredCourse : offeredCourses) {
+    private void getCoursesUsers(ArrayList<OfferedCourseDetailed> offeredCourses) {
+        for (final OfferedCourseDetailed offeredCourse : offeredCourses) {
             if (offeredCourse.getInstructorId() != null) {
                 AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class).getUser(offeredCourse.getInstructorId().getUserId()).enqueue(new Callback<User>() {
                     @Override
