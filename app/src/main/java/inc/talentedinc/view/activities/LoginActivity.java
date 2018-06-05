@@ -58,6 +58,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private LoginPresenter loginPresenter ;
     private UserLogin userLogin ;
     private Button loginBtn;
+    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
 
 //--------------------------------------------------------------------------------------------------//
 
@@ -189,7 +191,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
-                if (email.getText() != null && password.getText() != null){
+
+
+                if (email.getText() != null && email.getText().toString().matches(emailPattern) && password.getText() != null){
 
                     loginPresenter = new LoginPresenter();
 
@@ -199,6 +203,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                     Log.i("das","ethabb");
                     loginPresenter.setView( userLogin, this);
 
+                }
+                else {
+                    Toast.makeText(this,"please a valid data",Toast.LENGTH_LONG).show();
                 }
                 break;
 
