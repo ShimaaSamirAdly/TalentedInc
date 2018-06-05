@@ -13,8 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.List;
+
 import inc.talentedinc.R;
+import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.User;
+import inc.talentedinc.presenter.CategoriesPresenter;
 import inc.talentedinc.view.callbackinterfaces.SignupActivityHandler;
 
 
@@ -96,6 +100,8 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
         user.setPassword(passwordTxt.getText().toString());
         user.setPhone(phoneTxt.getText().toString());
     }
+
+
 //    ...........................................................................................
 
 }

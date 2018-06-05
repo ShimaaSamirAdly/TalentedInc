@@ -331,13 +331,9 @@ public class ProfileFragment extends Fragment {
 
     //***************************** Asmaa ***************************************
     void initView(){
-
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
-
     }
 
     /******************************  *************************/
-
-
 
 }
