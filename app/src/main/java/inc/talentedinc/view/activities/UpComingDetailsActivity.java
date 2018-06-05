@@ -2,12 +2,11 @@ package inc.talentedinc.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
+
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
@@ -34,6 +33,11 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     private Button btnRegister;
     private TextView tvCommentsNum , tvLikesNum;
     private ProgressView progressView;
+    private LinearLayout myRoot ;
+    private LinearLayout a;
+    private CircleImageView commentUserImg;
+    private TextView commentUserName;
+    private TextView userComment, commentTvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +54,23 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     private void initView(){
 //        ratingBar = findViewById(R.id.mRating);
 //        ratingBar.setOnRatingChangeListener(this);
+
+         myRoot = (LinearLayout) findViewById(R.id.ll);
+         a = new LinearLayout(this);
+        a.setOrientation(LinearLayout.VERTICAL);
+
         imgCourse=findViewById(R.id.imgCourse);
         progressView = findViewById(R.id.pv_load);
         tvCourseName=findViewById(R.id.tvCourseUser);
         tvInstructorName=findViewById(R.id.tvCourseUser);
         tvInstructorName.setOnClickListener(this);
-        tvWorkspaceName=findViewById(R.id.tvWorkSpace);
+        tvWorkspaceName=findViewById(R.id.course_creator_txt);
         tvWorkspaceName.setOnClickListener(this);
         tvLocation=findViewById(R.id.tvLocation);
-        tvDescription=findViewById(R.id.tvDisc);
-        tvStartD =findViewById(R.id.tvStart);
+        tvDescription=findViewById(R.id.offered_course_desc_txt);
+        tvStartD =findViewById(R.id.start_date_txt);
         tvEndD=findViewById(R.id.tvEnd);
-        tvDescription=findViewById(R.id.tvDuration);
+        tvDescription=findViewById(R.id.duration_txt);
         btnRegister =findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(this);
         presenter = new UpComingDetailsPresenter(Factory.provideCommentLike());
@@ -145,6 +154,28 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
     @Override
     public void setComments(ArrayList<CourseComment> comments) {
+        if (comments.size() >0){
+            for (int i =0; i<comments.size();i++){
+                View child = getLayoutInflater().inflate(R.layout.comments_row_design, null);
+                commentUserImg = child.findViewById(R.id.circleImageView);
+                commentUserName = child.findViewById(R.id.tvUserName);
+                userComment=child.findViewById(R.id.tvComment);
+                commentTvTime=child.findViewById(R.id.tvTime);
+                if (!comments.get(i).getComment().equals(null)){
+                    userComment.setText(comments.get(i).getComment());
+                }
+               // commentUserName
+                //if ()
+                if (!comments.get(i).getTime().equals(null)){
+                    commentTvTime.setText(comments.get(i).getTime());
+
+                }
+
+                a.addView(child);
+
+            }
+            myRoot.addView(a);
+        }
 
     }
 
@@ -166,11 +197,11 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
             case R.id.btnRegister:
                 //Register
                 break;
-            case R.id.tvCourseName:
+            case R.id.course_name_txt:
                 //switch to Instructor profile
 //                (Result) getIntent().getExtras().getSerializable(COURSE)
                 break;
-            case R.id.tvWorkSpace:
+            case R.id.course_creator_txt:
                 //switch to workSpace profile
 //                (Result) getIntent().getExtras().getSerializable(COURSE)
                 break;

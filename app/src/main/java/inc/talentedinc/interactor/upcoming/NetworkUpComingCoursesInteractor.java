@@ -74,11 +74,55 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
         r1.setCourseComments(t);
         data.add(r1);
 
+        Result r2 = new Result();
+        r2.setName("Asmaa Test");
+        r2.setStartDate("2/5/666");
+        r2.setEndDate("5/5888/77");
+        r2.setDescription("ay kalam b2a mat5no2nash :D");
+        r2.setDurationHours(200);
+        r2.setNumberOfComments(1);
+        r2.setNumberOfLikes(3);
+        r2.setOfferedCourseId(1);
+        data.add(r1);
+
+        Result r3 = new Result();
+        r3.setName("Asmaa Test");
+        data.add(r3);
+
+        Result r4 = new Result();
+        r4.setName("Asmaa Test");
+        data.add(r4);
+
+        Result r5 = new Result();
+        r5.setName("Asmaa Test");
+        data.add(r5);
+
+        Result r6 = new Result();
+        r6.setName("Asmaa Test");
+        data.add(r6);
+
+        Result r7 = new Result();
+        r7.setName("Asmaa Test");
+        data.add(r7);
+
+        Result r9 = new Result();
+        r9.setName("Asmaa Test");
+        data.add(r9);
+
+        Result r8 = new Result();
+        r8.setName("Asmaa Test");
+        data.add(r8);
+
+        Result r10 = new Result();
+        r10.setName("Asmaa Test");
+        data.add(r10);
+
     }
 
     @Override
     public void getUpComingCourses(int page, final OnCoursesResult onCoursesResult) {
-        dummyData();
+       dummyData();
+
         onCoursesResult.onSuccess(data);
 
 //        Call<CoursesResponse> call;

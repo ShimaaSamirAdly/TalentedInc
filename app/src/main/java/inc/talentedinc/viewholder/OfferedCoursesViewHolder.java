@@ -4,6 +4,7 @@ import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import inc.talentedinc.R;
@@ -15,6 +16,7 @@ public class OfferedCoursesViewHolder extends RecyclerView.ViewHolder {
     private TextView offeredCourseCreatorTxt;
     private TextView offeredCourseDateTxt;
     private Button requestOfferedCourseBtn;
+    private ImageView offeredCourseImageView;
 
     public OfferedCoursesViewHolder(View itemView) {
         super(itemView);
@@ -47,5 +49,12 @@ public class OfferedCoursesViewHolder extends RecyclerView.ViewHolder {
             requestOfferedCourseBtn = offrerdCoursesCardView.findViewById(R.id.request_offered_course_btn);
         }
         return requestOfferedCourseBtn;
+    }
+
+    public ImageView getOfferedCourseImageView() {
+        if(offeredCourseImageView == null){
+            offeredCourseImageView = offrerdCoursesCardView.findViewById(R.id.offered_course_img);
+        }
+        return offeredCourseImageView;
     }
 }

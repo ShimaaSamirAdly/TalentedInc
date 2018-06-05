@@ -14,11 +14,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,7 +40,7 @@ public class ThirdSignUpFragment extends Fragment {
     GridView gridview;
     User user;
     Collection<Categories> interests;
-    Set<Integer> clickedCount;
+    HashMap<Integer, Categories> clickedCount;
     View view;
 
     public ThirdSignUpFragment() {
@@ -57,72 +59,47 @@ public class ThirdSignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         user = new User();
+
         view =  inflater.inflate(R.layout.fragment_third_sign_up, container, false);
 
         presenter = new SignUpPresenterImpl(this, getContext());
 
         presenter.getAllCategories();
 
-        interests = new ArrayList<Categories>();
-
-        clickedCount = new HashSet<>();
-
-        List<Categories> categoriesList = new ArrayList<>();
-
-        adapter = new SignUpInterestsAdapter(getActivity(), categoriesList);
-        gridview = (GridView) view.findViewById(R.id.gridview);
-        gridview.setAdapter(adapter);
-        Log.i("setView", adapter.toString());
-
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-
-                TextView t = v.findViewById(R.id.txt);
-                String d = t.getText().toString();
-                Log.i("text", ""+v.getId());
-                if(clickedCount.contains(v.getId())){
-                    t.setTextColor(Color.BLACK);
-                    interests.remove(new Categories(v.getId(), d));
-                    clickedCount.remove(v.getId());
-                }else{
-                    clickedCount.add(v.getId());
-                    interests.add(new Categories(v.getId(), d));
-                    t.setTextColor(Color.BLUE);
-                }
-
-            }
-        });
-
-
+        clickedCount = new HashMap<>();
 
         return view;
     }
 
 
     public void setData(List<Categories> categoriesList){
-        Toast.makeText(getContext(), "setData", Toast.LENGTH_LONG).show();
+
         adapter = new SignUpInterestsAdapter(getContext(), categoriesList);
-        gridview = (GridView) view.findViewById(R.id.gridview);
+        gridview = view.findViewById(R.id.gridview);
         gridview.setAdapter(adapter);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                TextView t = v.findViewById(R.id.txt);
-                String d = t.getText().toString();
-                Log.i("text", ""+v.getId());
-                if(clickedCount.contains(v.getId())){
-                    t.setTextColor(Color.BLACK);
-                    interests.remove(new Categories(v.getId(), "programming"));
+                TextView categoryText = v.findViewById(R.id.txt);
+                ImageView categoryImg = v.findViewById(R.id.img);
+                String categoryName = categoryText.getText().toString();
+                Categories cat = new Categories(v.getId(), categoryName);
+
+                if(clickedCount.containsKey(v.getId())){
+                    HashMap<Integer, String> map = new HashMap<>();
+
+                    categoryImg.setImageResource(getContext().getResources()
+                            .getIdentifier(categoryName.toLowerCase(), "drawable", getContext().getPackageName()));
                     clickedCount.remove(v.getId());
                 }else{
-                    clickedCount.add(v.getId());
-                    interests.add(new Categories(v.getId(), "programming"));
-                    t.setTextColor(Color.BLUE);
-                }
 
+                    categoryImg.setImageResource(getContext().getResources()
+                            .getIdentifier(categoryName.toLowerCase()+"selc", "drawable", getContext().getPackageName()));
+                    clickedCount.put(v.getId(), cat);
+
+                }
             }
         });
 
@@ -132,17 +109,12 @@ public class ThirdSignUpFragment extends Fragment {
 
     public User getUser(){
 
+        interests = new ArrayList<>(clickedCount.values());
         user.setCategoryCollection(interests);
         user.setUserType(0);
 
         return user;
     }
 
-//    public void goToProfile(){
-
-//        Intent intent = new Intent(getContext(), MainActivity.class);
-////                intent.putExtra("user", user);
-//        startActivity(intent);
-//    }
 
 }

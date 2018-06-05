@@ -3,6 +3,7 @@ package inc.talentedinc.presenter.profile;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -53,13 +54,7 @@ public class ProfilePresenterImpl implements ProfilePresenter, UserProfileListen
     @Override
     public void onSuccess() {
 
-        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
-        SharedPreferences.Editor prefsEditor = preferences.edit();
-        prefsEditor.remove("user");
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        prefsEditor.putString("user", json);
-        prefsEditor.commit();
+        SharedPrefrencesSingleton.setSharedPrefUser(context, user);
     }
 
     @Override
@@ -71,6 +66,8 @@ public class ProfilePresenterImpl implements ProfilePresenter, UserProfileListen
     public void onSuccessUploadImage(String imageUrl) {
 
         user.setImgUrl(imageUrl);
+        SharedPrefrencesSingleton.setSharedPrefUser(context, user);
+        profileFragment.setProfileImage(imageUrl);
         updateUser(user);
     }
 }

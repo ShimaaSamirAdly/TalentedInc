@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -85,10 +86,14 @@ public class SignUpActivity extends AppCompatActivity {
                 break;
 /************************************************Shimaa*************************************/
             case 2:
-                getThirdSignUpData();
-                presenter = new SignUpPresenterImpl(this);
-                presenter.insertUser(signedUpUser);
-                switchToProfile();
+//                getThirdSignUpData();
+//                Log.i("gender", signedUpUser.getGender().toString());
+//                presenter = new SignUpPresenterImpl(this, getApplicationContext());
+//                presenter.insertUser(signedUpUser);
+//                switchToProfile();
+                Intent intent = new Intent(this, OthersProfileActivity.class);
+                intent.putExtra("userId", 32);
+                startActivity(intent);
                 break;
             /********************************************************************************************/
         }
@@ -169,8 +174,8 @@ public class SignUpActivity extends AppCompatActivity {
     public void switchToProfile() {
 
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("user", (Serializable) signedUpUser);
-        intent.putExtra("direction", "profile");
+//        intent.putExtra("user", (Serializable) signedUpUser);
+//        intent.putExtra("direction", "profile");
         startActivity(intent);
     }
 

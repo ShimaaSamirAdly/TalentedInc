@@ -49,11 +49,9 @@
             android:id="@+id/imgLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/like"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvSetComment" />
 
@@ -61,12 +59,10 @@
             android:id="@+id/tvLikes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:text="20"
             android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgLike"
             app:layout_constraintTop_toBottomOf="@+id/tvSetComment" />
 
@@ -110,16 +106,17 @@
             android:visibility="gone"
             app:pv_progressMode="indeterminate"
             app:pv_progressStyle="@style/LightCircularProgressDrawable" />
+
         <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
             android:orientation="vertical"
-            android:id="@+id/ll">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ddddddddddddddddd"
-                android:textColor="@color/red"/>
+            app:layout_constraintTop_toBottomOf="@+id/imgLike">
+
+
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 

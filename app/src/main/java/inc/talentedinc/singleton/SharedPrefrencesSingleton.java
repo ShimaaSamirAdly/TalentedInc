@@ -3,6 +3,10 @@ package inc.talentedinc.singleton;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
+import inc.talentedinc.model.User;
+
 /**
  * Created by MMM on 5/27/2018.
  */
@@ -27,6 +31,31 @@ public class SharedPrefrencesSingleton {
         }
 
         return sharedPreferences;
+    }
+
+
+    public static User getSharedPrefUser(Context context){
+
+        sharedPreferences = getInstance(context);
+        Gson gson = new Gson();
+        String userJson = sharedPreferences.getString("user", "");
+
+        User user = gson.fromJson(userJson, User.class);
+
+        return user;
+
+    }
+
+
+    public static void setSharedPrefUser(Context context, User user){
+
+        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
+        SharedPreferences.Editor prefsEditor = preferences.edit();
+        prefsEditor.remove("user");
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        prefsEditor.putString("user", json);
+        prefsEditor.commit();
     }
 
 

@@ -28,6 +28,9 @@ public class UserLoginImpl implements UserLoginInter {
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.i("nela ",response.body().getEmail());
 
+
+//                Log.i("check",response.body().getStatus());
+
                 onresult.onSucess(response.body());
             }
 
