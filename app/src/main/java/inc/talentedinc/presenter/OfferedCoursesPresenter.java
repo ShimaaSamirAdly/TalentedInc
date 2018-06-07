@@ -12,6 +12,7 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
 
     String BASE_URL = "https://f940191e-5b7a-4c0d-8e45-05b482b2e6e8.mock.pstmn.io/";
     EndlessScrollHandler endlessScrollHandler;
+    OfferedCoursesFetcher offeredCoursesFetcher;
 
     public OfferedCoursesPresenter(EndlessScrollHandler endlessScrollHandler) {
         this.endlessScrollHandler = endlessScrollHandler;
@@ -20,7 +21,7 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
     @Override
     public void fetchCourses() {
         //endlessScrollHandler.showProgressBar();
-        OfferedCoursesFetcher offeredCoursesFetcher = new OfferedCoursesFetcher(this);
+        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
         offeredCoursesFetcher.fetchCourses();
     }
 
@@ -34,5 +35,15 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt {
     public void notifyFragmentWithError() {
         //endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.makeErrorToast();
+    }
+
+    @Override
+    public void requestOfferedCourse(Integer offeredCourseId, Integer instructorId) {
+        offeredCoursesFetcher.requestCourse(offeredCourseId,instructorId);
+    }
+
+    @Override
+    public void makeToastRequestResult(int result) {
+        endlessScrollHandler.makeToastRequestResult(result);
     }
 }

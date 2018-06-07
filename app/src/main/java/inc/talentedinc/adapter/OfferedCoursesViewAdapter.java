@@ -14,6 +14,9 @@ import inc.talentedinc.R;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
+import inc.talentedinc.presenter.OfferedCoursesPresenter;
+import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.activities.OfferedCourseDetailsActivity;
 import inc.talentedinc.viewholder.OfferedCoursesViewHolder;
 
@@ -24,6 +27,7 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
     private View offeredCourseView;
     private OfferedCoursesViewHolder offeredCoursesViewHolder;
     private Context myContext;
+    private OfferedCoursesPresenterInt offeredCoursesPresenter;
     public static String OFFERED_COURSE_OBJECT = "selected_offered_course";
 
     public OfferedCoursesViewAdapter(ArrayList<OfferedCourseDetailed> offeredCourses) {
@@ -44,14 +48,19 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
         holder.getOfferedCourseNameTxt().setText(offeredCourses.get(position).getName());
         if(offeredCourses.get(position).getCourseCreator()!= null){
             holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getCourseCreator().getFirstName()+" "+offeredCourses.get(position).getCourseCreator().getLastName());
+            holder.getRequestOfferedCourseBtn().setVisibility(View.VISIBLE);
         }else {
             holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getHostingWorkSpaceId().getName());
+            holder.getRequestOfferedCourseBtn().setVisibility(View.GONE);
         }
         holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate());
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //request the course
+                Integer offeredCourseId = offeredCourses.get(position).getOfferedCourseId();
+                Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
+                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId);
             }
         });
 
@@ -76,5 +85,9 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
 
     public void setMyContext(Context myContext) {
         this.myContext = myContext;
+    }
+
+    public void setOfferedCoursesPresenter(OfferedCoursesPresenterInt offeredCoursesPresenter) {
+        this.offeredCoursesPresenter = offeredCoursesPresenter;
     }
 }

@@ -11,4 +11,8 @@ public interface OfferedCoursesPresenterInt {
     void fetchCourses();
     void notifyFragmentWithOfferedCourses(ArrayList<OfferedCourseDetailed> offeredCourses);
     void notifyFragmentWithError();
+
+    void requestOfferedCourse(Integer offeredCourseId, Integer instructorId);
+
+    void makeToastRequestResult(int result);
 }
