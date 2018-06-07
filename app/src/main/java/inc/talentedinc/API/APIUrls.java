@@ -27,7 +27,7 @@ public class APIUrls {
     public static final String RATE="/publishedCourses/rate";
 
 
-    public static final String BASE_URL = "https://tal-company.herokuapp.com";
+   // public static final String BASE_URL = "https://tal-company.herokuapp.com";
 
 
     //alaa
@@ -35,7 +35,7 @@ public class APIUrls {
     public static final String CREATE_COURSE = "/offeredcourse/createofferedcoursebyinstructor";
 
     //    ........................................mina................................................
-   // public static final String BASE_URL = "https://f940191e-5b7a-4c0d-8e45-05b482b2e6e8.mock.pstmn.io/";
+   public static final String BASE_URL = "http://172.16.5.184:3000";
 
 
 //    ...............................................................................................

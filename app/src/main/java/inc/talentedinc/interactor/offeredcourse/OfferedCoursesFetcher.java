@@ -1,5 +1,7 @@
 package inc.talentedinc.interactor.offeredcourse;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import inc.talentedinc.API.GetOfferedCourses;
@@ -29,12 +31,14 @@ public class OfferedCoursesFetcher {
                 .enqueue(new Callback<OfferedCoursesResponse>() {
             @Override
             public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
+                Log.i("RETROFIT",""+response.code());
                 OfferedCoursesResponse offeredCoursesResponse = response.body();
                 getCoursesUsers(offeredCoursesResponse.getContent());
             }
 
             @Override
             public void onFailure(Call<OfferedCoursesResponse> call, Throwable t) {
+                Log.i("RETROFIT",t.getMessage());
                 offeredCoursesPresenterInt.notifyFragmentWithError();
             }
         });

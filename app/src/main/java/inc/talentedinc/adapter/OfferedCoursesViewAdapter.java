@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +49,10 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
         holder.getOfferedCourseNameTxt().setText(offeredCourses.get(position).getName());
         if(offeredCourses.get(position).getCourseCreator()!= null){
             holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getCourseCreator().getFirstName()+" "+offeredCourses.get(position).getCourseCreator().getLastName());
-            holder.getRequestOfferedCourseBtn().setVisibility(View.VISIBLE);
+            //holder.getRequestOfferedCourseBtn().setVisibility(View.VISIBLE);
         }else {
             holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getHostingWorkSpaceId().getName());
-            holder.getRequestOfferedCourseBtn().setVisibility(View.GONE);
+            //holder.getRequestOfferedCourseBtn().setVisibility(View.GONE);
         }
         holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate());
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
@@ -59,8 +60,9 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
             public void onClick(View v) {
                 //request the course
                 Integer offeredCourseId = offeredCourses.get(position).getOfferedCourseId();
-                Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
-                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId);
+//                Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
+                Log.i("CourseId",""+offeredCourseId);
+                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,2);
             }
         });
 

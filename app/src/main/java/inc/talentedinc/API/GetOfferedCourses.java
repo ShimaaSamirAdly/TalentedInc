@@ -24,5 +24,5 @@ public interface GetOfferedCourses {
     Call<User> getUser(@Path("id")int id);
 
     @POST("/InstructorReqOfferedCourse/requestcourse")
-    Call<Object> instructorRequestOfferedCourse(@Query("instructorId")Integer instrctorId,@Query("coureId")Integer courseId);
+    Call<Object> instructorRequestOfferedCourse(@Query("instructorId")Integer instrctorId,@Query("courseId")Integer courseId);
 }
