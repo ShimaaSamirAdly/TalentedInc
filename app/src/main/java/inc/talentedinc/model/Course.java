@@ -2,24 +2,34 @@ package inc.talentedinc.model;
 
 //<<<<<<< HEAD
 
+import java.io.Serializable;
+
 /**
  * Created by Alaa on 5/24/2018.
  */
 
-public class Course {
+public class Course implements Serializable {
     private String courseName ;
     private String startDate ;
     private String endDate ;
     private Integer cost ;
     private Integer numOfApplicants ;
     private String description ;
-    private String category ;
+    private Categories category ;
     private Integer duration;
 
 //  private Integer instructorId ;
 
     //ana hna na2s el imstructor
 
+
+    public void setCategory(Categories category) {
+        this.category = category;
+    }
+
+    public Categories getCategory() {
+        return category;
+    }
 
     public void setDuration(Integer duration) {
         this.duration = duration;
@@ -29,9 +39,6 @@ public class Course {
         return duration;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
     public Integer getCost() {
         return cost;
@@ -65,9 +72,6 @@ public class Course {
         return numOfApplicants;
     }
 
-    public String getCategory() {
-        return category;
-    }
 
     public String getCourseName() {
         return courseName;

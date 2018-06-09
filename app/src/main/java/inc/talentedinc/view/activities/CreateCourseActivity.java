@@ -11,8 +11,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
+
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.CreateCourseViewPagerAdapter;
+import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Course;
 import inc.talentedinc.presenter.CreateCoursePresenter;
 import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
@@ -102,6 +105,8 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
         Toast.makeText(this,"Fail",Toast.LENGTH_LONG).show();
 
     }
+
+
 
     public void nextAction (){
 

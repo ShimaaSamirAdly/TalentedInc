@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.Course;
@@ -98,12 +99,15 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
     }
 
     public Course getCourse() {
-        course.setCourseName(courseName.getText().toString());
-        course.setStartDate(startDate.getText().toString());
-        course.setEndDate(endDate.getText().toString());
-        course.setCost(Integer.parseInt( cost.getText().toString()));
-
-
+        if(courseName.getText()!=null && startDate.getText()!=null && endDate.getText()!=null && cost.getText()!=null ) {
+            course.setCourseName(courseName.getText().toString());
+            course.setStartDate(startDate.getText().toString());
+            course.setEndDate(endDate.getText().toString());
+            course.setCost(Integer.parseInt(cost.getText().toString()));
+        }
+        else {
+            Toast.makeText(getContext(),"please enter a valid data",Toast.LENGTH_LONG).show();
+        }
         return course;
     }
 }

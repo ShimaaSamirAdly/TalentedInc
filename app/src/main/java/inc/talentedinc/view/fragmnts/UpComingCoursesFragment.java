@@ -110,6 +110,20 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         edSearh = v.findViewById(R.id.txtSearch);
         edSearh.setOnClickListener(this);
 
+//        InputMethodManager imm = (InputMethodManager) getActivity()
+//                .getSystemService(Context.INPUT_METHOD_SERVICE);
+//        if (imm.isAcceptingText()) {
+//            ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
+//        } else {
+//        ((HomeActivity)getActivity()).navigation.setVisibility(View.VISIBLE);
+//        }
+
+//        if (edSearh.getSelectionEnd()==1)
+//            ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
+//        else ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
+
+
+
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
         presenter = new UpComingCoursesPresenter(Factory.provideUpComing(),Factory.provideCommentLike());
@@ -120,6 +134,24 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         upcomingCoursesAdapter = new HomeAdapter(HomeAdapter.UPCOMING,gridLayoutManager,this);
         upcomingCoursesAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(upcomingCoursesAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && ((HomeActivity)getActivity()).fab.getVisibility() == View.VISIBLE) {
+                    ((HomeActivity)getActivity()).fab.hide();
+//                    ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
+                } else if (dy < 0 && ((HomeActivity)getActivity()).fab.getVisibility() != View.VISIBLE) {
+                    ((HomeActivity)getActivity()).fab.show();
+//                    ((HomeActivity)getActivity()).navigation.setVisibility(View.VISIBLE);
+                }
+                if (dy > 0 && ((HomeActivity)getActivity()).navigation.getVisibility() == View.VISIBLE) {
+                    ((HomeActivity)getActivity()).navigation.setVisibility(View.VISIBLE);
+                } else if (dy < 0 && ((HomeActivity)getActivity()).navigation.getVisibility() != View.VISIBLE) {
+                    ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
+                }
+            }
+        });
 
         presenter.setView(page, this);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {

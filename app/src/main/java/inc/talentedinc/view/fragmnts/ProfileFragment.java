@@ -526,10 +526,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         }else{
             Toast.makeText(getContext(), "Invalid Date", Toast.LENGTH_LONG).show();
         }
+
+//        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
     }
 
     /******************************  *************************/
-
-
 
 }
