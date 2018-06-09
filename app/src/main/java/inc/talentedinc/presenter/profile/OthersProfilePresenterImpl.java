@@ -2,6 +2,9 @@ package inc.talentedinc.presenter.profile;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import inc.talentedinc.interactor.profile.OthersProfileInteractor;
 import inc.talentedinc.interactor.profile.OthersProfileInteractorImpl;
@@ -39,8 +42,43 @@ public class OthersProfilePresenterImpl implements OthersProfilePresenter, Other
     }
 
     @Override
+    public void unfollowUser(User user) {
+
+        User currentUser = SharedPrefrencesSingleton.getSharedPrefUser(context);
+        othersProfileInteractor.unfollowUser(currentUser.getUserId(), user.getUserId(), this);
+    }
+
+    @Override
+    public void followUser(User user) {
+
+        User currentUser = SharedPrefrencesSingleton.getSharedPrefUser(context);
+        othersProfileInteractor.followUser(currentUser.getUserId(), user.getUserId(), this);
+
+    }
+
+    @Override
     public void onGetProfile(User user){
         Log.i("othersprofiledataaaaaa", "onGetProfile");
         view.setUserData(user);
+    }
+
+    @Override
+    public void onSuccessFollowing() {
+        Toast.makeText(context, "Successfully Following", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSuccessUnfollowing() {
+        Toast.makeText(context, "Successfully UnFollowing", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onGetFollowers(ArrayList<User> followers) {
+
+    }
+
+    @Override
+    public void onFailedConnection() {
+        Toast.makeText(context, "No Internet Connection", Toast.LENGTH_LONG).show();
     }
 }

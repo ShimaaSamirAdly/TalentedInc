@@ -13,4 +13,6 @@ public interface CategoriesListener {
     public void onSuccess(List<Categories> categoriesList);
 
     public void onFailed();
+
+    public void onFailedConnection();
 }

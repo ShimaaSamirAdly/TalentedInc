@@ -353,4 +353,6 @@ public class User implements Serializable{
     public void setFollowing(boolean following) {
         this.following = following;
     }
+
+
 }

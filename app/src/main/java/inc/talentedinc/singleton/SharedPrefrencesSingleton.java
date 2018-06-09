@@ -13,7 +13,7 @@ import inc.talentedinc.model.User;
 
 public class SharedPrefrencesSingleton {
 
-    private static SharedPreferences sharedPreferences;
+    private static volatile SharedPreferences sharedPreferences;
     private static final String prefName = "UserPref";
 
 

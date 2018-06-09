@@ -232,7 +232,7 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView10"
                 app:layout_constraintTop_toBottomOf="@+id/phone" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
@@ -284,9 +284,9 @@
                 android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:horizontalSpacing="2dp"
-                android:numColumns="3"
+                android:numColumns="2"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="0dp"
+                android:verticalSpacing="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/portofolioText" />
@@ -317,7 +317,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.461"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/videosText"></LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/videosText">
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/addSkill"
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:hint="Enter Skill"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/skillsText" />
 
             <TextView
                 android:id="@+id/followers"
@@ -368,20 +383,22 @@
                 app:layout_constraintTop_toTopOf="@+id/skillsText"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
+            <inc.talentedinc.view.customviews.ExpandableHeightGridView
                 android:id="@+id/skillsLayout"
-                android:layout_width="378dp"
+                android:layout_width="379dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="center"
+                android:horizontalSpacing="2dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/addSkill"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/skillsText"></LinearLayout>
+                app:layout_constraintStart_toStartOf="parent"></inc.talentedinc.view.customviews.ExpandableHeightGridView>
 
             <ImageView
                 android:id="@+id/updateUser"
@@ -442,14 +459,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/btnFloatingAction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            app:borderWidth="0dp"
-            app:fabSize="normal"
-            app:layout_behavior="inc.talentedinc.view.customviews.ScrollAwareFABBehavior" />
     </ScrollView>
 
 </RelativeLayout>

@@ -41,4 +41,16 @@
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/becomeInstructor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:baselineAlignBottom="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </android.support.constraint.ConstraintLayout>

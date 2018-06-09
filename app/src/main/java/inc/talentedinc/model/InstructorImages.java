@@ -12,6 +12,10 @@ public class InstructorImages implements Serializable{
 
     private String imageUrl;
 
+    public InstructorImages(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public InstructorImages(int instructorId, String imageUrl) {
         this.instructorId = instructorId;
         this.imageUrl = imageUrl;

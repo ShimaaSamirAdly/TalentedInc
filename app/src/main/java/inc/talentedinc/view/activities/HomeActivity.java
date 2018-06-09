@@ -1,5 +1,6 @@
 package inc.talentedinc.view.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -34,6 +35,11 @@ public class HomeActivity extends AppCompatActivity {
     public static final String NOTIFICATION ="notification";
    /// public static final String UPCOMING ="upcoming";
 
+    /****************************** Shimaa**************************/
+
+    public FloatingActionButton becomeInstructor;
+
+    /***************************************************************/
 
     /****************************** asmaa *************************/
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -80,6 +86,17 @@ public class HomeActivity extends AppCompatActivity {
                 .commit();
         navigation.getMenu().getItem(0).setChecked(true);
         fab = findViewById(R.id.fab);
+
+        /****************************Shimaa***********************************/
+        becomeInstructor = findViewById(R.id.becomeInstructor);
+        becomeInstructor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BecomeInstructorActivity.class);
+                startActivity(intent);
+            }
+        });
+        /********************************************************************/
 
     }
 
@@ -129,4 +146,12 @@ public class HomeActivity extends AppCompatActivity {
 
     /******************************  *************************/
 
+    /************************shimaa****************************/
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        becomeInstructor.setVisibility(View.GONE);
+    }
+    /********************************************************/
 }

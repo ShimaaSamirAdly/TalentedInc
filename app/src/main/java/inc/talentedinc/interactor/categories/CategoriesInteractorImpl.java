@@ -28,8 +28,12 @@ public class CategoriesInteractorImpl implements CategoriesInteractor {
         call.enqueue(new Callback<List<Categories>>() {
             @Override
             public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {
-                Log.i("conn", "Success");
-                listener.onSuccess(response.body());
+                Log.i("conn", ""+response.code());
+                if(response.code() == 200) {
+                    listener.onSuccess(response.body());
+                }else{
+                    listener.onFailedConnection();
+                }
             }
 
             @Override
