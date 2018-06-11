@@ -19,66 +19,54 @@ import retrofit2.Response;
 public class OfferedCoursesFetcher {
 
     private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
+    private int totalPagesNumber;
+    private int currentPageNumber;
 
     public OfferedCoursesFetcher(OfferedCoursesPresenterInt offeredCoursesPresenterInt) {
         this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
+        currentPageNumber = 0;
     }
 
-    public void fetchCourses() {
+    public void fetchCourses(int page) {
 
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getOfferedCourses(0)
+                .getOfferedCourses(page)
                 .enqueue(new Callback<OfferedCoursesResponse>() {
-            @Override
-            public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
-                Log.i("RETROFIT",""+response.code());
-                OfferedCoursesResponse offeredCoursesResponse = response.body();
-                getCoursesUsers(offeredCoursesResponse.getContent());
-            }
-
-            @Override
-            public void onFailure(Call<OfferedCoursesResponse> call, Throwable t) {
-                Log.i("RETROFIT",t.getMessage());
-                offeredCoursesPresenterInt.notifyFragmentWithError();
-            }
-        });
-    }
-
-    private void getCoursesUsers(ArrayList<OfferedCourseDetailed> offeredCourses) {
-        for (final OfferedCourseDetailed offeredCourse : offeredCourses) {
-            if (offeredCourse.getInstructorId() != null) {
-                AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                        .getUser(offeredCourse.getInstructorId().getUserId())
-                        .enqueue(new Callback<User>() {
                     @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        offeredCourse.setCourseCreator(response.body());
+                    public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
+                        Log.i("RETROFIT", "" + response.code());
+                        OfferedCoursesResponse offeredCoursesResponse = response.body();
+                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
+                        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
                     }
 
                     @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        offeredCourse.setCourseCreator(null);
+                    public void onFailure(Call<OfferedCoursesResponse> call, Throwable t) {
+                        Log.i("RETROFIT", t.getMessage());
+                        offeredCoursesPresenterInt.notifyFragmentWithError();
                     }
                 });
-            }
-        }
-
-        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCourses);
     }
 
     public void requestCourse(Integer offeredCourseId, Integer instructorId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .instructorRequestOfferedCourse(instructorId,offeredCourseId)
+                .instructorRequestOfferedCourse(instructorId, offeredCourseId)
                 .enqueue(new Callback<Object>() {
-            @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                offeredCoursesPresenterInt.makeToastRequestResult(1);
-            }
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        offeredCoursesPresenterInt.makeToastRequestResult(1);
+                    }
 
-            @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                offeredCoursesPresenterInt.makeToastRequestResult(0);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        offeredCoursesPresenterInt.makeToastRequestResult(0);
+                    }
+                });
+    }
+
+    public void fetchMoreCourses() {
+        if (currentPageNumber < totalPagesNumber - 1) {
+            fetchCourses(currentPageNumber++);
+        }
     }
 }

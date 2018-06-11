@@ -16,6 +16,9 @@ import android.widget.TextView;
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.OfferedCoursesViewAdapter;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
+import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
+import inc.talentedinc.view.fragmnts.OfferedCoursesFragment;
 
 public class OfferedCourseDetailsActivity extends AppCompatActivity {
 
@@ -30,6 +33,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
     private TextView offeredCourseApplicants;
     private Button requestButton;
     private LinearLayout requestsLayout;
+    private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offered_course_details);
         Intent intent = getIntent();
         offeredCourseDetailed = (OfferedCourseDetailed) intent.getSerializableExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT);
+        offeredCoursesPresenterInt = (OfferedCoursesPresenterInt) intent.getSerializableExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER);
         initializeViews();
 
     }
@@ -47,36 +52,58 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
         setData();
     }
 
-    private void initializeViews(){
-        offeredCourseImage = (ImageView)findViewById(R.id.offered_course_img);
-        offeredCourseName = (TextView)findViewById(R.id.course_name_txt);
-        offeredCourseCreator = (TextView)findViewById(R.id.course_creator_txt);
-        offeredCoursedescription = (TextView)findViewById(R.id.offered_course_desc_txt);
-        offeredCourseStartDate = (TextView)findViewById(R.id.start_date_txt);
-        offeredCourseEndDate = (TextView)findViewById(R.id.end_date_txt);
-        offeredCourseDuration = (TextView)findViewById(R.id.duration_txt);
-        offeredCourseApplicants = (TextView)findViewById(R.id.no_applicants_txt);
-        requestButton = (Button)findViewById(R.id.request_offered_course_btn);
-        requestsLayout = (LinearLayout)findViewById(R.id.requests_layout);
+    private void initializeViews() {
+        offeredCourseImage = (ImageView) findViewById(R.id.offered_course_img);
+        offeredCourseName = (TextView) findViewById(R.id.course_name_txt);
+        offeredCourseCreator = (TextView) findViewById(R.id.course_creator_txt);
+        offeredCoursedescription = (TextView) findViewById(R.id.offered_course_desc_txt);
+        offeredCourseStartDate = (TextView) findViewById(R.id.start_date_txt);
+        offeredCourseEndDate = (TextView) findViewById(R.id.end_date_txt);
+        offeredCourseDuration = (TextView) findViewById(R.id.duration_txt);
+        offeredCourseApplicants = (TextView) findViewById(R.id.no_applicants_txt);
+        requestButton = (Button) findViewById(R.id.request_offered_course_btn);
+        requestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestCourse();
+            }
+        });
+        //requestsLayout = (LinearLayout) findViewById(R.id.requests_layout);
     }
 
-    private void setData(){
+    private void requestCourse() {
+        offeredCoursesPresenterInt.requestOfferedCourse(offeredCourseDetailed.getOfferedCourseId(),
+                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId());
+    }
+
+    private void setData() {
+
         offeredCourseName.setText(offeredCourseDetailed.getName());
-        if(offeredCourseDetailed.getCourseCreator() != null){
-            offeredCourseCreator.setText(offeredCourseDetailed.getCourseCreator().getFirstName()+""+offeredCourseDetailed.getCourseCreator().getLastName());
-        }else{
+
+        if (offeredCourseDetailed.getHostingWorkSpaceId() != null) {
             offeredCourseCreator.setText(offeredCourseDetailed.getHostingWorkSpaceId().getName());
         }
-        offeredCoursedescription.setText(offeredCourseDetailed.getDescription());
-        offeredCourseStartDate.setText(offeredCourseDetailed.getStartDate());
-        offeredCourseEndDate.setText(offeredCourseDetailed.getEndDate());
-        offeredCourseDuration.setText("30 Hours");
-        offeredCourseApplicants.setText(String.valueOf(offeredCourseDetailed.getNoOfApplicant()));
-
-        for(int i=0;i<=10;i++){
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final View requestRowView = inflater.inflate(R.layout.request_row, null);
-            requestsLayout.addView(requestRowView,requestsLayout.getChildCount()-1);
+        if (offeredCourseDetailed.getDescription() != null) {
+            offeredCoursedescription.setText(offeredCourseDetailed.getDescription());
         }
+        if (offeredCourseDetailed.getStartDate() != null) {
+            offeredCourseStartDate.setText(offeredCourseDetailed.getStartDate());
+        }
+        if (offeredCourseDetailed.getEndDate() != null) {
+            offeredCourseEndDate.setText(offeredCourseDetailed.getEndDate());
+        }
+        if(offeredCourseDetailed.getDurationHours() != null) {
+            offeredCourseDuration.setText(String.valueOf(offeredCourseDetailed.getDurationHours()));
+        }
+        if (offeredCourseDetailed.getNoOfApplicant() != null) {
+            offeredCourseApplicants.setText(String.valueOf(offeredCourseDetailed.getNoOfApplicant()));
+        }
+
+//        for(int i=0;i<=10;i++){
+//            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//            final View requestRowView = inflater.inflate(R.layout.request_row, null);
+//            requestsLayout.addView(requestRowView,requestsLayout.getChildCount()-1);
+//        }
+
     }
 }

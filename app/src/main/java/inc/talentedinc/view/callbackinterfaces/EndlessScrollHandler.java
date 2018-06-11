@@ -12,6 +12,6 @@ public interface EndlessScrollHandler {
     void hideProgressBar();
     void showProgressBar();
     void makeErrorToast();
-
     void makeToastRequestResult(int result);
+    void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed);
 }
