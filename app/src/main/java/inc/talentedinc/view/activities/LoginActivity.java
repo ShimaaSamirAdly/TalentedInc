@@ -40,6 +40,7 @@ import inc.talentedinc.model.User;
 import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import inc.talentedinc.presenter.LoginPresenter;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginView ,
         View.OnClickListener,
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private UserLogin userLogin ;
     private Button loginBtn;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    private User gmailUser ;
 
 
 //--------------------------------------------------------------------------------------------------//
@@ -157,11 +159,17 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-
+            gmailUser = new User();
+            gmailUser.setEmail(acct.getEmail());
+            gmailUser.setFirstName(acct.getDisplayName());
+            gmailUser.setLastName(acct.getFamilyName());
+            gmailUser.setImgUrl(acct.getPhotoUrl().toString());
+            gmailUser.setGoogleToken(acct.getIdToken());
+            gmailUser.setGoogleId(acct.getId());
+            gotoCategories(gmailUser);
             Log.i("response", "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
-//            String personPhotoUrl = acct.getPhotoUrl().toString();
             String email = acct.getEmail();
 
             Log.i("userData", "Name: " + personName + ", email: " + email
@@ -305,15 +313,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         if(response !=null) {
             Log.i("userEmail", response.getEmail());
-            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("userFirstName",response.getFirstName());
-            editor.putString("userLastName",response.getLastName());
-            editor.putString("userEmail",response.getEmail());
-            editor.putInt("userId",response.getUserId());
-            editor.commit();
+            SharedPrefrencesSingleton.setSharedPrefUser(this,response);
+
             Intent sendToHome = new Intent(this, HomeActivity.class);
-            sendToHome.putExtra("userId", response.getFirstName());
             startActivity(sendToHome);
         }
 

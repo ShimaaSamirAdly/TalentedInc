@@ -121,15 +121,14 @@
 
                 <!---alaa.................................................................. -->
         <activity android:name=".view.activities.LoginActivity" />
-        <activityandroid:name=".view.activities.CreateCourseActivity" />
+        <activity android:name=".view.activities.CreateCourseActivity" />
             <!--............................alaa.....................................................-->
 
             //*********************************************************************
-        </activity>
 
         <activity android:name=".view.activities.OthersProfileActivity" />
         <activity android:name=".view.activities.BecomeInstructorActivity"></activity>
-        <activity android:name=".view.activities.OthersProfileActivity" />
+
         <activity android:name=".view.activities.WorkSpaceProfile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
