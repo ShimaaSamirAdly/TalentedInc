@@ -13,4 +13,5 @@ public interface EndlessScrollHandler {
     void showProgressBar();
     void makeErrorToast();
 
+    void makeToastRequestResult(int result);
 }

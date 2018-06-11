@@ -10,6 +10,8 @@ import inc.talentedinc.model.User;
 
 public interface ProfilePresenter {
 
+    public void getCurrentUser();
+
     public void updateUser(User user);
 
     public void uploadImage(Uri filePath, User user);

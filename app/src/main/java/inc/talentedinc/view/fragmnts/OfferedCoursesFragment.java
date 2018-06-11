@@ -50,9 +50,8 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
         View view = inflater.inflate(R.layout.fragment_offered_courses, container, false);
         //***************************** Asmaa ***************************************
 
-        ((HomeActivity)getActivity()).whichFragment(HomeActivity.OFFERD);
+        ((HomeActivity) getActivity()).whichFragment(HomeActivity.OFFERD);
         // *****************************  ***************************************
-
 
 
         itShouldLoadMore = true;
@@ -87,6 +86,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
         offeredCourses = new ArrayList<>();
         offeredCoursesViewAdapter = new OfferedCoursesViewAdapter(offeredCourses);
         offeredCoursesViewAdapter.setMyContext(getContext());
+        offeredCoursesViewAdapter.setOfferedCoursesPresenter(offeredCoursesPresenterInt);
         coursesRecyclerView.setAdapter(offeredCoursesViewAdapter);
         showProgressBar();
         offeredCoursesPresenterInt.fetchCourses();
@@ -95,7 +95,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
 
     @Override
     public void showData(ArrayList<OfferedCourseDetailed> courses) {
-        Log.i("showData",courses.toString());
+        Log.i("showData", courses.toString());
         hideProgressBar();
         itShouldLoadMore = true;
         offeredCourses.addAll(courses);
@@ -118,5 +118,17 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
         hideProgressBar();
         itShouldLoadMore = true;
         Toast.makeText(getContext(), "Error fetching course", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void makeToastRequestResult(int result) {
+        switch (result) {
+            case 0:
+                Toast.makeText(getContext(), "Error requesting course Try again later!", Toast.LENGTH_SHORT).show();
+                break;
+            case 1:
+                Toast.makeText(getContext(),"Your request has been sent successfully!",Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

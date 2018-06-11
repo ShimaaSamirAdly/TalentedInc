@@ -3,6 +3,7 @@ package inc.talentedinc.presenter.signup;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -74,6 +75,11 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
     public void onFailed(){
 
 
+    }
+
+    @Override
+    public void onFailedConnection() {
+        Toast.makeText(context, "No InternetConnection", Toast.LENGTH_LONG).show();
     }
 
 

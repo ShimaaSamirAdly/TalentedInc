@@ -9,6 +9,7 @@ import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -21,4 +22,7 @@ public interface GetOfferedCourses {
     @GET("/{id}/profile")
         //@FormUrlEncoded
     Call<User> getUser(@Path("id")int id);
+
+    @POST("/InstructorReqOfferedCourse/requestcourse")
+    Call<Object> instructorRequestOfferedCourse(@Query("instructorId")Integer instrctorId,@Query("courseId")Integer courseId);
 }

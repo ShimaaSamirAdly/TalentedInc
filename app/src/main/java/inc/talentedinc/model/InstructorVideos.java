@@ -19,6 +19,11 @@ public class InstructorVideos implements Serializable{
         this.urlValue = urlValue;
     }
 
+    public InstructorVideos(String urlValue) {
+        this.instructorId = instructorId;
+        this.urlValue = urlValue;
+    }
+
     public int getInstructorId() {
         return instructorId;
     }

@@ -86,14 +86,18 @@ public class SignUpActivity extends AppCompatActivity {
                 break;
 /************************************************Shimaa*************************************/
             case 2:
-//                getThirdSignUpData();
+                getThirdSignUpData();
 //                Log.i("gender", signedUpUser.getGender().toString());
-//                presenter = new SignUpPresenterImpl(this, getApplicationContext());
-//                presenter.insertUser(signedUpUser);
-//                switchToProfile();
-                Intent intent = new Intent(this, OthersProfileActivity.class);
-                intent.putExtra("userId", 32);
-                startActivity(intent);
+                if(signedUpUser.getCategoryCollection().size() != 0) {
+                    presenter = new SignUpPresenterImpl(this, getApplicationContext());
+                    presenter.insertUser(signedUpUser);
+                    switchToProfile();
+                }else{
+                    Toast.makeText(this, "You Have Select At Least One", Toast.LENGTH_LONG).show();
+                }
+//                Intent intent = new Intent(this, OthersProfileActivity.class);
+//                intent.putExtra("userId", 32);
+//                startActivity(intent);
                 break;
             /********************************************************************************************/
         }

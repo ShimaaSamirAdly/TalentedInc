@@ -19,19 +19,46 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     ProfileEndpoint profileEndpoint = AppRetrofit.getInstance().getRetrofitInstance().create(ProfileEndpoint.class);
 
     @Override
-    public void updateUser(User user, final UserProfileListener listener) {
+    public void updateUser(final User user, final UserProfileListener listener) {
 
         Call<User> call = profileEndpoint.updateUser(user);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.i("resp", Integer.toString(response.code()));
-               // listener.onSuccess();
+                if(response.code() == 200) {
+                    listener.onSuccess(user);
+                }else{
+                    listener.onFailedConnection();
+                }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 listener.onFailure();
+            }
+        });
+    }
+
+    @Override
+    public void getCurrentUser(int currentUserId, final UserProfileListener listener) {
+
+        Call<User> call = profileEndpoint.getCurrentUserProfile(currentUserId);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if(response.code() == 200) {
+                    Log.i("curentUser", ""+response.code());
+                    listener.onGetCurrentUser(response.body());
+                }else{
+                    Log.i("curentUser", ""+response.code());
+                    listener.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
             }
         });
     }
