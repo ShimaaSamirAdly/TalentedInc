@@ -46,38 +46,31 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
     @Override
     public void onBindViewHolder(@NonNull OfferedCoursesViewHolder holder, final int position) {
 
+        //course name
         holder.getOfferedCourseNameTxt().setText(offeredCourses.get(position).getName());
-        if(offeredCourses.get(position).getCourseCreator()!= null){
-            holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getCourseCreator().getFirstName()+" "+offeredCourses.get(position).getCourseCreator().getLastName());
-            //holder.getRequestOfferedCourseBtn().setVisibility(View.VISIBLE);
-        }else {
+        //workspace name
+        if(offeredCourses.get(position).getHostingWorkSpaceId()!= null){
             holder.getOfferedCourseCreatorTxt().setText(offeredCourses.get(position).getHostingWorkSpaceId().getName());
-            //holder.getRequestOfferedCourseBtn().setVisibility(View.GONE);
         }
+        //set date text
         holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate());
+        //request course button
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //request the course
                 Integer offeredCourseId = offeredCourses.get(position).getOfferedCourseId();
-//                Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
-                Log.i("CourseId",""+offeredCourseId);
-                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,2);
+                Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
+                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId);
             }
         });
-
+        //go to details activity
         holder.getOfferedCourseImageView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gotoDetailedCourseView(offeredCourses.get(position));
+                offeredCoursesPresenter.gotoDetailedCourseView(offeredCourses.get(position));
             }
         });
-    }
-
-    private void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
-        Intent intent = new Intent(myContext, OfferedCourseDetailsActivity.class);
-        intent.putExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT,offeredCourseDetailed);
-        myContext.startActivity(intent);
     }
 
     @Override

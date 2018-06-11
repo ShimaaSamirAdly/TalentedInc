@@ -39,6 +39,9 @@ public class OfferedCourseDetailed implements Serializable {
     @SerializedName("cost")
     @Expose
     private Integer cost;
+    @SerializedName("durationHours")
+    @Expose
+    private Integer durationHours;
 
     public String getDescription() {
         return description;
@@ -128,5 +131,13 @@ public class OfferedCourseDetailed implements Serializable {
 
     public void setCourseCreator(User courseCreator) {
         this.courseCreator = courseCreator;
+    }
+
+    public Integer getDurationHours() {
+        return durationHours;
+    }
+
+    public void setDurationHours(Integer durationHours) {
+        this.durationHours = durationHours;
     }
 }

@@ -19,10 +19,6 @@ public interface GetOfferedCourses {
         //@FormUrlEncoded
     Call<OfferedCoursesResponse> getOfferedCourses(@Query("page") int page);
 
-    @GET("/{id}/profile")
-        //@FormUrlEncoded
-    Call<User> getUser(@Path("id")int id);
-
     @POST("/InstructorReqOfferedCourse/requestcourse")
     Call<Object> instructorRequestOfferedCourse(@Query("instructorId")Integer instrctorId,@Query("courseId")Integer courseId);
 }

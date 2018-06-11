@@ -1,5 +1,6 @@
 package inc.talentedinc.view.fragmnts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,18 +22,20 @@ import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.view.activities.HomeActivity;
+import inc.talentedinc.view.activities.OfferedCourseDetailsActivity;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
 
 public class OfferedCoursesFragment extends Fragment implements EndlessScrollHandler {
 
-    RecyclerView coursesRecyclerView;
-    ArrayList<OfferedCourseDetailed> offeredCourses;
-    LinearLayoutManager coursesLayoutManager;
-    OfferedCoursesViewAdapter offeredCoursesViewAdapter;
-    ProgressBar myProgressBar;
-    Boolean itShouldLoadMore;
-    OfferedCoursesPresenterInt offeredCoursesPresenterInt;
+    private RecyclerView coursesRecyclerView;
+    private ArrayList<OfferedCourseDetailed> offeredCourses;
+    private LinearLayoutManager coursesLayoutManager;
+    private OfferedCoursesViewAdapter offeredCoursesViewAdapter;
+    private ProgressBar myProgressBar;
+    private Boolean itShouldLoadMore;
+    private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
+    public static String OFFERED_COURSE_PRESENTER = "offered_course_presenter";
 
     public OfferedCoursesFragment() {
         // Required empty public constructor
@@ -70,7 +73,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
                         if (itShouldLoadMore) {
                             //loadMore();
                             showProgressBar();
-                            offeredCoursesPresenterInt.fetchCourses();
+                            offeredCoursesPresenterInt.loadMoreOfferedCourses();
                             itShouldLoadMore = false;
                         }
                     }
@@ -130,5 +133,13 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
                 Toast.makeText(getContext(),"Your request has been sent successfully!",Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
+        Intent intent = new Intent(getContext(), OfferedCourseDetailsActivity.class);
+        intent.putExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT,offeredCourseDetailed);
+        intent.putExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER,offeredCoursesPresenterInt);
+        startActivity(intent);
     }
 }
