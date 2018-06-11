@@ -54,7 +54,7 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
         workSpacePhoto2 = findViewById(R.id.imageUrl2);
         workSpacePhoto3 = findViewById(R.id.imageUrl3);
         workSpaceProfilePresenter = new WorkSpaceProfilePresenter(this);
-        workSpaceProfilePresenter.getWorkSpaceData();
+        workSpaceProfilePresenter.getWorkSpaceData(1);
 
     }
 

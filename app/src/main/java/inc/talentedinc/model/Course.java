@@ -9,32 +9,32 @@ import java.io.Serializable;
  */
 
 public class Course implements Serializable {
-    private String courseName ;
+    private String name ;
     private String startDate ;
     private String endDate ;
     private Integer cost ;
-    private Integer numOfApplicants ;
+    private Integer noOfApplicant ;
     private String description ;
-    private Categories category ;
+    private Categories categoryId ;
     private Integer duration;
-    private Instructor instructor ;
+    private Instructor instructorId ;
 //  private Integer instructorId ;
 
 
     public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
+        this.instructorId = instructor;
     }
 
     public Instructor getInstructor() {
-        return instructor;
+        return instructorId;
     }
 
     public void setCategory(Categories category) {
-        this.category = category;
+        this.categoryId = category;
     }
 
     public Categories getCategory() {
-        return category;
+        return categoryId;
     }
 
     public void setDuration(Integer duration) {
@@ -55,7 +55,7 @@ public class Course implements Serializable {
     }
 
     public void setCourseName(String courseName) {
-        this.courseName = courseName;
+        this.name = courseName;
     }
 
     public void setDescription(String description) {
@@ -67,7 +67,7 @@ public class Course implements Serializable {
     }
 
     public void setNumOfApplicants(Integer numOfApplicants) {
-        this.numOfApplicants = numOfApplicants;
+        this.noOfApplicant = numOfApplicants;
     }
 
     public void setStartDate(String startDate) {
@@ -75,12 +75,12 @@ public class Course implements Serializable {
     }
 
     public Integer getNumOfApplicants() {
-        return numOfApplicants;
+        return noOfApplicant;
     }
 
 
     public String getCourseName() {
-        return courseName;
+        return name;
     }
 
     public String getDescription() {

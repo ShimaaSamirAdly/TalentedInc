@@ -17,6 +17,6 @@ import retrofit2.http.PUT;
 public interface ApiCreateCourse {
 
 
-    @PUT(APIUrls.CREATE_COURSE)
+    @POST (APIUrls.CREATE_COURSE)
     Call<CreateCourseResponse> createCourse(@Body Course course);
 }

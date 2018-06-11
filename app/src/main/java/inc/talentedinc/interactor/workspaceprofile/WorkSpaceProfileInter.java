@@ -7,5 +7,5 @@ import inc.talentedinc.listener.OnReceivedWorkSpaceProfile;
  */
 
 public interface WorkSpaceProfileInter {
-    public void receivedProfile(OnReceivedWorkSpaceProfile receivedWorkSpaceProfile);
+    public void receivedProfile( Integer workSpaceId ,OnReceivedWorkSpaceProfile receivedWorkSpaceProfile);
 }

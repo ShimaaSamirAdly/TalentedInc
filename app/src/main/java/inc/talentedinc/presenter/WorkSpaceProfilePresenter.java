@@ -22,8 +22,8 @@ public class WorkSpaceProfilePresenter {
 
     }
 
-    public void getWorkSpaceData(){
-        workSpaceProfileInter.receivedProfile(new OnReceivedWorkSpaceProfile() {
+    public void getWorkSpaceData(Integer workSpaceId){
+        workSpaceProfileInter.receivedProfile( workSpaceId, new OnReceivedWorkSpaceProfile() {
             @Override
             public void onSuccess(WorkSpace workSpace) {
                 workSpaceProfileView.sendWorkSpaceData(workSpace);
