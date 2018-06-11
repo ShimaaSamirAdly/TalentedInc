@@ -10,6 +10,7 @@ import inc.talentedinc.API.APIUrls;
 import inc.talentedinc.API.ApiCreateCourse;
 import inc.talentedinc.API.ApiHomeEndpoint;
 import inc.talentedinc.API.ApiLogin;
+import inc.talentedinc.API.ApiWorkSpaceProfile;
 import inc.talentedinc.utilitis.ActionUtils;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -37,6 +38,7 @@ public class AppRetrofit {
     private Retrofit.Builder builder;
     private ApiLogin apiLogin ;
     private ApiCreateCourse apiCreateCourse;
+    private ApiWorkSpaceProfile apiWorkSpaceProfile ;
 
 
     private AppRetrofit() {
@@ -122,6 +124,17 @@ public class AppRetrofit {
         return apiLogin ;
     }
 
+    //---------------------------------------------------------//
+    public ApiWorkSpaceProfile getApiWorkSpaceProfile(){
+        if(apiWorkSpaceProfile ==null){
+            initialization();
+            apiWorkSpaceProfile =retrofit.create(ApiWorkSpaceProfile.class);
+
+        }
+        return apiWorkSpaceProfile;
+    }
+
+    //--------------------------------------------------------------------------//
 
     public Retrofit getRetrofitInstance(){
         initialization();

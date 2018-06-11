@@ -28,7 +28,7 @@ public class APIUrls {
 
 
     public static final String BASE_URL = "https://tal-company.herokuapp.com";
-
+    public static final String WORK_SPACE_PROFILE = "workspace" ;
 
     //alaa
     public static final String USER_LOGIN = "/api/users";

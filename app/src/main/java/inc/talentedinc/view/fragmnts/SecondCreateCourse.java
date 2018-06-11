@@ -87,14 +87,14 @@ public class SecondCreateCourse extends Fragment implements AdapterView.OnItemSe
     public void recievedCategories(List<Categories> categories) {
         allCategories = categories ;
 
-        if (allCategories != null){
-            Log.i("gab",allCategories.get(0).getName());
-
-            for (int i = 0 ; i < allCategories.size() ; i++){
-                receivedCategories.add(allCategories.get(i).getName()) ;
-            }
-            addItemsToSnipper();
-        }
+//        if (allCategories != null){
+//            Log.i("gab",allCategories.get(0).getName());
+//
+//            for (int i = 0 ; i < allCategories.size() ; i++){
+//                receivedCategories.add(allCategories.get(i).getName()) ;
+//            }
+//            addItemsToSnipper();
+//        }
     }
 
     private void addItemsToSnipper(){

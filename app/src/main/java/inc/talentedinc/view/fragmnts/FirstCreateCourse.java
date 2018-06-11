@@ -10,7 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.Course;
@@ -22,14 +27,16 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
 
     // --------------------------Alaa-----------------------------------------//
     private EditText courseName ;
-    private EditText startDate ;
-    private EditText endDate ;
+    private TextView startDate ;
+    private TextView endDate ;
     private EditText cost ;
     private Button pickStart ;
     private Button pickEnd ;
     private Course course = new Course() ;
     private boolean flag = true ;
     private FragmentManager supportFragmentManager;
+    private String startDateString ;
+    private String endDateString ;
 
     // --------------------------Alaa ---------------------------------------//
 
@@ -99,15 +106,55 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
     }
 
     public Course getCourse() {
-        if(courseName.getText()!=null && startDate.getText()!=null && endDate.getText()!=null && cost.getText()!=null ) {
+        if( !courseName.getText().toString().equals("") && !startDate.getText().toString().equals("") && !endDate.getText().toString().equals("") && !cost.getText().toString().equals("") ) {
             course.setCourseName(courseName.getText().toString());
-            course.setStartDate(startDate.getText().toString());
-            course.setEndDate(endDate.getText().toString());
+            startDateString = startDate.getText().toString();
+            endDateString = endDate.getText().toString();
+            validateDate(startDateString,endDateString);
             course.setCost(Integer.parseInt(cost.getText().toString()));
         }
         else {
-            Toast.makeText(getContext(),"please enter a valid data",Toast.LENGTH_LONG).show();
+            course.setCourseName("userInvalidInputData");
         }
         return course;
+    }
+
+
+    public void validateDate(String start , String end) {
+
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
+        String formattedDate = df.format(c);
+
+
+        String[] currentParts = formattedDate.split("/");
+        String[] startParts = start.split("/");
+        String[] endParts = end.split("/");
+
+
+        if (Integer.parseInt(startParts[0]) > Integer.parseInt(currentParts[0]) && Integer.parseInt(startParts[1]) >= Integer.parseInt(currentParts[1]) && Integer.parseInt(startParts[2]) == Integer.parseInt(currentParts[2]) ) {
+
+            if (Integer.parseInt(startParts[1]) == Integer.parseInt(endParts[1])) {
+                if (Integer.parseInt(startParts[0]) < Integer.parseInt(endParts[0])) {
+                    course.setStartDate(startDate.getText().toString());
+                    course.setEndDate(endDate.getText().toString());
+                } else {
+                    course.setStartDate("userEnterInvalidDate");
+                }
+            }
+        if (Integer.parseInt(startParts[1]) < Integer.parseInt(endParts[1])) {
+            course.setStartDate(startDate.getText().toString());
+            course.setEndDate(endDate.getText().toString());
+        } else {
+            course.setStartDate("userEnterInvalidDate");
+
+        }
+    }
+    else {
+            course.setStartDate("userEnterInvalidDate");
+
+        }
+
     }
 }

@@ -12,6 +12,7 @@ import inc.talentedinc.listener.CategoriesListener;
 import inc.talentedinc.listener.OnCreateCourse;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Course;
+import inc.talentedinc.model.response.CreateCourseResponse;
 
 /**
  * Created by Alaa on 6/1/2018.
@@ -30,8 +31,9 @@ public class CreateCoursePresenter  {
     public void courseCreated(Course course){
         createCourseInter.createCourse(course, new OnCreateCourse() {
             @Override
-            public void onSuccess(Object object) {
-                createCourseView.successToCreateCourse();
+            public void onSuccess(CreateCourseResponse object) {
+                Log.i("courseCreated",object.getCourseId().toString());
+                createCourseView.successToCreateCourse(object.getCourseId());
             }
 
             @Override
@@ -48,7 +50,7 @@ public class CreateCoursePresenter  {
 
 
     public interface CreateCourseView {
-       void successToCreateCourse();
+       void successToCreateCourse(int courseId);
        void failToCreateCourse();
 
     }

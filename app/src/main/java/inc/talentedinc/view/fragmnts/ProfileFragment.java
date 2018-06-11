@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,8 +41,6 @@ import static android.app.Activity.RESULT_OK;
 
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.activities.HomeActivity;
-import inc.talentedinc.view.activities.OthersProfileActivity;
-import inc.talentedinc.view.activities.TestImageActivity;
 import inc.talentedinc.view.customviews.ExpandableHeightGridView;
 
 
@@ -110,7 +107,7 @@ public class ProfileFragment extends Fragment {
         /******************************Shimaa*******************************************/
 
 
-        profileImage = view.findViewById(R.id.profileImage);
+        profileImage = view.findViewById(R.id.workSpaceLogo);
         pickImage = view.findViewById(R.id.pickImage);
         userName = view.findViewById(R.id.userName);
         followers = view.findViewById(R.id.followers);
