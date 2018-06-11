@@ -16,7 +16,8 @@ public class APIUrls {
     public static final String DISCOVER_MOV3IES="/3/discover/movie";
     public static final String SEARCH_MOVIES="/3/search/movie";
 
-     public static final String BASE_URL="http://192.168.43.40:3000";
+     public static final String BASE_URL="http://192.168.43.44:3000/";
+
    // public static final String BASE_URL="http://api.themoviedb.org";
 
     public static final String UPCOMING="/3/discover/movie";
@@ -28,7 +29,7 @@ public class APIUrls {
 
 
    // public static final String BASE_URL = "https://tal-company.herokuapp.com";
-    public static final String WORK_SPACE_PROFILE = "workspace" ;
+    public static final String WORK_SPACE_PROFILE = "workspace/getprofileworkspace" ;
 
     //alaa
     public static final String USER_LOGIN = "/api/users";

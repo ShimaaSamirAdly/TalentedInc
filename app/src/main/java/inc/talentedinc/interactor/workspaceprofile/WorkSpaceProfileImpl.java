@@ -18,8 +18,8 @@ public class WorkSpaceProfileImpl implements WorkSpaceProfileInter {
     ApiWorkSpaceProfile apiWorkSpaceProfile = AppRetrofit.getInstance().getApiWorkSpaceProfile();
 
     @Override
-    public void receivedProfile(final OnReceivedWorkSpaceProfile receivedWorkSpaceProfile) {
-        apiWorkSpaceProfile.getWorkSpaceProfile().enqueue(new Callback<WorkSpace>() {
+    public void receivedProfile( Integer workSpaceProfile , final OnReceivedWorkSpaceProfile receivedWorkSpaceProfile) {
+        apiWorkSpaceProfile.getWorkSpaceProfile(workSpaceProfile).enqueue(new Callback<WorkSpace>() {
             @Override
             public void onResponse(Call<WorkSpace> call, Response<WorkSpace> response) {
                 Log.i("WorkSpaceIsHere",response.body().getName());

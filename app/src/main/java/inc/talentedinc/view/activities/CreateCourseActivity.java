@@ -73,8 +73,6 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
             }
         });
 
-
-
         createCoursePresenter = new CreateCoursePresenter(this);
 
      //-------------------------------------------------------------------------------------------//
@@ -91,7 +89,7 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
 
          //dummy instructor & duration
         Instructor instructor = new Instructor();
-        instructor.setUserId(1);
+        instructor.setUserId(2);
         createdCourse.setInstructor(instructor);
         createCoursePresenter.courseCreated(createdCourse);
 
@@ -162,6 +160,7 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
         createdCourse.setNumOfApplicants(secondCourse.getNumOfApplicants());
         createdCourse.setDescription(secondCourse.getDescription());
         createdCourse.setCategory(secondCourse.getCategory());
+        createdCourse.setDuration(secondCourse.getDuration());
 
 
     }

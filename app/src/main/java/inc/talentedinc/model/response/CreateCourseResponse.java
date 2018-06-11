@@ -5,13 +5,13 @@ package inc.talentedinc.model.response;
  */
 
 public class CreateCourseResponse {
-    private Integer courseId ;
+    private Integer offeredCourseId ;
 
     public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+        this.offeredCourseId = courseId;
     }
 
     public Integer getCourseId() {
-        return courseId;
+        return offeredCourseId;
     }
 }

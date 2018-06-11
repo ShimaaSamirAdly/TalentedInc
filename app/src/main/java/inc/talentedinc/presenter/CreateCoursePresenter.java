@@ -32,8 +32,14 @@ public class CreateCoursePresenter  {
         createCourseInter.createCourse(course, new OnCreateCourse() {
             @Override
             public void onSuccess(CreateCourseResponse object) {
-                Log.i("courseCreated",object.getCourseId().toString());
-                createCourseView.successToCreateCourse(object.getCourseId());
+                if(object!=null) {
+                    Log.i("courseCreated", object.getCourseId().toString());
+                    createCourseView.successToCreateCourse(object.getCourseId());
+                }
+                else
+                {
+                    Log.i("objectISNull","gah b null");
+                }
             }
 
             @Override

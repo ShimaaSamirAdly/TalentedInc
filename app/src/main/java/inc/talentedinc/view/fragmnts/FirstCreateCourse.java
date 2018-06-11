@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,7 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
     public Course getCourse() {
         if( !courseName.getText().toString().equals("") && !startDate.getText().toString().equals("") && !endDate.getText().toString().equals("") && !cost.getText().toString().equals("") ) {
             course.setCourseName(courseName.getText().toString());
+            Log.i("courseName",course.getCourseName());
             startDateString = startDate.getText().toString();
             endDateString = endDate.getText().toString();
             validateDate(startDateString,endDateString);
@@ -133,7 +135,7 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
         String[] endParts = end.split("/");
 
 
-        if (Integer.parseInt(startParts[0]) > Integer.parseInt(currentParts[0]) && Integer.parseInt(startParts[1]) >= Integer.parseInt(currentParts[1]) && Integer.parseInt(startParts[2]) == Integer.parseInt(currentParts[2]) ) {
+        if (Integer.parseInt(startParts[0]) > Integer.parseInt(currentParts[0])  && Integer.parseInt(startParts[2]) == Integer.parseInt(currentParts[2]) ) {
 
             if (Integer.parseInt(startParts[1]) == Integer.parseInt(endParts[1])) {
                 if (Integer.parseInt(startParts[0]) < Integer.parseInt(endParts[0])) {
