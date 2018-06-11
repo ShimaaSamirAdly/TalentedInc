@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.view.activities.HomeActivity;
+import inc.talentedinc.view.activities.MyOfferedCourses;
 import inc.talentedinc.view.activities.OfferedCourseDetailsActivity;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
@@ -35,6 +37,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
     private ProgressBar myProgressBar;
     private Boolean itShouldLoadMore;
     private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
+    private Button myOfferedCoursesButton;
     public static String OFFERED_COURSE_PRESENTER = "offered_course_presenter";
 
     public OfferedCoursesFragment() {
@@ -80,6 +83,16 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
                 }
             }
         });
+
+        myOfferedCoursesButton = (Button)view.findViewById(R.id.my_offered_course_btn);
+        myOfferedCoursesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyOfferedCourses.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -139,7 +152,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
     public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
         Intent intent = new Intent(getContext(), OfferedCourseDetailsActivity.class);
         intent.putExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT,offeredCourseDetailed);
-        intent.putExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER,offeredCoursesPresenterInt);
+        //intent.putExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER,offeredCoursesPresenterInt);
         startActivity(intent);
     }
 }

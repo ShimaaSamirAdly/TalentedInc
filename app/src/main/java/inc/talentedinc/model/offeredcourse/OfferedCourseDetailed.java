@@ -24,9 +24,9 @@ public class OfferedCourseDetailed implements Serializable {
     @SerializedName("imageUrl")
     @Expose
     private String imageUrl;
-    @SerializedName("instructorId")
-    @Expose
-    private OfferedCourseInstructor instructorId;
+//    @SerializedName("instructorId")
+//    @Expose
+//    private OfferedCourseInstructor instructorId;
     @SerializedName("hostingWorkSpaceId")
     @Expose
     private OfferedCourseWorkspace hostingWorkSpaceId;
@@ -109,13 +109,13 @@ public class OfferedCourseDetailed implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public OfferedCourseInstructor getInstructorId() {
-        return instructorId;
-    }
-
-    public void setInstructorId(OfferedCourseInstructor instructorId) {
-        this.instructorId = instructorId;
-    }
+//    public OfferedCourseInstructor getInstructorId() {
+//        return instructorId;
+//    }
+//
+//    public void setInstructorId(OfferedCourseInstructor instructorId) {
+//        this.instructorId = instructorId;
+//    }
 
     public OfferedCourseWorkspace getHostingWorkSpaceId() {
         return hostingWorkSpaceId;

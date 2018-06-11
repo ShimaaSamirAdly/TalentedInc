@@ -15,14 +15,18 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
     EndlessScrollHandler endlessScrollHandler;
     OfferedCoursesFetcher offeredCoursesFetcher;
 
+    public OfferedCoursesPresenter() {
+        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
+    }
+
     public OfferedCoursesPresenter(EndlessScrollHandler endlessScrollHandler) {
         this.endlessScrollHandler = endlessScrollHandler;
+        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
     }
 
     @Override
     public void fetchCourses() {
         //endlessScrollHandler.showProgressBar();
-        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
         offeredCoursesFetcher.fetchCourses(0);
     }
 
@@ -40,7 +44,7 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
 
     @Override
     public void requestOfferedCourse(Integer offeredCourseId, Integer instructorId) {
-        offeredCoursesFetcher.requestCourse(offeredCourseId,instructorId);
+        offeredCoursesFetcher.requestCourse(offeredCourseId, instructorId);
     }
 
     @Override

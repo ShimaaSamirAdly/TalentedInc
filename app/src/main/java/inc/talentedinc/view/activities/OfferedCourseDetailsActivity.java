@@ -12,15 +12,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.OfferedCoursesViewAdapter;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
+import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
+import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 import inc.talentedinc.view.fragmnts.OfferedCoursesFragment;
 
-public class OfferedCourseDetailsActivity extends AppCompatActivity {
+public class OfferedCourseDetailsActivity extends AppCompatActivity implements EndlessScrollHandler{
 
     private OfferedCourseDetailed offeredCourseDetailed;
     private ImageView offeredCourseImage;
@@ -41,7 +46,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offered_course_details);
         Intent intent = getIntent();
         offeredCourseDetailed = (OfferedCourseDetailed) intent.getSerializableExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT);
-        offeredCoursesPresenterInt = (OfferedCoursesPresenterInt) intent.getSerializableExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER);
+        //offeredCoursesPresenterInt = (OfferedCoursesPresenterInt) intent.getSerializableExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER);
         initializeViews();
 
     }
@@ -61,7 +66,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
         offeredCourseEndDate = (TextView) findViewById(R.id.end_date_txt);
         offeredCourseDuration = (TextView) findViewById(R.id.duration_txt);
         offeredCourseApplicants = (TextView) findViewById(R.id.no_applicants_txt);
-        requestButton = (Button) findViewById(R.id.request_offered_course_btn);
+        requestButton = (Button) findViewById(R.id.btnRegister);
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +77,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
     }
 
     private void requestCourse() {
+        offeredCoursesPresenterInt = new OfferedCoursesPresenter(this);
         offeredCoursesPresenterInt.requestOfferedCourse(offeredCourseDetailed.getOfferedCourseId(),
                 SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId());
     }
@@ -104,6 +110,44 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity {
 //            final View requestRowView = inflater.inflate(R.layout.request_row, null);
 //            requestsLayout.addView(requestRowView,requestsLayout.getChildCount()-1);
 //        }
+
+    }
+
+    @Override
+    public void showData(ArrayList<OfferedCourseDetailed> courses) {
+
+    }
+
+    @Override
+    public void hideProgressBar() {
+
+    }
+
+    @Override
+    public void showProgressBar() {
+
+    }
+
+    @Override
+    public void makeErrorToast() {
+
+    }
+
+    @Override
+    public void makeToastRequestResult(int result) {
+        switch (result) {
+            case 0:
+                Toast.makeText(this, "Error requesting course Try again later!", Toast.LENGTH_SHORT).show();
+                break;
+            case 1:
+                Toast.makeText(this,"Your request has been sent successfully!",Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
+
 
     }
 }
