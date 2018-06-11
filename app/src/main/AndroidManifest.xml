@@ -23,15 +23,10 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-            android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
 
@@ -91,8 +86,12 @@
 
         <!--offered course details activity-->
         <activity android:name=".view.activities.OfferedCourseDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".view.activities.MyOfferedCourses"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".view.activities.MyOfferedCoursesRequestsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!-- ........................................................................ -->
 
 
@@ -119,11 +118,11 @@
         <activity android:name=".view.activities.BecomeInstructorActivity"></activity>
 
         <activity android:name=".view.activities.WorkSpaceProfile">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
 
         </activity>
         <activity android:name=".view.activities.UpdateInterestsActivity" />
