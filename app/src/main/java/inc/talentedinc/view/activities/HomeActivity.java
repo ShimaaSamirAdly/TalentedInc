@@ -1,5 +1,6 @@
 package inc.talentedinc.view.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
@@ -28,6 +29,11 @@ public class HomeActivity extends AppCompatActivity{
     public static final String PROGILE ="PROFILE";
     public static final String NOTIFICATION ="notification";
 
+    /****************************** Shimaa**************************/
+
+    public FloatingActionButton becomeInstructor;
+
+    /***************************************************************/
 
     /****************************** asmaa *************************/
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -93,28 +99,44 @@ public class HomeActivity extends AppCompatActivity{
                 .replace(R.id.container, new UpComingCoursesFragment() ,"upComing")
                 .addToBackStack(null)
                 .commit();
+
+//        navigation.getMenu().getItem(0).setChecked(true);
+        fab = findViewById(R.id.fab);
+
+        /****************************Shimaa***********************************/
+        becomeInstructor = findViewById(R.id.becomeInstructor);
+        becomeInstructor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), BecomeInstructorActivity.class);
+                startActivity(intent);
+            }
+        });
+        /********************************************************************/
+
+
     }
 
     public void whichFragment(String s){
         switch (s){
             case UPCOMING:
-                navigation.getMenu().getItem(0).setChecked(true);
+//                navigation.getMenu().getItem(0).setChecked(true);
                 break;
 
             case HISTORY:
-                navigation.getMenu().getItem(1).setChecked(true);
+//                navigation.getMenu().getItem(1).setChecked(true);
 
                 break;
             case OFFERD:
-                navigation.getMenu().getItem(2).setChecked(true);
+//                navigation.getMenu().getItem(2).setChecked(true);
 
                 break;
             case NOTIFICATION:
-                navigation.getMenu().getItem(3).setChecked(true);
+//                navigation.getMenu().getItem(3).setChecked(true);
 
                 break;
             case PROGILE:
-                navigation.getMenu().getItem(4).setChecked(true);
+//                navigation.getMenu().getItem(4).setChecked(true);
                 break;
         }
     }
@@ -133,4 +155,12 @@ public class HomeActivity extends AppCompatActivity{
 
     /******************************  *************************/
 
+    /************************shimaa****************************/
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        becomeInstructor.setVisibility(View.GONE);
+    }
+    /********************************************************/
 }

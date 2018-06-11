@@ -8,8 +8,11 @@ import inc.talentedinc.model.User;
 
 public interface UserProfileListener {
 
-    public void onSuccess();
+    public void onSuccess(User user);
+
+    public void onFailedConnection();
 
     public void onFailure();
 
+    public void onGetCurrentUser(User user);
 }

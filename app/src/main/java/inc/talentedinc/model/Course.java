@@ -17,11 +17,17 @@ public class Course implements Serializable {
     private String description ;
     private Categories category ;
     private Integer duration;
-
+    private Instructor instructor ;
 //  private Integer instructorId ;
 
-    //ana hna na2s el imstructor
 
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
 
     public void setCategory(Categories category) {
         this.category = category;

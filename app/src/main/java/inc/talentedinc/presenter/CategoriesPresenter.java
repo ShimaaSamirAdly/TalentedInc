@@ -38,6 +38,11 @@ public class CategoriesPresenter {
 
                 Log.i("fail", "faild to get categories");
             }
+
+            @Override
+            public void onFailedConnection() {
+                
+            }
         });
 
 
