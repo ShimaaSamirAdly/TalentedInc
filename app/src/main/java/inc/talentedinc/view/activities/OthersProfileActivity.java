@@ -67,6 +67,7 @@ public class OthersProfileActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("onresume", "hhhh");
         othersProfilePresenter.getProfileData(userId);
     }
 
@@ -115,7 +116,7 @@ public class OthersProfileActivity extends AppCompatActivity {
     }
 
     public void refreshActivity(){
-
+        Log.i("refreshActiv", "refresh");
         finish();
         startActivity(getIntent());
     }

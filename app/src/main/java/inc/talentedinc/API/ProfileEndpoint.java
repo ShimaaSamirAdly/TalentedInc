@@ -32,10 +32,10 @@ public interface ProfileEndpoint {
     Call<User> getCurrentUserProfile(@Path("id") int userId, @Header("Cache-Control") String cacheControl);
 
     @POST("/users/followUser")
-    Call<User> followUser(@Query("id") int currentUserId, @Query("userToFollowId") int followedUserId);
+    Call<Void> followUser(@Query("id") int currentUserId, @Query("userToFollowId") int followedUserId);
 
     @DELETE("/users/unFollowUser")
-    Call<User> unfollowUser(@Query("id") int currentUserId, @Query("userToUnFollowId") int followedUserId);
+    Call<Void> unfollowUser(@Query("id") int currentUserId, @Query("userToUnFollowId") int followedUserId);
 
     @GET("/users/{id}/following")
     Call<ArrayList<Followers>> getFollowing(@Path("id") int userId);

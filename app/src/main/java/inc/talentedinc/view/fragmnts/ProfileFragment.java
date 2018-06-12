@@ -487,7 +487,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         final InstructorVideos video = (InstructorVideos) instructorVideos;
         urlText.setTextSize(18);
         urlText.setTextColor(Color.BLUE);
-        urlText.setText(video.getUrlValue().substring(0, 30)+"\n"+video.getUrlValue().substring(30));
+        if(video.getUrlValue().toString().length() > 30) {
+            urlText.setText(video.getUrlValue().substring(0, 30) + "\n" + video.getUrlValue().substring(30));
+        }else{
+            urlText.setText(video.getUrlValue());
+        }
         urlText.setPadding(50,0,0,0);
         videosLayout.addView(urlText);
 
