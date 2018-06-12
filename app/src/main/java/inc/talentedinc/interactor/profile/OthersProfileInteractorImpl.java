@@ -53,16 +53,16 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void followUser(int currentUserId, int followingUserId, final OthersProfileListener listener) {
 
-        Call<User> call = profileEndpoint.followUser(currentUserId, followingUserId);
-        call.enqueue(new Callback<User>() {
+        Call<Void> call = profileEndpoint.followUser(currentUserId, followingUserId);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.i("follow", "success");
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("followinteractor", "success"+ response.code());
                 listener.onSuccessFollowing();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
 
             }
         });
@@ -71,16 +71,16 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void unfollowUser(int currentUserId, int unfollowingUserId, final OthersProfileListener listener) {
 
-        Call<User> call = profileEndpoint.unfollowUser(currentUserId, unfollowingUserId);
-        call.enqueue(new Callback<User>() {
+        Call<Void> call = profileEndpoint.unfollowUser(currentUserId, unfollowingUserId);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.i("follow", "success");
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.i("unfollowinteractor", "success"+response.code());
                 listener.onSuccessUnfollowing();
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
 
             }
         });

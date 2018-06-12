@@ -85,11 +85,12 @@ public class OthersProfilePresenterImpl implements OthersProfilePresenter, Other
 
     @Override
     public void onSuccessFollowing() {
-        view.refreshActivity();
+
 //        userData.setFollowing(true);
 //        userData.setFollowersNumber(userData.getFollowersNumber()+1);
 //        view.setUserData(userData);
         Toast.makeText(context, "Successfully Following", Toast.LENGTH_LONG).show();
+        view.refreshActivity();
     }
 
     @Override
@@ -97,8 +98,9 @@ public class OthersProfilePresenterImpl implements OthersProfilePresenter, Other
 //        userData.setFollowing(false);
 //        userData.setFollowersNumber(userData.getFollowersNumber()-1);
 //        view.setUserData(userData);
-        view.refreshActivity();
+        Log.i("unfollow", "onSuccessUnfollowing");
         Toast.makeText(context, "Successfully UnFollowing", Toast.LENGTH_LONG).show();
+        view.refreshActivity();
     }
 
     @Override
