@@ -68,33 +68,33 @@ public class User implements Serializable{
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("workSpaceCollection")
-    @Expose
-    private Collection<Object> workSpaceCollection = null;
-    @SerializedName("userCollection")
-    @Expose
-    private Collection<Object> userCollection = null;
-    @SerializedName("userCollection1")
-    @Expose
-    private Collection<Object> userCollection1 = null;
-    @SerializedName("publishedCourseCollection")
-    @Expose
-    private Collection<Object> publishedCourseCollection = null;
+//    @SerializedName("workSpaceCollection")
+//    @Expose
+//    private Collection<Object> workSpaceCollection = null;
+//    @SerializedName("userCollection")
+//    @Expose
+//    private Collection<Object> userCollection = null;
+//    @SerializedName("userCollection1")
+//    @Expose
+//    private Collection<Object> userCollection1 = null;
+//    @SerializedName("publishedCourseCollection")
+//    @Expose
+//    private Collection<Object> publishedCourseCollection = null;
     @SerializedName("categoryCollection")
     @Expose
     private Collection<Categories> categoryCollection = null;
-    @SerializedName("admin")
-    @Expose
-    private Object admin;
+//    @SerializedName("admin")
+//    @Expose
+//    private Object admin;
     @SerializedName("instructor")
     @Expose
     private Instructor instructor;
-    @SerializedName("publishedCourseHasUserCollection")
-    @Expose
-    private Collection<Object> publishedCourseHasUserCollection = null;
-    @SerializedName("userCommentOnPublishedCourseCollection")
-    @Expose
-    private Collection<Object> userCommentOnPublishedCourseCollection = null;
+//    @SerializedName("publishedCourseHasUserCollection")
+//    @Expose
+//    private Collection<Object> publishedCourseHasUserCollection = null;
+//    @SerializedName("userCommentOnPublishedCourseCollection")
+//    @Expose
+//    private Collection<Object> userCommentOnPublishedCourseCollection = null;
 
     private int followingNumber;
 
@@ -258,37 +258,37 @@ public class User implements Serializable{
         this.phone = phone;
     }
 
-    public Collection<Object> getWorkSpaceCollection() {
-        return workSpaceCollection;
-    }
+//    public Collection<Object> getWorkSpaceCollection() {
+//        return workSpaceCollection;
+//    }
+//
+//    public void setWorkSpaceCollection(Collection<Object> workSpaceCollection) {
+//        this.workSpaceCollection = workSpaceCollection;
+//    }
+//
+//    public Collection<Object> getUserCollection() {
+//        return userCollection;
+//    }
+//
+//    public void setUserCollection(Collection<Object> userCollection) {
+//        this.userCollection = userCollection;
+//    }
 
-    public void setWorkSpaceCollection(Collection<Object> workSpaceCollection) {
-        this.workSpaceCollection = workSpaceCollection;
-    }
-
-    public Collection<Object> getUserCollection() {
-        return userCollection;
-    }
-
-    public void setUserCollection(Collection<Object> userCollection) {
-        this.userCollection = userCollection;
-    }
-
-    public Collection<Object> getUserCollection1() {
-        return userCollection1;
-    }
-
-    public void setUserCollection1(Collection<Object> userCollection1) {
-        this.userCollection1 = userCollection1;
-    }
-
-    public Collection<Object> getPublishedCourseCollection() {
-        return publishedCourseCollection;
-    }
-
-    public void setPublishedCourseCollection(Collection<Object> publishedCourseCollection) {
-        this.publishedCourseCollection = publishedCourseCollection;
-    }
+//    public Collection<Object> getUserCollection1() {
+//        return userCollection1;
+//    }
+//
+//    public void setUserCollection1(Collection<Object> userCollection1) {
+//        this.userCollection1 = userCollection1;
+//    }
+//
+//    public Collection<Object> getPublishedCourseCollection() {
+//        return publishedCourseCollection;
+//    }
+//
+//    public void setPublishedCourseCollection(Collection<Object> publishedCourseCollection) {
+//        this.publishedCourseCollection = publishedCourseCollection;
+//    }
 
     public Collection<Categories> getCategoryCollection() {
         return categoryCollection;
@@ -298,13 +298,13 @@ public class User implements Serializable{
         this.categoryCollection = categoryCollection;
     }
 
-    public Object getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Object admin) {
-        this.admin = admin;
-    }
+//    public Object getAdmin() {
+//        return admin;
+//    }
+//
+//    public void setAdmin(Object admin) {
+//        this.admin = admin;
+//    }
 
     public Instructor getInstructor() {
         return instructor;
@@ -314,21 +314,21 @@ public class User implements Serializable{
         this.instructor = instructor;
     }
 
-    public Collection<Object> getPublishedCourseHasUserCollection() {
-        return publishedCourseHasUserCollection;
-    }
+//    public Collection<Object> getPublishedCourseHasUserCollection() {
+//        return publishedCourseHasUserCollection;
+//    }
 
-    public void setPublishedCourseHasUserCollection(Collection<Object> publishedCourseHasUserCollection) {
-        this.publishedCourseHasUserCollection = publishedCourseHasUserCollection;
-    }
+//    public void setPublishedCourseHasUserCollection(Collection<Object> publishedCourseHasUserCollection) {
+//        this.publishedCourseHasUserCollection = publishedCourseHasUserCollection;
+//    }
 
-    public Collection<Object> getUserCommentOnPublishedCourseCollection() {
-        return userCommentOnPublishedCourseCollection;
-    }
-
-    public void setUserCommentOnPublishedCourseCollection(Collection<Object> userCommentOnPublishedCourseCollection) {
-        this.userCommentOnPublishedCourseCollection = userCommentOnPublishedCourseCollection;
-    }
+//    public Collection<Object> getUserCommentOnPublishedCourseCollection() {
+//        return userCommentOnPublishedCourseCollection;
+//    }
+//
+//    public void setUserCommentOnPublishedCourseCollection(Collection<Object> userCommentOnPublishedCourseCollection) {
+//        this.userCommentOnPublishedCourseCollection = userCommentOnPublishedCourseCollection;
+//    }
 
     public int getFollowingNumber() {
         return followingNumber;
