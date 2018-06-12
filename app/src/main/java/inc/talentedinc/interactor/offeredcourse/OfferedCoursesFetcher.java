@@ -27,17 +27,21 @@ public class OfferedCoursesFetcher {
     private int currentPageNumber;
     private MyOfferedCoursePresenter myOfferedCoursePresenter;
     private RequestsPresenter requestsPresenter;
+    public static volatile OfferedCoursesFetcher offeredCoursesFetcher;
 
-    public OfferedCoursesFetcher(OfferedCoursesPresenterInt offeredCoursesPresenterInt) {
-        this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
+    private OfferedCoursesFetcher() {
         currentPageNumber = 0;
     }
 
-    public OfferedCoursesFetcher() {
-    }
-
-    public OfferedCoursesFetcher(RequestsPresenter requestsPresenter) {
-        this.requestsPresenter = requestsPresenter;
+    public static OfferedCoursesFetcher sharedInstance(){
+        if(offeredCoursesFetcher == null){
+            synchronized (OfferedCoursesFetcher.class){
+                if (offeredCoursesFetcher == null){
+                    offeredCoursesFetcher = new OfferedCoursesFetcher();
+                }
+            }
+        }
+        return offeredCoursesFetcher;
     }
 
     public void fetchCourses(int page) {
@@ -49,7 +53,7 @@ public class OfferedCoursesFetcher {
                     public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
                         Log.i("RETROFIT", "" + response.body());
                         OfferedCoursesResponse offeredCoursesResponse = response.body();
-//                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
+                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
                         offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
                     }
 
@@ -90,7 +94,7 @@ public class OfferedCoursesFetcher {
     public void fetchMyOfferedCourses(int instructorId) {
         //fix instructor id
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getMyOfferedCourse(2).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
+                .getMyOfferedCourse(instructorId).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseDetailed>> call, Response<ArrayList<OfferedCourseDetailed>> response) {
                 myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
@@ -133,5 +137,13 @@ public class OfferedCoursesFetcher {
 
             }
         });
+    }
+
+    public void setOfferedCoursesPresenterInt(OfferedCoursesPresenterInt offeredCoursesPresenterInt) {
+        this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
+    }
+
+    public void setRequestsPresenter(RequestsPresenter requestsPresenter) {
+        this.requestsPresenter = requestsPresenter;
     }
 }

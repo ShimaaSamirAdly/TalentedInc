@@ -16,12 +16,12 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
     OfferedCoursesFetcher offeredCoursesFetcher;
 
     public OfferedCoursesPresenter() {
-        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
+        initializeInteractor();
     }
 
     public OfferedCoursesPresenter(EndlessScrollHandler endlessScrollHandler) {
         this.endlessScrollHandler = endlessScrollHandler;
-        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
+        initializeInteractor();
     }
 
     @Override
@@ -60,5 +60,10 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
     @Override
     public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
         endlessScrollHandler.gotoDetailedCourseView(offeredCourseDetailed);
+    }
+
+    private void initializeInteractor() {
+        offeredCoursesFetcher = OfferedCoursesFetcher.sharedInstance();
+        offeredCoursesFetcher.setOfferedCoursesPresenterInt(this);
     }
 }

@@ -13,7 +13,7 @@ public class MyOfferedCoursePresenter {
 
     public MyOfferedCoursePresenter(MyOfferedCourseHandler myOfferedCourseHandler) {
         this.myOfferedCourseHandler = myOfferedCourseHandler;
-        offeredCoursesFetcher = new OfferedCoursesFetcher();
+        offeredCoursesFetcher = OfferedCoursesFetcher.sharedInstance();
         offeredCoursesFetcher.setMyOfferedCoursePresenter(this);
     }
 

@@ -14,7 +14,8 @@ public class RequestsPresenter {
 
     public RequestsPresenter(RequestsHandler myRequestsHAndler) {
         this.myRequestsHAndler = myRequestsHAndler;
-        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
+        offeredCoursesFetcher = OfferedCoursesFetcher.sharedInstance();
+        offeredCoursesFetcher.setRequestsPresenter(this);
     }
 
 

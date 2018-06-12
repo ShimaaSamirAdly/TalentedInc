@@ -6,7 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
+
 import inc.talentedinc.R;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.presenter.MyOfferedCoursePresenter;
@@ -45,12 +50,31 @@ public class MyOfferedCourseViewAdapter extends RecyclerView.Adapter<OfferedCour
         //request course button
         holder.getRequestOfferedCourseBtn().setVisibility(View.GONE);
         //go to details activity
-        holder.getOfferedCourseImageView().setOnClickListener(new View.OnClickListener() {
+        holder.getOffrerdCoursesCardView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 offeredCoursesPresenter.gotoDetailedCourseView(offeredCourses.get(position));
             }
         });
+
+        if(offeredCourses.get(position).getImageUrl() != null) {
+            Glide.
+                    with(myContext).
+                    load(offeredCourses.get(position).getImageUrl()).
+                    centerCrop().
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    placeholder(R.drawable.default_course).
+                    into(holder.getOfferedCourseImageView());
+        }else {
+            Glide.
+                    with(myContext).
+                    load(R.drawable.default_course).
+                    centerCrop().
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    into(holder.getOfferedCourseImageView());
+        }
     }
 
     @Override

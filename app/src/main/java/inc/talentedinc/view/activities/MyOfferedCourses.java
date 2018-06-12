@@ -28,11 +28,6 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_offered_courses);
 
-        Intent intent = getIntent();
-        if(intent.getSerializableExtra(MyOfferedCoursesRequestsActivity.ACCEPTED_OFFERED_COURSE) != null) {
-            acceptedOfferedCourse = (OfferedCourseDetailed) intent.getSerializableExtra(MyOfferedCoursesRequestsActivity.ACCEPTED_OFFERED_COURSE);
-        }
-
         coursesRecyclerView = (RecyclerView) findViewById(R.id.my_offered_course_rec);
         coursesRecyclerView.setHasFixedSize(true);
         coursesLayoutManager = new LinearLayoutManager(this);
@@ -54,9 +49,6 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
     @Override
     public void viewMyOfferedCourses(ArrayList<OfferedCourseDetailed> myOfferedCourses) {
         offeredCourses.addAll(myOfferedCourses);
-        if(acceptedOfferedCourse != null){
-            offeredCourses.remove(acceptedOfferedCourse);
-        }
         offeredCoursesViewAdapter.notifyDataSetChanged();
     }
 
@@ -66,6 +58,5 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
         Intent intent = new Intent(this,MyOfferedCoursesRequestsActivity.class);
         intent.putExtra(MyOfferedCourses.MY_OFFERED_COURSE_OBJECT,offeredCourseDetailed);
         startActivity(intent);
-        finish();
     }
 }

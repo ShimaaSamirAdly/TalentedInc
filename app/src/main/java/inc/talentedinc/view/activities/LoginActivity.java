@@ -172,7 +172,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             gmailUser.setImgUrl(acct.getPhotoUrl().toString());
             gmailUser.setGoogleToken(acct.getIdToken());
             gmailUser.setGoogleId(acct.getId());
-            gotoCategories(gmailUser);
+            completeSignup(gmailUser);
             Log.i("response", "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
@@ -348,7 +348,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                             //user to send to interests activity
                             User user = createUser(object, loginResult);
                             //go to categories to complete sign up
-                            gotoCategories(user);
+                            completeSignup(user);
                         }
                     }
                 });
@@ -376,11 +376,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     }
 
 
-    private void gotoCategories(User user){
+    private void completeSignup(User user){
 
         Intent intent = new Intent(this,SignUpActivity.class);
         intent.putExtra(LoginActivity.INTENT_USER,user);
         startActivity(intent);
+        finish();
     }
     /***************************************************************************************/
 

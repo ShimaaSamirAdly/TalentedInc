@@ -59,15 +59,6 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
     @Override
     public void workspaceAcceptedSuccessfully() {
         Intent intent = new Intent(this,MyOfferedCourses.class);
-        intent.putExtra(MyOfferedCoursesRequestsActivity.ACCEPTED_OFFERED_COURSE,myOfferedCourse);
-        startActivity(intent);
-        finish();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this,MyOfferedCourses.class);
         startActivity(intent);
         finish();
     }

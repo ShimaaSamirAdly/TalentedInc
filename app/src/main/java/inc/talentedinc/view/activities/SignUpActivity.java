@@ -63,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent =getIntent();
         if(intent.getSerializableExtra(LoginActivity.INTENT_USER)!= null){
             signedUpUser = (User) intent.getSerializableExtra(LoginActivity.INTENT_USER);
-            signUpViewPager.setCurrentItem(2);
+            signUPViewPagerAdapter.setUserFromFacebook(signedUpUser);
         }
 
         /***********************************************************/
