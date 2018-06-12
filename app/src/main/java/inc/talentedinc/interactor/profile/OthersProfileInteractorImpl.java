@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import inc.talentedinc.API.ProfileEndpoint;
 import inc.talentedinc.listener.OthersProfileListener;
 import inc.talentedinc.listener.UserProfileListener;
+import inc.talentedinc.model.Followers;
+import inc.talentedinc.model.OtherUsers;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.profile.OthersProfilePresenter;
 import inc.talentedinc.singleton.AppRetrofit;
@@ -21,18 +23,18 @@ import retrofit2.Response;
 public class OthersProfileInteractorImpl implements OthersProfileInteractor {
 
     ProfileEndpoint profileEndpoint = AppRetrofit.getInstance().getRetrofitInstance().create(ProfileEndpoint.class);
-    User user;
+    OtherUsers user;
+
     @Override
     public void getUserProfile(int userProfileId, int currentUserId, final OthersProfileListener listener) {
-
-        Call<User> call = profileEndpoint.getUserProfile(userProfileId, currentUserId);
-        call.enqueue(new Callback<User>() {
+        Call<OtherUsers> call = profileEndpoint.getUserProfile(userProfileId, currentUserId, "no-cache");
+        call.enqueue(new Callback<OtherUsers>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<OtherUsers> call, Response<OtherUsers> response) {
                 Log.i("resp", Integer.toString(response.code()));
                 if(response.code() == 200) {
-                    user = new User();
-                    user = (User) response.body();
+                    user = (OtherUsers) response.body();
+                    Log.i("resp", "userData"+user.getFirstName());
                     Log.i("resp", "" + user);
 
                     listener.onGetProfile(user);
@@ -42,7 +44,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<OtherUsers> call, Throwable t) {
 
             }
         });
@@ -87,10 +89,10 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void getFollowers(int userId, final OthersProfileListener listener) {
 
-        Call<ArrayList<User>> call = profileEndpoint.getFollowers(userId);
-        call.enqueue(new Callback<ArrayList<User>>() {
+        Call<ArrayList<Followers>> call = profileEndpoint.getFollowers(userId);
+        call.enqueue(new Callback<ArrayList<Followers>>() {
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+            public void onResponse(Call<ArrayList<Followers>> call, Response<ArrayList<Followers>> response) {
                 Log.i("follow", "success");
                 if(response.code() == 200) {
                     listener.onGetFollowers(response.body());
@@ -100,7 +102,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Followers>> call, Throwable t) {
 
             }
         });
@@ -109,11 +111,11 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void getFollowings(int userId, final OthersProfileListener listener) {
 
-        Call<ArrayList<User>> call = profileEndpoint.getFollowing(userId);
-        call.enqueue(new Callback<ArrayList<User>>() {
+        Call<ArrayList<Followers>> call = profileEndpoint.getFollowing(userId);
+        call.enqueue(new Callback<ArrayList<Followers>>() {
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
-                Log.i("follow", "success");
+            public void onResponse(Call<ArrayList<Followers>> call, Response<ArrayList<Followers>> response) {
+                Log.i("follow", "success"+response.code());
                 if(response.code() == 200) {
                     listener.onGetFollowers(response.body());
                 }else{
@@ -122,7 +124,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Followers>> call, Throwable t) {
 
             }
         });

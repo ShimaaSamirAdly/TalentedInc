@@ -143,7 +143,9 @@ public class ThirdSignUpFragment extends Fragment {
 
     public User getUpdatedUser(){
 
-        if(interests.size() != 0) {
+        if(clickedCount.size() != 0) {
+            interests = new ArrayList<>();
+            interests = clickedCount.values();
             interests = new ArrayList<>(clickedCount.values());
             user.setCategoryCollection(interests);
         }

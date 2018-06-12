@@ -6,7 +6,7 @@ package inc.talentedinc.presenter;
 
 public interface FollowersPresenter {
 
-    public void getFollowers();
-    public void getFollowing();
+    public void getFollowers(int userId);
+    public void getFollowing(int userId);
     public void unfollow(int userId);
 }

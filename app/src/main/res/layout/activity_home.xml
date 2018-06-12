@@ -53,9 +53,11 @@
         android:layout_gravity="bottom|end"
         android:baselineAlignBottom="true"
         app:backgroundTint="@color/colorPrimaryDark"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_anchor="@id/container"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_marginBottom="@dimen/sixty_dp"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"/>
 
 <!--</android.support.constraint.ConstraintLayout>-->
 

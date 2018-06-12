@@ -106,9 +106,9 @@
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/workSpaceLogo"
-                app:layout_constraintStart_toStartOf="@+id/workSpaceLogo"
-                app:layout_constraintTop_toBottomOf="@+id/workSpaceLogo" />
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -132,14 +132,11 @@
                 android:layout_height="31dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:src="@drawable/edit"
                 app:layout_constraintBottom_toBottomOf="@+id/textView16"
                 app:layout_constraintEnd_toEndOf="@+id/textView16"
-                app:layout_constraintHorizontal_bias="0.939"
-                app:layout_constraintStart_toStartOf="@+id/textView16"
-                app:layout_constraintTop_toTopOf="@+id/textView16"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintHorizontal_bias="0.899"
+                app:layout_constraintStart_toStartOf="@+id/textView16" />
 
             <ImageView
                 android:id="@+id/imageView6"
@@ -194,14 +191,13 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
-            <EditText
+            <TextView
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="38dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
                 android:enabled="false"
-                android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:visibility="visible"
@@ -214,19 +210,17 @@
                 android:layout_height="39dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView9"
                 app:layout_constraintTop_toBottomOf="@+id/email" />
 
-            <EditText
+            <TextView
                 android:id="@+id/dob"
                 android:layout_width="wrap_content"
                 android:layout_height="39dp"
                 android:layout_marginStart="31dp"
                 android:layout_marginTop="8dp"
-                android:text="TextView"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@+id/imageView10"
@@ -260,21 +254,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-            <ImageView
-                android:id="@+id/edit_portofolio"
-                android:layout_width="27dp"
-                android:layout_height="31dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/edit"
-                app:layout_constraintBottom_toBottomOf="@+id/portofolioText"
-                app:layout_constraintEnd_toEndOf="@+id/portofolioText"
-                app:layout_constraintHorizontal_bias="0.92"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/portofolioText"
-                app:layout_constraintVertical_bias="1.0" />
-
             <inc.talentedinc.view.customviews.ExpandableHeightGridView
                 android:id="@+id/portofolioGridView"
                 android:layout_width="379dp"
@@ -291,21 +270,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/portofolioText" />
 
-            <ImageView
-                android:id="@+id/editVideos"
-                android:layout_width="27dp"
-                android:layout_height="31dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/edit"
-                app:layout_constraintBottom_toBottomOf="@+id/videosText"
-                app:layout_constraintEnd_toEndOf="@+id/videosText"
-                app:layout_constraintHorizontal_bias="0.921"
-                app:layout_constraintStart_toStartOf="@+id/videosText"
-                app:layout_constraintTop_toTopOf="@+id/videosText"
-                app:layout_constraintVertical_bias="1.0" />
-
             <LinearLayout
                 android:id="@+id/videosLayout"
                 android:layout_width="378dp"
@@ -321,19 +285,6 @@
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/addSkill"
-                android:layout_width="330dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:hint="Enter Skill"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/skillsText" />
-
             <TextView
                 android:id="@+id/followers"
                 android:layout_width="wrap_content"
@@ -346,7 +297,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/workSpaceLogo"
+                app:layout_constraintEnd_toStartOf="@+id/profileImage"
                 app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -365,28 +316,13 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.6"
-                app:layout_constraintStart_toEndOf="@+id/workSpaceLogo"
+                app:layout_constraintStart_toEndOf="@+id/profileImage"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/editSkill"
-                android:layout_width="27dp"
-                android:layout_height="31dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/edit"
-                app:layout_constraintBottom_toBottomOf="@+id/skillsText"
-                app:layout_constraintEnd_toEndOf="@+id/skillsText"
-                app:layout_constraintHorizontal_bias="0.921"
-                app:layout_constraintStart_toStartOf="@+id/skillsText"
-                app:layout_constraintTop_toTopOf="@+id/skillsText"
-                app:layout_constraintVertical_bias="0.0" />
 
             <inc.talentedinc.view.customviews.ExpandableHeightGridView
                 android:id="@+id/skillsLayout"
                 android:layout_width="379dp"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
@@ -395,7 +331,7 @@
                 android:numColumns="3"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/addSkill"
+                app:layout_constraintTop_toBottomOf="@+id/skillsText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.47"
                 app:layout_constraintStart_toStartOf="parent"></inc.talentedinc.view.customviews.ExpandableHeightGridView>
@@ -404,17 +340,35 @@
                 android:id="@+id/updateUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/com_facebook_close"
+                android:src="@drawable/done"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/textView16"
                 app:layout_constraintEnd_toEndOf="@+id/textView16"
-                app:layout_constraintHorizontal_bias="0.926"
+                app:layout_constraintHorizontal_bias="0.918"
                 app:layout_constraintStart_toStartOf="@+id/textView16"
                 app:layout_constraintTop_toTopOf="@+id/textView16"
                 app:layout_constraintVertical_bias="1.0" />
+
+
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/cancel"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toEndOf="@+id/textView16"
+                app:layout_constraintHorizontal_bias="0.767"
+                app:layout_constraintStart_toStartOf="@+id/textView16"
+                app:layout_constraintTop_toTopOf="@+id/textView16" />
 
             <ImageView
                 android:id="@+id/imageView11"
@@ -425,8 +379,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileImage"
                 android:layout_width="157dp"
                 android:layout_height="124dp"
@@ -450,11 +403,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/photo"
-                app:layout_constraintBottom_toBottomOf="@+id/workSpaceLogo"
-                app:layout_constraintEnd_toEndOf="@+id/workSpaceLogo"
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/workSpaceLogo"
-                app:layout_constraintTop_toTopOf="@+id/workSpaceLogo"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
                 app:layout_constraintVertical_bias="1.0" />
 
 

@@ -18,6 +18,8 @@ import inc.talentedinc.model.Instructor;
 import inc.talentedinc.model.InstructorImages;
 import inc.talentedinc.model.InstructorSkills;
 import inc.talentedinc.model.InstructorVideos;
+import inc.talentedinc.model.User;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.activities.BecomeInstructorActivity;
 
 /**
@@ -66,6 +68,7 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
 
         if(flag){
             instructor = new Instructor();
+            instructor.setUserId(SharedPrefrencesSingleton.getSharedPrefUser(context).getUserId());
             Collection<InstructorSkills> instructorSkills = new ArrayList<>();
             for(int i=0; i<skills.size(); i++){
                 instructorSkills.add(new InstructorSkills(skills.get(i)));
@@ -82,6 +85,8 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
 
             instructor.setInstructorUrlsCollection(instructorVideos);
             instructor.setSkillsCollection(instructorSkills);
+
+            becomeInstructor(instructor);
 
         }else{
 
@@ -107,8 +112,11 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
     }
 
     @Override
-    public void onSuccessPending() {
+    public void onSuccessPending(Instructor instructor) {
         Log.i("becomeInst", "success");
+        User user = SharedPrefrencesSingleton.getSharedPrefUser(context);
+//        user.setUserType(1);
+        user.setInstructor(instructor);
         view.switchToHome();
     }
 }

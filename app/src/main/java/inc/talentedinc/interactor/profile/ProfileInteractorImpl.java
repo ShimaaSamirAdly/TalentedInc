@@ -21,10 +21,10 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     @Override
     public void updateUser(final User user, final UserProfileListener listener) {
 
-        Call<User> call = profileEndpoint.updateUser(user);
-        call.enqueue(new Callback<User>() {
+        Call<Void> call = profileEndpoint.updateUser(user);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.i("resp", Integer.toString(response.code()));
                 if(response.code() == 200) {
                     listener.onSuccess(user);
@@ -34,7 +34,8 @@ public class ProfileInteractorImpl implements ProfileInteractor {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.i("onFailure", t.getMessage());
                 listener.onFailure();
             }
         });
@@ -43,13 +44,16 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     @Override
     public void getCurrentUser(int currentUserId, final UserProfileListener listener) {
 
-        Call<User> call = profileEndpoint.getCurrentUserProfile(currentUserId);
+        Call<User> call = profileEndpoint.getCurrentUserProfile(currentUserId, "no-cache");
+        Log.i("userId", ""+currentUserId);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.code() == 200) {
                     Log.i("curentUser", ""+response.code());
-                    listener.onGetCurrentUser(response.body());
+                    User user = response.body();
+                    Log.i("userInt", user.getCity());
+                    listener.onGetCurrentUser(user);
                 }else{
                     Log.i("curentUser", ""+response.code());
                     listener.onFailure();

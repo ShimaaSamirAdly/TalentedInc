@@ -17,7 +17,6 @@ import java.util.List;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.InstructorImages;
-import inc.talentedinc.view.activities.TestImageActivity;
 
 /**
  * Created by MMM on 6/1/2018.
@@ -54,11 +53,10 @@ public class PortofolioAdapter extends BaseAdapter {
         View grid;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Log.i("ada", "adapter");
-        grid = inflater.inflate(R.layout.interests_grid_items, parent, false);
+        grid = inflater.inflate(R.layout.portofolio_grid_item, parent, false);
         Log.i("setView", "adapter");
         ImageView imageView = grid.findViewById(R.id.img);
-        TextView txt = grid.findViewById(R.id.txt);
-        txt.setText("");
+
 
         Glide.with(context)
                 .load(imagesUrl.get(position).getImageUrl())
