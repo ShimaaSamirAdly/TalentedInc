@@ -353,6 +353,8 @@
                 app:layout_constraintTop_toTopOf="@+id/textView16"
                 app:layout_constraintVertical_bias="1.0" />
 
+            <!--android:src="@drawable/done"-->
+
 
             <ImageView
                 android:id="@+id/cancel"
@@ -369,6 +371,8 @@
                 app:layout_constraintHorizontal_bias="0.767"
                 app:layout_constraintStart_toStartOf="@+id/textView16"
                 app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+            <!--android:src="@drawable/cancel"-->
 
             <ImageView
                 android:id="@+id/imageView11"
