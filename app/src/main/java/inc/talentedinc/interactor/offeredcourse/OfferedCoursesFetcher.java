@@ -53,7 +53,7 @@ public class OfferedCoursesFetcher {
                     public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
                         Log.i("RETROFIT", "" + response.body());
                         OfferedCoursesResponse offeredCoursesResponse = response.body();
-                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
+//                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
                         offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
                     }
 

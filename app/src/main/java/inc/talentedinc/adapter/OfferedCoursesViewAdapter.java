@@ -79,7 +79,6 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
             Glide.
                     with(myContext).
                     load(offeredCourses.get(position).getImageUrl()).
-                    centerCrop().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     skipMemoryCache(true).
                     placeholder(R.drawable.default_course).
@@ -88,7 +87,6 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
             Glide.
                     with(myContext).
                     load(R.drawable.default_course).
-                    centerCrop().
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     skipMemoryCache(true).
                     into(holder.getOfferedCourseImageView());

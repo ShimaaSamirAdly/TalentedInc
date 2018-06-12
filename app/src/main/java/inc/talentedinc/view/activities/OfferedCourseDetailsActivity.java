@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
@@ -58,7 +61,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
     }
 
     private void initializeViews() {
-        offeredCourseImage = (ImageView) findViewById(R.id.offered_course_img);
+        offeredCourseImage = (ImageView) findViewById(R.id.imgCourse);
         offeredCourseName = (TextView) findViewById(R.id.course_name_txt);
         offeredCourseCreator = (TextView) findViewById(R.id.course_creator_txt);
         offeredCoursedescription = (TextView) findViewById(R.id.offered_course_desc_txt);
@@ -105,11 +108,22 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
             offeredCourseApplicants.setText(String.valueOf(offeredCourseDetailed.getNoOfApplicant()));
         }
 
-//        for(int i=0;i<=10;i++){
-//            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            final View requestRowView = inflater.inflate(R.layout.request_row, null);
-//            requestsLayout.addView(requestRowView,requestsLayout.getChildCount()-1);
-//        }
+        if(offeredCourseDetailed.getImageUrl() != null) {
+            Glide.
+                    with(this).
+                    load(offeredCourseDetailed.getImageUrl()).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    placeholder(R.drawable.default_course).
+                    into(offeredCourseImage);
+        }else {
+            Glide.
+                    with(this).
+                    load(R.drawable.default_course).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    into(offeredCourseImage);
+        }
 
     }
 

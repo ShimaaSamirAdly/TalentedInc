@@ -45,6 +45,7 @@ public class LoginPresenter {
 
     private void getUserData (UserLogin userLogin ) {
         view.showProgress();
+        Log.i("gaeluser",userLogin.getEmail());
         userLoginInter.sendLoginRequest(userLogin, new OnLoginResult() {
             @Override
             public void onSucess(User user) {
