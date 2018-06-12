@@ -1,5 +1,8 @@
 package inc.talentedinc.view.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import inc.talentedinc.R;
 import inc.talentedinc.adapter.CreateCourseViewPagerAdapter;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Course;
+import inc.talentedinc.model.Instructor;
 import inc.talentedinc.presenter.CreateCoursePresenter;
 import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
 import inc.talentedinc.view.fragmnts.DatePickerFragment;
@@ -69,8 +73,6 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
             }
         });
 
-
-
         createCoursePresenter = new CreateCoursePresenter(this);
 
      //-------------------------------------------------------------------------------------------//
@@ -84,20 +86,30 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
     private void createCourse(){
         //set data to course //
         getSecondFragmentData();
-        createdCourse.setDuration(15);
 
+         //dummy instructor & duration
+        Instructor instructor = new Instructor();
+        instructor.setUserId(2);
+        createdCourse.setInstructor(instructor);
         createCoursePresenter.courseCreated(createdCourse);
 
     }
+    //--------------------------------------------------------------------------------------------------------------//
 
     @Override
-    public void successToCreateCourse() {
-        Toast.makeText(this,"done",Toast.LENGTH_LONG).show();
+    public void successToCreateCourse(int courseId) {
 
-        //intent
-        //save to shared prepherence
+        Toast.makeText(this,"done",Toast.LENGTH_LONG).show();
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putInt("courseId",courseId);
+        editor.commit();
+        Intent sendToHome = new Intent(this, HomeActivity.class);
+        startActivity(sendToHome);
     }
 
+    //--------------------------------------------------------------------------------------------------------------//
 
     @Override
     public void failToCreateCourse() {
@@ -107,20 +119,34 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
     }
 
 
+    //--------------------------------------------------------------------------------------------------------------//
 
     public void nextAction (){
 
         switch (viewPager.getCurrentItem()){
             case 0 :
                 getFirstFragmentData();
-                viewPager.setCurrentItem(viewPager.getCurrentItem()+1);
-                create.setVisibility(View.VISIBLE);
-                nextBtn.setVisibility(View.GONE);
+                if(!createdCourse.getCourseName().equals("userInvalidInputData")) {
+                    if(!createdCourse.getStartDate().equals("userEnterInvalidDate")) {
+                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                        create.setVisibility(View.VISIBLE);
+                        nextBtn.setVisibility(View.GONE);
+                    }
+                    else{
+                        Toast.makeText(this,"Please choose a valid Start Date and End Date",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                else{
+                    Toast.makeText(this,"please enter a valid data",Toast.LENGTH_LONG).show();
+
+                }
                 break;
 
         }
 
     }
+    //--------------------------------------------------------------------------------------------------------------//
 
     public void getFirstFragmentData(){
         Course firstCourse = createCourseViewPagerAdapter.getFirstCreateCourse().getCourse();
@@ -134,9 +160,11 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
         createdCourse.setNumOfApplicants(secondCourse.getNumOfApplicants());
         createdCourse.setDescription(secondCourse.getDescription());
         createdCourse.setCategory(secondCourse.getCategory());
+        createdCourse.setDuration(secondCourse.getDuration());
 
 
     }
+    //--------------------------------------------------------------------------------------------------------------//
 
     @Override
     public void onBackPressed() {

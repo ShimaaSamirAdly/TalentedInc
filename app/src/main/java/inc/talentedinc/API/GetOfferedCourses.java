@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.User;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
+import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
+import inc.talentedinc.model.offeredcourse.OfferedCourseWorkspace;
 import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -19,10 +21,15 @@ public interface GetOfferedCourses {
         //@FormUrlEncoded
     Call<OfferedCoursesResponse> getOfferedCourses(@Query("page") int page);
 
-    @GET("/{id}/profile")
-        //@FormUrlEncoded
-    Call<User> getUser(@Path("id")int id);
-
     @POST("/InstructorReqOfferedCourse/requestcourse")
     Call<Object> instructorRequestOfferedCourse(@Query("instructorId")Integer instrctorId,@Query("courseId")Integer courseId);
+
+    @GET("/offeredcourse/offeredcoursebyinstuctor")
+    Call<ArrayList<OfferedCourseDetailed>> getMyOfferedCourse(@Query("insructorId")Integer instrctorId);
+
+    @GET("/offeredcourse/requestedWorkSpaces")
+    Call<ArrayList<OfferedCourseWorkspace>> getCourseRequests(@Query("courseId")Integer offeredCourseId);
+
+    @POST("/offeredcourse/acceptWorkSpaceRequest")
+    Call<Void> acceptCourse(@Query("courseId") int courseId, @Query("workSpaceId") Integer workSpaceId);
 }

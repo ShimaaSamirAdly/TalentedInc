@@ -5,6 +5,10 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import inc.talentedinc.model.InstructorImages;
+import inc.talentedinc.model.InstructorSkills;
+import inc.talentedinc.model.InstructorVideos;
+
 public class OfferedCourseInstructor implements Serializable {
     
     @SerializedName("userId")
@@ -15,16 +19,13 @@ public class OfferedCourseInstructor implements Serializable {
     private String totalRate;
     @SerializedName("instructorVideosCollection")
     @Expose
-    private List<String> instructorVideosCollection = null;
+    private List<InstructorVideos> instructorVideosCollection = null;
     @SerializedName("skillsCollection")
     @Expose
-    private List<String> skillsCollection = null;
+    private List<InstructorSkills> skillsCollection = null;
     @SerializedName("instructorImagesCollection")
     @Expose
-    private List<String> instructorImagesCollection = null;
-    @SerializedName("instructorUrlsCollection")
-    @Expose
-    private List<String> instructorUrlsCollection = null;
+    private List<InstructorImages> instructorImagesCollection = null;
 
     public Integer getUserId() {
         return userId;
@@ -42,35 +43,28 @@ public class OfferedCourseInstructor implements Serializable {
         this.totalRate = totalRate;
     }
 
-    public List<String> getInstructorVideosCollection() {
+    public List<InstructorVideos> getInstructorVideosCollection() {
         return instructorVideosCollection;
     }
 
-    public void setInstructorVideosCollection(List<String> instructorVideosCollection) {
+    public void setInstructorVideosCollection(List<InstructorVideos> instructorVideosCollection) {
         this.instructorVideosCollection = instructorVideosCollection;
     }
 
-    public List<String> getSkillsCollection() {
+    public List<InstructorSkills> getSkillsCollection() {
         return skillsCollection;
     }
 
-    public void setSkillsCollection(List<String> skillsCollection) {
+    public void setSkillsCollection(List<InstructorSkills> skillsCollection) {
         this.skillsCollection = skillsCollection;
     }
 
-    public List<String> getInstructorImagesCollection() {
+    public List<InstructorImages> getInstructorImagesCollection() {
         return instructorImagesCollection;
     }
 
-    public void setInstructorImagesCollection(List<String> instructorImagesCollection) {
+    public void setInstructorImagesCollection(List<InstructorImages> instructorImagesCollection) {
         this.instructorImagesCollection = instructorImagesCollection;
     }
 
-    public List<String> getInstructorUrlsCollection() {
-        return instructorUrlsCollection;
-    }
-
-    public void setInstructorUrlsCollection(List<String> instructorUrlsCollection) {
-        this.instructorUrlsCollection = instructorUrlsCollection;
-    }
 }

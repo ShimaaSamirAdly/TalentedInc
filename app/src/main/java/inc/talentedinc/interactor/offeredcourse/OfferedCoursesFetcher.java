@@ -9,9 +9,13 @@ import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.User;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
+import inc.talentedinc.model.offeredcourse.OfferedCourseWorkspace;
 import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
+import inc.talentedinc.presenter.MyOfferedCoursePresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
+import inc.talentedinc.presenter.RequestsPresenter;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,65 +23,114 @@ import retrofit2.Response;
 public class OfferedCoursesFetcher {
 
     private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
+    private int totalPagesNumber;
+    private int currentPageNumber;
+    private MyOfferedCoursePresenter myOfferedCoursePresenter;
+    private RequestsPresenter requestsPresenter;
 
     public OfferedCoursesFetcher(OfferedCoursesPresenterInt offeredCoursesPresenterInt) {
         this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
+        currentPageNumber = 0;
     }
 
-    public void fetchCourses() {
+    public OfferedCoursesFetcher() {
+    }
+
+    public OfferedCoursesFetcher(RequestsPresenter requestsPresenter) {
+        this.requestsPresenter = requestsPresenter;
+    }
+
+    public void fetchCourses(int page) {
 
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getOfferedCourses(0)
+                .getOfferedCourses(page)
                 .enqueue(new Callback<OfferedCoursesResponse>() {
-            @Override
-            public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
-                Log.i("RETROFIT",""+response.code());
-                OfferedCoursesResponse offeredCoursesResponse = response.body();
-                getCoursesUsers(offeredCoursesResponse.getContent());
-            }
-
-            @Override
-            public void onFailure(Call<OfferedCoursesResponse> call, Throwable t) {
-                Log.i("RETROFIT",t.getMessage());
-                offeredCoursesPresenterInt.notifyFragmentWithError();
-            }
-        });
-    }
-
-    private void getCoursesUsers(ArrayList<OfferedCourseDetailed> offeredCourses) {
-        for (final OfferedCourseDetailed offeredCourse : offeredCourses) {
-            if (offeredCourse.getInstructorId() != null) {
-                AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                        .getUser(offeredCourse.getInstructorId().getUserId())
-                        .enqueue(new Callback<User>() {
                     @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        offeredCourse.setCourseCreator(response.body());
+                    public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
+                        Log.i("RETROFIT", "" + response.body());
+                        OfferedCoursesResponse offeredCoursesResponse = response.body();
+//                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
+                        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
                     }
 
                     @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        offeredCourse.setCourseCreator(null);
+                    public void onFailure(Call<OfferedCoursesResponse> call, Throwable t) {
+                        Log.i("RETROFIT", t.getMessage());
+                        offeredCoursesPresenterInt.notifyFragmentWithError();
                     }
                 });
-            }
-        }
-
-        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCourses);
     }
 
     public void requestCourse(Integer offeredCourseId, Integer instructorId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .instructorRequestOfferedCourse(instructorId,offeredCourseId)
+                .instructorRequestOfferedCourse(instructorId, offeredCourseId)
                 .enqueue(new Callback<Object>() {
+                    @Override
+                    public void onResponse(Call<Object> call, Response<Object> response) {
+                        offeredCoursesPresenterInt.makeToastRequestResult(1);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Object> call, Throwable t) {
+                        offeredCoursesPresenterInt.makeToastRequestResult(0);
+                    }
+                });
+    }
+
+    public void fetchMoreCourses() {
+        if (currentPageNumber < totalPagesNumber - 1) {
+            fetchCourses(currentPageNumber++);
+        }
+    }
+
+    public void setMyOfferedCoursePresenter(MyOfferedCoursePresenter myOfferedCoursePresenter) {
+        this.myOfferedCoursePresenter = myOfferedCoursePresenter;
+    }
+
+    public void fetchMyOfferedCourses(int instructorId) {
+        //fix instructor id
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
+                .getMyOfferedCourse(2).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
             @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                offeredCoursesPresenterInt.makeToastRequestResult(1);
+            public void onResponse(Call<ArrayList<OfferedCourseDetailed>> call, Response<ArrayList<OfferedCourseDetailed>> response) {
+                myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
             }
 
             @Override
-            public void onFailure(Call<Object> call, Throwable t) {
-                offeredCoursesPresenterInt.makeToastRequestResult(0);
+            public void onFailure(Call<ArrayList<OfferedCourseDetailed>> call, Throwable t) {
+                //notify error
+            }
+        });
+    }
+
+    public void getCourseRequests(Integer offeredCourseId) {
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
+                .getCourseRequests(offeredCourseId).enqueue(new Callback<ArrayList<OfferedCourseWorkspace>>() {
+            @Override
+            public void onResponse(Call<ArrayList<OfferedCourseWorkspace>> call, Response<ArrayList<OfferedCourseWorkspace>> response) {
+                requestsPresenter.notifyWithRequestsWorkspaces(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<OfferedCourseWorkspace>> call, Throwable t) {
+                //notify with error
+            }
+        });
+    }
+
+    public void acceptCourse(int courseId, Integer workSpaceId) {
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
+                .acceptCourse(courseId,workSpaceId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200){
+                    requestsPresenter.worSpaceAccepted();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
             }
         });
     }

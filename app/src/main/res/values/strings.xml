@@ -82,6 +82,16 @@
     <string name="Category">Category</string>
     <string name="Create">Create</string>
     <string name="courseDuration">Duration</string>
+    <!--...............................Alaa................................................-->
+
+    <string name="OpenFrom">Open from</string>
+    <string name="openTime">8</string>
+    <string name="To">to</string>
+    <string name="closingTime">10</string>
+    <string name="closed">Closed</string>
+    <string name="holidays">Friday,Saterday</string>
+    <string name="BasicInfo">Basic Info</string>
+    <string name="SocialMedia">Social media</string>
 
 
     <!--...............................................................................-->
@@ -100,6 +110,8 @@
     <string name="search">Search ...</string>
     <string name="title_activity_main2p">Main2pActivity</string>
     <string name="accept_request_btn">Accept</string>
+    <string name="PhotoAlbum">Photo Album</string>
+    <string name="my_courses_btn">My Offered Courses</string>
 
 
     <!--................................................................................-->

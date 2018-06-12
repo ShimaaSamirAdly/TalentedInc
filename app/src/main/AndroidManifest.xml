@@ -22,7 +22,8 @@
             android:name=".view.activities.HomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize">
+            android:windowSoftInputMode="stateVisible">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,19 +36,18 @@
             android:name=".view.activities.UpComingDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!-- <intent-filter> -->
+            <!-- &lt;!&ndash;<action android:name="android.intent.action.MAIN" />&ndash;&gt; -->
+            <!-- &lt;!&ndash;<category android:name="android.intent.category.LAUNCHER" /> &ndash;&gt;&ndash;&gt; -->
+            <!-- </intent-filter> -->
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                  <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
 
-        </activity>
-        <activity
-            android:name=".view.activities.Signin"
-            android:screenOrientation="portrait">
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
 
         <!-- ...............................mina..................................... -->
@@ -77,18 +77,26 @@
         <activity
             android:name=".view.activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
         </activity>
 
         <!--offered course details activity-->
         <activity android:name=".view.activities.OfferedCourseDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".view.activities.MyOfferedCourses"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".view.activities.MyOfferedCoursesRequestsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <!-- ........................................................................ -->
+
+
         <!-- <activity android:name=".view.activities.SignUpActivity" /> -->
 
         //******************** Shimaa ****************************************
@@ -110,6 +118,14 @@
         <!-- -alaa.................................................................. -->
         <activity android:name=".view.activities.LoginActivity" />
         <activity android:name=".view.activities.CreateCourseActivity" />
+        <activity android:name=".view.activities.WorkSpaceProfile">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
+        </activity>
         <!-- ............................alaa..................................................... -->
 
 

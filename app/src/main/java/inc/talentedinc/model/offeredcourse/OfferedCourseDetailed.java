@@ -24,9 +24,9 @@ public class OfferedCourseDetailed implements Serializable {
     @SerializedName("imageUrl")
     @Expose
     private String imageUrl;
-    @SerializedName("instructorId")
-    @Expose
-    private OfferedCourseInstructor instructorId;
+//    @SerializedName("instructorId")
+//    @Expose
+//    private OfferedCourseInstructor instructorId;
     @SerializedName("hostingWorkSpaceId")
     @Expose
     private OfferedCourseWorkspace hostingWorkSpaceId;
@@ -39,6 +39,9 @@ public class OfferedCourseDetailed implements Serializable {
     @SerializedName("cost")
     @Expose
     private Integer cost;
+    @SerializedName("durationHours")
+    @Expose
+    private Integer durationHours;
 
     public String getDescription() {
         return description;
@@ -106,13 +109,13 @@ public class OfferedCourseDetailed implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public OfferedCourseInstructor getInstructorId() {
-        return instructorId;
-    }
-
-    public void setInstructorId(OfferedCourseInstructor instructorId) {
-        this.instructorId = instructorId;
-    }
+//    public OfferedCourseInstructor getInstructorId() {
+//        return instructorId;
+//    }
+//
+//    public void setInstructorId(OfferedCourseInstructor instructorId) {
+//        this.instructorId = instructorId;
+//    }
 
     public OfferedCourseWorkspace getHostingWorkSpaceId() {
         return hostingWorkSpaceId;
@@ -128,5 +131,13 @@ public class OfferedCourseDetailed implements Serializable {
 
     public void setCourseCreator(User courseCreator) {
         this.courseCreator = courseCreator;
+    }
+
+    public Integer getDurationHours() {
+        return durationHours;
+    }
+
+    public void setDurationHours(Integer durationHours) {
+        this.durationHours = durationHours;
     }
 }
