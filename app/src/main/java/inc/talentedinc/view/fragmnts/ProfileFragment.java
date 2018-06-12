@@ -444,16 +444,24 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         followers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("type", 0);
-                startActivity(intent);
+                if(user.getFollowersNumber() != 0) {
+                    intent.putExtra("type", 0);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(), "There is no followers", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         following.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("type", 1);
-                startActivity(intent);
+                if(user.getFollowingNumber() != 0) {
+                    intent.putExtra("type", 1);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getContext(), "There is no followings", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
