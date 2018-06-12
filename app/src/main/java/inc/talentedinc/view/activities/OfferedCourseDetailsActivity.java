@@ -51,7 +51,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
         offeredCourseDetailed = (OfferedCourseDetailed) intent.getSerializableExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT);
         //offeredCoursesPresenterInt = (OfferedCoursesPresenterInt) intent.getSerializableExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER);
         initializeViews();
-
+        offeredCoursesPresenterInt = new OfferedCoursesPresenter(this);
     }
 
     @Override
@@ -73,16 +73,23 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestCourse();
+                if(requestButton.getText().equals("Request")) {
+                    requestCourse();
+                }else {
+                    cancelCourse();
+                }
             }
         });
-        //requestsLayout = (LinearLayout) findViewById(R.id.requests_layout);
+    }
+
+    private void cancelCourse() {
+        offeredCoursesPresenterInt.cancelOfferedCourse(offeredCourseDetailed.getOfferedCourseId(),
+                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),0);
     }
 
     private void requestCourse() {
-        offeredCoursesPresenterInt = new OfferedCoursesPresenter(this);
         offeredCoursesPresenterInt.requestOfferedCourse(offeredCourseDetailed.getOfferedCourseId(),
-                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId());
+                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),0);
     }
 
     private void setData() {
@@ -148,20 +155,36 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
     }
 
     @Override
-    public void makeToastRequestResult(int result) {
+    public void makeToastRequestResult(int result,int position) {
         switch (result) {
             case 0:
                 Toast.makeText(this, "Error requesting course Try again later!", Toast.LENGTH_SHORT).show();
+                requestButton.setText("Request");
                 break;
             case 1:
                 Toast.makeText(this,"Your request has been sent successfully!",Toast.LENGTH_SHORT).show();
+                requestButton.setText("Cancel");
                 break;
         }
     }
 
     @Override
     public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
+    }
 
+    @Override
+    public void dataFinished() {
+    }
 
+    @Override
+    public void courseRequestCanceled(int position) {
+        Toast.makeText(this,"Request has been canceled!",Toast.LENGTH_SHORT).show();
+        requestButton.setText("Request");
+    }
+
+    @Override
+    public void errorCancelingCopurse(int position) {
+        Toast.makeText(this,"Error canceling request!",Toast.LENGTH_SHORT).show();
+        requestButton.setText("Cancel");
     }
 }

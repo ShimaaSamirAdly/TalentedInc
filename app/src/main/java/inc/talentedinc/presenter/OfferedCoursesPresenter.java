@@ -7,6 +7,7 @@ import inc.talentedinc.interactor.offeredcourse.OfferedCoursesFetcher;
 import inc.talentedinc.model.MinaCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
 
 public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Serializable {
@@ -25,41 +26,59 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
     }
 
     @Override
-    public void fetchCourses() {
-        //endlessScrollHandler.showProgressBar();
-        offeredCoursesFetcher.fetchCourses(0);
+    public void fetchCourses(int instructorId) {
+        offeredCoursesFetcher.resetFetcher();
+        offeredCoursesFetcher.fetchCourses(0, instructorId);
     }
 
     @Override
     public void notifyFragmentWithOfferedCourses(ArrayList<OfferedCourseDetailed> offeredCourses) {
-        //endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.showData(offeredCourses);
     }
 
     @Override
     public void notifyFragmentWithError() {
-        //endlessScrollHandler.hideProgressBar();
         endlessScrollHandler.makeErrorToast();
     }
 
     @Override
-    public void requestOfferedCourse(Integer offeredCourseId, Integer instructorId) {
-        offeredCoursesFetcher.requestCourse(offeredCourseId, instructorId);
+    public void requestOfferedCourse(Integer offeredCourseId, Integer instructorId ,int position) {
+        offeredCoursesFetcher.requestCourse(offeredCourseId, instructorId , position);
     }
 
     @Override
-    public void makeToastRequestResult(int result) {
-        endlessScrollHandler.makeToastRequestResult(result);
+    public void makeToastRequestResult(int result,int position) {
+        endlessScrollHandler.makeToastRequestResult(result,position);
     }
 
     @Override
-    public void loadMoreOfferedCourses() {
-        offeredCoursesFetcher.fetchMoreCourses();
+    public void loadMoreOfferedCourses(int instructorId) {
+        offeredCoursesFetcher.fetchMoreCourses(instructorId);
     }
 
     @Override
     public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
         endlessScrollHandler.gotoDetailedCourseView(offeredCourseDetailed);
+    }
+
+    @Override
+    public void notifyDataFinished() {
+        endlessScrollHandler.dataFinished();
+    }
+
+    @Override
+    public void requestCanceled(int position) {
+        endlessScrollHandler.courseRequestCanceled(position);
+    }
+
+    @Override
+    public void errorCancelingRequest(int position) {
+        endlessScrollHandler.errorCancelingCopurse(position);
+    }
+
+    @Override
+    public void cancelOfferedCourse(Integer offeredCourseId, Integer instructorId, int position) {
+        offeredCoursesFetcher.cancelCourse(offeredCourseId,instructorId,position);
     }
 
     private void initializeInteractor() {

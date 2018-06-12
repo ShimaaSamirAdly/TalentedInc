@@ -16,7 +16,7 @@ public class OfferedCoursesResponse {
     @SerializedName("totalElements")
     @Expose
     private Integer totalElements;
-    @SerializedName("totalPages")
+    @SerializedName("totalNumberOfPages")
     @Expose
     private Integer totalPages;
     @SerializedName("size")

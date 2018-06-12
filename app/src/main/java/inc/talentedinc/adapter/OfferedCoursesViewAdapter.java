@@ -47,7 +47,7 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OfferedCoursesViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final OfferedCoursesViewHolder holder, final int position) {
 
         //course name
         holder.getOfferedCourseNameTxt().setText(offeredCourses.get(position).getName());
@@ -58,13 +58,22 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
         //set date text
         holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate());
         //request course button
+        if(offeredCourses.get(position).isRequested()){
+            holder.getRequestOfferedCourseBtn().setText("Cancel");
+        }else {
+            holder.getRequestOfferedCourseBtn().setText("Request");
+        }
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //request the course
                 Integer offeredCourseId = offeredCourses.get(position).getOfferedCourseId();
                 Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
-                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId);
+                if(holder.getRequestOfferedCourseBtn().getText().equals("Request")){
+                    offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId,position);
+                }else{
+                    offeredCoursesPresenter.cancelOfferedCourse(offeredCourseId,instructorId,position);
+                }
             }
         });
         //go to details activity

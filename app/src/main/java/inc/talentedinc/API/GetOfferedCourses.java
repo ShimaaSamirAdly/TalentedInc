@@ -9,6 +9,7 @@ import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.model.offeredcourse.OfferedCourseWorkspace;
 import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -18,9 +19,9 @@ import retrofit2.http.Query;
 
 public interface GetOfferedCourses {
 
-    @GET("/offeredcourse")
-        //@FormUrlEncoded
-    Call<OfferedCoursesResponse> getOfferedCourses(@Query("page") int page);
+    @Headers("Cache-Control: no-cache")
+    @GET("/offeredcourse/createdByWorkspaces")
+    Call<OfferedCoursesResponse> getOfferedCourses(@Query("page") int page,@Query("instructorId") int instructorId);
 
     @POST("/InstructorReqOfferedCourse/requestcourse")
     Call<Object> instructorRequestOfferedCourse(@Query("instructorId")Integer instrctorId,@Query("courseId")Integer courseId);
@@ -34,4 +35,7 @@ public interface GetOfferedCourses {
 
     @POST("/offeredcourse/acceptWorkSpaceRequest")
     Call<Void> acceptCourse(@Query("courseId") int courseId, @Query("workSpaceId") Integer workSpaceId);
+
+    @DELETE("InstructorReqOfferedCourse/cancelCourseRequest")
+    Call<Void> cancelCourseRequest(@Query("instructorId")Integer instrctorId,@Query("courseId")Integer courseId);
 }

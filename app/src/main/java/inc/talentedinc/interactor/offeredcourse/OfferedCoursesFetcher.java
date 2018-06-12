@@ -23,7 +23,7 @@ import retrofit2.Response;
 public class OfferedCoursesFetcher {
 
     private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
-    private int totalPagesNumber;
+    private Integer totalPagesNumber;
     private int currentPageNumber;
     private MyOfferedCoursePresenter myOfferedCoursePresenter;
     private RequestsPresenter requestsPresenter;
@@ -33,10 +33,10 @@ public class OfferedCoursesFetcher {
         currentPageNumber = 0;
     }
 
-    public static OfferedCoursesFetcher sharedInstance(){
-        if(offeredCoursesFetcher == null){
-            synchronized (OfferedCoursesFetcher.class){
-                if (offeredCoursesFetcher == null){
+    public static OfferedCoursesFetcher sharedInstance() {
+        if (offeredCoursesFetcher == null) {
+            synchronized (OfferedCoursesFetcher.class) {
+                if (offeredCoursesFetcher == null) {
                     offeredCoursesFetcher = new OfferedCoursesFetcher();
                 }
             }
@@ -44,16 +44,16 @@ public class OfferedCoursesFetcher {
         return offeredCoursesFetcher;
     }
 
-    public void fetchCourses(int page) {
+    public void fetchCourses(int page, int instructorId) {
 
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getOfferedCourses(page)
+                .getOfferedCourses(page, instructorId)
                 .enqueue(new Callback<OfferedCoursesResponse>() {
                     @Override
                     public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
-                        Log.i("RETROFIT", "" + response.body());
+                        Log.i("RETROFIT", "" + response.body().getContent().size());
                         OfferedCoursesResponse offeredCoursesResponse = response.body();
-//                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
+                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
                         offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
                     }
 
@@ -65,25 +65,44 @@ public class OfferedCoursesFetcher {
                 });
     }
 
-    public void requestCourse(Integer offeredCourseId, Integer instructorId) {
+
+    public void requestCourse(Integer offeredCourseId, Integer instructorId, final int position) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
                 .instructorRequestOfferedCourse(instructorId, offeredCourseId)
                 .enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
-                        offeredCoursesPresenterInt.makeToastRequestResult(1);
+                        offeredCoursesPresenterInt.makeToastRequestResult(1,position);
                     }
 
                     @Override
                     public void onFailure(Call<Object> call, Throwable t) {
-                        offeredCoursesPresenterInt.makeToastRequestResult(0);
+                        offeredCoursesPresenterInt.makeToastRequestResult(0,position);
                     }
                 });
     }
 
-    public void fetchMoreCourses() {
-        if (currentPageNumber < totalPagesNumber - 1) {
-            fetchCourses(currentPageNumber++);
+    public void cancelCourse(Integer offeredCourseId, Integer instructorId, final int position){
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
+                .cancelCourseRequest(instructorId,offeredCourseId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                offeredCoursesPresenterInt.requestCanceled(position);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                offeredCoursesPresenterInt.errorCancelingRequest(position);
+            }
+        });
+    }
+
+    public void fetchMoreCourses(int instructorId) {
+        if (currentPageNumber < totalPagesNumber) {
+            currentPageNumber++;
+            fetchCourses(currentPageNumber,instructorId);
+        } else {
+            offeredCoursesPresenterInt.notifyDataFinished();
         }
     }
 
@@ -124,10 +143,10 @@ public class OfferedCoursesFetcher {
 
     public void acceptCourse(int courseId, Integer workSpaceId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .acceptCourse(courseId,workSpaceId).enqueue(new Callback<Void>() {
+                .acceptCourse(courseId, workSpaceId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     requestsPresenter.worSpaceAccepted();
                 }
             }
@@ -145,5 +164,9 @@ public class OfferedCoursesFetcher {
 
     public void setRequestsPresenter(RequestsPresenter requestsPresenter) {
         this.requestsPresenter = requestsPresenter;
+    }
+
+    public void resetFetcher() {
+        currentPageNumber = 0;
     }
 }
