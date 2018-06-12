@@ -24,10 +24,10 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
 
     ProfileEndpoint profileEndpoint = AppRetrofit.getInstance().getRetrofitInstance().create(ProfileEndpoint.class);
     OtherUsers user;
+
     @Override
     public void getUserProfile(int userProfileId, int currentUserId, final OthersProfileListener listener) {
-
-        Call<OtherUsers> call = profileEndpoint.getUserProfile(userProfileId, currentUserId);
+        Call<OtherUsers> call = profileEndpoint.getUserProfile(userProfileId, currentUserId, "no-cache");
         call.enqueue(new Callback<OtherUsers>() {
             @Override
             public void onResponse(Call<OtherUsers> call, Response<OtherUsers> response) {

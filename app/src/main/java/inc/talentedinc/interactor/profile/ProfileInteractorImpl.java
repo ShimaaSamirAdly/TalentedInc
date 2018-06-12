@@ -44,7 +44,7 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     @Override
     public void getCurrentUser(int currentUserId, final UserProfileListener listener) {
 
-        Call<User> call = profileEndpoint.getCurrentUserProfile(currentUserId);
+        Call<User> call = profileEndpoint.getCurrentUserProfile(currentUserId, "no-cache");
         Log.i("userId", ""+currentUserId);
         call.enqueue(new Callback<User>() {
             @Override

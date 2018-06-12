@@ -106,9 +106,9 @@
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/workSpaceLogo"
-                app:layout_constraintStart_toStartOf="@+id/workSpaceLogo"
-                app:layout_constraintTop_toBottomOf="@+id/workSpaceLogo" />
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -297,7 +297,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/workSpaceLogo"
+                app:layout_constraintEnd_toStartOf="@+id/profileImage"
                 app:layout_constraintHorizontal_bias="0.444"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -316,7 +316,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.6"
-                app:layout_constraintStart_toEndOf="@+id/workSpaceLogo"
+                app:layout_constraintStart_toEndOf="@+id/profileImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <inc.talentedinc.view.customviews.ExpandableHeightGridView
@@ -379,8 +379,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profileImage"
                 android:layout_width="157dp"
                 android:layout_height="124dp"
@@ -404,11 +403,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:src="@drawable/photo"
-                app:layout_constraintBottom_toBottomOf="@+id/workSpaceLogo"
-                app:layout_constraintEnd_toEndOf="@+id/workSpaceLogo"
+                app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+                app:layout_constraintEnd_toEndOf="@+id/profileImage"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@+id/workSpaceLogo"
-                app:layout_constraintTop_toTopOf="@+id/workSpaceLogo"
+                app:layout_constraintStart_toStartOf="@+id/profileImage"
+                app:layout_constraintTop_toTopOf="@+id/profileImage"
                 app:layout_constraintVertical_bias="1.0" />
 
 
