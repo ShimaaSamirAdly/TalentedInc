@@ -30,6 +30,7 @@ import inc.talentedinc.adapter.SignUpInterestsAdapter;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.profile.OthersProfilePresenterImpl;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.customviews.ExpandableHeightGridView;
 import inc.talentedinc.view.fragmnts.ProfileFragment;
 
@@ -75,6 +76,9 @@ public class OthersProfileActivity extends AppCompatActivity {
     public void setUserData(final User user){
         Log.i("followw", ""+ user.getUserId());
 
+        User currentUser = SharedPrefrencesSingleton.getSharedPrefUser(this);
+
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -90,12 +94,14 @@ public class OthersProfileActivity extends AppCompatActivity {
         Log.i("followw", ""+ visitedUser.getUserId());
 //        following.setVisibility(View.VISIBLE);
 
-        if(user.isFollowing() == true){
-            unfollow.setVisibility(View.VISIBLE);
-            follow.setVisibility(GONE);
-        }else{
-            follow.setVisibility(View.VISIBLE);
-            unfollow.setVisibility(View.GONE);
+        if(user.getUserId() != currentUser.getUserId()) {
+            if (user.isFollowing() == true) {
+                unfollow.setVisibility(View.VISIBLE);
+                follow.setVisibility(GONE);
+            } else {
+                follow.setVisibility(View.VISIBLE);
+                unfollow.setVisibility(View.GONE);
+            }
         }
 
         follow.setOnClickListener(new View.OnClickListener() {

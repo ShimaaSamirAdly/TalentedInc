@@ -20,6 +20,7 @@ import inc.talentedinc.model.Followers;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.FollowersPresenter;
 import inc.talentedinc.presenter.FollowersPresenterImpl;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.activities.OthersProfileActivity;
 import inc.talentedinc.viewholder.FollowersViewHolder;
 import inc.talentedinc.viewholder.OfferedCoursesViewHolder;
@@ -35,11 +36,13 @@ public class FollowersAdapter extends RecyclerView.Adapter {
     private FollowersViewHolder followersViewHolder;
     private FollowersPresenter followersPresenter;
     private Context context;
+    private User currentUser;
 
     public FollowersAdapter(Context context, ArrayList<Followers> followers, FollowersPresenter followersPresenter){
         this.context = context;
         this.followers = followers;
         this.followersPresenter = followersPresenter;
+        currentUser = SharedPrefrencesSingleton.getSharedPrefUser(context);
         Log.i("followersNO", "adapteeeer"+ followers.size());
     }
 
@@ -72,15 +75,19 @@ public class FollowersAdapter extends RecyclerView.Adapter {
             ((FollowersViewHolder) holder).getFollowerImg().setImageResource(R.drawable.com_facebook_profile_picture_blank_portrait);
         }
 
-        ((FollowersViewHolder)holder).getShowProfile().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(currentUser.getUserId() == followers.get(position).getUserId()){
+            ((FollowersViewHolder)holder).getShowProfile().setVisibility(View.GONE);
+        }else {
+            ((FollowersViewHolder) holder).getShowProfile().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                followersPresenter.unfollow(followers.get(position).getUserId());
-                Intent intent = new Intent(context, OthersProfileActivity.class);
-                intent.putExtra("userId", followers.get(position).getUserId());
-                context.startActivity(intent);
-            }
-        });
+                    Intent intent = new Intent(context, OthersProfileActivity.class);
+                    intent.putExtra("userId", followers.get(position).getUserId());
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
