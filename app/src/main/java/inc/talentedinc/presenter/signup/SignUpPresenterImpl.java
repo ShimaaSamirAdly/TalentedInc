@@ -87,12 +87,13 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
     public void onSuccess(int userId) {
 
         user.setUserId(userId);
-        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        Gson gson = new Gson();
-        String userJson = gson.toJson(user);
-        editor.putString("user", userJson);
-        editor.commit();
+//        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        Gson gson = new Gson();
+//        String userJson = gson.toJson(user);
+//        editor.putString("user", userJson);
+//        editor.commit();
+        SharedPrefrencesSingleton.setSharedPrefUser(context, user);
 
         signUpActivity.switchToProfile();
     }

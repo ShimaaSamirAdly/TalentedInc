@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
+import inc.talentedinc.model.Followers;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.FollowersPresenter;
 import inc.talentedinc.presenter.FollowersPresenterImpl;
@@ -28,22 +30,25 @@ import inc.talentedinc.viewholder.OfferedCoursesViewHolder;
 
 public class FollowersAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<User> followers;
+    private ArrayList<Followers> followers;
     private View followersView;
     private FollowersViewHolder followersViewHolder;
     private FollowersPresenter followersPresenter;
     private Context context;
 
-    public FollowersAdapter(Context context, ArrayList<User> followers, FollowersPresenter followersPresenter){
+    public FollowersAdapter(Context context, ArrayList<Followers> followers, FollowersPresenter followersPresenter){
         this.context = context;
         this.followers = followers;
         this.followersPresenter = followersPresenter;
+        Log.i("followersNO", "adapteeeer"+ followers.size());
     }
 
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        Log.i("followersNO", "createHolder"+ followers.size());
 
         followersView = (View) LayoutInflater.from(parent.getContext()).inflate(R.layout.followers_layout, parent, false);
         followersViewHolder = new FollowersViewHolder(followersView);
@@ -54,12 +59,18 @@ public class FollowersAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
-        ((FollowersViewHolder)holder).getFollowerName().setText(followers.get(position).getFirstName()+" "+followers.get(position).getFirstName());
+        Log.i("followersNO", ""+ followers.size());
 
-        Glide.with(context)
-                .load(followers.get(position).getImgUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(((FollowersViewHolder)holder).getFollowerImg());
+        ((FollowersViewHolder)holder).getFollowerName().setText(followers.get(position).getFirstName()+" "+followers.get(position).getLastName());
+
+        if(followers.get(position).getImgUrl() != null) {
+            Glide.with(context)
+                    .load(followers.get(position).getImgUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(((FollowersViewHolder) holder).getFollowerImg());
+        }else{
+            ((FollowersViewHolder) holder).getFollowerImg().setImageResource(R.drawable.com_facebook_profile_picture_blank_portrait);
+        }
 
         ((FollowersViewHolder)holder).getShowProfile().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +85,7 @@ public class FollowersAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        Log.i("followersNO", "getItem"+ followers.size());
+        return followers.size();
     }
 }

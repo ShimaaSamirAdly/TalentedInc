@@ -26,7 +26,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
 
@@ -37,7 +37,7 @@
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             </intent-filter>
 
         </activity>
@@ -77,11 +77,11 @@
         <activity
             android:name=".view.activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!--offered course details activity-->
@@ -90,15 +90,10 @@
 
         <!-- ........................................................................ -->
         <!-- <activity android:name=".view.activities.SignUpActivity" /> -->
-        <activity android:name=".view.activities.SignUpInterests" />
+
         //******************** Shimaa ****************************************
 
-        <!-- -alaa.................................................................. -->
-        <activity android:name=".view.activities.LoginActivity" />
-        <activity android:name=".view.activities.CreateCourseActivity" />
-        <!-- ............................alaa..................................................... -->
-
-
+        <activity android:name=".view.activities.SignUpInterests" />
         <activity android:name=".view.activities.OthersProfileActivity" />
         <activity android:name=".view.activities.BecomeInstructorActivity">
             <intent-filter>
@@ -109,6 +104,16 @@
         </activity>
         <activity android:name=".view.activities.UpdateInterestsActivity" />
         <activity android:name=".view.activities.FollowersActivity"></activity>
+
+        //**********************************************************************
+
+        <!-- -alaa.................................................................. -->
+        <activity android:name=".view.activities.LoginActivity" />
+        <activity android:name=".view.activities.CreateCourseActivity" />
+        <!-- ............................alaa..................................................... -->
+
+
+
     </application>
 
 </manifest>

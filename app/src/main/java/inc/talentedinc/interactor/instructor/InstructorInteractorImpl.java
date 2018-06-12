@@ -24,7 +24,7 @@ public class InstructorInteractorImpl implements InstructorInteractor {
 
     InstructorEndpoint instructorEndpoint = AppRetrofit.getInstance().getRetrofitInstance().create(InstructorEndpoint.class);
 
-    public void becomeInstructor(Instructor instructor, final InstructorListener listener){
+    public void becomeInstructor(final Instructor instructor, final InstructorListener listener){
 
             Call<User> call = instructorEndpoint.becomeInstructor(instructor);
             call.enqueue(new Callback<User>() {
@@ -32,13 +32,13 @@ public class InstructorInteractorImpl implements InstructorInteractor {
                 public void onResponse(Call<User> call, Response<User> response) {
                     Log.i("conn", ""+response.code());
                     if(response.code() == 200) {
-                        listener.onSuccessPending();
+                        listener.onSuccessPending(instructor);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    Log.i("conn", "failed");
+                    Log.i("conn", t.getMessage());
                 }
             });
         }

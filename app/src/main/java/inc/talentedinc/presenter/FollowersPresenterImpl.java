@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import inc.talentedinc.interactor.profile.OthersProfileInteractor;
 import inc.talentedinc.interactor.profile.OthersProfileInteractorImpl;
 import inc.talentedinc.listener.OthersProfileListener;
+import inc.talentedinc.model.Followers;
+import inc.talentedinc.model.OtherUsers;
 import inc.talentedinc.model.User;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.activities.FollowersActivity;
+import inc.talentedinc.view.activities.OthersProfileActivity;
 
 /**
  * Created by MMM on 6/9/2018.
@@ -33,15 +36,15 @@ public class FollowersPresenterImpl implements FollowersPresenter, OthersProfile
     }
 
     @Override
-    public void getFollowers() {
+    public void getFollowers(int userId) {
 
-        othersProfileInteractor.getFollowers(user.getUserId(), this);
+        othersProfileInteractor.getFollowers(userId, this);
     }
 
     @Override
-    public void getFollowing() {
+    public void getFollowing(int userId) {
 
-        othersProfileInteractor.getFollowings(user.getUserId(), this);
+        othersProfileInteractor.getFollowings(userId, this);
     }
 
     @Override
@@ -51,8 +54,9 @@ public class FollowersPresenterImpl implements FollowersPresenter, OthersProfile
 
     }
 
+
     @Override
-    public void onGetProfile(User user) {
+    public void onGetProfile(OtherUsers user) {
 
     }
 
@@ -68,7 +72,7 @@ public class FollowersPresenterImpl implements FollowersPresenter, OthersProfile
     }
 
     @Override
-    public void onGetFollowers(ArrayList<User> followers) {
+    public void onGetFollowers(ArrayList<Followers> followers) {
 
         followersActivity.setData(followers);
     }
