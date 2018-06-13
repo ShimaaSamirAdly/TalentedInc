@@ -1,8 +1,10 @@
 package inc.talentedinc.presenter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import inc.talentedinc.interactor.commentLike.CommentLikeInteractor;
+import inc.talentedinc.interactor.register.RegisterInteractor;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
 import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
@@ -18,9 +20,11 @@ public class UpComingDetailsPresenter {
 
     private ViewUpComingDetails view;
     private CommentLikeInteractor commentLikeInteractor;
+    private RegisterInteractor registerInteractor;
 
-    public UpComingDetailsPresenter(CommentLikeInteractor commentLikeInteractor){
+    public UpComingDetailsPresenter(CommentLikeInteractor commentLikeInteractor,RegisterInteractor registerInteractor){
         this.commentLikeInteractor=commentLikeInteractor;
+        this.registerInteractor=registerInteractor;
     }
 
     public void setView(Result data, ViewUpComingDetails view) {
@@ -37,12 +41,14 @@ public class UpComingDetailsPresenter {
             view.setLikes(data.getNumberOfLikes());
             view.setCourseName(data.getName());
             view.setDescription(data.getDescription());
-            view.setDuration(data.getDescription());
+            view.setDuration(data.getDurationHours()+" Hours");
             view.setEndDate(data.getEndDate());
             view.setStartDate(data.getStartDate());
-            view.setInstructorName("Asmaa");
+            view.setInstructorName(data.getNameOfInstructor());
             view.setWorkspaceName(data.getHostingWorkSpaceId().getName());
             view.setLocation(data.getHostingWorkSpaceId().getAddress());
+            view.setIsLike(data.getLiked());
+            view.setIsRegister(data.isRegistered());
 
         }
     }
@@ -78,13 +84,67 @@ public class UpComingDetailsPresenter {
             public void onFailure() {
                 view.showToast("Failure");
                 view.hideProgress();
+            }
+        });
+    }
+
+    public void disLike(int userIid,int courseId,String courseDate){
+        view.showProgress();
+        commentLikeInteractor.setDisLike(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.hideProgress();
+            }
+
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+                view.hideProgress();
 
 
             }
         });
 
     }
+    public void setRegister(int userIid,int courseId,String courseDate){
+        view.showProgress();
+        registerInteractor.setRegister(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.hideProgress();
+            }
 
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+                view.hideProgress();
+
+
+            }
+        });
+
+    }
+    public void unRegister(int userIid,int courseId,String courseDate){
+        view.showProgress();
+        registerInteractor.unRegister(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.hideProgress();
+            }
+
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+                view.hideProgress();
+
+
+            }
+        });
+
+    }
     public interface ViewUpComingDetails {
         void showProgress();
         void hideProgress();
@@ -100,6 +160,8 @@ public class UpComingDetailsPresenter {
         void setDescription(String description);
         void setComments(ArrayList<CourseComment>comments);
         void showToast(String msg);
+        void setIsLike(boolean isLike);
+        void setIsRegister(boolean isRegister);
     }
 
 

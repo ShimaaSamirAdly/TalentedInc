@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +20,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 import com.rey.material.widget.ProgressView;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import inc.talentedinc.R;
+import inc.talentedinc.adapter.CategorySpinAdapter;
 import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.adapter.SignUpInterestsAdapter;
 import inc.talentedinc.factory.Factory;
@@ -34,25 +40,28 @@ import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ValidationUtility;
 import inc.talentedinc.view.activities.HomeActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,HomeListener, View.OnClickListener {
 
 
-    private List<Categories> categories ;
-    private SignUpInterestsAdapter interestsAdapter;
+    private List<Categories> categories = new ArrayList<>();
     /****************************** asmaa *************************/
 
     private RecyclerView recyclerView;
     private int page=0;
     private boolean isLoading = false;
     private boolean moreDataAvailable = true;
+    private CategorySpinAdapter adapter;
 
     private UpComingCoursesPresenter presenter;
     private HomeAdapter upcomingCoursesAdapter;
@@ -62,6 +71,8 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     private ImageView imgBg;
     private AlertDialog commentDialog ,filterDialog;
     private ImageView imgFilter;
+    private String mLastSearchQuery = "";
+
 
 
     public UpComingCoursesFragment() {
@@ -84,18 +95,10 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
     /****************************** *************************/
 
-    void obj(){
-        Categories c1 = new Categories(1,"aa");
-        Categories c2 = new Categories(1,"bb");
-        Categories c3 = new Categories(1,"cc");
-        categories=new ArrayList<>();
-        categories.add(c1);
-        categories.add(c2);
-        categories.add(c3);
-        interestsAdapter = new SignUpInterestsAdapter(getActivity(),categories);
-
-
-    }
+//    void obj(){
+//
+//        interestsAdapter = new SignUpInterestsAdapter(getActivity(),categories);
+//    }
 
     /****************************** asmaa *************************/
 
@@ -110,23 +113,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         edSearh = v.findViewById(R.id.txtSearch);
         edSearh.setOnClickListener(this);
 
-//        InputMethodManager imm = (InputMethodManager) getActivity()
-//                .getSystemService(Context.INPUT_METHOD_SERVICE);
-//        if (imm.isAcceptingText()) {
-//            ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
-//        } else {
-//        ((HomeActivity)getActivity()).navigation.setVisibility(View.VISIBLE);
-//        }
-
-//        if (edSearh.getSelectionEnd()==1)
-//            ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
-//        else ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
-
-
-
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
-        presenter = new UpComingCoursesPresenter(Factory.provideUpComing(),Factory.provideCommentLike());
+        presenter = new UpComingCoursesPresenter(Factory.provideUpComing(),Factory.provideCommentLike(),Factory.provideCategories());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -140,43 +129,62 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0 && ((HomeActivity)getActivity()).fab.getVisibility() == View.VISIBLE) {
                     ((HomeActivity)getActivity()).fab.hide();
-//                    ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
                 } else if (dy < 0 && ((HomeActivity)getActivity()).fab.getVisibility() != View.VISIBLE) {
                     ((HomeActivity)getActivity()).fab.show();
-//                    ((HomeActivity)getActivity()).navigation.setVisibility(View.VISIBLE);
-                }
-                if (dy > 0 && ((HomeActivity)getActivity()).navigation.getVisibility() == View.VISIBLE) {
-                    ((HomeActivity)getActivity()).navigation.setVisibility(View.VISIBLE);
-                } else if (dy < 0 && ((HomeActivity)getActivity()).navigation.getVisibility() != View.VISIBLE) {
-                    ((HomeActivity)getActivity()).navigation.setVisibility(View.GONE);
                 }
             }
         });
 
-        presenter.setView(page, this);
+        presenter.setView(2,page, this);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {
             @Override
             public void onLoadMore() {
-//                if (!isLoading && moreDataAvailable ) {
-//                    isLoading = true;
-//                    loadMoreData();
-//                }
+                if (!isLoading && moreDataAvailable ) {
+                    isLoading = true;
+                    loadMoreData();
+                }
             }
         });
 
+        RxTextView.textChangeEvents(edSearh)
+                .onBackpressureLatest()
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<TextViewTextChangeEvent>() {
+                    @Override
+                    public void call(TextViewTextChangeEvent textViewTextChangeEvent) {
+                      //  dataResult.clear();
+                        //upcomingCoursesAdapter.clearData();
+                        String newSearchQuery = textViewTextChangeEvent.text() + "";
+                        if( !mLastSearchQuery.equals(newSearchQuery) &&  !newSearchQuery.equals(null)
+                                && !newSearchQuery.equals("search") ) {
+                            // isSearch=true;
+                            mLastSearchQuery = newSearchQuery;
+                            if (ActionUtils.isInternetConnected(getActivity())) {
+                                  dataResult.clear();
+                                upcomingCoursesAdapter.clearData();
+                                page =0;
+                                presenter.getSearchByName(2,mLastSearchQuery, page);
+                            }else {
+                                ActionUtils.showToast(getActivity(), "connection error");
+                            }
+                        }
+                    }
+                });
     }
 
     private void loadMoreData() {
         upcomingCoursesAdapter.setLoading(true);
-        presenter.getHomeData(page);
+        page++;
+        presenter.getHomeData(2,page);
     }
 
-
-    private void commentDialog(){
+    private void commentDialog(final int courseId , final String courseDate){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
         builder.setView(dialogView);
+
 
         commentDialog = builder.create();
         if (dialogView != null) {
@@ -188,8 +196,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                 public void onClick(View v) {
                     if (ValidationUtility.validateEmptyString(etComment.getText().toString())){
                         ///// presenter
+                        if (ActionUtils.isInternetConnected(getActivity()))
+                        presenter.setComment(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate,etComment.getText().toString());
+                        else
+                            ActionUtils.showToast(getActivity(),"Connection Error");
                     }
-
                 }
             });
 
@@ -212,31 +223,58 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_filter_dialog, null);
         builder.setView(dialogView);
+        presenter.getCategoties();
 
         filterDialog = builder.create();
         if (dialogView != null) {
-            obj();
-            Spinner spinnerCategories = dialogView.findViewById(R.id.spinnerCategories);
-            final ArrayAdapter<Categories> adapter =
-                    new ArrayAdapter<Categories>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, categories);
-            adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-            spinnerCategories.setAdapter(adapter);
-           /// spinnerCategories.setSelection(interestsAdapter.g);
-            // You can create an anonymous listener to handle the event when is selected an spinner item
+
+            final Spinner spinnerCategories = dialogView.findViewById(R.id.spinnerCategories);
+            final Spinner spinnerCities = dialogView.findViewById(R.id.spinnerCities);
+
+//           adapter = new CategorySpinAdapter(getActivity(),
+//                    android.R.layout.simple_spinner_item,
+//                    categories);
+//            mySpinner = (Spinner) findViewById(R.id.miSpinner);
+//            mySpinner.setAdapter(adapter); // Set the custom adapter to the spinner
+//            final ArrayAdapter<Categories> adapter =
+//                    new ArrayAdapter<Categories>(getApplicationContext(),  android.R.layout.simple_spinner_item, categories);
+//            adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+         //   spinnerCategories.setAdapter(adapter);
+           // spinnerCategories.setSelection(interestsAdapter);
+//            // You can create an anonymous listener to handle the event when is selected an spinner item
+            //Categories categories= (Categories) ( (Spinner) dialogView.findViewById(R.id.spinnerCategories) ).getSelectedItem();
+
+//
+          //  Log.i("Cate",adapter.getItem(0).getName());
             spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view,
                                            int position, long id) {
                     // Here you get the current item (a User object) that is selected by its position
-                    Categories categories = adapter.getItem(position);
+                    Categories user = adapter.getItem(position);
                     // Here you can do the action you want to...
-//                    Toast.makeText(Main.this, "ID: " + user.getId() + "\nName: " + user.getName(),
-//                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "ID: " + user.getName() + "\nName: " + user.getName(),
+                            Toast.LENGTH_SHORT).show();
                 }
-
                 @Override
-                public void onNothingSelected(AdapterView<?> adapter) {  }
+                public void onNothingSelected(AdapterView<?> adapter) {
+
+                }
+            });
+
+            Button okBtn = dialogView.findViewById(R.id.btnFilter);
+            okBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                  Log.i("sPINNER", spinnerCities.getSelectedItem().toString());
+                    dataResult.clear();
+                    upcomingCoursesAdapter.clearData();
+                  page=0;
+                  presenter.getSearchByFilter(2,"Photography", spinnerCities.getSelectedItem().toString(),page);
+
+                  filterDialog.dismiss();
+                }
             });
 
             Button cancelBtn = dialogView.findViewById(R.id.btnCancel);
@@ -254,8 +292,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         }
         filterDialog.show();
     }
-
-    
 
 
     @Override
@@ -284,26 +320,45 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
     @Override
     public void showNoDataAvailable() {
-
     }
 
     @Override
     public void setData(ArrayList<Result> listData) {
         isLoading=false;
+        Log.i("PAGE",page+"");
         if (listData.size() > 0){
             dataResult.addAll(listData);
-            if (page == NetworkUpComingCoursesInteractor.totalPage){
+            if (page == NetworkUpComingCoursesInteractor.totalPage-1){
                 moreDataAvailable =false;
-            }else {
-                page++;
             }
         }
         upcomingCoursesAdapter.setData(dataResult);
     }
 
     @Override
+    public void setDataSearchName(ArrayList<Result> listData) {
+
+    }
+
+    @Override
+    public void setDataSearchFilter(ArrayList<Result> listData) {
+
+    }
+
+    @Override
+    public void setCategories(List<Categories> listData) {
+        categories = new ArrayList<>();
+        categories =listData;
+        Log.i("CATEGORIES",categories.get(0).getName());
+    }
+
+    @Override
     public void errorMsg() {
         ActionUtils.showToast(getActivity(), "API error");
+    }
+
+    @Override
+    public void showCategoriesError(String msg) {
     }
 
     @Override
@@ -319,40 +374,42 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
 
     @Override
-    public void onRateClick() {
+    public void onRateClick(int courseId , String courseDate) {
         //rateDialog();
-
     }
 
     @Override
-    public void onLikeClick() {
+    public void onLikeClick(int courseId , String courseDate) {
         // presenter
-
+            presenter.setLike(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate);
     }
 
     @Override
-    public void onCommentClick() {
-        commentDialog();
-
+    public void onDisLikeClick(int courseId, String courseDate) {
+        presenter.setDisLike(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate);
     }
 
     @Override
-    public void onInstructorClick(int instracturId) {
-        //// switch to instractur Profile
+    public void onCommentClick(int courseId , String courseDate) {
+        commentDialog(courseId,courseDate);
+    }
+
+    @Override
+    public void onInstructorClick(int instructorId) {
+        //// switch to instructor Profile
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-//            case R.id.txtSearch:
-//                //imgBg.setVisibility(View.GONE);
-//                break;
+            case R.id.txtSearch:
+                page=0;
+                break;
             case R.id.imgFilter:
                 filterDialog();
                 break;
         }
     }
-
     /*************************************************************/
 
 }

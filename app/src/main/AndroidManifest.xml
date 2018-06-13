@@ -103,8 +103,6 @@
         <activity android:name=".view.activities.CreateCourseActivity" />
         <!-- ............................alaa..................................................... -->
 
-
-
         <activity android:name=".view.activities.OthersProfileActivity"></activity>
     </application>
 

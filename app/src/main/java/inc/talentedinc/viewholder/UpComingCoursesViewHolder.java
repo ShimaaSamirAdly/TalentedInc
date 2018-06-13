@@ -2,6 +2,7 @@ package inc.talentedinc.viewholder;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import inc.talentedinc.R;
 import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.listener.HomeListener;
 import inc.talentedinc.model.Result;
+import inc.talentedinc.utilitis.ActionUtils;
 
 /**
  * Created by asmaa on 05/21/2018.
@@ -64,18 +66,28 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         likeButton = itemView.findViewById(R.id.thumb_button);
         likeButton.setOnLikeListener(this);
         likeButton.setOnAnimationEndListener(this);
+
     }
 
     public void setData(Result course){
         this.courseModel=course;
         txtName.setText(courseModel.getName());
-        txtonInstructorName.setText("Asmaa");
+        txtonInstructorName.setText(courseModel.getNameOfInstructor());
         txtDate.setText(courseModel.getStartDate());
         tvLikes.setText(String.valueOf(courseModel.getNumberOfLikes()));
         tvComments.setText(String.valueOf(courseModel.getNumberOfComments()));
-        if(courseModel.getImageUrl() != null ) {
-          //  Glide.with(context).load("http://image.tmdb.org/t/p/w185/"+courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(img);
+//        if(courseModel.getImageUrl()!=null ) {
+            Glide.with(context).load("http://image.tmdb.org/t/p/w185/"+courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(img);
+//        }
+        if (courseModel.getLiked()){
+            likeButton.setLiked(true);
+        }else {
+            likeButton.setLiked(false);
         }
+
+        Log.i("TESTTEST", course.getOfferedCourseId()+"");
+        Log.i("TESTTEST", course.getPublishedDate()+"");
+
     }
 
     @Override
@@ -83,7 +95,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         switch (view.getId()){
 //             starts rate
             case R.id.imageView2:
-                listener.onRateClick();
+                listener.onRateClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
                 break;
 //                instractur Name
             case R.id.textView15:
@@ -91,8 +103,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
                 break;
 //                comment
             case R.id.editText:
-                listener.onCommentClick();
-
+                listener.onCommentClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
                 break;
                 // to details
             case R.id.imageView:
@@ -107,17 +118,23 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     @Override
     public void liked(LikeButton likeButton) {
-        listener.onLikeClick();
-
+        if (ActionUtils.isInternetConnected(context))
+        listener.onLikeClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
+        else {
+            ActionUtils.showToast(context,"Connection Error");
+            likeButton.setLiked(true);
+        }
         //API
-
     }
 
     @Override
     public void unLiked(LikeButton likeButton) {
-        listener.onLikeClick();
-
+        if (ActionUtils.isInternetConnected(context))
+            listener.onDisLikeClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
+        else {
+            ActionUtils.showToast(context,"Connection Error");
+            likeButton.setLiked(false);
+        }
         //API
-
     }
 }

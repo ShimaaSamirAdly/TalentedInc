@@ -6,24 +6,29 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.rey.material.widget.ProgressView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.HomeAdapter;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
 import inc.talentedinc.listener.HomeListener;
+import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.HistoryPresenter;
 import inc.talentedinc.presenter.UpComingCoursesPresenter;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
 import inc.talentedinc.view.activities.HomeActivity;
@@ -35,7 +40,7 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     /****************************** asmaa *************************/
     private RecyclerView recyclerView;
-    private int page=1;
+    private int page=0;
     private boolean isLoading = false;
     private boolean moreDataAvailable = true;
 
@@ -45,6 +50,10 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     private ProgressView progressView;
     private LinearLayout linearLayoutSearch;
     private AlertDialog commentDialog ,rateDialog;
+    private MaterialRatingBar ratingCourse ;
+    private MaterialRatingBar ratingInstructor ;
+    private MaterialRatingBar ratingWorkspace ;
+
 
 
 
@@ -77,12 +86,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         linearLayoutSearch.setVisibility(View.GONE);
         recyclerView= v.findViewById(R.id.my_recycler_view);
         progressView=v.findViewById(R.id.pv_load);
-        presenter = new HistoryPresenter(Factory.provideHistory());
-//        if (ActionUtils.isInternetConnected(getActivity())) {
-            presenter.setView(page, this);
-//        }else{
-//            ActionUtils.showToast(getActivity(), "Connection Error");
-//        }
+        presenter = new HistoryPresenter(Factory.provideHistory(),Factory.provideCommentLike(),Factory.provideRate());
+        presenter.setView(2,page, this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         upcomingCoursesAdapter = new HomeAdapter(HomeAdapter.HISTORY,gridLayoutManager,this);
@@ -102,10 +107,10 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     private void loadMoreData() {
         upcomingCoursesAdapter.setLoading(true);
-        presenter.getHomeData(page);
+        presenter.getHomeData(2,page);
     }
 
-    private void commentDialog(){
+    private void commentDialog(int courseId, String courseDate){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
@@ -114,31 +119,53 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         commentDialog = builder.create();
         if (dialogView != null) {
 
-
         }
-
         commentDialog.show();
-
     }
 
-
-    private void rateDialog(){
+    private void rateDialog(final int courseId, final String courseDate){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        View dialogView = this.getLayoutInflater().inflate(R.layout.custom_rate_dialog, null);
+        final View dialogView = this.getLayoutInflater().inflate(R.layout.custom_rate_dialog, null);
         builder.setView(dialogView);
 
         rateDialog = builder.create();
         if (dialogView != null) {
-           MaterialRatingBar ratingBar =dialogView.findViewById(R.id.mRating);
-           ratingBar.setOnRatingChangeListener(this);
+            Button btnRaiting =dialogView.findViewById(R.id.btnRate);
+            Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+
+             ratingCourse =dialogView.findViewById(R.id.mRatingCourse);
+             ratingInstructor =dialogView.findViewById(R.id.mRatingInstructor);
+            ratingWorkspace =dialogView.findViewById(R.id.mRatingWorkspace);
+            ratingCourse.setOnRatingChangeListener(this);
+            ratingInstructor.setOnRatingChangeListener(this);
+            ratingWorkspace.setOnRatingChangeListener(this);
 
 
+            btnRaiting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                   Log.i("Raiting", ratingCourse.getRating()+"");
+//                   Log.i("RaitingIns", ratingInstructor.getCameraDistance()+"");
+//                   Log.i("RaitingWork",ratingWorkspace.getCameraDistance()+"");
+                    presenter.setRate(2,courseId,courseDate,ratingCourse.getRating(), ratingInstructor.getRating(),ratingWorkspace.getRating());
+                }
+            });
+
+            btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rateDialog.dismiss();
+                }
+            });
+
+            ratingCourse.setOnRatingChangeListener(this);
+            ratingInstructor.setOnRatingChangeListener(this);
+            ratingWorkspace.setOnRatingChangeListener(this);
 
         }
-
         rateDialog.show();
-
     }
 
 
@@ -168,7 +195,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     @Override
     public void showNoDataAvailable() {
-
+        upcomingCoursesAdapter.setLoading(false);
+        progressView.setVisibility(View.GONE);
     }
 
     @Override
@@ -176,7 +204,7 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         isLoading=false;
         if (listData.size() > 0){
             dataResult.addAll(listData);
-            if (page == NetworkUpComingCoursesInteractor.totalPage){
+            if (page == NetworkUpComingCoursesInteractor.totalPage-1){
                 moreDataAvailable =false;
             }else {
                 page++;
@@ -186,12 +214,35 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     @Override
+    public void setDataSearchName(ArrayList<Result> listData) {
+
+    }
+
+    @Override
+    public void setDataSearchFilter(ArrayList<Result> listData) {
+
+    }
+
+    @Override
+    public void setCategories(List<Categories> listData) {
+
+    }
+
+    @Override
     public void errorMsg() {
         ActionUtils.showToast(getActivity(), "API error");
     }
 
     @Override
+    public void showCategoriesError(String msg) {
+        ActionUtils.showToast(getActivity(),msg);
+
+
+    }
+
+    @Override
     public void showToast(String s) {
+        ActionUtils.showToast(getActivity(),s);
 
     }
 
@@ -203,21 +254,27 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     @Override
-    public void onRateClick() {
-        rateDialog();
+    public void onRateClick(int courseId, String courseDate) {
+        rateDialog(courseId,courseDate);
+    }
+
+    @Override
+    public void onLikeClick(int courseId, String courseDate) {
+        presenter.setLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
 
     }
 
     @Override
-    public void onLikeClick() {
+    public void onDisLikeClick(int courseId, String courseDate) {
+        presenter.setDisLike(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate);
 
     }
 
     @Override
-    public void onCommentClick() {
-        commentDialog();
-
+    public void onCommentClick(int courseId, String courseDate) {
+        commentDialog(courseId,courseDate);
     }
+
 
     @Override
     public void onInstructorClick(int instracturId) {

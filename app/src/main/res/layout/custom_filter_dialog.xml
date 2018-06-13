@@ -51,6 +51,8 @@
         android:id="@+id/spinnerCities"
         android:layout_width="210dp"
         android:layout_height="46dp"
+        android:entries="@array/cities_array"
+
         />
 
     </LinearLayout>

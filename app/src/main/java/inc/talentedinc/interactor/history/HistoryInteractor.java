@@ -7,6 +7,5 @@ import inc.talentedinc.listener.OnCoursesResult;
  */
 
 public interface HistoryInteractor {
-    void getHistory(int page, OnCoursesResult onCoursesResult);
-
+    void getHistory(int userId  ,int page, OnCoursesResult onCoursesResult);
 }

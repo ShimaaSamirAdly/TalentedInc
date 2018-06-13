@@ -61,7 +61,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
-            android:text="20"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@+id/imgLike"
             app:layout_constraintTop_toBottomOf="@+id/tvSetComment" />
@@ -82,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
-            android:text="30"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toEndOf="@+id/imgComment"
             app:layout_constraintTop_toBottomOf="@+id/tvSetComment" />

@@ -45,7 +45,6 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 //        ......................................... mina ........................................
 
         // Inflate the layout for this fragment

@@ -7,9 +7,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.like.LikeButton;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import inc.talentedinc.R;
@@ -38,6 +41,9 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     private CircleImageView commentUserImg;
     private TextView commentUserName;
     private TextView userComment, commentTvTime;
+    private LikeButton likeButton;
+    private Result result;
+    private boolean isRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +58,13 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
 
     private void initView(){
-//        ratingBar = findViewById(R.id.mRating);
-//        ratingBar.setOnRatingChangeListener(this);
-
          myRoot = (LinearLayout) findViewById(R.id.ll);
          a = new LinearLayout(this);
         a.setOrientation(LinearLayout.VERTICAL);
 
         imgCourse=findViewById(R.id.imgCourse);
         progressView = findViewById(R.id.pv_load);
-        tvCourseName=findViewById(R.id.tvCourseUser);
+        tvCourseName=findViewById(R.id.course_name_txt);
         tvInstructorName=findViewById(R.id.tvCourseUser);
         tvInstructorName.setOnClickListener(this);
         tvWorkspaceName=findViewById(R.id.course_creator_txt);
@@ -70,12 +73,15 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         tvDescription=findViewById(R.id.offered_course_desc_txt);
         tvStartD =findViewById(R.id.start_date_txt);
         tvEndD=findViewById(R.id.tvEnd);
-        tvDescription=findViewById(R.id.duration_txt);
+        tvDuration=findViewById(R.id.duration_txt);
+        tvLikesNum= findViewById(R.id.tvLikes);
+        tvCommentsNum=findViewById(R.id.tvComment);
+        likeButton =findViewById(R.id.thumb_button);
         btnRegister =findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(this);
-        presenter = new UpComingDetailsPresenter(Factory.provideCommentLike());
-        presenter.setView((Result) getIntent().getExtras().getSerializable(COURSE),this);
-
+        presenter = new UpComingDetailsPresenter(Factory.provideCommentLike(),Factory.provideRegister());
+        result =(Result) getIntent().getExtras().getSerializable(COURSE);
+        presenter.setView(result,this);
     }
     /******************************  *************************/
 
@@ -84,7 +90,6 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     @Override
     public void showProgress() {
         progressView.setVisibility(View.VISIBLE);
-
     }
 
     @Override
@@ -114,42 +119,36 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     @Override
     public void setLocation(String address) {
         tvLocation.setText(address);
-
     }
 
     @Override
     public void setLikes(int likes) {
-
-
+        tvLikesNum.setText(String.valueOf(likes));
     }
 
     @Override
     public void setCommentsNum(int comments) {
-
+        tvCommentsNum.setText(String.valueOf(comments));
     }
 
     @Override
     public void setDuration(String duration) {
-        tvDescription.setText(duration);
-
+        tvDuration.setText(duration);
     }
 
     @Override
     public void setStartDate(String startD) {
         tvStartD.setText(startD);
-
     }
 
     @Override
     public void setEndDate(String endD) {
         tvEndD.setText(endD);
-
     }
 
     @Override
     public void setDescription(String description) {
         tvDescription.setText(description);
-
     }
 
     @Override
@@ -163,27 +162,42 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                 commentTvTime=child.findViewById(R.id.tvTime);
                 if (!comments.get(i).getComment().equals(null)){
                     userComment.setText(comments.get(i).getComment());
+
                 }
-               // commentUserName
-                //if ()
-                if (!comments.get(i).getTime().equals(null)){
+                if (!comments.get(i).getUserNameOfcomment().equals(null))
+                commentUserName.setText(comments.get(i).getUserNameOfcomment());
+
+                if (comments.get(i).getTime()!=null){
                     commentTvTime.setText(comments.get(i).getTime());
-
                 }
-
+                if (!comments.get(i).getUserImageOfComment().equals(null)){
+                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(commentUserImg);                }
                 a.addView(child);
-
             }
             myRoot.addView(a);
         }
-
     }
 
     @Override
     public void showToast(String msg) {
         ActionUtils.showToast(this, msg);
+    }
 
+    @Override
+    public void setIsLike(boolean isLike) {
+        if (isLike)
+        likeButton.setLiked(true);
+        else
+            likeButton.setLiked(false);
+    }
 
+    @Override
+    public void setIsRegister(boolean isRegister) {
+        this.isRegister=isRegister;
+        if (isRegister)
+            btnRegister.setText("UnRegister");
+        else
+            btnRegister.setText("Register");
     }
 
     @Override
@@ -196,18 +210,20 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         switch (v.getId()){
             case R.id.btnRegister:
                 //Register
+                if (isRegister)
+                    presenter.unRegister(2,result.getOfferedCourseId(),result.getPublishedDate());
+                else
+                    presenter.setRegister(2,result.getOfferedCourseId(),result.getPublishedDate());
                 break;
             case R.id.course_name_txt:
                 //switch to Instructor profile
-//                (Result) getIntent().getExtras().getSerializable(COURSE)
+//                result
                 break;
             case R.id.course_creator_txt:
                 //switch to workSpace profile
-//                (Result) getIntent().getExtras().getSerializable(COURSE)
+//                result
                 break;
-
         }
-
     }
 
     /******************************  *************************/

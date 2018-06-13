@@ -40,4 +40,12 @@ public class Categories implements Serializable{
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+//    ********************************* Asmaa **********************
+    public String toString()
+    {
+        return name  ;
+    }
+//    **********************************************************
 }
+
