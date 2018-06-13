@@ -1,5 +1,6 @@
 package inc.talentedinc.view.activities;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
     private ImageView workSpacePhoto3;
     private WorkSpace workSpace ;
     private WorkSpaceProfilePresenter workSpaceProfilePresenter ;
+    private Integer  workSpaceId ;
+    public static final String workSpaceID = "workSpaceId";
     //--------------------------------------------------------------------------------------------//
     //--------------------------------------------------------------------------------------------//
 
@@ -41,6 +44,9 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_space_profile);
+        Intent intent = getIntent();
+        workSpaceId = Integer.parseInt(intent.getStringExtra(workSpaceID)) ;
+
 
         workSpaceLogo = findViewById(R.id.workSpaceLogo);
         workSpaceEmail = findViewById(R.id.workSpaceEmail);
@@ -54,7 +60,7 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
         workSpacePhoto2 = findViewById(R.id.imageUrl2);
         workSpacePhoto3 = findViewById(R.id.imageUrl3);
         workSpaceProfilePresenter = new WorkSpaceProfilePresenter(this);
-        workSpaceProfilePresenter.getWorkSpaceData(1);
+        workSpaceProfilePresenter.getWorkSpaceData(workSpaceId);
 
     }
 
@@ -75,30 +81,31 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
     private void setWorkspaceData(){
         //phones and discription//
         List<Object> photos =  workSpace.getWorkSpaceImagesCollection();
-        String photo1 = (String) photos.get(0);
-        String photo2 = (String) photos.get(1);
-        String photo3 = (String) photos.get(2);
+        if (photos  != null) {
+            String photo1 = (String) photos.get(0);
+            String photo2 = (String) photos.get(1);
+            String photo3 = (String) photos.get(2);
 
 
-        Glide.with(this)
-                .load("" + workSpace.getImageUrl())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(workSpaceLogo);
+            Glide.with(this)
+                    .load("" + workSpace.getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(workSpaceLogo);
 
-        Glide.with(this)
-                .load("" + photo1)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(workSpacePhoto1);
+            Glide.with(this)
+                    .load("" + photo1)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(workSpacePhoto1);
 
-        Glide.with(this)
-                .load("" + photo2)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(workSpacePhoto2);
-        Glide.with(this)
-                .load("" + photo3)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(workSpacePhoto3);
-
+            Glide.with(this)
+                    .load("" + photo2)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(workSpacePhoto2);
+            Glide.with(this)
+                    .load("" + photo3)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(workSpacePhoto3);
+        }
 
         workSapceAddress.setText(workSpace.getAddress());
         workSpaceName.setText(workSpace.getName());

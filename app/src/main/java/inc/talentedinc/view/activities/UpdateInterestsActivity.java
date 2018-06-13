@@ -27,7 +27,8 @@ public class UpdateInterestsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_interests);
 
-        user = (User) getIntent().getSerializableExtra("user");
+//        user = (User) getIntent().getSerializableExtra("user");
+        user = SharedPrefrencesSingleton.getSharedPrefUser(this);
         presenter = new UpdateInterestsPresenterImpl(this, this);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -40,6 +41,7 @@ public class UpdateInterestsActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.interests, fragment);
         fragmentTransaction.commit();
 
+        save = findViewById(R.id.save);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

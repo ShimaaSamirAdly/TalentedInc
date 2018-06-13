@@ -58,13 +58,13 @@ public class SkillsGridAdapter extends BaseAdapter {
         final TextView text = grid.findViewById(R.id.txt);
         text.setText(skills.get(position));
 
-        text.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                skills.remove(text.getText());
-                notifyDataSetChanged();
-            }
-        });
+//        text.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                skills.remove(text.getText());
+//                notifyDataSetChanged();
+//            }
+//        });
 
         return grid;
     }

@@ -4,9 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +37,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import inc.talentedinc.R;
@@ -61,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private Button loginBtn;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private User gmailUser ;
+    private Button signUp ;
+    private User signedUpUser ;
 
 
 //--------------------------------------------------------------------------------------------------//
@@ -79,7 +87,29 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         //---------------------------------Alaa--------------------------------------------------//
 
+        signedUpUser = SharedPrefrencesSingleton.getSharedPrefUser(this);
+        if(signedUpUser != null){
+            Intent intent = new Intent(this , HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+
+
         btnSignIn = findViewById(R.id.sign_in_button);
+        signUp = findViewById(R.id.signUpBtn);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+
         btnSignIn.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -90,9 +120,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 .build();
         userLogin = new UserLogin();
 
-
         loginBtn = findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(this);
+
 
 
         //------------------------------------------------------------------------------------//
@@ -102,7 +132,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         //facebook login
         callbackManager = CallbackManager.Factory.create();
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = (LoginButton) findViewById(R.id.fb_login);
         //setting permissions
         loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
         // Callback registration
@@ -118,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
             @Override
             public void onError(FacebookException exception) {
+                Log.i("fbfb",exception.toString());
                 exception.printStackTrace();
             }
         });
@@ -126,20 +157,20 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         // to generate hash key
 
 
-//                try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "inc.talentedinc",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//
-//        } catch (NoSuchAlgorithmException e) {
-//
-//        }
+                try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "inc.talentedinc",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
 
         /***************************************************************************************/
 
@@ -166,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             gmailUser.setImgUrl(acct.getPhotoUrl().toString());
             gmailUser.setGoogleToken(acct.getIdToken());
             gmailUser.setGoogleId(acct.getId());
-            gotoCategories(gmailUser);
+            completeSignup(gmailUser);
             Log.i("response", "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
@@ -232,6 +263,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
@@ -337,12 +369,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.i("LoginActivity", response.toString());
                         if (object != null) {
                             //user to send to interests activity
                             User user = createUser(object, loginResult);
                             //go to categories to complete sign up
-                            gotoCategories(user);
+                            completeSignup(user);
                         }
                     }
                 });
@@ -364,17 +395,18 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        user.setFbToken(loginResult.getAccessToken().getToken());
+        //user.setFbToken(loginResult.getAccessToken().getToken());
 
         return user;
     }
 
 
-    private void gotoCategories(User user){
+    private void completeSignup(User user){
 
         Intent intent = new Intent(this,SignUpActivity.class);
         intent.putExtra(LoginActivity.INTENT_USER,user);
         startActivity(intent);
+        finish();
     }
     /***************************************************************************************/
 

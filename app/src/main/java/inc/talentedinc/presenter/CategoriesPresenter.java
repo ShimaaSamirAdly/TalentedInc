@@ -41,7 +41,7 @@ public class CategoriesPresenter {
 
             @Override
             public void onFailedConnection() {
-                
+
             }
         });
 

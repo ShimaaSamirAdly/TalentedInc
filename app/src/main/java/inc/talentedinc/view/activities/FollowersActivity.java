@@ -2,12 +2,15 @@ package inc.talentedinc.view.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.FollowersAdapter;
+import inc.talentedinc.model.Followers;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.FollowersPresenter;
 import inc.talentedinc.presenter.FollowersPresenterImpl;
@@ -20,6 +23,7 @@ public class FollowersActivity extends AppCompatActivity {
     private FollowersPresenter followersPresenter;
     private RecyclerView recyclerView;
     private int flag;
+    LinearLayoutManager coursesLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +31,18 @@ public class FollowersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_followers);
 
         recyclerView = findViewById(R.id.recycleView);
+        coursesLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(coursesLayoutManager);
 
         followersPresenter = new FollowersPresenterImpl(this, this);
 
         flag = getIntent().getIntExtra("type", 0);
+        int userId = getIntent().getIntExtra("userId",-1);
 
         if(flag == 0){
-            followersPresenter.getFollowers();
+            followersPresenter.getFollowers(userId);
         }else{
-            followersPresenter.getFollowing();
+            followersPresenter.getFollowing(userId);
         }
 
 
@@ -43,10 +50,13 @@ public class FollowersActivity extends AppCompatActivity {
 //        followersAdapter = new FollowersAdapter(this, )
     }
 
-    public void setData(ArrayList<User> followers){
+    public void setData(ArrayList<Followers> followers){
+
+        Log.i("followersNO", "setData  "+ followers.size());
 
         followersAdapter = new FollowersAdapter(this, followers, followersPresenter);
         recyclerView.setAdapter(followersAdapter);
+//        followersAdapter.notifyDataSetChanged();
     }
 
 
