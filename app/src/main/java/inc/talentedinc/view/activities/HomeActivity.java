@@ -80,11 +80,14 @@ public class HomeActivity extends AppCompatActivity{
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fab = findViewById(R.id.fab);
-       // if (SharedPrefrencesSingleton.getSharedPrefUser(this).getUserType()!=2){
-          ///  navigation.getMenu().getItem(0).setVisible(false);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent internCreateCourse = new Intent(HomeActivity.this, CreateCourseActivity.class);
+                startActivity(internCreateCourse);
+            }
+        });
 
-
-       // }
         // to hide buttonNavigation when keyboard open
         final View activityRootView = findViewById(R.id.coordinator_layout);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

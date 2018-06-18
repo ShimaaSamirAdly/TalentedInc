@@ -130,9 +130,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 //        ***************************** Asmaa ***************************************
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
 
-
         /******************************Shimaa*******************************************/
-
         validator = new SignupValidator();
         user = new User();
         profileImage = view.findViewById(R.id.profileImage);
@@ -284,7 +282,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     public void setGeneralUserView(){
-
         portofolioText.setVisibility(View.GONE);
         portofolioGridView.setVisibility(View.GONE);
 
@@ -293,9 +290,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
         skillsText.setVisibility(View.GONE);
         skillsGridView.setVisibility(View.GONE);
-
     }
-
 
     public void setProfileType(User user){
 
