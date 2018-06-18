@@ -19,6 +19,7 @@ import inc.talentedinc.adapter.SignUPViewPagerAdapter;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.signup.SignUpPresenter;
 import inc.talentedinc.presenter.signup.SignUpPresenterImpl;
+import inc.talentedinc.utilitis.NoSwipingViewPAger;
 import inc.talentedinc.utilitis.SignupValidator;
 import inc.talentedinc.view.fragmnts.ProfileFragment;
 
@@ -28,7 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     private TextView dobTxtVw;
     private Button nextBtn;
     private User signedUpUser = new User();
-    private ViewPager signUpViewPager;
+    private NoSwipingViewPAger signUpViewPager;
     private SignUPViewPagerAdapter signUPViewPagerAdapter;
     private SignupValidator signupValidator = SignupValidator.getValidationInstance();
 
@@ -57,17 +58,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        signUpViewPager = (ViewPager) findViewById(R.id.sign_up_view_pager);
+        signUpViewPager = (NoSwipingViewPAger) findViewById(R.id.sign_up_view_pager);
         signUPViewPagerAdapter = new SignUPViewPagerAdapter(getSupportFragmentManager());
         signUpViewPager.setAdapter(signUPViewPagerAdapter);
-        signUpViewPager.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
-                return true;
-            }
-        });
+        signUpViewPager.setPagingEnabled(false);
 
         Intent intent = getIntent();
         if (intent.getSerializableExtra(LoginActivity.INTENT_USER) != null) {
