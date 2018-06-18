@@ -21,23 +21,28 @@ public class UserLoginImpl implements UserLoginInter {
 
 
     @Override
-    public void sendLoginRequest(UserLogin userLogin, final OnLoginResult onresult ) {
+    public void sendLoginRequest(UserLogin userLogin, final OnLoginResult onresult) {
 
         apiLogin.checkUserLogin(userLogin).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.i("nela ",response.body().getEmail());
+                if (response != null) {
+                    if(response.code() != 200) {
 
+                        Log.i("nela ", response.raw().toString());
 
-//                Log.i("check",response.body().getStatus());
-
-                onresult.onSucess(response.body());
+                        onresult.onSucess(response.body());
+                    }
+                    else{
+                        onresult.onFailure();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 call.cancel();
-                Log.i("baz",call.toString());
+                Log.i("baz", call.toString());
                 onresult.onFailure();
             }
         });

@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import java.util.ArrayList;
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.MyOfferedCourseViewAdapter;
@@ -22,21 +25,18 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
     private MyOfferedCoursePresenter myOfferedCoursePresenter;
     private OfferedCourseDetailed acceptedOfferedCourse;
     public static String MY_OFFERED_COURSE_OBJECT = "my_offered_course_object";
+    private ProgressBar myProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_offered_courses);
 
-        Intent intent = getIntent();
-        if(intent.getSerializableExtra(MyOfferedCoursesRequestsActivity.ACCEPTED_OFFERED_COURSE) != null) {
-            acceptedOfferedCourse = (OfferedCourseDetailed) intent.getSerializableExtra(MyOfferedCoursesRequestsActivity.ACCEPTED_OFFERED_COURSE);
-        }
-
         coursesRecyclerView = (RecyclerView) findViewById(R.id.my_offered_course_rec);
         coursesRecyclerView.setHasFixedSize(true);
         coursesLayoutManager = new LinearLayoutManager(this);
         coursesRecyclerView.setLayoutManager(coursesLayoutManager);
+        myProgressBar = (ProgressBar)findViewById(R.id.your_offered_prog_bar);
     }
 
     @Override
@@ -53,10 +53,8 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
 
     @Override
     public void viewMyOfferedCourses(ArrayList<OfferedCourseDetailed> myOfferedCourses) {
+        myProgressBar.setVisibility(View.GONE);
         offeredCourses.addAll(myOfferedCourses);
-        if(acceptedOfferedCourse != null){
-            offeredCourses.remove(acceptedOfferedCourse);
-        }
         offeredCoursesViewAdapter.notifyDataSetChanged();
     }
 
@@ -66,6 +64,5 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
         Intent intent = new Intent(this,MyOfferedCoursesRequestsActivity.class);
         intent.putExtra(MyOfferedCourses.MY_OFFERED_COURSE_OBJECT,offeredCourseDetailed);
         startActivity(intent);
-        finish();
     }
 }

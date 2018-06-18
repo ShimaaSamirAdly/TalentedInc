@@ -16,8 +16,8 @@ public class APIUrls {
     public static final String DISCOVER_MOV3IES="/3/discover/movie";
     public static final String SEARCH_MOVIES="/3/search/movie";
 
+//     public static final String BASE_URL="http://172.16.5.177:3000/";
 //     public static final String BASE_URL="http://192.168.43.40:3000";
-//        public static final String BASE_URL="http://172.16.5.177:3000";
 
 //    public static final String BASE_URL="http://api.themoviedb.org";
 
@@ -36,7 +36,7 @@ public class APIUrls {
    public static final String WORK_SPACE_PROFILE = "workspace/getprofileworkspace" ;
 
     //alaa
-    public static final String USER_LOGIN = "/api/users";
+    public static final String USER_LOGIN = "/users/login";
     public static final String CREATE_COURSE = "/offeredcourse/createofferedcoursebyinstructor";
 
     //    ........................................mina................................................

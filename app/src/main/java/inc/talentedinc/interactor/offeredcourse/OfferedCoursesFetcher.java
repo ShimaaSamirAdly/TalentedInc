@@ -23,34 +23,42 @@ import retrofit2.Response;
 public class OfferedCoursesFetcher {
 
     private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
-    private int totalPagesNumber;
+    private Integer totalPagesNumber;
     private int currentPageNumber;
     private MyOfferedCoursePresenter myOfferedCoursePresenter;
     private RequestsPresenter requestsPresenter;
+    public static volatile OfferedCoursesFetcher offeredCoursesFetcher;
 
-    public OfferedCoursesFetcher(OfferedCoursesPresenterInt offeredCoursesPresenterInt) {
-        this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
+    private OfferedCoursesFetcher() {
         currentPageNumber = 0;
     }
 
-    public OfferedCoursesFetcher() {
+    public static OfferedCoursesFetcher sharedInstance() {
+        if (offeredCoursesFetcher == null) {
+            synchronized (OfferedCoursesFetcher.class) {
+                if (offeredCoursesFetcher == null) {
+                    offeredCoursesFetcher = new OfferedCoursesFetcher();
+                }
+            }
+        }
+        return offeredCoursesFetcher;
     }
 
-    public OfferedCoursesFetcher(RequestsPresenter requestsPresenter) {
-        this.requestsPresenter = requestsPresenter;
-    }
-
-    public void fetchCourses(int page) {
+    public void fetchCourses(int page, int instructorId) {
 
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getOfferedCourses(page)
+                .getOfferedCourses(page, instructorId)
                 .enqueue(new Callback<OfferedCoursesResponse>() {
                     @Override
                     public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
-                        Log.i("RETROFIT", "" + response.body());
-                        OfferedCoursesResponse offeredCoursesResponse = response.body();
-//                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
-                        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
+                        if(response.code() == 200) {
+                            OfferedCoursesResponse offeredCoursesResponse = response.body();
+                            totalPagesNumber = offeredCoursesResponse.getTotalPages();
+                            offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
+                        }else {
+                            Log.i("RETROFITOFFEREDCOURSE",""+response.code());
+                            offeredCoursesPresenterInt.notifyFragmentWithError();
+                        }
                     }
 
                     @Override
@@ -61,25 +69,52 @@ public class OfferedCoursesFetcher {
                 });
     }
 
-    public void requestCourse(Integer offeredCourseId, Integer instructorId) {
+
+    public void requestCourse(Integer offeredCourseId, Integer instructorId, final int position) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
                 .instructorRequestOfferedCourse(instructorId, offeredCourseId)
                 .enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
-                        offeredCoursesPresenterInt.makeToastRequestResult(1);
+                        if(response.code() == 200) {
+                            offeredCoursesPresenterInt.makeToastRequestResult(1, position);
+                        }else {
+                            offeredCoursesPresenterInt.makeToastRequestResult(0,position);
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<Object> call, Throwable t) {
-                        offeredCoursesPresenterInt.makeToastRequestResult(0);
+                        offeredCoursesPresenterInt.makeToastRequestResult(0,position);
                     }
                 });
     }
 
-    public void fetchMoreCourses() {
-        if (currentPageNumber < totalPagesNumber - 1) {
-            fetchCourses(currentPageNumber++);
+    public void cancelCourse(Integer offeredCourseId, Integer instructorId, final int position){
+        AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
+                .cancelCourseRequest(instructorId,offeredCourseId).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.code() == 200) {
+                    offeredCoursesPresenterInt.requestCanceled(position);
+                }else {
+                    offeredCoursesPresenterInt.errorCancelingRequest(position);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                offeredCoursesPresenterInt.errorCancelingRequest(position);
+            }
+        });
+    }
+
+    public void fetchMoreCourses(int instructorId) {
+        if (currentPageNumber < totalPagesNumber) {
+            currentPageNumber++;
+            fetchCourses(currentPageNumber,instructorId);
+        } else {
+            offeredCoursesPresenterInt.notifyDataFinished();
         }
     }
 
@@ -90,10 +125,14 @@ public class OfferedCoursesFetcher {
     public void fetchMyOfferedCourses(int instructorId) {
         //fix instructor id
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getMyOfferedCourse(2).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
+                .getMyOfferedCourse(instructorId,0).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseDetailed>> call, Response<ArrayList<OfferedCourseDetailed>> response) {
-                myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
+                if(response.code() == 200) {
+                    myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
+                }else{
+                    //notify error
+                }
             }
 
             @Override
@@ -108,7 +147,11 @@ public class OfferedCoursesFetcher {
                 .getCourseRequests(offeredCourseId).enqueue(new Callback<ArrayList<OfferedCourseWorkspace>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseWorkspace>> call, Response<ArrayList<OfferedCourseWorkspace>> response) {
-                requestsPresenter.notifyWithRequestsWorkspaces(response.body());
+                if(response.code() == 200) {
+                    requestsPresenter.notifyWithRequestsWorkspaces(response.body());
+                }else{
+
+                }
             }
 
             @Override
@@ -120,18 +163,32 @@ public class OfferedCoursesFetcher {
 
     public void acceptCourse(int courseId, Integer workSpaceId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .acceptCourse(courseId,workSpaceId).enqueue(new Callback<Void>() {
+                .acceptCourse(courseId, workSpaceId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     requestsPresenter.worSpaceAccepted();
+                }else{
+                    //notify with error
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                //notify with error
             }
         });
+    }
+
+    public void setOfferedCoursesPresenterInt(OfferedCoursesPresenterInt offeredCoursesPresenterInt) {
+        this.offeredCoursesPresenterInt = offeredCoursesPresenterInt;
+    }
+
+    public void setRequestsPresenter(RequestsPresenter requestsPresenter) {
+        this.requestsPresenter = requestsPresenter;
+    }
+
+    public void resetFetcher() {
+        currentPageNumber = 0;
     }
 }

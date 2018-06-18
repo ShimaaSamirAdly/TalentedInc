@@ -60,6 +60,8 @@
     <string name="course_creator">Creator :</string>
     <string name="no_of_applicants">No. of applicants :</string>
     <string name="register_btn">Register</string>
+    <string name="your_offered_courses_title">Your Offered Courses</string>
+    <string name="requests_on_offered_course_title">Requests On Your Course</string>
     <!--...........................................................................-->
     <!--..................................alaa......................................-->
 
@@ -111,7 +113,9 @@
     <string name="title_activity_main2p">Main2pActivity</string>
     <string name="accept_request_btn">Accept</string>
     <string name="PhotoAlbum">Photo Album</string>
-    <string name="my_courses_btn">My Offered Courses</string>
+    <string name="my_courses_btn">Go To My Offered Courses</string>
+    <string name="SignUpButton">Sign Up</string>
+
 
 
     <!--................................................................................-->

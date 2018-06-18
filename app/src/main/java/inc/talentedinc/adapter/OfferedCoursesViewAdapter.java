@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 
 import inc.talentedinc.R;
@@ -44,7 +47,7 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OfferedCoursesViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final OfferedCoursesViewHolder holder, final int position) {
 
         //course name
         holder.getOfferedCourseNameTxt().setText(offeredCourses.get(position).getName());
@@ -55,22 +58,48 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
         //set date text
         holder.getOfferedCourseDateTxt().setText(offeredCourses.get(position).getStartDate());
         //request course button
+        if(offeredCourses.get(position).isRequested()){
+            holder.getRequestOfferedCourseBtn().setText("Cancel");
+        }else {
+            holder.getRequestOfferedCourseBtn().setText("Request");
+        }
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //request the course
                 Integer offeredCourseId = offeredCourses.get(position).getOfferedCourseId();
                 Integer instructorId = SharedPrefrencesSingleton.getSharedPrefUser(myContext).getUserId();
-                offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId);
+                if(holder.getRequestOfferedCourseBtn().getText().equals("Request")){
+                    offeredCoursesPresenter.requestOfferedCourse(offeredCourseId,instructorId,position);
+                }else{
+                    offeredCoursesPresenter.cancelOfferedCourse(offeredCourseId,instructorId,position);
+                }
             }
         });
         //go to details activity
-        holder.getOfferedCourseImageView().setOnClickListener(new View.OnClickListener() {
+        holder.getOffrerdCoursesCardView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 offeredCoursesPresenter.gotoDetailedCourseView(offeredCourses.get(position));
             }
         });
+
+        if(offeredCourses.get(position).getImageUrl() != null) {
+            Glide.
+                    with(myContext).
+                    load(offeredCourses.get(position).getImageUrl()).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    placeholder(R.drawable.default_course).
+                    into(holder.getOfferedCourseImageView());
+        }else {
+            Glide.
+                    with(myContext).
+                    load(R.drawable.default_course).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    into(holder.getOfferedCourseImageView());
+        }
     }
 
     @Override

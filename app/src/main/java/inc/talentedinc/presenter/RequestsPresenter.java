@@ -14,7 +14,8 @@ public class RequestsPresenter {
 
     public RequestsPresenter(RequestsHandler myRequestsHAndler) {
         this.myRequestsHAndler = myRequestsHAndler;
-        offeredCoursesFetcher = new OfferedCoursesFetcher(this);
+        offeredCoursesFetcher = OfferedCoursesFetcher.sharedInstance();
+        offeredCoursesFetcher.setRequestsPresenter(this);
     }
 
 
@@ -32,5 +33,9 @@ public class RequestsPresenter {
 
     public void worSpaceAccepted() {
         myRequestsHAndler.workspaceAcceptedSuccessfully();
+    }
+
+    public void gotoWorkspace(Integer workSpaceId) {
+        myRequestsHAndler.gotoWorkspaceProfile(workSpaceId);
     }
 }

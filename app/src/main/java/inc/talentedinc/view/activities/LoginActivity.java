@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private Button loginBtn;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private User gmailUser ;
+    private Button signUp ;
+    private User signedUpUser ;
 
 
 //--------------------------------------------------------------------------------------------------//
@@ -85,7 +87,30 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         //---------------------------------Alaa--------------------------------------------------//
 
+
+        signedUpUser = SharedPrefrencesSingleton.getSharedPrefUser(this);
+        if(signedUpUser != null){
+            Intent intent = new Intent(this , HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+
+
         btnSignIn = findViewById(R.id.sign_in_button);
+        signUp = findViewById(R.id.signUpBtn);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SignUpActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+
         btnSignIn.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -98,6 +123,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         loginBtn = findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(this);
+
 
 
         //------------------------------------------------------------------------------------//
@@ -169,10 +195,10 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             gmailUser.setEmail(acct.getEmail());
             gmailUser.setFirstName(acct.getDisplayName());
             gmailUser.setLastName(acct.getFamilyName());
-            gmailUser.setImgUrl(acct.getPhotoUrl().toString());
+         //   gmailUser.setImgUrl(acct.getPhotoUrl().toString());
             gmailUser.setGoogleToken(acct.getIdToken());
             gmailUser.setGoogleId(acct.getId());
-            gotoCategories(gmailUser);
+            completeSignup(gmailUser);
             Log.i("response", "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
@@ -348,7 +374,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                             //user to send to interests activity
                             User user = createUser(object, loginResult);
                             //go to categories to complete sign up
-                            gotoCategories(user);
+                            completeSignup(user);
                         }
                     }
                 });
@@ -376,11 +402,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     }
 
 
-    private void gotoCategories(User user){
+    private void completeSignup(User user){
 
         Intent intent = new Intent(this,SignUpActivity.class);
         intent.putExtra(LoginActivity.INTENT_USER,user);
         startActivity(intent);
+        finish();
     }
     /***************************************************************************************/
 

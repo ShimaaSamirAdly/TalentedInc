@@ -30,6 +30,7 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
     private EditText phoneTxt;
     private Spinner citiesSpinner;
     private User user = new User();
+    private User facebookUseer;
 //    ...................................................................
 
     public FirstSignUpFragment() {
@@ -54,6 +55,10 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
         emailTxt = firstSignup.findViewById(R.id.email_edt_txt);
         passwordTxt = firstSignup.findViewById(R.id.password_edt_txt);
         phoneTxt = firstSignup.findViewById(R.id.phone_edt_txt);
+
+        if(facebookUseer != null){
+            emailTxt.setText(facebookUseer.getEmail());
+        }
 
         //setting cities spinner
         citiesSpinner = (Spinner) firstSignup.findViewById(R.id.city_spinner);
@@ -101,7 +106,10 @@ public class FirstSignUpFragment extends Fragment implements AdapterView.OnItemS
         user.setPhone(phoneTxt.getText().toString());
     }
 
+    public void setFacebookUseer(User facebookUseer) {
+        this.facebookUseer = facebookUseer;
+    }
 
-//    ...........................................................................................
+    //    ...........................................................................................
 
 }

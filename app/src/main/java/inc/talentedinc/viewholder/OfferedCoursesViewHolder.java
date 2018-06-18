@@ -57,4 +57,8 @@ public class OfferedCoursesViewHolder extends RecyclerView.ViewHolder {
         }
         return offeredCourseImageView;
     }
+
+    public View getOffrerdCoursesCardView() {
+        return offrerdCoursesCardView;
+    }
 }

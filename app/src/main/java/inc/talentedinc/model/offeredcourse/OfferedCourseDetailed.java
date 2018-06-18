@@ -42,6 +42,9 @@ public class OfferedCourseDetailed implements Serializable {
     @SerializedName("durationHours")
     @Expose
     private Integer durationHours;
+    @SerializedName("requested")
+    @Expose
+    private boolean requested;
 
     public String getDescription() {
         return description;
@@ -139,5 +142,13 @@ public class OfferedCourseDetailed implements Serializable {
 
     public void setDurationHours(Integer durationHours) {
         this.durationHours = durationHours;
+    }
+
+    public boolean isRequested() {
+        return requested;
+    }
+
+    public void setRequested(boolean requested) {
+        this.requested = requested;
     }
 }

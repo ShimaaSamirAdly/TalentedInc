@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 
@@ -48,7 +52,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
         offeredCourseDetailed = (OfferedCourseDetailed) intent.getSerializableExtra(OfferedCoursesViewAdapter.OFFERED_COURSE_OBJECT);
         //offeredCoursesPresenterInt = (OfferedCoursesPresenterInt) intent.getSerializableExtra(OfferedCoursesFragment.OFFERED_COURSE_PRESENTER);
         initializeViews();
-
+        offeredCoursesPresenterInt = new OfferedCoursesPresenter(this);
     }
 
     @Override
@@ -58,7 +62,7 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
     }
 
     private void initializeViews() {
-        offeredCourseImage = (ImageView) findViewById(R.id.offered_course_img);
+        offeredCourseImage = (ImageView) findViewById(R.id.imgCourse);
         offeredCourseName = (TextView) findViewById(R.id.course_name_txt);
         offeredCourseCreator = (TextView) findViewById(R.id.course_creator_txt);
         offeredCoursedescription = (TextView) findViewById(R.id.offered_course_desc_txt);
@@ -67,19 +71,31 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
         offeredCourseDuration = (TextView) findViewById(R.id.duration_txt);
         offeredCourseApplicants = (TextView) findViewById(R.id.no_applicants_txt);
         requestButton = (Button) findViewById(R.id.btnRegister);
+        if(offeredCourseDetailed.isRequested()){
+            requestButton.setText("Cancel");
+        }else {
+            requestButton.setText("Request");
+        }
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestCourse();
+                if(requestButton.getText().equals("Request")) {
+                    requestCourse();
+                }else {
+                    cancelCourse();
+                }
             }
         });
-        //requestsLayout = (LinearLayout) findViewById(R.id.requests_layout);
+    }
+
+    private void cancelCourse() {
+        offeredCoursesPresenterInt.cancelOfferedCourse(offeredCourseDetailed.getOfferedCourseId(),
+                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),0);
     }
 
     private void requestCourse() {
-        offeredCoursesPresenterInt = new OfferedCoursesPresenter(this);
         offeredCoursesPresenterInt.requestOfferedCourse(offeredCourseDetailed.getOfferedCourseId(),
-                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId());
+                SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),0);
     }
 
     private void setData() {
@@ -88,6 +104,15 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
 
         if (offeredCourseDetailed.getHostingWorkSpaceId() != null) {
             offeredCourseCreator.setText(offeredCourseDetailed.getHostingWorkSpaceId().getName());
+            offeredCourseCreator.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(),WorkSpaceProfile.class);
+                    Log.i("workspaceId",String.valueOf(offeredCourseDetailed.getHostingWorkSpaceId().getWorkSpaceId()));
+                    intent.putExtra(WorkSpaceProfile.workSpaceID,String.valueOf(offeredCourseDetailed.getHostingWorkSpaceId().getWorkSpaceId()));
+                    startActivity(intent);
+                }
+            });
         }
         if (offeredCourseDetailed.getDescription() != null) {
             offeredCoursedescription.setText(offeredCourseDetailed.getDescription());
@@ -105,11 +130,22 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
             offeredCourseApplicants.setText(String.valueOf(offeredCourseDetailed.getNoOfApplicant()));
         }
 
-//        for(int i=0;i<=10;i++){
-//            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//            final View requestRowView = inflater.inflate(R.layout.request_row, null);
-//            requestsLayout.addView(requestRowView,requestsLayout.getChildCount()-1);
-//        }
+        if(offeredCourseDetailed.getImageUrl() != null) {
+            Log.i("courseImg",offeredCourseDetailed.getImageUrl());
+            Glide.
+                    with(this).
+                    load(offeredCourseDetailed.getImageUrl()).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    into(offeredCourseImage);
+        }else {
+            Glide.
+                    with(this).
+                    load(R.drawable.default_course).
+                    diskCacheStrategy(DiskCacheStrategy.ALL).
+                    skipMemoryCache(true).
+                    into(offeredCourseImage);
+        }
 
     }
 
@@ -134,20 +170,38 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
     }
 
     @Override
-    public void makeToastRequestResult(int result) {
+    public void makeToastRequestResult(int result,int position) {
         switch (result) {
             case 0:
                 Toast.makeText(this, "Error requesting course Try again later!", Toast.LENGTH_SHORT).show();
+                requestButton.setText("Request");
+                offeredCourseDetailed.setRequested(false);
                 break;
             case 1:
                 Toast.makeText(this,"Your request has been sent successfully!",Toast.LENGTH_SHORT).show();
+                requestButton.setText("Cancel");
+                offeredCourseDetailed.setRequested(true);
                 break;
         }
     }
 
     @Override
     public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
+    }
 
+    @Override
+    public void dataFinished() {
+    }
 
+    @Override
+    public void courseRequestCanceled(int position) {
+        Toast.makeText(this,"Request has been canceled!",Toast.LENGTH_SHORT).show();
+        requestButton.setText("Request");
+    }
+
+    @Override
+    public void errorCancelingCopurse(int position) {
+        Toast.makeText(this,"Error canceling request!",Toast.LENGTH_SHORT).show();
+        requestButton.setText("Cancel");
     }
 }

@@ -31,6 +31,7 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
     private FragmentManager supportFragmentManager;
     private User user = new User();
     private SignupValidator signupValidator = SignupValidator.getValidationInstance();
+    private User facbookUser;
 //    ...................................................................................
 
     public SecondSignUpFragment() {
@@ -69,6 +70,10 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
                 newFragment.show(supportFragmentManager, "datePicker");
             }
         });
+
+        if(facbookUser != null){
+            firstNameTxt.setText(facbookUser.getFirstName());
+        }
 //        ....................................................................................
 
         return secondSignupView;
@@ -109,5 +114,10 @@ public class SecondSignUpFragment extends Fragment implements SetDateTextView {
 
 //        Log.i("userGen", user.getGender().toString());
     }
-//    ........................................................................................
+
+    public void setFacbookUser(User facbookUser) {
+        this.facbookUser = facbookUser;
+    }
+
+    //    ........................................................................................
 }

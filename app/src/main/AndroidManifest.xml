@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     //***********************shimaa*****************************
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -24,12 +25,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
                  <!--<category android:name="android.intent.category.LAUNCHER" />-->
 
-            </intent-filter>
+            <!--</intent-filter>-->
 
         </activity>
         <activity
@@ -77,12 +78,12 @@
         <activity
             android:name=".view.activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+             <!--<category android:name="android.intent.category.LAUNCHER" />-->
+             <!--</intent-filter>-->
 
         </activity>
 
@@ -104,21 +105,28 @@
         <activity android:name=".view.activities.SignUpInterests" />
         <activity android:name=".view.activities.OthersProfileActivity" />
         <activity android:name=".view.activities.BecomeInstructorActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".view.activities.UpdateInterestsActivity" />
         <activity android:name=".view.activities.FollowersActivity"></activity>
 
         //**********************************************************************
 
-        <!-- -alaa.................................................................. -->
-        <activity android:name=".view.activities.LoginActivity" />
-        <activity android:name=".view.activities.CreateCourseActivity" />
-        <activity android:name=".view.activities.WorkSpaceProfile">
+        <!-- -.................................alaa............................................. -->
+        <activity android:name=".view.activities.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.activities.CreateCourseActivity" android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activities.WorkSpaceProfile" android:theme="@style/AppTheme.NoActionBar">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -126,6 +134,22 @@
             <!--</intent-filter>-->
 
         </activity>
+
+
+        <service
+            android:name=".services.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".services.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+
         <!-- ............................alaa..................................................... -->
 
 

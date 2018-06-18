@@ -51,6 +51,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/next_btn"
+        android:background="@color/button"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

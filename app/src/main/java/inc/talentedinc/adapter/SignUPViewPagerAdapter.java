@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import inc.talentedinc.model.User;
 import inc.talentedinc.view.callbackinterfaces.SignupActivityHandler;
 import inc.talentedinc.view.fragmnts.FirstSignUpFragment;
 import inc.talentedinc.view.fragmnts.SecondSignUpFragment;
@@ -18,6 +19,7 @@ public class SignUPViewPagerAdapter extends FragmentStatePagerAdapter {
     private SecondSignUpFragment secondSignUpFragment;
     private ThirdSignUpFragment thirdSignUpFragment;
     private FragmentManager fragmentManager;
+    private User userFromFacebook;
 //    ...................................................................
 
     public SignUPViewPagerAdapter(FragmentManager fm) {
@@ -33,12 +35,18 @@ public class SignUPViewPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 if (firstSignUpFragment == null) {
                     firstSignUpFragment = new FirstSignUpFragment();
+                    if(userFromFacebook != null){
+                        firstSignUpFragment.setFacebookUseer(userFromFacebook);
+                    }
                 }
                 return firstSignUpFragment;
 
             case 1:
                 if (secondSignUpFragment == null) {
                     secondSignUpFragment = new SecondSignUpFragment();
+                    if(userFromFacebook != null){
+                        secondSignUpFragment.setFacbookUser(userFromFacebook);
+                    }
                     secondSignUpFragment.setSupportFragmentManager(fragmentManager);
                 }
                 return secondSignUpFragment;
@@ -67,7 +75,12 @@ public class SignUPViewPagerAdapter extends FragmentStatePagerAdapter {
     public SecondSignUpFragment getSecondSignUpFragment() {
         return secondSignUpFragment;
     }
-//    ............................................................................................
+
+    public void setUserFromFacebook(User userFromFacebook) {
+        this.userFromFacebook = userFromFacebook;
+    }
+
+    //    ............................................................................................
 
     public ThirdSignUpFragment getThirdSignUpFragment() {
         return thirdSignUpFragment;

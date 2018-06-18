@@ -93,8 +93,9 @@ public class HomeActivity extends AppCompatActivity{
                 }
             }
         });
-        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
-        layoutParams.setBehavior(new BottomNavigationViewBehavior());
+
+       // CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+       // layoutParams.setBehavior(new BottomNavigationViewBehavior());
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, new UpComingCoursesFragment() ,"upComing")

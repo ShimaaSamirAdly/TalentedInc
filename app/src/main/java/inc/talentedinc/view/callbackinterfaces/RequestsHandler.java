@@ -8,4 +8,6 @@ public interface RequestsHandler {
     void viewRequests(ArrayList<OfferedCourseWorkspace> offeredCourseWorkspaces);
 
     void workspaceAcceptedSuccessfully();
+
+    void gotoWorkspaceProfile(int workspaceId);
 }
