@@ -28,7 +28,7 @@ public class APIUrls {
     public static final String API_KEY = "005f422fa64ad9f31cd41964b94b2cf3";
 
 
-   public static final String WORK_SPACE_PROFILE = "workspace/getprofileworkspace" ;
+   public static final String WORK_SPACE_PROFILE = "workspace/getWorkSpaceProgile" ;
 
     //alaa
     public static final String USER_LOGIN = "/users/login";

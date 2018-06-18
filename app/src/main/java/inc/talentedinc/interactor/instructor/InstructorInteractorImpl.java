@@ -33,9 +33,11 @@ public class InstructorInteractorImpl implements InstructorInteractor {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    Log.i("conn", ""+response.code());
+                    Log.i("connectingInstructor", ""+response.code());
                     if(response.code() == 200) {
                         listener.onSuccessPending(instructor);
+                    }else{
+                        listener.onFailedConnection();
                     }
                 }
 

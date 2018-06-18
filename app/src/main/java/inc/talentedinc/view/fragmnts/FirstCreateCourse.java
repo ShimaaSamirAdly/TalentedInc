@@ -128,17 +128,17 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
         String formattedDate = df.format(c);
+            int currentMonth = c.getMonth();
 
-
-        String[] currentParts = formattedDate.split("-");
+        String[] currentParts = formattedDate.split("/");
         String[] startParts = start.split("-");
         String[] endParts = end.split("-");
 
 
-        if (Integer.parseInt(startParts[0]) > Integer.parseInt(currentParts[0])  && Integer.parseInt(startParts[2]) == Integer.parseInt(currentParts[2]) ) {
+        if ( Integer.parseInt(startParts[1]) >= currentMonth && Integer.parseInt(startParts[2]) > Integer.parseInt(currentParts[0])  && Integer.parseInt(startParts[0]) == Integer.parseInt(currentParts[2]) ) {
 
             if (Integer.parseInt(startParts[1]) == Integer.parseInt(endParts[1])) {
-                if (Integer.parseInt(startParts[0]) < Integer.parseInt(endParts[0])) {
+                if (Integer.parseInt(startParts[2]) < Integer.parseInt(endParts[2])) {
                     course.setStartDate(startDate.getText().toString());
                     course.setEndDate(endDate.getText().toString());
                 } else {

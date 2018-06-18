@@ -3,6 +3,7 @@ package inc.talentedinc.presenter;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -118,5 +119,10 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
 //        user.setUserType(1);
         user.setInstructor(instructor);
         view.switchToHome();
+    }
+
+    @Override
+    public void onFailedConnection() {
+        Toast.makeText(context, "No Internet Connection...", Toast.LENGTH_SHORT).show();
     }
 }

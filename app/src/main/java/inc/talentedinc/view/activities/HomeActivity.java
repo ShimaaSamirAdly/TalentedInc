@@ -150,15 +150,15 @@ public class HomeActivity extends AppCompatActivity{
                 navigation.getMenu().getItem(1).setChecked(true);
 
                 break;
-            case OFFERD:
+
+            case NOTIFICATION:
                navigation.getMenu().getItem(2).setChecked(true);
 
                 break;
-            case NOTIFICATION:
-               navigation.getMenu().getItem(3).setChecked(true);
-
-                break;
             case PROGILE:
+                navigation.getMenu().getItem(3).setChecked(true);
+                break;
+            case OFFERD:
                 navigation.getMenu().getItem(4).setChecked(true);
                 break;
         }

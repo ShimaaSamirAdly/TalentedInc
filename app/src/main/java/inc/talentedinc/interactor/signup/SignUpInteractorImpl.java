@@ -33,14 +33,18 @@ public class SignUpInteractorImpl implements SignUpInteractor {
 
             @Override
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
-
+                Log.i("deviceTok", SharedPrefrencesSingleton.getDeviceToken(getApplicationContext()));
                 Log.i("errorData", String.valueOf(response.code()));
                 if (response.code()== 202) {
                     SharedPrefrencesSingleton.setSharedPrefToken(getApplicationContext(),response.headers().get("Token"));
 
                     MainResponse res = (MainResponse) response.body();
-//                Log.i("conn", ""+res.getUserId());
                     listener.onSuccess(Integer.parseInt(res.getUserId()));
+
+                }else if(response.code()== 400){
+
+                    listener.onFailedSignUp("Email is Already Used");
+
                 }else{
                     listener.onFailedConnection();
                 }

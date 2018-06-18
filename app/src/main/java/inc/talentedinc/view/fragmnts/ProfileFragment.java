@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
 
 //        ***************************** Asmaa ***************************************
-        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
+//        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
 
         /******************************Shimaa*******************************************/
         validator = new SignupValidator();
@@ -228,9 +228,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                     user.setUserDob(dob.getText().toString());
                     user.setPhone(phone.getText().toString());
                     if(location.getSelectedItemPosition() == 0) {
-                        user.getCity().equals("Cairo");
+                        Log.i("userCity", ""+location.getSelectedItemPosition());
+                        user.setCity("Cairo");
                     }else{
-                        user.getCity().equals("Alexandria");
+                        Log.i("userCity", ""+location.getSelectedItemPosition());
+                        user.setCity("Alexandria");
                     }
 
 
@@ -292,6 +294,21 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         skillsGridView.setVisibility(View.GONE);
     }
 
+
+    public void setInstructorUserView(){
+
+        portofolioText.setVisibility(View.VISIBLE);
+        portofolioGridView.setVisibility(View.VISIBLE);
+
+        videosText.setVisibility(View.VISIBLE);
+        videosLayout.setVisibility(View.VISIBLE);
+
+        skillsText.setVisibility(View.VISIBLE);
+        skillsGridView.setVisibility(View.VISIBLE);
+
+    }
+
+
     public void setProfileType(User user){
 
 //        Log.i("type", ""+user.getUserType());
@@ -299,16 +316,20 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
             setGeneralUserView();
 
-            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
+//            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
+            setInstructorButtonVisible();
 //
         }else if (user.getUserType() == 1){
 
             setGeneralUserView();
 
-            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+//            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+            setInstructorButtonGone();
 
         }else{
-            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+//            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+            setInstructorButtonGone();
+            setInstructorUserView();
 
             portofolioAdapter = new PortofolioAdapter(getActivity(), (List<InstructorImages>)user.getInstructor().getInstructorImagesCollection());
             portofolioGridView.setAdapter(portofolioAdapter);
@@ -331,6 +352,26 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             skillsGridAdapter = new SkillsGridAdapter(getContext(), instructorSkills);
             skillsGridView.setAdapter(skillsGridAdapter);
 
+        }
+    }
+
+    public void setInstructorButtonGone(){
+
+        Bundle bundle = getArguments();
+
+        if(bundle == null) {
+
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+        }
+    }
+
+    public void setInstructorButtonVisible(){
+
+        Bundle bundle = getArguments();
+
+        if(bundle == null) {
+
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
         }
     }
 
@@ -373,6 +414,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         editBasicInfo.setEnabled(false);
         pickImage.setEnabled(false);
 
+
         Bundle bundle = getArguments();
 
         if(bundle != null) {
@@ -386,7 +428,9 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
 
         }else {
-
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+            ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+            initView();
             profilePresenter.getCurrentUser();
 
 
@@ -464,7 +508,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void addVideoTextView(InstructorVideos instructorVideos){
 
-        final EditText urlText = new EditText(getContext());
+        final TextView urlText = new TextView(getContext());
         final InstructorVideos video = (InstructorVideos) instructorVideos;
         urlText.setTextSize(18);
         urlText.setTextColor(Color.BLUE);
@@ -512,7 +556,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     void initView(){
 
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
-      //  ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
 //        ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
     }
 
