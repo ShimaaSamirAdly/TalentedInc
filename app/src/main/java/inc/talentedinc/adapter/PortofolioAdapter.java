@@ -17,7 +17,6 @@ import java.util.List;
 
 import inc.talentedinc.R;
 import inc.talentedinc.model.InstructorImages;
-import inc.talentedinc.view.activities.TestImageActivity;
 
 /**
  * Created by MMM on 6/1/2018.
@@ -25,10 +24,10 @@ import inc.talentedinc.view.activities.TestImageActivity;
 
 public class PortofolioAdapter extends BaseAdapter {
 
-    private Collection<InstructorImages> imagesUrl = new ArrayList<>();
+    private List<InstructorImages> imagesUrl = new ArrayList<>();
     private Context context;
 
-    public PortofolioAdapter(Context context, Collection<InstructorImages> urls){
+    public PortofolioAdapter(Context context, List<InstructorImages> urls){
 
         this.context = context;
         this.imagesUrl = urls;
@@ -54,15 +53,13 @@ public class PortofolioAdapter extends BaseAdapter {
         View grid;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Log.i("ada", "adapter");
-        grid = new View(context);
-        grid = inflater.inflate(R.layout.interests_grid_items, parent, false);
+        grid = inflater.inflate(R.layout.portofolio_grid_item, parent, false);
         Log.i("setView", "adapter");
         ImageView imageView = grid.findViewById(R.id.img);
 
-        String[] urls = (String[]) imagesUrl.toArray();
 
         Glide.with(context)
-                .load(urls[position])
+                .load(imagesUrl.get(position).getImageUrl())
                 .into(imageView);
 //            imageView.setLayoutParams(new ViewGroup.LayoutParams(150, 150));
 //            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);

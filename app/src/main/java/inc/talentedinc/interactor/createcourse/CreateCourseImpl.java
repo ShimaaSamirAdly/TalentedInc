@@ -5,6 +5,7 @@ import android.util.Log;
 import inc.talentedinc.API.ApiCreateCourse;
 import inc.talentedinc.listener.OnCreateCourse;
 import inc.talentedinc.model.Course;
+import inc.talentedinc.model.response.CreateCourseResponse;
 import inc.talentedinc.singleton.AppRetrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,18 +21,17 @@ public class CreateCourseImpl implements CreateCourseInter {
 
     @Override
     public void createCourse(Course course, final OnCreateCourse onCreateCourse) {
-    apiCreateCourse.createCourse(course).enqueue(new Callback<Object>() {
+    apiCreateCourse.createCourse(course).enqueue(new Callback<CreateCourseResponse>() {
         @Override
-        public void onResponse(Call<Object> call, Response<Object> response) {
+        public void onResponse(Call<CreateCourseResponse> call, Response<CreateCourseResponse> response) {
 
-            //mfrod eni hna hfok el object da w ageb el gwah
             onCreateCourse.onSuccess(response.body());
 
             Log.i("done",response.body().toString());
         }
 
         @Override
-        public void onFailure(Call<Object> call, Throwable t) {
+        public void onFailure(Call<CreateCourseResponse> call, Throwable t) {
             onCreateCourse.onFail();
             call.cancel();
             Log.i("fail",call.toString());

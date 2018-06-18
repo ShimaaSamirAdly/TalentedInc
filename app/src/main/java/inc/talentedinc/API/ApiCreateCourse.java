@@ -1,6 +1,7 @@
 package inc.talentedinc.API;
 
 import inc.talentedinc.model.Course;
+import inc.talentedinc.model.response.CreateCourseResponse;
 import inc.talentedinc.model.response.MainResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,6 +17,6 @@ import retrofit2.http.PUT;
 public interface ApiCreateCourse {
 
 
-    @PUT(APIUrls.CREATE_COURSE)
-    Call<Object> createCourse(@Body Course course);
+    @POST (APIUrls.CREATE_COURSE)
+    Call<CreateCourseResponse> createCourse(@Body Course course);
 }

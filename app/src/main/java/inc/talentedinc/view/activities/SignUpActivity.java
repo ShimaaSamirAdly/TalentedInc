@@ -60,10 +60,10 @@ public class SignUpActivity extends AppCompatActivity {
         signUPViewPagerAdapter = new SignUPViewPagerAdapter(getSupportFragmentManager());
         signUpViewPager.setAdapter(signUPViewPagerAdapter);
 
-        Intent intent =getIntent();
-        if(intent.getSerializableExtra(LoginActivity.INTENT_USER)!= null){
+        Intent intent = getIntent();
+        if (intent.getSerializableExtra(LoginActivity.INTENT_USER) != null) {
             signedUpUser = (User) intent.getSerializableExtra(LoginActivity.INTENT_USER);
-            signUpViewPager.setCurrentItem(2);
+            signUPViewPagerAdapter.setUserFromFacebook(signedUpUser);
         }
 
         /***********************************************************/
@@ -74,26 +74,30 @@ public class SignUpActivity extends AppCompatActivity {
     private void performNext() {
         switch (signUpViewPager.getCurrentItem()) {
             case 0:
-                if(getFirstSignupData()) {
+                if (getFirstSignupData()) {
                     signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
                 }
                 break;
 
             case 1:
-                if(getSecondSignupData()) {
+                if (getSecondSignupData()) {
                     signUpViewPager.setCurrentItem(signUpViewPager.getCurrentItem() + 1);
                 }
                 break;
 /************************************************Shimaa*************************************/
             case 2:
-//                getThirdSignUpData();
+                getThirdSignUpData();
 //                Log.i("gender", signedUpUser.getGender().toString());
-//                presenter = new SignUpPresenterImpl(this, getApplicationContext());
-//                presenter.insertUser(signedUpUser);
-//                switchToProfile();
-                Intent intent = new Intent(this, OthersProfileActivity.class);
-                intent.putExtra("userId", 32);
-                startActivity(intent);
+                if (signedUpUser.getCategoryCollection().size() != 0) {
+                    presenter = new SignUpPresenterImpl(this, getApplicationContext());
+                    presenter.insertUser(signedUpUser);
+                    switchToProfile();
+                } else {
+                    Toast.makeText(this, "You Have Select At Least One", Toast.LENGTH_LONG).show();
+                }
+//                Intent intent = new Intent(this, OthersProfileActivity.class);
+//                intent.putExtra("userId", 32);
+//                startActivity(intent);
                 break;
             /********************************************************************************************/
         }
@@ -107,7 +111,7 @@ public class SignUpActivity extends AppCompatActivity {
                 signedUpUser.setPassword(tempUser.getPassword());
                 if (signupValidator.validatePhone(tempUser.getPhone())) {
                     signedUpUser.setPhone(tempUser.getPhone());
-                }else {
+                } else {
                     Toast.makeText(this, "invalid phone number", Toast.LENGTH_SHORT).show();
                     return false;
                 }
@@ -125,22 +129,22 @@ public class SignUpActivity extends AppCompatActivity {
 
     private boolean getSecondSignupData() {
         User tempUser = signUPViewPagerAdapter.getSecondSignUpFragment().getUser();
-        if(signupValidator.validateNotEmptyString(tempUser.getFirstName())){
+        if (signupValidator.validateNotEmptyString(tempUser.getFirstName())) {
             signedUpUser.setFirstName(tempUser.getFirstName());
-            if(signupValidator.validateNotEmptyString(tempUser.getLastName())){
+            if (signupValidator.validateNotEmptyString(tempUser.getLastName())) {
                 signedUpUser.setLastName(tempUser.getLastName());
-                if(signupValidator.validateNotEmptyString(tempUser.getUserDob())){
+                if (signupValidator.validateNotEmptyString(tempUser.getUserDob())) {
                     signedUpUser.setUserDob(tempUser.getUserDob());
-                }else{
-                    Toast.makeText(this,"you have to enter a valid date of birth",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "you have to enter a valid date of birth", Toast.LENGTH_SHORT).show();
                     return false;
                 }
-            }else{
-                Toast.makeText(this,"you have to enter you last name",Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "you have to enter you last name", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        }else{
-            Toast.makeText(this,"you have to enter you first name",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "you have to enter you first name", Toast.LENGTH_SHORT).show();
             return false;
         }
         signedUpUser.setGender(tempUser.getGender());

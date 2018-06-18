@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -35,13 +37,14 @@ import inc.talentedinc.presenter.signup.SignUpPresenterImpl;
 
 public class ThirdSignUpFragment extends Fragment {
 
-    SignUpPresenter presenter;
-    SignUpInterestsAdapter adapter;
-    GridView gridview;
-    User user;
-    Collection<Categories> interests;
-    HashMap<Integer, Categories> clickedCount;
-    View view;
+    private SignUpPresenter presenter;
+    private SignUpInterestsAdapter adapter;
+    private GridView gridview;
+    private User user;
+    private Collection<Categories> interests;
+    private HashMap<Integer, Categories> clickedCount;
+    private View view;
+    private ProgressBar loading;
 
     public ThirdSignUpFragment() {
         // Required empty public constructor
@@ -58,11 +61,20 @@ public class ThirdSignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        user = new User();
+
+        Bundle bundle = getArguments();
+
+        if(bundle != null) {
+            user = (User) bundle.getSerializable("user");
+        }else {
+            user = new User();
+        }
 
         view =  inflater.inflate(R.layout.fragment_third_sign_up, container, false);
 
         presenter = new SignUpPresenterImpl(this, getContext());
+
+        loading = view.findViewById(R.id.loading);
 
         presenter.getAllCategories();
 
@@ -74,10 +86,20 @@ public class ThirdSignUpFragment extends Fragment {
 
     public void setData(List<Categories> categoriesList){
 
-        adapter = new SignUpInterestsAdapter(getContext(), categoriesList);
+        loading.setVisibility(View.GONE);
+
+        adapter = new SignUpInterestsAdapter(getContext(), categoriesList, user.getCategoryCollection());
         gridview = view.findViewById(R.id.gridview);
         gridview.setAdapter(adapter);
 
+        if(user.getCategoryCollection() != null) {
+            Iterator<Categories> iter = user.getCategoryCollection().iterator();
+            while (iter.hasNext()) {
+                Categories categories = iter.next();
+                clickedCount.put(categories.getCategoryId(), categories);
+            }
+
+        }
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
@@ -109,12 +131,28 @@ public class ThirdSignUpFragment extends Fragment {
 
     public User getUser(){
 
-        interests = new ArrayList<>(clickedCount.values());
+        interests = new ArrayList<>();
+        interests = clickedCount.values();
         user.setCategoryCollection(interests);
         user.setUserType(0);
+        user.setFollowersNumber(0);
+        user.setFollowingNumber(0);
 
         return user;
     }
 
+    public User getUpdatedUser(){
 
+        if(clickedCount.size() != 0) {
+            interests = new ArrayList<>();
+            interests = clickedCount.values();
+            interests = new ArrayList<>(clickedCount.values());
+            user.setCategoryCollection(interests);
+        }
+
+        return user;
+    }
 }
+
+
+

@@ -11,7 +11,7 @@ public class APIUrls {
 //****************************** Asmaa *************************************************
    public static final int SUCCESS =200;
    public static final String finishedCourses ="finishedCourses";
-//    public static final String BASE_URL="https://tal-company.herokuapp.com";
+    //public static final String BASE_URL="https://tal-company.herokuapp.com";
    public static final String BASE_URL="http://172.16.5.177:3000";
    public static final String UPCOMING="/publishedCourses/upComing";
    public static final String SEARCH_BY_NAME="/publishedCourses/searchUpComing";
@@ -24,8 +24,12 @@ public class APIUrls {
    public static final String COMMENT="/publishedCourses/commentOnCourse";
    public static final String RATE="/publishedCourses/rate";
 //*****************************************************************************************
+
+    // public static final String BASE_URL = "https://tal-company.herokuapp.com";
+   public static final String WORK_SPACE_PROFILE = "workspace/getprofileworkspace" ;
+
     //alaa
-    public static final String USER_LOGIN = "/api/users";
+    public static final String USER_LOGIN = "/users/login";
     public static final String CREATE_COURSE = "/offeredcourse/createofferedcoursebyinstructor";
 
     //    ........................................mina................................................

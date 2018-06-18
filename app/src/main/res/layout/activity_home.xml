@@ -34,4 +34,31 @@
         app:menu="@menu/navigation"
        />
 
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/five_dp"-->
+        <!--android:baselineAlignBottom="true"-->
+        <!--android:src="@drawable/logo"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/navigation"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--tools:ignore="MissingConstraints" />-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/becomeInstructor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:baselineAlignBottom="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_anchor="@id/container"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_marginBottom="@dimen/sixty_dp"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"/>
+
+<!--</android.support.constraint.ConstraintLayout>-->
+
 </android.support.design.widget.CoordinatorLayout>

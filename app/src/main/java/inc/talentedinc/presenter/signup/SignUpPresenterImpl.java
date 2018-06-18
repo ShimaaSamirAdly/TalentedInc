@@ -3,6 +3,7 @@ package inc.talentedinc.presenter.signup;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -76,17 +77,23 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
 
     }
 
+    @Override
+    public void onFailedConnection() {
+        Toast.makeText(context, "No InternetConnection", Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     public void onSuccess(int userId) {
 
         user.setUserId(userId);
-        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        Gson gson = new Gson();
-        String userJson = gson.toJson(user);
-        editor.putString("user", userJson);
-        editor.commit();
+//        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        Gson gson = new Gson();
+//        String userJson = gson.toJson(user);
+//        editor.putString("user", userJson);
+//        editor.commit();
+        SharedPrefrencesSingleton.setSharedPrefUser(context, user);
 
         signUpActivity.switchToProfile();
     }

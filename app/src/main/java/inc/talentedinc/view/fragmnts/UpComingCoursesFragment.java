@@ -54,7 +54,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class UpComingCoursesFragment extends Fragment implements UpComingCoursesPresenter.ViewListener ,HomeListener, View.OnClickListener {
 
 
-    private List<Categories> categories = new ArrayList<>();
+    private List<String> categories = new ArrayList<>();
     /****************************** asmaa *************************/
 
     private RecyclerView recyclerView;
@@ -95,10 +95,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
     /****************************** *************************/
 
-//    void obj(){
-//
-//        interestsAdapter = new SignUpInterestsAdapter(getActivity(),categories);
-//    }
 
     /****************************** asmaa *************************/
 
@@ -171,6 +167,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                         }
                     }
                 });
+
+        presenter.getCategoties();
+
     }
 
     private void loadMoreData() {
@@ -197,7 +196,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                     if (ValidationUtility.validateEmptyString(etComment.getText().toString())){
                         ///// presenter
                         if (ActionUtils.isInternetConnected(getActivity()))
-                        presenter.setComment(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate,etComment.getText().toString());
+                        presenter.setComment(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate,etComment.getText().toString());
                         else
                             ActionUtils.showToast(getActivity(),"Connection Error");
                     }
@@ -223,45 +222,20 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_filter_dialog, null);
         builder.setView(dialogView);
-        presenter.getCategoties();
 
         filterDialog = builder.create();
         if (dialogView != null) {
 
             final Spinner spinnerCategories = dialogView.findViewById(R.id.spinnerCategories);
             final Spinner spinnerCities = dialogView.findViewById(R.id.spinnerCities);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
 
-//           adapter = new CategorySpinAdapter(getActivity(),
-//                    android.R.layout.simple_spinner_item,
-//                    categories);
-//            mySpinner = (Spinner) findViewById(R.id.miSpinner);
-//            mySpinner.setAdapter(adapter); // Set the custom adapter to the spinner
-//            final ArrayAdapter<Categories> adapter =
-//                    new ArrayAdapter<Categories>(getApplicationContext(),  android.R.layout.simple_spinner_item, categories);
-//            adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-         //   spinnerCategories.setAdapter(adapter);
-           // spinnerCategories.setSelection(interestsAdapter);
-//            // You can create an anonymous listener to handle the event when is selected an spinner item
-            //Categories categories= (Categories) ( (Spinner) dialogView.findViewById(R.id.spinnerCategories) ).getSelectedItem();
+            // Drop down layout style - list view with radio button
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-//
-          //  Log.i("Cate",adapter.getItem(0).getName());
-            spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view,
-                                           int position, long id) {
-                    // Here you get the current item (a User object) that is selected by its position
-                    Categories user = adapter.getItem(position);
-                    // Here you can do the action you want to...
-                    Toast.makeText(getActivity(), "ID: " + user.getName() + "\nName: " + user.getName(),
-                            Toast.LENGTH_SHORT).show();
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> adapter) {
-
-                }
-            });
+            // attaching data adapter to spinner
+            spinnerCategories.setAdapter(dataAdapter);
+            Log.i("category", categories.get(0));
 
             Button okBtn = dialogView.findViewById(R.id.btnFilter);
             okBtn.setOnClickListener(new View.OnClickListener() {
@@ -271,7 +245,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                     dataResult.clear();
                     upcomingCoursesAdapter.clearData();
                   page=0;
-                  presenter.getSearchByFilter(2,"Photography", spinnerCities.getSelectedItem().toString(),page);
+                  presenter.getSearchByFilter(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),"Photography", spinnerCities.getSelectedItem().toString(),page);
 
                   filterDialog.dismiss();
                 }
@@ -348,8 +322,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     @Override
     public void setCategories(List<Categories> listData) {
         categories = new ArrayList<>();
-        categories =listData;
-        Log.i("CATEGORIES",categories.get(0).getName());
+        if (listData.size()>0) {
+            for (int i = 0; i < listData.size(); i++) {
+                categories.add(listData.get(i).getName());
+            }
+        }
     }
 
     @Override
@@ -381,12 +358,12 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     @Override
     public void onLikeClick(int courseId , String courseDate) {
         // presenter
-            presenter.setLike(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate);
+            presenter.setLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
     }
 
     @Override
     public void onDisLikeClick(int courseId, String courseDate) {
-        presenter.setDisLike(/*SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId()*/2,courseId,courseDate);
+        presenter.setDisLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
     }
 
     @Override

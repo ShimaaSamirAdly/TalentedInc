@@ -157,6 +157,11 @@ public class UpComingCoursesPresenter {
                 view.showCategoriesError("categories >> Failure");
 
             }
+
+            @Override
+            public void onFailedConnection() {
+
+            }
         });
     }
 

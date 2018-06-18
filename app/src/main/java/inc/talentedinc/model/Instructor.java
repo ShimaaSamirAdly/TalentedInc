@@ -22,7 +22,7 @@ public class Instructor implements Serializable{
 //        @OneToOne(cascade = CascadeType.ALL, mappedBy = "instructor")
 //        private InstructorVideos instructorVideos;
 //
-//        private Collection<Skills> skillsCollection;
+        private Collection<InstructorSkills> skillsCollection;
 
 //        private Admin adminApprovedrId;
 
@@ -95,13 +95,13 @@ public class Instructor implements Serializable{
 //            this.instructorVideos = instructorVideos;
 //        }
 
-//        public Collection<Skills> getSkillsCollection() {
-//            return skillsCollection;
-//        }
-//
-//        public void setSkillsCollection(Collection<Skills> skillsCollection) {
-//            this.skillsCollection = skillsCollection;
-//        }
+        public Collection<InstructorSkills> getSkillsCollection() {
+            return skillsCollection;
+        }
+
+        public void setSkillsCollection(Collection<InstructorSkills> skillsCollection) {
+            this.skillsCollection = skillsCollection;
+        }
 //
 //        public Admin getAdminApprovedrId() {
 //            return adminApprovedrId;

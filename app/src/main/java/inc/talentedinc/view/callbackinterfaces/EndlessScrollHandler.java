@@ -12,5 +12,14 @@ public interface EndlessScrollHandler {
     void hideProgressBar();
     void showProgressBar();
     void makeErrorToast();
+    void makeToastRequestResult(int result,int position);
+    void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed);
+
+    void dataFinished();
+
+    void courseRequestCanceled(int position);
+
+
+    void errorCancelingCopurse(int position);
 
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -39,6 +41,13 @@ public class ProfilePresenterImpl implements ProfilePresenter, UserProfileListen
     }
 
     @Override
+    public void getCurrentUser() {
+
+        user = SharedPrefrencesSingleton.getSharedPrefUser(context);
+        profileInteractor.getCurrentUser(user.getUserId(), this);
+    }
+
+    @Override
     public void updateUser(User user) {
 
         profileInteractor.updateUser(user, this);
@@ -51,15 +60,29 @@ public class ProfilePresenterImpl implements ProfilePresenter, UserProfileListen
         uploadImageInteractor.uploadImage(filePath, this);
     }
 
-    @Override
-    public void onSuccess() {
 
+    @Override
+    public void onSuccess(User user) {
         SharedPrefrencesSingleton.setSharedPrefUser(context, user);
+    }
+
+    @Override
+    public void onFailedConnection() {
+
     }
 
     @Override
     public void onFailure() {
 
+        Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
+        user = SharedPrefrencesSingleton.getSharedPrefUser(context);
+        profileFragment.setUserData(user);
+    }
+
+    @Override
+    public void onGetCurrentUser(User user) {
+
+        profileFragment.setUserData(user);
     }
 
     @Override

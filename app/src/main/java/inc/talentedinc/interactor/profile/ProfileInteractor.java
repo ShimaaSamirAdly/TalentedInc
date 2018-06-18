@@ -10,4 +10,6 @@ import inc.talentedinc.model.User;
 public interface ProfileInteractor {
 
     public void updateUser(User user, final UserProfileListener listener);
+
+    public void getCurrentUser(int currentUserId, final UserProfileListener listener);
 }
