@@ -91,7 +91,7 @@ public class SignUpActivity extends AppCompatActivity {
                 if(signedUpUser.getCategoryCollection().size() != 0) {
                     presenter = new SignUpPresenterImpl(this, getApplicationContext());
                     presenter.insertUser(signedUpUser);
-                    switchToProfile();
+//                    switchToProfile();
                 }else{
                     Toast.makeText(this, "You Have Select At Least One", Toast.LENGTH_LONG).show();
                 }

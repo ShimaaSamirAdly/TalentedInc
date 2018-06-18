@@ -56,13 +56,14 @@ public class ProfileInteractorImpl implements ProfileInteractor {
                     listener.onGetCurrentUser(user);
                 }else{
                     Log.i("curentUser", ""+response.code());
-                    listener.onFailure();
+                    listener.onFailedConnection();
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
+                Log.i("curentUser", "faileeed");
+                    listener.onFailure();
             }
         });
     }
