@@ -12,9 +12,12 @@ import inc.talentedinc.model.OtherUsers;
 import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.profile.OthersProfilePresenter;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by MMM on 6/3/2018.
@@ -27,7 +30,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
 
     @Override
     public void getUserProfile(int userProfileId, int currentUserId, final OthersProfileListener listener) {
-        Call<OtherUsers> call = profileEndpoint.getUserProfile(userProfileId, currentUserId, "no-cache");
+        Call<OtherUsers> call = profileEndpoint.getUserProfile(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userProfileId, currentUserId, "no-cache");
         call.enqueue(new Callback<OtherUsers>() {
             @Override
             public void onResponse(Call<OtherUsers> call, Response<OtherUsers> response) {
@@ -53,7 +56,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void followUser(int currentUserId, int followingUserId, final OthersProfileListener listener) {
 
-        Call<Void> call = profileEndpoint.followUser(currentUserId, followingUserId);
+        Call<Void> call = profileEndpoint.followUser(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),currentUserId, followingUserId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -71,7 +74,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void unfollowUser(int currentUserId, int unfollowingUserId, final OthersProfileListener listener) {
 
-        Call<Void> call = profileEndpoint.unfollowUser(currentUserId, unfollowingUserId);
+        Call<Void> call = profileEndpoint.unfollowUser(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),currentUserId, unfollowingUserId);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -89,7 +92,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void getFollowers(int userId, final OthersProfileListener listener) {
 
-        Call<ArrayList<Followers>> call = profileEndpoint.getFollowers(userId);
+        Call<ArrayList<Followers>> call = profileEndpoint.getFollowers(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId);
         call.enqueue(new Callback<ArrayList<Followers>>() {
             @Override
             public void onResponse(Call<ArrayList<Followers>> call, Response<ArrayList<Followers>> response) {
@@ -111,7 +114,7 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void getFollowings(int userId, final OthersProfileListener listener) {
 
-        Call<ArrayList<Followers>> call = profileEndpoint.getFollowing(userId);
+        Call<ArrayList<Followers>> call = profileEndpoint.getFollowing(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId);
         call.enqueue(new Callback<ArrayList<Followers>>() {
             @Override
             public void onResponse(Call<ArrayList<Followers>> call, Response<ArrayList<Followers>> response) {

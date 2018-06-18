@@ -9,6 +9,8 @@ public class CourseComment implements Serializable
     private Integer userIdOfComment;
     private String comment;
     private String time;
+    private String userNameOfcomment;
+    private String userImageOfComment;
     private final static long serialVersionUID = -1920818391702369194L;
 
     public Integer getUserIdOfComment() {
@@ -35,4 +37,19 @@ public class CourseComment implements Serializable
         this.time = time;
     }
 
+    public String getUserNameOfcomment() {
+        return userNameOfcomment;
+    }
+
+    public void setUserNameOfcomment(String userNameOfcomment) {
+        this.userNameOfcomment = userNameOfcomment;
+    }
+
+    public String getUserImageOfComment() {
+        return userImageOfComment;
+    }
+
+    public void setUserImageOfComment(String userImageOfComment) {
+        this.userImageOfComment = userImageOfComment;
+    }
 }

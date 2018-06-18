@@ -112,11 +112,13 @@
     <string name="search">Search ...</string>
     <string name="title_activity_main2p">Main2pActivity</string>
     <string name="accept_request_btn">Accept</string>
+    <string name="course_rate">Rate course:</string>
+    <string name="instructor_rate">Rate Instructor</string>
+    <string name="workspace_rate">Rate Workspace</string>
     <string name="PhotoAlbum">Photo Album</string>
+
     <string name="my_courses_btn">Go To My Offered Courses</string>
     <string name="SignUpButton">Sign Up</string>
-
-
 
     <!--................................................................................-->
 

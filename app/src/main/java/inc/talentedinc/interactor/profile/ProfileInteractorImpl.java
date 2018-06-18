@@ -6,9 +6,12 @@ import inc.talentedinc.API.ProfileEndpoint;
 import inc.talentedinc.listener.UserProfileListener;
 import inc.talentedinc.model.User;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by MMM on 6/2/2018.
@@ -21,7 +24,7 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     @Override
     public void updateUser(final User user, final UserProfileListener listener) {
 
-        Call<Void> call = profileEndpoint.updateUser(user);
+        Call<Void> call = profileEndpoint.updateUser(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),user);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -44,7 +47,7 @@ public class ProfileInteractorImpl implements ProfileInteractor {
     @Override
     public void getCurrentUser(int currentUserId, final UserProfileListener listener) {
 
-        Call<User> call = profileEndpoint.getCurrentUserProfile(currentUserId, "no-cache");
+        Call<User> call = profileEndpoint.getCurrentUserProfile(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),currentUserId, "no-cache");
         Log.i("userId", ""+currentUserId);
         call.enqueue(new Callback<User>() {
             @Override

@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
@@ -18,5 +19,6 @@ public interface ApiCreateCourse {
 
 
     @POST (APIUrls.CREATE_COURSE)
-    Call<CreateCourseResponse> createCourse(@Body Course course);
+    Call<CreateCourseResponse> createCourse(@Header("Authorization") String token,
+                                            @Body Course course);
 }

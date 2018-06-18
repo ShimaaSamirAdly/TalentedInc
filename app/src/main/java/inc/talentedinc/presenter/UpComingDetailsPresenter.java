@@ -1,8 +1,11 @@
 package inc.talentedinc.presenter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import inc.talentedinc.interactor.commentLike.CommentLikeInteractor;
+import inc.talentedinc.interactor.rate.RateInteractor;
+import inc.talentedinc.interactor.register.RegisterInteractor;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
 import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
@@ -18,9 +21,13 @@ public class UpComingDetailsPresenter {
 
     private ViewUpComingDetails view;
     private CommentLikeInteractor commentLikeInteractor;
+    private RegisterInteractor registerInteractor;
+    private RateInteractor rateInteractor;
 
-    public UpComingDetailsPresenter(CommentLikeInteractor commentLikeInteractor){
+    public UpComingDetailsPresenter(CommentLikeInteractor commentLikeInteractor,RegisterInteractor registerInteractor,RateInteractor rateInteractor){
         this.commentLikeInteractor=commentLikeInteractor;
+        this.registerInteractor=registerInteractor;
+        this.rateInteractor=rateInteractor;
     }
 
     public void setView(Result data, ViewUpComingDetails view) {
@@ -37,12 +44,15 @@ public class UpComingDetailsPresenter {
             view.setLikes(data.getNumberOfLikes());
             view.setCourseName(data.getName());
             view.setDescription(data.getDescription());
-            view.setDuration(data.getDescription());
+            view.setDuration(data.getDurationHours()+" Hours");
             view.setEndDate(data.getEndDate());
             view.setStartDate(data.getStartDate());
-            view.setInstructorName("Asmaa");
+            view.setInstructorName(data.getNameOfInstructor());
             view.setWorkspaceName(data.getHostingWorkSpaceId().getName());
             view.setLocation(data.getHostingWorkSpaceId().getAddress());
+            view.setIsLike(data.getLiked());
+            view.setIsRegister(data.isRegistered());
+            view.setIsRate(data.isRated());
 
         }
     }
@@ -55,6 +65,8 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setCommentResult();
+
             }
             @Override
             public void onFailure() {
@@ -72,6 +84,67 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setLikeResult();
+
+            }
+
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+                view.hideProgress();
+            }
+        });
+    }
+
+    public void disLike(int userIid,int courseId,String courseDate){
+        view.showProgress();
+        commentLikeInteractor.setDisLike(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.hideProgress();
+                view.setDisLikeResult();
+            }
+
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+                view.hideProgress();
+
+
+            }
+        });
+
+    }
+    public void setRegister(int userIid,int courseId,String courseDate){
+        view.showProgress();
+        registerInteractor.setRegister(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.hideProgress();
+                view.setRegisterResult();
+
+            }
+
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+                view.hideProgress();
+
+
+            }
+        });
+
+    }
+    public void unRegister(int userIid,int courseId,String courseDate){
+        view.showProgress();
+        registerInteractor.unRegister(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.hideProgress();
+                view.setUnRegisterResult();
             }
 
             @Override
@@ -85,6 +158,20 @@ public class UpComingDetailsPresenter {
 
     }
 
+    public void setRate(int userIid,int courseId,String courseDate , float courseRate,float instructorRate ,float workSpaceRate ){
+        rateInteractor.setRate(userIid, courseId, courseDate,courseRate,instructorRate,workSpaceRate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.setRateResult();
+            }
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+
+            }
+        });
+    }
     public interface ViewUpComingDetails {
         void showProgress();
         void hideProgress();
@@ -100,6 +187,16 @@ public class UpComingDetailsPresenter {
         void setDescription(String description);
         void setComments(ArrayList<CourseComment>comments);
         void showToast(String msg);
+        void setIsLike(boolean isLike);
+        void setIsRegister(boolean isRegister);
+        void setRegisterResult();
+        void setUnRegisterResult();
+        void setIsRate(boolean isRate);
+        void setRateResult();
+        void setLikeResult();
+        void setDisLikeResult();
+        void setCommentResult();
+
     }
 
 

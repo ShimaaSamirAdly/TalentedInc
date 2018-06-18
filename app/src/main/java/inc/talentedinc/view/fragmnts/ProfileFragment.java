@@ -126,6 +126,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+
 //        ***************************** Asmaa ***************************************
 //        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
 //        initView();
@@ -515,9 +517,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
-
 
     void initView(){
 

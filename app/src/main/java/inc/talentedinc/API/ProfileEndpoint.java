@@ -23,23 +23,23 @@ import retrofit2.http.Query;
 public interface ProfileEndpoint {
 
     @PUT("/users/update")
-    Call<Void> updateUser(@Body User user);
+    Call<Void> updateUser(@Header("Authorization") String token,@Body User user);
 
     @GET("/users/{id}/profile")
-    Call<OtherUsers> getUserProfile(@Path("id") int id, @Query("userId") int userId, @Header("Cache-Control") String cacheControl);
+    Call<OtherUsers> getUserProfile(@Header("Authorization") String token,@Path("id") int id, @Query("userId") int userId, @Header("Cache-Control") String cacheControl);
 
     @GET("/users/{id}/myProfile")
-    Call<User> getCurrentUserProfile(@Path("id") int userId, @Header("Cache-Control") String cacheControl);
+    Call<User> getCurrentUserProfile(@Header("Authorization") String token,@Path("id") int userId, @Header("Cache-Control") String cacheControl);
 
     @POST("/users/followUser")
-    Call<Void> followUser(@Query("id") int currentUserId, @Query("userToFollowId") int followedUserId);
+    Call<Void> followUser(@Header("Authorization") String token,@Query("id") int currentUserId, @Query("userToFollowId") int followedUserId);
 
     @DELETE("/users/unFollowUser")
-    Call<Void> unfollowUser(@Query("id") int currentUserId, @Query("userToUnFollowId") int followedUserId);
+    Call<Void> unfollowUser(@Header("Authorization") String token,@Query("id") int currentUserId, @Query("userToUnFollowId") int followedUserId);
 
     @GET("/users/{id}/following")
-    Call<ArrayList<Followers>> getFollowing(@Path("id") int userId);
+    Call<ArrayList<Followers>> getFollowing(@Header("Authorization") String token,@Path("id") int userId);
 
     @GET("/users/{id}/followers")
-    Call<ArrayList<Followers>> getFollowers(@Path("id") int userId);
+    Call<ArrayList<Followers>> getFollowers(@Header("Authorization") String token,@Path("id") int userId);
 }

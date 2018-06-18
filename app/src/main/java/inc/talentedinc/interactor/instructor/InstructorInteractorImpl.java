@@ -12,9 +12,12 @@ import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Instructor;
 import inc.talentedinc.model.User;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by MMM on 6/8/2018.
@@ -26,7 +29,7 @@ public class InstructorInteractorImpl implements InstructorInteractor {
 
     public void becomeInstructor(final Instructor instructor, final InstructorListener listener){
 
-            Call<User> call = instructorEndpoint.becomeInstructor(instructor);
+            Call<User> call = instructorEndpoint.becomeInstructor(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructor);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {

@@ -6,6 +6,7 @@ import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.WorkSpace;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 /**
@@ -15,5 +16,6 @@ import retrofit2.http.Query;
 public interface ApiWorkSpaceProfile {
 
     @GET(APIUrls.WORK_SPACE_PROFILE)
-    Call<WorkSpace> getWorkSpaceProfile(@Query("workSpaceId") Integer workSpaceId);
+    Call<WorkSpace> getWorkSpaceProfile(@Header("Authorization") String token,
+                                        @Query("workSpaceId") Integer workSpaceId);
 }

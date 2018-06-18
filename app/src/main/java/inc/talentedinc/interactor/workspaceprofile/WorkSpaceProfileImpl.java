@@ -6,9 +6,12 @@ import inc.talentedinc.API.ApiWorkSpaceProfile;
 import inc.talentedinc.listener.OnReceivedWorkSpaceProfile;
 import inc.talentedinc.model.WorkSpace;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by Alaa on 6/9/2018.
@@ -19,7 +22,7 @@ public class WorkSpaceProfileImpl implements WorkSpaceProfileInter {
 
     @Override
     public void receivedProfile( Integer workSpaceProfile , final OnReceivedWorkSpaceProfile receivedWorkSpaceProfile) {
-        apiWorkSpaceProfile.getWorkSpaceProfile(workSpaceProfile).enqueue(new Callback<WorkSpace>() {
+        apiWorkSpaceProfile.getWorkSpaceProfile(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),workSpaceProfile).enqueue(new Callback<WorkSpace>() {
             @Override
             public void onResponse(Call<WorkSpace> call, Response<WorkSpace> response) {
                 Log.i("WorkSpaceIsHere",response.body().getName());

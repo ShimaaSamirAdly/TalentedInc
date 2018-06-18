@@ -7,7 +7,7 @@ public class HostingWorkSpaceId implements Serializable
 {
 
     private Integer workSpaceId;
-    private Integer totalRate;
+    private Double totalRate;
     private String imageUrl;
     private String city;
     private String address;
@@ -32,11 +32,11 @@ public class HostingWorkSpaceId implements Serializable
         this.workSpaceId = workSpaceId;
     }
 
-    public Integer getTotalRate() {
+    public Double getTotalRate() {
         return totalRate;
     }
 
-    public void setTotalRate(Integer totalRate) {
+    public void setTotalRate(Double totalRate) {
         this.totalRate = totalRate;
     }
 
