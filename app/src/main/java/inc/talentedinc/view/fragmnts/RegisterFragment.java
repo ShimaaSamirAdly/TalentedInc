@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.rey.material.widget.ProgressView;
@@ -34,7 +36,9 @@ import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
+import inc.talentedinc.utilitis.ValidationUtility;
 import inc.talentedinc.view.activities.HomeActivity;
+import inc.talentedinc.view.activities.OthersProfileActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -112,15 +116,39 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
         presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
-    private void commentDialog(int courseId, String courseDate){
+    private void commentDialog(final int courseId, final String courseDate){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
         builder.setView(dialogView);
-
         commentDialog = builder.create();
         if (dialogView != null) {
+            final EditText etComment= dialogView.findViewById(R.id.etComment);
+            Button commentBtn = dialogView.findViewById(R.id.btnComment);
+            Button cancelBtn = dialogView.findViewById(R.id.btnCancel);
+            commentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ValidationUtility.validateEmptyString(etComment.getText().toString())){
+                        ///// presenter
+                        if (ActionUtils.isInternetConnected(getActivity()))
+                            presenter.setComment(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate,etComment.getText().toString());
+                        else
+                            ActionUtils.showToast(getActivity(),"Connection Error");
+                    }
+                }
+            });
 
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Hide keyboard
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(getActivity().INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    // dismiss dialog
+                    commentDialog.dismiss();
+                }
+            });
         }
         commentDialog.show();
     }
@@ -255,7 +283,7 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
 
     @Override
     public void setCommentResult() {
-
+        commentDialog.dismiss();
     }
 
     @Override
@@ -279,7 +307,6 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
     @Override
     public void onDisLikeClick(int courseId, String courseDate) {
         presenter.setDisLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
-
     }
 
     @Override
@@ -290,7 +317,9 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
 
     @Override
     public void onInstructorClick(int instracturId) {
-
+        Intent intentUser = new Intent(getActivity(), OthersProfileActivity.class);
+        intentUser.putExtra("userId", instracturId);
+        startActivity(intentUser);
     }
 
     @Override

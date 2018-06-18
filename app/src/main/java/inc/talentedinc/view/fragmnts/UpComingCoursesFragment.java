@@ -43,6 +43,7 @@ import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ValidationUtility;
 import inc.talentedinc.view.activities.HomeActivity;
+import inc.talentedinc.view.activities.OthersProfileActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
@@ -132,7 +133,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
             }
         });
 
-        presenter.setView(2,page, this);
+        presenter.setView(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page, this);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {
             @Override
             public void onLoadMore() {
@@ -154,29 +155,30 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                         //upcomingCoursesAdapter.clearData();
                         String newSearchQuery = textViewTextChangeEvent.text() + "";
                         if( !mLastSearchQuery.equals(newSearchQuery) &&  !newSearchQuery.equals(null)
-                                && !newSearchQuery.equals("search") ) {
+                                && !newSearchQuery.equals("search") && !newSearchQuery.equals("")) {
                             // isSearch=true;
                             mLastSearchQuery = newSearchQuery;
                             if (ActionUtils.isInternetConnected(getActivity())) {
                                   dataResult.clear();
                                 upcomingCoursesAdapter.clearData();
                                 page =0;
-                                presenter.getSearchByName(2,mLastSearchQuery, page);
+                                presenter.getSearchByName(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),mLastSearchQuery, page);
                             }else {
                                 ActionUtils.showToast(getActivity(), "connection error");
                             }
                         }
                     }
                 });
-
+//        if (mLastSearchQuery.equals("")){
+//            page=0;
+//        }
         presenter.getCategoties();
-
     }
 
     private void loadMoreData() {
         upcomingCoursesAdapter.setLoading(true);
         page++;
-        presenter.getHomeData(2,page);
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     private void commentDialog(final int courseId , final String courseDate){
@@ -400,6 +402,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     @Override
     public void onInstructorClick(int instructorId) {
         //// switch to instructor Profile
+        Intent intentUser = new Intent(getActivity(), OthersProfileActivity.class);
+        intentUser.putExtra("userId", instructorId);
+        startActivity(intentUser);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class Result implements Serializable
     private String description;
     private Integer noOfApplicant;
     private Integer cost;
-    private Object imageUrl;
+    private String imageUrl;
     private CategoryId categoryId;
     private InstructorId instructorId;
     private HostingWorkSpaceId hostingWorkSpaceId;
@@ -105,11 +105,11 @@ public class Result implements Serializable
         this.cost = cost;
     }
 
-    public Object getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(Object imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

@@ -54,13 +54,11 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         txtDate = itemView.findViewById(R.id.textView20);
         tvLikes =itemView.findViewById(R.id.textView13);
         tvComments =itemView.findViewById(R.id.textView14);
-
         img = itemView.findViewById(R.id.imageView);
         img.setOnClickListener(this);
         etComment=itemView.findViewById(R.id.editText);
         etComment.setOnClickListener(this);
         imgRte = itemView.findViewById(R.id.imageView2);
-
         imgRte.setOnClickListener(this);
         likeButton = itemView.findViewById(R.id.thumb_button);
         likeButton.setOnLikeListener(this);
@@ -76,7 +74,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         tvLikes.setText(String.valueOf(courseModel.getNumberOfLikes()));
         tvComments.setText(String.valueOf(courseModel.getNumberOfComments()));
 //        if(courseModel.getImageUrl()!=null ) {
-            Glide.with(context).load(courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.default_course).into(img);
+            Glide.with(context).load(courseModel.getImageUrl()).centerCrop().into(img);
 //        }
         if (courseModel.getLiked()){
             likeButton.setLiked(true);
@@ -93,7 +91,6 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
             else
                 imgRte.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override

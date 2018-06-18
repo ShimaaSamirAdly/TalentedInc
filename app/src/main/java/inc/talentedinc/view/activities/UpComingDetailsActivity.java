@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
 import com.like.OnAnimationEndListener;
 import com.like.OnLikeListener;
@@ -184,7 +185,8 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                     commentTvTime.setText(comments.get(i).getTime());
                 }
                 if (!comments.get(i).getUserImageOfComment().equals(null)){
-                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop().into(commentUserImg);
+                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop()
+                            .into(commentUserImg);
                 }
                 a.addView(child);
             }
@@ -254,6 +256,11 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         commentDialog.dismiss();
         int resultN = Integer.parseInt(tvCommentsNum.getText().toString());
         tvCommentsNum.setText(String.valueOf(resultN+1));
+    }
+
+    @Override
+    public void setCourseImage(String image) {
+        Glide.with(this).load(image).centerCrop().into(imgCourse);
     }
 
     @Override
