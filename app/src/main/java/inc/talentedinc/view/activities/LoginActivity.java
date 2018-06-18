@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
-    private static final int RC_SIGN_IN = 007;
+    private static final int RC_SIGN_IN = 7;
     private SignInButton btnSignIn;
     private TextView email ;
     private TextView password ;
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d("Status", "handleSignInResult:" + result.isSuccess());
+        Log.i("StatusGmail", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             gmailUser.setGoogleToken(acct.getIdToken());
             gmailUser.setGoogleId(acct.getId());
             completeSignup(gmailUser);
-            Log.i("response", "display name: " + acct.getDisplayName());
+            Log.i("responseGmail", "display name: " + acct.getDisplayName());
 
             String personName = acct.getDisplayName();
             String email = acct.getEmail();
@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         } else {
             // Signed out, show unauthenticated UI.
-            Log.i("Error",result.getStatus().toString());
+            Log.i("ErrorGmail",result.getStatus().toString());
         }
     }
     //------------------------------------------------------------------------------------//
@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-        Log.i("onConnectionFailed", "onConnectionFailed:" + connectionResult);
+        Log.i("onConnectionFailedGmail", "onConnectionFailed:" + connectionResult);
 
     }
 
@@ -266,9 +266,13 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i("activityEntered", ""+requestCode);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.i("shaimaa",result.toString());
             handleSignInResult(result);
+            Log.i("mina", ""+result.isSuccess());
+
         }
     }
 

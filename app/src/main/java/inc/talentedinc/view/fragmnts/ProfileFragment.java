@@ -300,7 +300,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     public void setProfileType(User user){
 
 //        Log.i("type", ""+user.getUserType());
-        if(user.getInstructor() == null){
+        if(user.getUserType() == 0){
 
             setGeneralUserView();
 
