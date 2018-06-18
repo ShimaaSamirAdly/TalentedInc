@@ -29,11 +29,16 @@ public class SignUpInteractorImpl implements SignUpInteractor {
 
             @Override
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
-                Log.i("errorData", "respo");
+
                 Log.i("errorData", String.valueOf(response.code()));
                 MainResponse res = (MainResponse) response.body();
-//                Log.i("conn", ""+res.getUserId());
-                listener.onSuccess(Integer.parseInt(res.getUserId()));
+
+                if(response.code() == 200) {
+                    Log.i("errorData", "responseCode "+response.code());
+                    listener.onSuccess(Integer.parseInt(res.getUserId()));
+                }else{
+                    listener.onFailedConnection();
+                }
             }
 
             @Override

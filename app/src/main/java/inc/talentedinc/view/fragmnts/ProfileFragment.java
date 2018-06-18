@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -101,6 +102,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     private SignupValidator validator;
     private SkillsGridAdapter skillsGridAdapter;
     private ArrayList<String> instructorSkills;
+    private ProgressBar loading;
 
 
     /*****************************************************************/
@@ -126,6 +128,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
 //        ***************************** Asmaa ***************************************
 //        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
+//        initView();
 
 //        ********************************************************************
 
@@ -142,13 +145,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         cancel = view.findViewById(R.id.cancel);
         editBasicInfo = view.findViewById(R.id.edit_basic_info);
         email = view.findViewById(R.id.email);
-//        email.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
         phone = view.findViewById(R.id.phone);
         phone.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
         phone.setEnabled(false);
         dob = view.findViewById(R.id.dob);
         dob.setEnabled(false);
-//        dob.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
         final DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.setDateSetter(this);
         dob.setOnClickListener(new View.OnClickListener() {
@@ -171,20 +172,23 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         interestsGridView = view.findViewById(R.id.interestsGridView);
         interestsGridView.setExpanded(true);
         portofolioText = view.findViewById(R.id.portofolioText);
+        portofolioText.setVisibility(View.GONE);
         portofolioGridView = view.findViewById(R.id.portofolioGridView);
         portofolioGridView.setExpanded(true);
-//        editPortofolio = view.findViewById(R.id.edit_portofolio);
+        portofolioGridView.setVisibility(View.GONE);
         videosText = view.findViewById(R.id.videosText);
+        videosText.setVisibility(View.GONE);
         videosLayout = view.findViewById(R.id.videosLayout);
-//        editVideos = view.findViewById(R.id.editVideos);
+        videosLayout.setVisibility(View.GONE);
         skillsText = view.findViewById(R.id.skillsText);
-//        editSkills = view.findViewById(R.id.editSkill);
+        skillsText.setVisibility(View.GONE);
         skillsGridView = view.findViewById(R.id.skillsLayout);
+        skillsGridView.setVisibility(View.GONE);
         followers = view.findViewById(R.id.followers);
         following = view.findViewById(R.id.following);
-//        addSkill = view.findViewById(R.id.addSkill);
-//        addVideo.setVisibility(View.GONE);
+
         isEditableVideo = false;
+        loading = view.findViewById(R.id.loading);
 
 
         profilePresenter = new ProfilePresenterImpl(this, getContext());
@@ -205,9 +209,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onClick(View v) {
 
-//                email.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN);
                 phone.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN);
-//                dob.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN);
                 location.getBackground().setColorFilter(Color.LTGRAY, PorterDuff.Mode.SRC_IN);
 
                 phone.setEnabled(true);
@@ -223,7 +225,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         updateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                user.setCity(location.getText().toString());
+
                 if(validator.validatePhone(phone.getText().toString())) {
                     user = SharedPrefrencesSingleton.getSharedPrefUser(getContext());
                     user.setUserDob(dob.getText().toString());
@@ -237,12 +239,9 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
                     profilePresenter.updateUser(user);
 
-//                    email.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
                     phone.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
-//                    dob.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
                     location.getBackground().setColorFilter(Color.TRANSPARENT, PorterDuff.Mode.SRC_IN);
 
-//                    email.setEnabled(false);
                     phone.setEnabled(false);
                     dob.setEnabled(false);
                     location.setEnabled(false);
@@ -282,26 +281,20 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         });
 
 
-
-//        editSkills.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                addVideo.setVisibility(View.VISIBLE);
-////                isEditableVideo = true;
-////
-//                if (!addSkill.getText().toString().equals("")) {
-//                    InstructorSkills instructorSkills = new InstructorSkills(user.getUserId(), addSkill.getText().toString());
-////                    skills.add(instructorSkills);
-////                    addVideoTextView(instructorVideos);
-//                    addSkill.setText("");
-//                    Log.i("video", "" + videosUrls.size());
-//                }else{
-//                    Toast.makeText(getContext(), "Empty Field", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-
         return view;
+    }
+
+    public void setGeneralUserView(){
+
+        portofolioText.setVisibility(View.GONE);
+        portofolioGridView.setVisibility(View.GONE);
+
+        videosText.setVisibility(View.GONE);
+        videosLayout.setVisibility(View.GONE);
+
+        skillsText.setVisibility(View.GONE);
+        skillsGridView.setVisibility(View.GONE);
+
     }
 
 
@@ -309,36 +302,22 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
 //        Log.i("type", ""+user.getUserType());
         if(user.getInstructor() == null){
-            portofolioText.setVisibility(View.GONE);
-            portofolioGridView.setVisibility(View.GONE);
 
-            videosText.setVisibility(View.GONE);
-            videosLayout.setVisibility(View.GONE);
+            setGeneralUserView();
 
-            skillsText.setVisibility(View.GONE);
-            skillsGridView.setVisibility(View.GONE);
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
 //
         }else if (user.getUserType() == 1){
 
-//            user.setInstructor(new Instructor());
-//            Collection<InstructorImages> im = new ArrayList<>();
-//            im.add(new InstructorImages(1, "https://firebasestorage.googleapis.com/v0/b/talentedinc-bba9a.appspot.com/o/image%2F1396998a-cd40-44ba-bb2b-ab0eb7f12531?alt=media&token=1bdffac7-41ce-4765-9b99-3ddf4028c593"));
-//            user.getInstructor().setInstructorImagesCollection(im);
+            setGeneralUserView();
+
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+
+        }else{
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+
             portofolioAdapter = new PortofolioAdapter(getActivity(), (List<InstructorImages>)user.getInstructor().getInstructorImagesCollection());
             portofolioGridView.setAdapter(portofolioAdapter);
-//
-//            InstructorVideos v = new InstructorVideos(1, "urlVideo");
-//            Collection<InstructorVideos> nb = new ArrayList<>();
-//            nb.add(new InstructorVideos("hhhhhhh"));
-//            nb.add(new InstructorVideos("iiiiiiii"));
-//            nb.add(new InstructorVideos("ppppppp"));
-//            nb.add(new InstructorVideos("oooooooooo"));
-//            nb.add(new InstructorVideos("oooooooooooooooo"));
-//            nb.add(new InstructorVideos("eeeeeeeeeeeeeee"));
-//            nb.add(new InstructorVideos("rrrrrrrrrrrrrrrr"));
-//            user.setInstructor(new Instructor());
-//            user.getInstructor().setInstructorUrlsCollection(nb);
-//            videosLayout.removeAllViews();
 
            videosUrls = user.getInstructor().getInstructorUrlsCollection();
             Iterator iter = videosUrls.iterator();
@@ -358,13 +337,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             skillsGridAdapter = new SkillsGridAdapter(getContext(), instructorSkills);
             skillsGridView.setAdapter(skillsGridAdapter);
 
-//            editSkills.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    addSkill.setVisibility(View.VISIBLE);
-//
-//                }
-//            });
         }
     }
 
@@ -402,6 +374,12 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     public void onResume() {
         super.onResume();
 
+        initView();
+
+        loading.setVisibility(View.VISIBLE);
+        editBasicInfo.setEnabled(false);
+        pickImage.setEnabled(false);
+        ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
 
         Bundle bundle = getArguments();
 
@@ -418,14 +396,17 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         }else {
 
             profilePresenter.getCurrentUser();
-            ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
-            initView();
+
 
         }
 
     }
 
     public void setUserData(final User user){
+
+        loading.setVisibility(View.GONE);
+        editBasicInfo.setEnabled(true);
+        pickImage.setEnabled(true);
 
         userName.setText(user.getFirstName()+" " + user.getLastName());
         email.setText(user.getEmail());
@@ -512,45 +493,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                     Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + url.substring(url.lastIndexOf("=")+1)));
                     startActivity(appIntent);
                 }
-//                else
-//
-//                    videosLayout.removeView(urlText);
-//                    videosUrls.remove(video);
-//                    Log.i("video", ""+videosUrls.size());
-//                }
             }
         });
 
     }
-
-
-//    public void addSkillTextView(InstructorSkills instructorSkills){
-//
-//        final TextView skillValue = new TextView(getContext());
-//        final InstructorSkills skill = (InstructorSkills) instructorSkills;
-//        skillValue.setTextSize(16);
-//        skillValue.setTextColor(Color.BLUE);
-//        urlText.setText(video.getUrlValue());
-//        urlText.setPadding(50,0,0,0);
-//        videosLayout.addView(urlText);
-//
-//        urlText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(!isEditableVideo) {
-//                    Toast.makeText(getContext(), urlText.getText().toString(), Toast.LENGTH_LONG).show();
-//                    Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + urlText.getText()));
-//                    startActivity(appIntent);
-//                }else{
-//
-//                    videosLayout.removeView(urlText);
-//                    videosUrls.remove(video);
-//                    Log.i("video", ""+videosUrls.size());
-//                }
-//            }
-//        });
-//
-//    }
 
 
     @Override
@@ -575,8 +521,9 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     void initView(){
 
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
         ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
-        ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
+//        ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
     }
 
     @Override
