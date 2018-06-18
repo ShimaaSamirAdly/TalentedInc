@@ -100,9 +100,13 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         presenter = new UpComingDetailsPresenter(Factory.provideCommentLike(),Factory.provideRegister(),Factory.provideRate());
         result = new Result();
         result=(Result) getIntent().getExtras().getSerializable(COURSE);
+        Log.i("IDID",SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId()+"");
+        Log.i("IDID2",result.getInstructorId().getUserId()+"");
+       if (SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId().equals( result.getInstructorId().getUserId()) ){
+            btnRegister.setVisibility(View.GONE);
+        }
         presenter.setView(result,this);
     }
-    /******************************  *************************/
 
     /****************************** asmaa *************************/
 
@@ -274,9 +278,9 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
             case R.id.btnRegister:
                 //Register
                 if (isRegister)
-                    presenter.unRegister(2,result.getOfferedCourseId(),result.getPublishedDate());
+                    presenter.unRegister(SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),result.getOfferedCourseId(),result.getPublishedDate());
                 else
-                    presenter.setRegister(2,result.getOfferedCourseId(),result.getPublishedDate());
+                    presenter.setRegister(SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),result.getOfferedCourseId(),result.getPublishedDate());
                 break;
             case R.id.tvCourseUser:
                 //switch to Instructor profile
