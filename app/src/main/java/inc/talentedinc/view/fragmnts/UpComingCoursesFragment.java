@@ -46,6 +46,7 @@ import inc.talentedinc.view.activities.HomeActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
+import inc.talentedinc.viewholder.UpComingCoursesViewHolder;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -183,8 +184,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
         builder.setView(dialogView);
-
-
         commentDialog = builder.create();
         if (dialogView != null) {
             final EditText etComment= dialogView.findViewById(R.id.etComment);
@@ -350,17 +349,24 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
     @Override
     public void setLikeResult() {
+        UpComingCoursesViewHolder.likeButton.setLiked(false);
+        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
 
+        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN+1));
     }
 
     @Override
     public void setDisLikeResult() {
-
+        UpComingCoursesViewHolder.likeButton.setLiked(true);
+        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
+        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN-1));
     }
 
     @Override
     public void setCommentResult() {
-
+        commentDialog.dismiss();
+        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvComments.getText().toString());
+        UpComingCoursesViewHolder.tvComments.setText(String.valueOf(resultN++));
     }
 
     @Override

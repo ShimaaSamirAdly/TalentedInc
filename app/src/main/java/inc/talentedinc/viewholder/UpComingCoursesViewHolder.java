@@ -30,11 +30,12 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private View itemView;
     private TextView txtName;
     private TextView txtonInstructorName;
-    private TextView txtDate , tvLikes , tvComments;
+    private TextView txtDate ;
+    public static TextView tvLikes , tvComments;
     private CircleImageView img;
     private Result courseModel;
     private ImageView imgRte;
-    private LikeButton likeButton;
+    public static LikeButton likeButton;
     private TextView etComment;
     private String s;
     public UpComingCoursesViewHolder(String s,View itemView , HomeListener listener , Context context) {

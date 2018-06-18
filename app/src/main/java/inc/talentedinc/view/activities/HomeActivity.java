@@ -7,17 +7,21 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
 import inc.talentedinc.R;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.BottomNavigationViewBehavior;
 import inc.talentedinc.view.fragmnts.HistoryFragment;
 import inc.talentedinc.view.fragmnts.NotificationFragment;
 import inc.talentedinc.view.fragmnts.OfferedCoursesFragment;
 import inc.talentedinc.view.fragmnts.ProfileFragment;
+import inc.talentedinc.view.fragmnts.RegisterFragment;
 import inc.talentedinc.view.fragmnts.UpComingCoursesFragment;
 
 public class HomeActivity extends AppCompatActivity{
@@ -58,7 +62,7 @@ public class HomeActivity extends AppCompatActivity{
                     return true;
                 case R.id.navigation_notifications:
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, new NotificationFragment(),"notification").addToBackStack(null).commit();
+                            .replace(R.id.container, new RegisterFragment(),"register").addToBackStack(null).commit();
                     return true;
                 case R.id.navigation_profile:
                     getSupportFragmentManager().beginTransaction()
@@ -76,6 +80,11 @@ public class HomeActivity extends AppCompatActivity{
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         fab = findViewById(R.id.fab);
+       // if (SharedPrefrencesSingleton.getSharedPrefUser(this).getUserType()!=2){
+          ///  navigation.getMenu().getItem(0).setVisible(false);
+
+
+       // }
         // to hide buttonNavigation when keyboard open
         final View activityRootView = findViewById(R.id.coordinator_layout);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -89,7 +98,10 @@ public class HomeActivity extends AppCompatActivity{
                 }
                 else {
                     navigation.setVisibility(View.VISIBLE);
-                    fab.show();
+                    if (SharedPrefrencesSingleton.getSharedPrefUser(HomeActivity.this).getUserType()==2){
+                        fab.show();
+                    }
+                  //  fab.show();
                 }
             }
         });
@@ -103,8 +115,16 @@ public class HomeActivity extends AppCompatActivity{
                 .commit();
 
 //        navigation.getMenu().getItem(0).setChecked(true);
-        fab = findViewById(R.id.fab);
+       // Log.i("NAV",SharedPrefrencesSingleton.getSharedPrefUser(this).getUserType()+"");
 
+
+        if (SharedPrefrencesSingleton.getSharedPrefUser(this).getUserType()!=2){
+       // navigation.setVisibility(View.GONE);
+         //   navigation.getMenu().findItem(R.id.navigation_offered).setVisible(false);
+        navigation.getMenu().removeItem(R.id.navigation_offered);
+            fab.setVisibility(View.GONE);
+
+        }
         /****************************Shimaa***********************************/
         becomeInstructor = findViewById(R.id.becomeInstructor);
         becomeInstructor.setOnClickListener(new View.OnClickListener() {
@@ -115,8 +135,6 @@ public class HomeActivity extends AppCompatActivity{
             }
         });
         /********************************************************************/
-
-
     }
 
     public void whichFragment(String s){
@@ -143,6 +161,8 @@ public class HomeActivity extends AppCompatActivity{
         }
     }
 
+
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
@@ -154,9 +174,7 @@ public class HomeActivity extends AppCompatActivity{
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-
     /******************************  *************************/
-
     /************************shimaa****************************/
     @Override
     protected void onResume() {
