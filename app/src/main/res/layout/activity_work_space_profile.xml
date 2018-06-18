@@ -57,7 +57,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/OpenFrom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.41"
+            app:layout_constraintHorizontal_bias="0.29"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/workSpaceName" />
 
@@ -70,7 +70,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/openTime"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintHorizontal_bias="0.47"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/workSpaceName" />
 
@@ -83,7 +83,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/To"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.59"
+            app:layout_constraintHorizontal_bias="0.55"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/workSpaceName" />
 
@@ -109,7 +109,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/closed"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.35"
+            app:layout_constraintHorizontal_bias="0.27"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
@@ -122,7 +122,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/holidays"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.59"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
@@ -195,7 +195,7 @@
                     android:layout_marginTop="16dp"
                     android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.15"
+                    app:layout_constraintHorizontal_bias="0.2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
@@ -222,7 +222,7 @@
                     android:layout_marginTop="24dp"
                     android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.15"
+                    app:layout_constraintHorizontal_bias="0.2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/workSpaceEmail" />
 
@@ -276,7 +276,7 @@
                     android:layout_marginTop="16dp"
                     android:text="TextView"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.15"
+                    app:layout_constraintHorizontal_bias="0.2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
