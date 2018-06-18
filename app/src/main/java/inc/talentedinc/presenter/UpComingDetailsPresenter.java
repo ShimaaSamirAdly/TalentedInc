@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import inc.talentedinc.interactor.commentLike.CommentLikeInteractor;
+import inc.talentedinc.interactor.rate.RateInteractor;
 import inc.talentedinc.interactor.register.RegisterInteractor;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
 import inc.talentedinc.model.CourseComment;
@@ -21,10 +22,12 @@ public class UpComingDetailsPresenter {
     private ViewUpComingDetails view;
     private CommentLikeInteractor commentLikeInteractor;
     private RegisterInteractor registerInteractor;
+    private RateInteractor rateInteractor;
 
-    public UpComingDetailsPresenter(CommentLikeInteractor commentLikeInteractor,RegisterInteractor registerInteractor){
+    public UpComingDetailsPresenter(CommentLikeInteractor commentLikeInteractor,RegisterInteractor registerInteractor,RateInteractor rateInteractor){
         this.commentLikeInteractor=commentLikeInteractor;
         this.registerInteractor=registerInteractor;
+        this.rateInteractor=rateInteractor;
     }
 
     public void setView(Result data, ViewUpComingDetails view) {
@@ -49,6 +52,7 @@ public class UpComingDetailsPresenter {
             view.setLocation(data.getHostingWorkSpaceId().getAddress());
             view.setIsLike(data.getLiked());
             view.setIsRegister(data.isRegistered());
+            view.setIsRate(data.isRated());
 
         }
     }
@@ -61,6 +65,8 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setCommentResult();
+
             }
             @Override
             public void onFailure() {
@@ -78,6 +84,8 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setLikeResult();
+
             }
 
             @Override
@@ -95,6 +103,7 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setDisLikeResult();
             }
 
             @Override
@@ -114,6 +123,8 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setRegisterResult();
+
             }
 
             @Override
@@ -133,6 +144,7 @@ public class UpComingDetailsPresenter {
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
                 view.hideProgress();
+                view.setUnRegisterResult();
             }
 
             @Override
@@ -144,6 +156,21 @@ public class UpComingDetailsPresenter {
             }
         });
 
+    }
+
+    public void setRate(int userIid,int courseId,String courseDate , float courseRate,float instructorRate ,float workSpaceRate ){
+        rateInteractor.setRate(userIid, courseId, courseDate,courseRate,instructorRate,workSpaceRate, new OnCommentLikeRateResult() {
+            @Override
+            public void onSuccess(BaseResponse response) {
+                view.showToast(response.getStatus());
+                view.setRateResult();
+            }
+            @Override
+            public void onFailure() {
+                view.showToast("Failure");
+
+            }
+        });
     }
     public interface ViewUpComingDetails {
         void showProgress();
@@ -162,6 +189,14 @@ public class UpComingDetailsPresenter {
         void showToast(String msg);
         void setIsLike(boolean isLike);
         void setIsRegister(boolean isRegister);
+        void setRegisterResult();
+        void setUnRegisterResult();
+        void setIsRate(boolean isRate);
+        void setRateResult();
+        void setLikeResult();
+        void setDisLikeResult();
+        void setCommentResult();
+
     }
 
 

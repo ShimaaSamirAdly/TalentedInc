@@ -170,6 +170,7 @@ public class UpComingCoursesPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setCommentResult();
             }
             @Override
             public void onFailure() {
@@ -184,6 +185,7 @@ public class UpComingCoursesPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setLikeResult();
             }
 
             @Override
@@ -198,6 +200,7 @@ public class UpComingCoursesPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setDisLikeResult();
             }
 
             @Override
@@ -220,6 +223,12 @@ public class UpComingCoursesPresenter {
         void errorMsg();
         void showCategoriesError(String msg);
         void showToast(String s);
+
+
+        void setRateResult();
+        void setLikeResult();
+        void setDisLikeResult();
+        void setCommentResult();
     }
 
 }

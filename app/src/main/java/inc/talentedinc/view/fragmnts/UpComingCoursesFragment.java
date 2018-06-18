@@ -344,6 +344,26 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
 
     @Override
+    public void setRateResult() {
+
+    }
+
+    @Override
+    public void setLikeResult() {
+
+    }
+
+    @Override
+    public void setDisLikeResult() {
+
+    }
+
+    @Override
+    public void setCommentResult() {
+
+    }
+
+    @Override
     public void onCourseClicked(Result result) {
         Intent switchToDetails = new Intent(getActivity(),UpComingDetailsActivity.class);
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);

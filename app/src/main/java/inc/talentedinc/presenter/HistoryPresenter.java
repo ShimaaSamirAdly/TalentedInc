@@ -82,6 +82,7 @@ public class HistoryPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setCommentResult();
             }
             @Override
             public void onFailure() {
@@ -95,6 +96,7 @@ public class HistoryPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setLikeResult();
             }
 
             @Override
@@ -109,6 +111,7 @@ public class HistoryPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setRateResult();
             }
             @Override
             public void onFailure() {
@@ -123,6 +126,7 @@ public class HistoryPresenter {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
+                view.setDisLikeResult();
             }
 
             @Override

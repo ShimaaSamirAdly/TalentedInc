@@ -1,9 +1,12 @@
 package inc.talentedinc.view.activities;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +23,9 @@ import inc.talentedinc.factory.Factory;
 import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ActionUtils;
+import inc.talentedinc.utilitis.ValidationUtility;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails, MaterialRatingBar.OnRatingChangeListener, View.OnClickListener {
@@ -29,7 +34,7 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
 
     public static final String COURSE ="course";
     private UpComingDetailsPresenter presenter;
-    private MaterialRatingBar ratingBar;
+    ///private MaterialRatingBar ratingBar;
 
     private CircleImageView imgCourse;
     private TextView tvCourseName, tvInstructorName, tvWorkspaceName, tvLocation,tvDescription ,tvStartD,tvEndD,tvDuration;
@@ -44,6 +49,9 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     private LikeButton likeButton;
     private Result result;
     private boolean isRegister;
+
+    private  TextView tvSetComment;
+    private AlertDialog commentDialog ,filterDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,8 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
          myRoot = (LinearLayout) findViewById(R.id.ll);
          a = new LinearLayout(this);
         a.setOrientation(LinearLayout.VERTICAL);
+        tvSetComment = findViewById(R.id.tvSetComment);
+        tvSetComment.setOnClickListener(this);
 
         imgCourse=findViewById(R.id.imgCourse);
         progressView = findViewById(R.id.pv_load);
@@ -79,7 +89,7 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         likeButton =findViewById(R.id.thumb_button);
         btnRegister =findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(this);
-        presenter = new UpComingDetailsPresenter(Factory.provideCommentLike(),Factory.provideRegister());
+        presenter = new UpComingDetailsPresenter(Factory.provideCommentLike(),Factory.provideRegister(),Factory.provideRate());
         result =(Result) getIntent().getExtras().getSerializable(COURSE);
         presenter.setView(result,this);
     }
@@ -95,25 +105,21 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     @Override
     public void hideProgress() {
         progressView.setVisibility(View.GONE);
-
     }
 
     @Override
     public void setCourseName(String name) {
         tvCourseName.setText(name);
-
     }
 
     @Override
     public void setWorkspaceName(String name) {
         tvWorkspaceName.setText(name);
-
     }
 
     @Override
     public void setInstructorName(String name) {
         tvInstructorName.setText(name);
-
     }
 
     @Override
@@ -162,7 +168,6 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                 commentTvTime=child.findViewById(R.id.tvTime);
                 if (!comments.get(i).getComment().equals(null)){
                     userComment.setText(comments.get(i).getComment());
-
                 }
                 if (!comments.get(i).getUserNameOfcomment().equals(null))
                 commentUserName.setText(comments.get(i).getUserNameOfcomment());
@@ -171,7 +176,7 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                     commentTvTime.setText(comments.get(i).getTime());
                 }
                 if (!comments.get(i).getUserImageOfComment().equals(null)){
-                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(commentUserImg);                }
+                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop().placeholder(R.drawable.default_course).into(commentUserImg);                }
                 a.addView(child);
             }
             myRoot.addView(a);
@@ -201,6 +206,43 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     }
 
     @Override
+    public void setRegisterResult() {
+        btnRegister.setText("UnRegister");
+    }
+
+    @Override
+    public void setUnRegisterResult() {
+        btnRegister.setText("Register");
+    }
+
+    @Override
+    public void setIsRate(boolean isRate) {
+
+    }
+
+    @Override
+    public void setRateResult() {
+
+    }
+
+    @Override
+    public void setLikeResult() {
+        likeButton.setLiked(true);
+
+    }
+
+    @Override
+    public void setDisLikeResult() {
+        likeButton.setLiked(false);
+
+    }
+
+    @Override
+    public void setCommentResult() {
+
+    }
+
+    @Override
     public void onRatingChanged(MaterialRatingBar ratingBar, float rating) {
         ActionUtils.showToast(this, rating+"");
     }
@@ -223,8 +265,51 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                 //switch to workSpace profile
 //                result
                 break;
+            case R.id.tvSetComment:
+                commentDialog(result.getOfferedCourseId(), result.getPublishedDate());
+                break;
         }
     }
+
+    private void commentDialog(final int courseId , final String courseDate){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
+        builder.setView(dialogView);
+
+
+        commentDialog = builder.create();
+        if (dialogView != null) {
+            final EditText etComment= dialogView.findViewById(R.id.etComment);
+            Button commentBtn = dialogView.findViewById(R.id.btnComment);
+            Button cancelBtn = dialogView.findViewById(R.id.btnCancel);
+            commentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (ValidationUtility.validateEmptyString(etComment.getText().toString())){
+                        ///// presenter
+                        if (ActionUtils.isInternetConnected(UpComingDetailsActivity.this))
+                            presenter.setComment(SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId(),courseId,courseDate,etComment.getText().toString());
+                        else
+                            ActionUtils.showToast(UpComingDetailsActivity.this,"Connection Error");
+                    }
+                }
+            });
+
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Hide keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    // dismiss dialog
+                    commentDialog.dismiss();
+                }
+            });
+        }
+        commentDialog.show();
+    }
+
 
     /******************************  *************************/
 

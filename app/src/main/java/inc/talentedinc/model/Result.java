@@ -27,6 +27,7 @@ public class Result implements Serializable
     private Boolean liked;
     private boolean registered;
     private boolean rated;
+    private Integer courseStatus;
     private String nameOfInstructor;
     private ArrayList<CourseComment> courseComments ;
     private String publishedDate;
@@ -192,4 +193,11 @@ public class Result implements Serializable
         this.publishedDate = publishedDate;
     }
 
+    public Integer getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(Integer courseStatus) {
+        this.courseStatus = courseStatus;
+    }
 }

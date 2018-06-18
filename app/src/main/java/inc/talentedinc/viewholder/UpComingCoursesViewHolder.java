@@ -59,9 +59,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         etComment=itemView.findViewById(R.id.editText);
         etComment.setOnClickListener(this);
         imgRte = itemView.findViewById(R.id.imageView2);
-        if (s.equals(HomeAdapter.HISTORY)){
-            imgRte.setVisibility(View.VISIBLE);
-        }
+
         imgRte.setOnClickListener(this);
         likeButton = itemView.findViewById(R.id.thumb_button);
         likeButton.setOnLikeListener(this);
@@ -77,7 +75,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         tvLikes.setText(String.valueOf(courseModel.getNumberOfLikes()));
         tvComments.setText(String.valueOf(courseModel.getNumberOfComments()));
 //        if(courseModel.getImageUrl()!=null ) {
-            Glide.with(context).load("http://image.tmdb.org/t/p/w185/"+courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.ic_launcher_background).into(img);
+            Glide.with(context).load(courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.default_course).into(img);
 //        }
         if (courseModel.getLiked()){
             likeButton.setLiked(true);
@@ -87,6 +85,13 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
         Log.i("TESTTEST", course.getOfferedCourseId()+"");
         Log.i("TESTTEST", course.getPublishedDate()+"");
+        if (s.equals(HomeAdapter.HISTORY)){
+            imgRte.setVisibility(View.VISIBLE);
+            if (course.isRated())
+                imgRte.setVisibility(View.GONE);
+            else
+                imgRte.setVisibility(View.VISIBLE);
+        }
 
     }
 

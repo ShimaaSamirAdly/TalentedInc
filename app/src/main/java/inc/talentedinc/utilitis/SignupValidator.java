@@ -31,7 +31,7 @@ public class SignupValidator {
     }
 
     public boolean validatePassword(String userPassword){
-        return userPassword != null && userPassword.length() > 6;
+        return userPassword != null && userPassword.length() >= 6;
     }
 
     public boolean validateDob(int year) {

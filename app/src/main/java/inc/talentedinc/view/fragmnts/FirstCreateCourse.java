@@ -130,9 +130,9 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
         String formattedDate = df.format(c);
 
 
-        String[] currentParts = formattedDate.split("/");
-        String[] startParts = start.split("/");
-        String[] endParts = end.split("/");
+        String[] currentParts = formattedDate.split("-");
+        String[] startParts = start.split("-");
+        String[] endParts = end.split("-");
 
 
         if (Integer.parseInt(startParts[0]) > Integer.parseInt(currentParts[0])  && Integer.parseInt(startParts[2]) == Integer.parseInt(currentParts[2]) ) {
