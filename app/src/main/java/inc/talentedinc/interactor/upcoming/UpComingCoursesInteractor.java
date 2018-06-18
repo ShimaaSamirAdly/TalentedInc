@@ -7,6 +7,9 @@ import inc.talentedinc.listener.OnCoursesResult;
  */
 
 public interface UpComingCoursesInteractor {
-    void getUpComingCourses(int page , OnCoursesResult onCoursesResult);
+    void getUpComingCourses(int userId,int page , OnCoursesResult onCoursesResult);
+    void getSearchByName(int userId,String keyword,int page , OnCoursesResult onCoursesResult);
+    void getSearchByFilter(int userId,String category,String city,int page , OnCoursesResult onCoursesResult);
+
 
 }

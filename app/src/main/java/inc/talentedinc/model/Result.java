@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class Result implements Serializable
 {
-
     private Integer offeredCourseId;
     private String name;
     private Integer durationHours;
@@ -26,7 +25,12 @@ public class Result implements Serializable
     private Integer numberOfLikes;
     private Integer numberOfComments;
     private Boolean liked;
+    private boolean registered;
+    private boolean rated;
+    private Integer courseStatus;
+    private String nameOfInstructor;
     private ArrayList<CourseComment> courseComments ;
+    private String publishedDate;
     private final static long serialVersionUID = -8458613531321444255L;
 
     public Integer getOfferedCourseId() {
@@ -67,6 +71,14 @@ public class Result implements Serializable
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public boolean isRated() {
+        return rated;
+    }
+
+    public void setRated(boolean rated) {
+        this.rated = rated;
     }
 
     public String getDescription() {
@@ -157,4 +169,35 @@ public class Result implements Serializable
         this.courseComments = courseComments;
     }
 
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
+
+    public String getNameOfInstructor() {
+        return nameOfInstructor;
+    }
+
+    public void setNameOfInstructor(String nameOfInstructor) {
+        this.nameOfInstructor = nameOfInstructor;
+    }
+
+    public String getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public Integer getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(Integer courseStatus) {
+        this.courseStatus = courseStatus;
+    }
 }

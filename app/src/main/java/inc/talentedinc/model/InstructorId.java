@@ -9,7 +9,7 @@ public class InstructorId implements Serializable
 {
 
     private Integer userId;
-    private Integer totalRate;
+    private Double totalRate;
 
     private final static long serialVersionUID = 5854272730306471510L;
 
@@ -21,12 +21,11 @@ public class InstructorId implements Serializable
         this.userId = userId;
     }
 
-    public Integer getTotalRate() {
+    public Double getTotalRate() {
         return totalRate;
     }
 
-    public void setTotalRate(Integer totalRate) {
+    public void setTotalRate(Double totalRate) {
         this.totalRate = totalRate;
     }
-
 }

@@ -122,23 +122,23 @@ public class HomeActivity extends AppCompatActivity{
     public void whichFragment(String s){
         switch (s){
             case UPCOMING:
-//                navigation.getMenu().getItem(0).setChecked(true);
+                navigation.getMenu().getItem(0).setChecked(true);
                 break;
 
             case HISTORY:
-//                navigation.getMenu().getItem(1).setChecked(true);
+                navigation.getMenu().getItem(1).setChecked(true);
 
                 break;
             case OFFERD:
-//                navigation.getMenu().getItem(2).setChecked(true);
+               navigation.getMenu().getItem(2).setChecked(true);
 
                 break;
             case NOTIFICATION:
-//                navigation.getMenu().getItem(3).setChecked(true);
+               navigation.getMenu().getItem(3).setChecked(true);
 
                 break;
             case PROGILE:
-//                navigation.getMenu().getItem(4).setChecked(true);
+                navigation.getMenu().getItem(4).setChecked(true);
                 break;
         }
     }
