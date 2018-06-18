@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -59,6 +60,14 @@ public class SignUpActivity extends AppCompatActivity {
         signUpViewPager = (ViewPager) findViewById(R.id.sign_up_view_pager);
         signUPViewPagerAdapter = new SignUPViewPagerAdapter(getSupportFragmentManager());
         signUpViewPager.setAdapter(signUPViewPagerAdapter);
+        signUpViewPager.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                return true;
+            }
+        });
 
         Intent intent = getIntent();
         if (intent.getSerializableExtra(LoginActivity.INTENT_USER) != null) {
