@@ -58,5 +58,21 @@ public class SharedPrefrencesSingleton {
         prefsEditor.commit();
     }
 
+    public static void setDeviceToken(Context context , String deviceToken){
+
+        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
+        SharedPreferences.Editor prefsEditor = preferences.edit();
+        prefsEditor.remove("deviceToken");
+        prefsEditor.putString("deviceToken", deviceToken);
+        prefsEditor.commit();
+    }
+    public static String getDeviceToken(Context context){
+        sharedPreferences = getInstance(context);
+        String deviceToken = sharedPreferences.getString("deviceToken", "");
+
+        return   deviceToken ;
+
+    }
+
 
 }
