@@ -58,15 +58,19 @@ dependencies {
     /** *************************************************************/
 
 //    -----------------------alaa------------------------------------------
+
     implementation 'com.android.support:support-annotations:27.1.1s'
-    implementation 'com.google.android.gms:play-services-auth:9.2.1'
+    implementation 'com.google.android.gms:play-services-auth:11.0.4'
     implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'com.google.firebase:firebase-core:11.0.4'
+    implementation 'com.google.firebase:firebase-messaging:11.0.4'
+
+
     // -----------------------------------------------------------------------
 
     //**********************Shimaa*******************************
-//    compile 'com.google.firebase:firebase-core:12.0.1'
-    implementation 'com.google.firebase:firebase-storage:9.2.1'
-    implementation 'com.google.firebase:firebase-auth:9.2.1'
+    implementation 'com.google.firebase:firebase-storage:11.0.4'
+    implementation 'com.google.firebase:firebase-auth:11.0.4'
     implementation 'de.hdodenhof:circleimageview:2.+'
 
     //*************************************************************

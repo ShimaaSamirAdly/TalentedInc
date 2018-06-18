@@ -79,7 +79,7 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
     }
 
     private void setWorkspaceData(){
-        //phones and discription//
+
         List<Object> photos =  workSpace.getWorkSpaceImagesCollection();
         if (photos  != null) {
             String photo1 = (String) photos.get(0);
