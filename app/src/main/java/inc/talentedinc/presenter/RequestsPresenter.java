@@ -34,4 +34,8 @@ public class RequestsPresenter {
     public void worSpaceAccepted() {
         myRequestsHAndler.workspaceAcceptedSuccessfully();
     }
+
+    public void gotoWorkspace(Integer workSpaceId) {
+        myRequestsHAndler.gotoWorkspaceProfile(workSpaceId);
+    }
 }

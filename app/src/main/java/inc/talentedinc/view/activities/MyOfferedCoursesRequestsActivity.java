@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import java.util.ArrayList;
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.RequstsAdapter;
@@ -22,6 +25,7 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
     private RequestsPresenter requestsPresenter;
     private OfferedCourseDetailed myOfferedCourse;
     public static String ACCEPTED_OFFERED_COURSE = "accepted_offered_course";
+    private ProgressBar requestsProgBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
         requestRecyclerView.setHasFixedSize(true);
         requestsLayoutManager = new LinearLayoutManager(this);
         requestRecyclerView.setLayoutManager(requestsLayoutManager);
+        requestsProgBar = (ProgressBar)findViewById(R.id.requests_prog);
+
 
     }
 
@@ -52,6 +58,7 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
 
     @Override
     public void viewRequests(ArrayList<OfferedCourseWorkspace> offeredCourseWorkspaces) {
+        requestsProgBar.setVisibility(View.GONE);
         requestingWorkspaces.addAll(offeredCourseWorkspaces);
         requestsViewAdapter.notifyDataSetChanged();
     }
@@ -61,5 +68,12 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
         Intent intent = new Intent(this,MyOfferedCourses.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void gotoWorkspaceProfile(int workspaceId) {
+        Intent intent = new Intent(this,WorkSpaceProfile.class);
+        intent.putExtra(WorkSpaceProfile.workSpaceID,String.valueOf(workspaceId));
+        startActivity(intent);
     }
 }

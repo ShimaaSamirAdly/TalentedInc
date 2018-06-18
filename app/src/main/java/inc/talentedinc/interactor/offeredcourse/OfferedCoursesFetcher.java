@@ -53,10 +53,14 @@ public class OfferedCoursesFetcher {
                 .enqueue(new Callback<OfferedCoursesResponse>() {
                     @Override
                     public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
-                        Log.i("RETROFIT", "" + response.body().getContent().size());
-                        OfferedCoursesResponse offeredCoursesResponse = response.body();
-                        totalPagesNumber = offeredCoursesResponse.getTotalPages();
-                        offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
+                        if(response.code() == 200) {
+                            OfferedCoursesResponse offeredCoursesResponse = response.body();
+                            totalPagesNumber = offeredCoursesResponse.getTotalPages();
+                            offeredCoursesPresenterInt.notifyFragmentWithOfferedCourses(offeredCoursesResponse.getContent());
+                        }else {
+                            Log.i("RETROFITOFFEREDCOURSE",""+response.code());
+                            offeredCoursesPresenterInt.notifyFragmentWithError();
+                        }
                     }
 
                     @Override
@@ -74,7 +78,11 @@ public class OfferedCoursesFetcher {
                 .enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
-                        offeredCoursesPresenterInt.makeToastRequestResult(1,position);
+                        if(response.code() == 200) {
+                            offeredCoursesPresenterInt.makeToastRequestResult(1, position);
+                        }else {
+                            offeredCoursesPresenterInt.makeToastRequestResult(0,position);
+                        }
                     }
 
                     @Override
@@ -89,7 +97,11 @@ public class OfferedCoursesFetcher {
                 .cancelCourseRequest(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId,offeredCourseId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                offeredCoursesPresenterInt.requestCanceled(position);
+                if(response.code() == 200) {
+                    offeredCoursesPresenterInt.requestCanceled(position);
+                }else {
+                    offeredCoursesPresenterInt.errorCancelingRequest(position);
+                }
             }
 
             @Override
@@ -115,10 +127,15 @@ public class OfferedCoursesFetcher {
     public void fetchMyOfferedCourses(int instructorId) {
         //fix instructor id
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getMyOfferedCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
+
+                .getMyOfferedCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId,0).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseDetailed>> call, Response<ArrayList<OfferedCourseDetailed>> response) {
-                myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
+                if(response.code() == 200) {
+                    myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
+                }else{
+                    //notify error
+                }
             }
 
             @Override
@@ -133,7 +150,11 @@ public class OfferedCoursesFetcher {
                 .getCourseRequests(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),offeredCourseId).enqueue(new Callback<ArrayList<OfferedCourseWorkspace>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseWorkspace>> call, Response<ArrayList<OfferedCourseWorkspace>> response) {
-                requestsPresenter.notifyWithRequestsWorkspaces(response.body());
+                if(response.code() == 200) {
+                    requestsPresenter.notifyWithRequestsWorkspaces(response.body());
+                }else{
+
+                }
             }
 
             @Override
@@ -150,12 +171,14 @@ public class OfferedCoursesFetcher {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
                     requestsPresenter.worSpaceAccepted();
+                }else{
+                    //notify with error
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-
+                //notify with error
             }
         });
     }
