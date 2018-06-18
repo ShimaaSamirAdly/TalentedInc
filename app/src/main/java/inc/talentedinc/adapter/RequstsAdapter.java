@@ -1,5 +1,6 @@
 package inc.talentedinc.adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,6 +39,12 @@ public class RequstsAdapter extends RecyclerView.Adapter<RequestsViewHolder> {
     public void onBindViewHolder(@NonNull RequestsViewHolder holder, final int position) {
 
         holder.getWorkspaceName().setText(requestingWorkspaces.get(position).getName());
+        holder.getWorkspaceName().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestsPresenter.gotoWorkspace(requestingWorkspaces.get(position).getWorkSpaceId());
+            }
+        });
         holder.getAcceptButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

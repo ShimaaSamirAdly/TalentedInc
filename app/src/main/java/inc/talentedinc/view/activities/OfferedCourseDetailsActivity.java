@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -98,6 +99,15 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
 
         if (offeredCourseDetailed.getHostingWorkSpaceId() != null) {
             offeredCourseCreator.setText(offeredCourseDetailed.getHostingWorkSpaceId().getName());
+            offeredCourseCreator.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(),WorkSpaceProfile.class);
+                    Log.i("workspaceId",String.valueOf(offeredCourseDetailed.getHostingWorkSpaceId().getWorkSpaceId()));
+                    intent.putExtra(WorkSpaceProfile.workSpaceID,String.valueOf(offeredCourseDetailed.getHostingWorkSpaceId().getWorkSpaceId()));
+                    startActivity(intent);
+                }
+            });
         }
         if (offeredCourseDetailed.getDescription() != null) {
             offeredCoursedescription.setText(offeredCourseDetailed.getDescription());
@@ -116,12 +126,12 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
         }
 
         if(offeredCourseDetailed.getImageUrl() != null) {
+            Log.i("courseImg",offeredCourseDetailed.getImageUrl());
             Glide.
                     with(this).
                     load(offeredCourseDetailed.getImageUrl()).
                     diskCacheStrategy(DiskCacheStrategy.ALL).
                     skipMemoryCache(true).
-                    placeholder(R.drawable.default_course).
                     into(offeredCourseImage);
         }else {
             Glide.

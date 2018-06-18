@@ -28,7 +28,7 @@ public interface GetOfferedCourses {
 
     @Headers("Cache-Control: no-cache")
     @GET("/offeredcourse/offeredcoursebyinstuctor")
-    Call<ArrayList<OfferedCourseDetailed>> getMyOfferedCourse(@Query("insructorId")Integer instrctorId);
+    Call<ArrayList<OfferedCourseDetailed>> getMyOfferedCourse(@Query("insructorId")Integer instrctorId,@Query("page")int page);
 
     @GET("/offeredcourse/requestedWorkSpaces")
     Call<ArrayList<OfferedCourseWorkspace>> getCourseRequests(@Query("courseId")Integer offeredCourseId);
