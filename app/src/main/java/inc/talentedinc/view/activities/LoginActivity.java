@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         //---------------------------------Alaa--------------------------------------------------//
 
+
         signedUpUser = SharedPrefrencesSingleton.getSharedPrefUser(this);
         if(signedUpUser != null){
             Intent intent = new Intent(this , HomeActivity.class);

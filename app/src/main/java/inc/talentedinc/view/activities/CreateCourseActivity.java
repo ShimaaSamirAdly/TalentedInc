@@ -21,7 +21,9 @@ import inc.talentedinc.adapter.CreateCourseViewPagerAdapter;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Course;
 import inc.talentedinc.model.Instructor;
+import inc.talentedinc.model.User;
 import inc.talentedinc.presenter.CreateCoursePresenter;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.callbackinterfaces.SetDateTextView;
 import inc.talentedinc.view.fragmnts.DatePickerFragment;
 
@@ -84,14 +86,16 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
 
 
     private void createCourse(){
-        //set data to course //
         getSecondFragmentData();
 
-         //dummy instructor & duration
-        Instructor instructor = new Instructor();
-        instructor.setUserId(2);
+        User userAsInstructor = SharedPrefrencesSingleton.getSharedPrefUser(this);
+
+        Instructor instructor = userAsInstructor.getInstructor() ;
         createdCourse.setInstructor(instructor);
         createCoursePresenter.courseCreated(createdCourse);
+
+        Intent sendToHome = new Intent(this, HomeActivity.class);
+        startActivity(sendToHome);
 
     }
     //--------------------------------------------------------------------------------------------------------------//
@@ -105,8 +109,7 @@ public class CreateCourseActivity extends AppCompatActivity implements CreateCou
 
         editor.putInt("courseId",courseId);
         editor.commit();
-        Intent sendToHome = new Intent(this, HomeActivity.class);
-        startActivity(sendToHome);
+
     }
 
     //--------------------------------------------------------------------------------------------------------------//
