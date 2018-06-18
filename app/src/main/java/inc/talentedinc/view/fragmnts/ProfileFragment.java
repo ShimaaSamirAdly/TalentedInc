@@ -126,7 +126,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+
 
 //        ***************************** Asmaa ***************************************
 //        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
@@ -233,9 +233,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                     user.setUserDob(dob.getText().toString());
                     user.setPhone(phone.getText().toString());
                     if(location.getSelectedItemPosition() == 0) {
-                        user.getCity().equals("Cairo");
+                        Log.i("userCity", ""+location.getSelectedItemPosition());
+                        user.setCity("Cairo");
                     }else{
-                        user.getCity().equals("Alexandria");
+                        Log.i("userCity", ""+location.getSelectedItemPosition());
+                        user.setCity("Alexandria");
                     }
 
 
@@ -299,6 +301,19 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     }
 
+    public void setInstructorUserView(){
+
+        portofolioText.setVisibility(View.VISIBLE);
+        portofolioGridView.setVisibility(View.VISIBLE);
+
+        videosText.setVisibility(View.VISIBLE);
+        videosLayout.setVisibility(View.VISIBLE);
+
+        skillsText.setVisibility(View.VISIBLE);
+        skillsGridView.setVisibility(View.VISIBLE);
+
+    }
+
 
     public void setProfileType(User user){
 
@@ -307,16 +322,20 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
             setGeneralUserView();
 
-            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
+//            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
+            setInstructorButtonVisible();
 //
         }else if (user.getUserType() == 1){
 
             setGeneralUserView();
 
-            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+//            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+            setInstructorButtonGone();
 
         }else{
-            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+//            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+            setInstructorButtonGone();
+            setInstructorUserView();
 
             portofolioAdapter = new PortofolioAdapter(getActivity(), (List<InstructorImages>)user.getInstructor().getInstructorImagesCollection());
             portofolioGridView.setAdapter(portofolioAdapter);
@@ -339,6 +358,26 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
             skillsGridAdapter = new SkillsGridAdapter(getContext(), instructorSkills);
             skillsGridView.setAdapter(skillsGridAdapter);
 
+        }
+    }
+
+    public void setInstructorButtonGone(){
+
+        Bundle bundle = getArguments();
+
+        if(bundle == null) {
+
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+        }
+    }
+
+    public void setInstructorButtonVisible(){
+
+        Bundle bundle = getArguments();
+
+        if(bundle == null) {
+
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
         }
     }
 
@@ -376,12 +415,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     public void onResume() {
         super.onResume();
 
-        initView();
-
         loading.setVisibility(View.VISIBLE);
         editBasicInfo.setEnabled(false);
         pickImage.setEnabled(false);
-        ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+
 
         Bundle bundle = getArguments();
 
@@ -396,7 +433,9 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
 
         }else {
-
+            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
+//            ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+            initView();
             profilePresenter.getCurrentUser();
 
 
@@ -474,7 +513,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
     public void addVideoTextView(InstructorVideos instructorVideos){
 
-        final EditText urlText = new EditText(getContext());
+        final TextView urlText = new TextView(getContext());
         final InstructorVideos video = (InstructorVideos) instructorVideos;
         urlText.setTextSize(18);
         urlText.setTextColor(Color.BLUE);

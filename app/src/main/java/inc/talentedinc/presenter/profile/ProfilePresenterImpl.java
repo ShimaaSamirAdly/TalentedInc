@@ -64,6 +64,7 @@ public class ProfilePresenterImpl implements ProfilePresenter, UserProfileListen
     @Override
     public void onSuccess(User user) {
         SharedPrefrencesSingleton.setSharedPrefUser(context, user);
+        profileFragment.setUserData(user);
     }
 
     @Override

@@ -11,4 +11,6 @@ public interface SignUpListener {
     public void onFailure(String error);
 
     public void onFailedConnection();
+
+    public void onFailedSignUp(String status);
 }

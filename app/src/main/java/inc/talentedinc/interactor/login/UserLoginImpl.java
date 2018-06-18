@@ -32,7 +32,7 @@ public class UserLoginImpl implements UserLoginInter {
                 if (response != null) {
                     //response.headers().get("Token");
                    // Log.i("TOKEN",response.headers().get("Token"));
-                    if(response.code() == 200) {
+                    if(response.code() == 202) {
                         Log.i("TOKEN",SharedPrefrencesSingleton.getDeviceToken(getApplicationContext()));
                         SharedPrefrencesSingleton.setSharedPrefToken(getApplicationContext(),response.headers().get("Token"));
                         Log.i("nela ", response.raw().toString());

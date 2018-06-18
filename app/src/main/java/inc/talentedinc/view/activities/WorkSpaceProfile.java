@@ -81,7 +81,7 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
     private void setWorkspaceData(){
 
         List<Object> photos =  workSpace.getWorkSpaceImagesCollection();
-        if (photos  != null) {
+        if (photos.size() > 0) {
             String photo1 = (String) photos.get(0);
             String photo2 = (String) photos.get(1);
             String photo3 = (String) photos.get(2);
