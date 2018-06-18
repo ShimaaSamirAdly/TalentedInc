@@ -13,6 +13,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by Alaa on 5/23/2018.
  */
@@ -24,18 +26,16 @@ public class UserLoginImpl implements UserLoginInter {
     @Override
     public void sendLoginRequest(UserLogin userLogin, final OnLoginResult onresult) {
 
-        apiLogin.checkUserLogin(userLogin).enqueue(new Callback<User>() {
+        apiLogin.checkUserLogin(SharedPrefrencesSingleton.getDeviceToken(getApplicationContext()),userLogin).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response != null) {
                     //response.headers().get("Token");
                    // Log.i("TOKEN",response.headers().get("Token"));
                     if(response.code() != 200) {
-                        Log.i("TOKEN",response.headers().get("Token"));
-                      //  SharedPrefrencesSingleton.se
-
+                        Log.i("TOKEN",SharedPrefrencesSingleton.getDeviceToken(getApplicationContext()));
+                        SharedPrefrencesSingleton.setSharedPrefToken(getApplicationContext(),response.headers().get("Token"));
                         Log.i("nela ", response.raw().toString());
-
                         onresult.onSucess(response.body());
                     }
                     else{

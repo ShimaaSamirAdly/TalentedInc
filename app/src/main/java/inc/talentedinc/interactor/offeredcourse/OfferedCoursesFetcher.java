@@ -20,6 +20,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class OfferedCoursesFetcher {
 
     private OfferedCoursesPresenterInt offeredCoursesPresenterInt;
@@ -47,7 +49,7 @@ public class OfferedCoursesFetcher {
     public void fetchCourses(int page, int instructorId) {
 
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getOfferedCourses(page, instructorId)
+                .getOfferedCourses(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),page, instructorId)
                 .enqueue(new Callback<OfferedCoursesResponse>() {
                     @Override
                     public void onResponse(Call<OfferedCoursesResponse> call, Response<OfferedCoursesResponse> response) {
@@ -68,7 +70,7 @@ public class OfferedCoursesFetcher {
 
     public void requestCourse(Integer offeredCourseId, Integer instructorId, final int position) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .instructorRequestOfferedCourse(instructorId, offeredCourseId)
+                .instructorRequestOfferedCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId, offeredCourseId)
                 .enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
@@ -84,7 +86,7 @@ public class OfferedCoursesFetcher {
 
     public void cancelCourse(Integer offeredCourseId, Integer instructorId, final int position){
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .cancelCourseRequest(instructorId,offeredCourseId).enqueue(new Callback<Void>() {
+                .cancelCourseRequest(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId,offeredCourseId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 offeredCoursesPresenterInt.requestCanceled(position);
@@ -113,7 +115,7 @@ public class OfferedCoursesFetcher {
     public void fetchMyOfferedCourses(int instructorId) {
         //fix instructor id
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getMyOfferedCourse(instructorId).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
+                .getMyOfferedCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId).enqueue(new Callback<ArrayList<OfferedCourseDetailed>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseDetailed>> call, Response<ArrayList<OfferedCourseDetailed>> response) {
                 myOfferedCoursePresenter.notifyMyOfferedCoursesFetched(response.body());
@@ -128,7 +130,7 @@ public class OfferedCoursesFetcher {
 
     public void getCourseRequests(Integer offeredCourseId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .getCourseRequests(offeredCourseId).enqueue(new Callback<ArrayList<OfferedCourseWorkspace>>() {
+                .getCourseRequests(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),offeredCourseId).enqueue(new Callback<ArrayList<OfferedCourseWorkspace>>() {
             @Override
             public void onResponse(Call<ArrayList<OfferedCourseWorkspace>> call, Response<ArrayList<OfferedCourseWorkspace>> response) {
                 requestsPresenter.notifyWithRequestsWorkspaces(response.body());
@@ -143,7 +145,7 @@ public class OfferedCoursesFetcher {
 
     public void acceptCourse(int courseId, Integer workSpaceId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .acceptCourse(courseId, workSpaceId).enqueue(new Callback<Void>() {
+                .acceptCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),courseId, workSpaceId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {

@@ -13,9 +13,12 @@ import inc.talentedinc.model.InstructorId;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.model.response.CoursesResponse;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by asmaa on 05/21/2018.
@@ -113,7 +116,7 @@ public class NetworkHistoryInteractor implements HistoryInteractor {
 //        onCoursesResult.onSuccess(data);
 
         Call<CoursesResponse> call;
-        call = mApi.getHistory(userId,APIUrls.finishedCourses,page);
+        call = mApi.getHistory(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId,APIUrls.finishedCourses,page);
         call.clone().enqueue(new Callback<CoursesResponse>() {
             @Override
             public void onResponse(Call<CoursesResponse> call, Response<CoursesResponse> response) {

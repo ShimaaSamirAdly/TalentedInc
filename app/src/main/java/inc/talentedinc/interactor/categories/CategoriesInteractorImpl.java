@@ -8,9 +8,12 @@ import inc.talentedinc.API.CategoryEndpoint;
 import inc.talentedinc.listener.CategoriesListener;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by MMM on 6/1/2018.
@@ -24,7 +27,7 @@ public class CategoriesInteractorImpl implements CategoriesInteractor {
     @Override
     public void getAllCategories(final CategoriesListener listener) {
 
-        Call<List<Categories>> call = categoryEndpoint.getAllCategories();
+        Call<List<Categories>> call = categoryEndpoint.getAllCategories(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()));
         call.enqueue(new Callback<List<Categories>>() {
             @Override
             public void onResponse(Call<List<Categories>> call, Response<List<Categories>> response) {

@@ -22,7 +22,6 @@ public class Factory {
         return new NetworkUpComingCoursesInteractor();
     }
 
-
     public static HistoryInteractor provideHistory(){
         return new NetworkHistoryInteractor();
     }

@@ -13,9 +13,12 @@ import inc.talentedinc.model.InstructorId;
 import inc.talentedinc.model.Result;
 import inc.talentedinc.model.response.CoursesResponse;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by asmaa on 05/21/2018.
@@ -33,7 +36,7 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
 //        onCoursesResult.onSuccess(data);
 
         Call<CoursesResponse> call;
-        call = mApi.getUpComing(userId,page);
+        call = mApi.getUpComing(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId,page);
         call.clone().enqueue(new Callback<CoursesResponse>() {
             @Override
             public void onResponse(Call<CoursesResponse> call, Response<CoursesResponse> response) {
@@ -61,7 +64,7 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
     @Override
     public void getSearchByName(int userId, String keyword, int page, final OnCoursesResult onCoursesResult) {
         Call<CoursesResponse> call;
-        call = mApi.getSearchByName(userId,keyword,page);
+        call = mApi.getSearchByName(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId,keyword,page);
         call.clone().enqueue(new Callback<CoursesResponse>() {
             @Override
             public void onResponse(Call<CoursesResponse> call, Response<CoursesResponse> response) {
@@ -87,7 +90,7 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
     public void getSearchByFilter(int userId, String category, String city, int page, final OnCoursesResult onCoursesResult) {
 
         Call<CoursesResponse> call;
-        call = mApi.getSearchByFilter(userId,category,city,page);
+        call = mApi.getSearchByFilter(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId,category,city,page);
         call.clone().enqueue(new Callback<CoursesResponse>() {
             @Override
             public void onResponse(Call<CoursesResponse> call, Response<CoursesResponse> response) {

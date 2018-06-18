@@ -7,9 +7,12 @@ import inc.talentedinc.API.ApiHomeEndpoint;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
 import inc.talentedinc.model.response.BaseResponse;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by asmaa on 06/04/2018.
@@ -24,7 +27,7 @@ public class NetworkCommentLikeInteractor implements CommentLikeInteractor {
     public void setLike(int userIid, int courseId, String courseDate, final OnCommentLikeRateResult onCommentLikeRateResult) {
 
         Call<BaseResponse> call;
-        call = mApi.setLike(userIid,courseId,courseDate);
+        call = mApi.setLike(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -50,7 +53,7 @@ public class NetworkCommentLikeInteractor implements CommentLikeInteractor {
     public void setDisLike(int userIid, int courseId, String courseDate, final OnCommentLikeRateResult onCommentLikeRateResult) {
 
         Call<BaseResponse> call;
-        call = mApi.setDisLike(userIid,courseId,courseDate);
+        call = mApi.setDisLike(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -74,7 +77,7 @@ public class NetworkCommentLikeInteractor implements CommentLikeInteractor {
     public void setComment(int userIid, int courseId, String courseDate, String comment, final OnCommentLikeRateResult onCommentLikeRateResult) {
 
         Call<BaseResponse> call;
-        call = mApi.setComment(userIid,courseId,courseDate,comment);
+        call = mApi.setComment(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate,comment);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
