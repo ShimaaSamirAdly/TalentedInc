@@ -2,6 +2,7 @@ package inc.talentedinc.singleton;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
@@ -72,7 +73,7 @@ public class SharedPrefrencesSingleton {
     public static String getDeviceToken(Context context){
         sharedPreferences = getInstance(context);
         String deviceToken = sharedPreferences.getString("deviceToken", "");
-
+        Log.i("elTokenGah",deviceToken);
         return   deviceToken ;
 
     }

@@ -5,6 +5,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
+
 /**
  * Created by Alaa on 6/13/2018.
  */
@@ -30,6 +32,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String token) {
         // Add custom implementation, as needed.
+        SharedPrefrencesSingleton.setDeviceToken(getApplicationContext(),token);
 
     }
 }
