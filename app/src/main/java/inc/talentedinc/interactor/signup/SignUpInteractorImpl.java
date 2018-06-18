@@ -35,7 +35,7 @@ public class SignUpInteractorImpl implements SignUpInteractor {
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
 
                 Log.i("errorData", String.valueOf(response.code()));
-                if (response.code()== APIUrls.SUCCESS) {
+                if (response.code()== 202) {
                     SharedPrefrencesSingleton.setSharedPrefToken(getApplicationContext(),response.headers().get("Token"));
 
                     MainResponse res = (MainResponse) response.body();
