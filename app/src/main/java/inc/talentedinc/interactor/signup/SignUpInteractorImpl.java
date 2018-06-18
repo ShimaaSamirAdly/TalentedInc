@@ -33,7 +33,7 @@ public class SignUpInteractorImpl implements SignUpInteractor {
 
             @Override
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
-                Log.i("errorData", "respo");
+
                 Log.i("errorData", String.valueOf(response.code()));
                 if (response.code()== APIUrls.SUCCESS) {
                     SharedPrefrencesSingleton.setSharedPrefToken(getApplicationContext(),response.headers().get("Token"));
@@ -41,6 +41,8 @@ public class SignUpInteractorImpl implements SignUpInteractor {
                     MainResponse res = (MainResponse) response.body();
 //                Log.i("conn", ""+res.getUserId());
                     listener.onSuccess(Integer.parseInt(res.getUserId()));
+                }else{
+                    listener.onFailedConnection();
                 }
             }
 

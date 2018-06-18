@@ -69,19 +69,24 @@ public class ProfilePresenterImpl implements ProfilePresenter, UserProfileListen
     @Override
     public void onFailedConnection() {
 
-    }
-
-    @Override
-    public void onFailure() {
-
-        Toast.makeText(context, "No Internet Connection!", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show();
         user = SharedPrefrencesSingleton.getSharedPrefUser(context);
         profileFragment.setUserData(user);
     }
 
     @Override
+    public void onFailure() {
+
+        Toast.makeText(context, "Server Error", Toast.LENGTH_LONG).show();
+        user = SharedPrefrencesSingleton.getSharedPrefUser(context);
+        profileFragment.setUserData(user);
+
+    }
+
+    @Override
     public void onGetCurrentUser(User user) {
 
+        SharedPrefrencesSingleton.setSharedPrefUser(context, user);
         profileFragment.setUserData(user);
     }
 

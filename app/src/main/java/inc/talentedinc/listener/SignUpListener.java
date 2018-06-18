@@ -9,4 +9,6 @@ public interface SignUpListener {
     public void onSuccess(int userId);
 
     public void onFailure(String error);
+
+    public void onFailedConnection();
 }

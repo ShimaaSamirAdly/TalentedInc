@@ -67,7 +67,11 @@
         <activity
             android:name=".view.activities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
+             <!--<category android:name="android.intent.category.LAUNCHER" />-->
+             <!--</intent-filter>-->
 
         </activity>
 
@@ -99,7 +103,6 @@
         <activity android:name=".view.activities.FollowersActivity"></activity>
 
         //**********************************************************************
-
         <!-- -.................................alaa............................................. -->
         <activity android:name=".view.activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -117,7 +120,6 @@
 
         </activity>
 
-
         <service
             android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
@@ -130,7 +132,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-
 
         <!-- ............................alaa..................................................... -->
     </application>

@@ -195,7 +195,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             gmailUser.setEmail(acct.getEmail());
             gmailUser.setFirstName(acct.getDisplayName());
             gmailUser.setLastName(acct.getFamilyName());
-            gmailUser.setImgUrl(acct.getPhotoUrl().toString());
+         //   gmailUser.setImgUrl(acct.getPhotoUrl().toString());
             gmailUser.setGoogleToken(acct.getIdToken());
             gmailUser.setGoogleId(acct.getId());
             completeSignup(gmailUser);
