@@ -11,19 +11,20 @@
         android:icon="@drawable/history"
         android:title="@string/title_history" />
 
-    <item
-        android:id="@+id/navigation_offered"
-        android:icon="@drawable/offerd"
-        android:title="@string/title_offerd" />
 
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/notification"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_register" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/profile"
         android:title="@string/title_profile" />
+
+    <item
+        android:id="@+id/navigation_offered"
+        android:icon="@drawable/offerd"
+        android:title="@string/title_offerd" />
 
 </menu>

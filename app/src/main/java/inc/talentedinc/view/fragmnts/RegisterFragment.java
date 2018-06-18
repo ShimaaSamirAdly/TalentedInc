@@ -1,6 +1,8 @@
 package inc.talentedinc.view.fragmnts;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -41,7 +43,7 @@ import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 
-public class HistoryFragment extends Fragment implements UpComingCoursesPresenter.ViewListener, HomeListener, MaterialRatingBar.OnRatingChangeListener {
+public class RegisterFragment extends Fragment implements UpComingCoursesPresenter.ViewListener, HomeListener, MaterialRatingBar.OnRatingChangeListener {
 
     /****************************** asmaa *************************/
     private RecyclerView recyclerView;
@@ -58,13 +60,9 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     private MaterialRatingBar ratingCourse ;
     private MaterialRatingBar ratingInstructor ;
     private MaterialRatingBar ratingWorkspace ;
-    public static final String History = "history";
+    public static final String History = "register";
 
-
-
-
-
-    public HistoryFragment() {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 
@@ -87,7 +85,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     /****************************** asmaa *************************/
 
     private void initView(View v){
-        ((HomeActivity)getActivity()).whichFragment(HomeActivity.HISTORY);
+        ((HomeActivity)getActivity()).whichFragment(HomeActivity.NOTIFICATION);
+
         linearLayoutSearch =v.findViewById(R.id.ll2);
         linearLayoutSearch.setVisibility(View.GONE);
         recyclerView= v.findViewById(R.id.my_recycler_view);
@@ -165,8 +164,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
             Button btnRaiting =dialogView.findViewById(R.id.btnRate);
             Button btnCancel = dialogView.findViewById(R.id.btnCancel);
 
-             ratingCourse =dialogView.findViewById(R.id.mRatingCourse);
-             ratingInstructor =dialogView.findViewById(R.id.mRatingInstructor);
+            ratingCourse =dialogView.findViewById(R.id.mRatingCourse);
+            ratingInstructor =dialogView.findViewById(R.id.mRatingInstructor);
             ratingWorkspace =dialogView.findViewById(R.id.mRatingWorkspace);
             ratingCourse.setOnRatingChangeListener(this);
             ratingInstructor.setOnRatingChangeListener(this);
@@ -175,7 +174,7 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
             btnRaiting.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   Log.i("Raiting", ratingCourse.getRating()+"");
+                    Log.i("Raiting", ratingCourse.getRating()+"");
                     presenter.setRate(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate,ratingCourse.getRating(), ratingInstructor.getRating(),ratingWorkspace.getRating());
                 }
             });
@@ -285,7 +284,6 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
-
     }
 
     @Override
@@ -309,7 +307,6 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void onDisLikeClick(int courseId, String courseDate) {
         presenter.setDisLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
-
     }
 
     @Override
@@ -323,7 +320,6 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
         Intent intentUser = new Intent(getActivity(), OthersProfileActivity.class);
         intentUser.putExtra("userId", instracturId);
         startActivity(intentUser);
-
     }
 
     @Override
@@ -332,6 +328,4 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     /****************************** *************************/
-
-
 }

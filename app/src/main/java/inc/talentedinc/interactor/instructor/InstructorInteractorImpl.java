@@ -36,6 +36,8 @@ public class InstructorInteractorImpl implements InstructorInteractor {
                     Log.i("connectingInstructor", ""+response.code());
                     if(response.code() == 200) {
                         listener.onSuccessPending(instructor);
+                    }else{
+                        listener.onFailedConnection();
                     }
                 }
 

@@ -127,15 +127,10 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
 
-
 //        ***************************** Asmaa ***************************************
 //        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
-//        initView();
-
-//        ********************************************************************
 
         /******************************Shimaa*******************************************/
-
         validator = new SignupValidator();
         user = new User();
         profileImage = view.findViewById(R.id.profileImage);
@@ -289,7 +284,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     public void setGeneralUserView(){
-
         portofolioText.setVisibility(View.GONE);
         portofolioGridView.setVisibility(View.GONE);
 
@@ -298,8 +292,8 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
         skillsText.setVisibility(View.GONE);
         skillsGridView.setVisibility(View.GONE);
-
     }
+
 
     public void setInstructorUserView(){
 
@@ -415,6 +409,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     public void onResume() {
         super.onResume();
 
+
         loading.setVisibility(View.VISIBLE);
         editBasicInfo.setEnabled(false);
         pickImage.setEnabled(false);
@@ -434,7 +429,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
         }else {
             ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
-//            ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+            ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
             initView();
             profilePresenter.getCurrentUser();
 

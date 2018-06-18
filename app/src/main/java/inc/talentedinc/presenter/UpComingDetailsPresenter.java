@@ -53,7 +53,7 @@ public class UpComingDetailsPresenter {
             view.setIsLike(data.getLiked());
             view.setIsRegister(data.isRegistered());
             view.setIsRate(data.isRated());
-
+            view.setCourseImage(data.getImageUrl());
         }
     }
 
@@ -196,6 +196,7 @@ public class UpComingDetailsPresenter {
         void setLikeResult();
         void setDisLikeResult();
         void setCommentResult();
+        void setCourseImage(String image);
 
     }
 

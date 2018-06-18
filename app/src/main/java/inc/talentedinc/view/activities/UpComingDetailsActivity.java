@@ -1,8 +1,10 @@
 package inc.talentedinc.view.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -11,7 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
@@ -22,13 +27,14 @@ import inc.talentedinc.R;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
+import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.ValidationUtility;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
-public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails, MaterialRatingBar.OnRatingChangeListener, View.OnClickListener {
+public class UpComingDetailsActivity extends AppCompatActivity implements UpComingDetailsPresenter.ViewUpComingDetails, MaterialRatingBar.OnRatingChangeListener, View.OnClickListener, OnLikeListener, OnAnimationEndListener {
 
     /****************************** asmaa *************************/
 
@@ -87,10 +93,13 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         tvLikesNum= findViewById(R.id.tvLikes);
         tvCommentsNum=findViewById(R.id.tvComment);
         likeButton =findViewById(R.id.thumb_button);
+        likeButton.setOnLikeListener(this);
+        likeButton.setOnAnimationEndListener(this);
         btnRegister =findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(this);
         presenter = new UpComingDetailsPresenter(Factory.provideCommentLike(),Factory.provideRegister(),Factory.provideRate());
-        result =(Result) getIntent().getExtras().getSerializable(COURSE);
+        result = new Result();
+        result=(Result) getIntent().getExtras().getSerializable(COURSE);
         presenter.setView(result,this);
     }
     /******************************  *************************/
@@ -176,7 +185,9 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                     commentTvTime.setText(comments.get(i).getTime());
                 }
                 if (!comments.get(i).getUserImageOfComment().equals(null)){
-                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop().placeholder(R.drawable.default_course).into(commentUserImg);                }
+                    Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop()
+                            .into(commentUserImg);
+                }
                 a.addView(child);
             }
             myRoot.addView(a);
@@ -228,18 +239,28 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
     @Override
     public void setLikeResult() {
         likeButton.setLiked(true);
+        int resultN = Integer.parseInt(tvLikesNum.getText().toString());
+        tvLikesNum.setText(String.valueOf(resultN+1));
 
     }
 
     @Override
     public void setDisLikeResult() {
         likeButton.setLiked(false);
-
+        int resultN = Integer.parseInt(tvLikesNum.getText().toString());
+        tvLikesNum.setText(String.valueOf(resultN-1));
     }
 
     @Override
     public void setCommentResult() {
+        commentDialog.dismiss();
+        int resultN = Integer.parseInt(tvCommentsNum.getText().toString());
+        tvCommentsNum.setText(String.valueOf(resultN+1));
+    }
 
+    @Override
+    public void setCourseImage(String image) {
+        Glide.with(this).load(image).centerCrop().into(imgCourse);
     }
 
     @Override
@@ -257,17 +278,28 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                 else
                     presenter.setRegister(2,result.getOfferedCourseId(),result.getPublishedDate());
                 break;
-            case R.id.course_name_txt:
+            case R.id.tvCourseUser:
                 //switch to Instructor profile
+                Log.i("profileUser", result.getInstructorId().getUserId()+"");
+
+                Intent intentUser = new Intent(this, OthersProfileActivity.class);
+                intentUser.putExtra("userId", result.getInstructorId().getUserId());
+                startActivity(intentUser);
 //                result
                 break;
             case R.id.course_creator_txt:
                 //switch to workSpace profile
+                Log.i("workspace", result.getHostingWorkSpaceId().getWorkSpaceId()+"");
+                Intent intentWork = new Intent(this, WorkSpaceProfile.class);
+                intentWork.putExtra(WorkSpaceProfile.workSpaceID, result.getHostingWorkSpaceId().getWorkSpaceId().toString());
+                startActivity(intentWork);
 //                result
                 break;
             case R.id.tvSetComment:
                 commentDialog(result.getOfferedCourseId(), result.getPublishedDate());
                 break;
+
+
         }
     }
 
@@ -308,6 +340,34 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
             });
         }
         commentDialog.show();
+    }
+
+    @Override
+    public void liked(LikeButton likeButton) {
+        if (ActionUtils.isInternetConnected(this))
+            presenter.setLike(SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),result.getOfferedCourseId(),result.getPublishedDate());
+           // listener.onLikeClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
+        else {
+            ActionUtils.showToast(this,"Connection Error");
+            likeButton.setLiked(true);
+        }
+
+    }
+
+    @Override
+    public void unLiked(LikeButton likeButton) {
+        if (ActionUtils.isInternetConnected(this))
+            presenter.disLike(SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId(),result.getOfferedCourseId(),result.getPublishedDate());
+        else {
+            ActionUtils.showToast(this,"Connection Error");
+            likeButton.setLiked(false);
+        }
+
+    }
+
+    @Override
+    public void onAnimationEnd(LikeButton likeButton) {
+
     }
 
 

@@ -11,4 +11,6 @@ import inc.talentedinc.model.Instructor;
 public interface InstructorListener {
 
     public void onSuccessPending(Instructor instructor);
+
+    public void onFailedConnection();
 }

@@ -31,6 +31,7 @@
                 android:layout_marginBottom="@dimen/eight_dp"
                 android:layout_marginLeft="@dimen/eight_dp"
                 android:layout_marginStart="@dimen/eight_dp"
+                android:src="@drawable/default_course"
                 android:layout_marginTop="12dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

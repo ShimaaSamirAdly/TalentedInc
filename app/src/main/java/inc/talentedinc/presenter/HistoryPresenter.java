@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import inc.talentedinc.interactor.commentLike.CommentLikeInteractor;
 import inc.talentedinc.interactor.history.HistoryInteractor;
+import inc.talentedinc.interactor.history.NetworkHistoryInteractor;
 import inc.talentedinc.interactor.rate.RateInteractor;
 import inc.talentedinc.interactor.upcoming.NetworkUpComingCoursesInteractor;
 import inc.talentedinc.interactor.upcoming.UpComingCoursesInteractor;
@@ -32,13 +33,16 @@ public class HistoryPresenter {
         this.rateInteractor=rateInteractor;
     }
 
-    public void setView(int userId,int page,UpComingCoursesPresenter.ViewListener view) {
+    public void setView(String key,int userId,int page,UpComingCoursesPresenter.ViewListener view) {
         this.view =view;
 
         Log.i("here ","here");
         if (data.size()== 0 ) {
             view.showProgress();
+            if (key.equals("history"))
             getHomeData(userId,page);
+            else
+                getRegister(userId,page);
             Log.i("here ","here2");
         } else {
             view.hideProgress();
@@ -56,15 +60,49 @@ public class HistoryPresenter {
             public void onSuccess(ArrayList<Result> listData) {
                 data.addAll(listData);
                 view.hideProgress();
-                if (data.size() ==0){
+                if (data.size() == 0) {
                     view.showNoDataAvailable();
                     view.hideProgress();
-                }else{
-                    if (page < NetworkUpComingCoursesInteractor.totalPage){
-                        view.hideLoadingMoreData();
+                } else {
+                    if (page < NetworkHistoryInteractor.totalPage - 1) {
+                        view.showLoadingMoreData();
+                        view.hideProgress();
                         view.setData(listData);
-                    }else {
+                    } else {
                         view.hideLoadingMoreData();
+                        view.hideProgress();
+                        view.setData(listData);
+                    }
+                }
+            }
+            @Override
+            public void onFailure() {
+                view.hideProgress();
+                view.errorMsg();
+            }
+        });
+    }
+
+
+    public void getRegister(int userId,final int page){
+        data.clear();
+        view.showProgress();
+        historyInteractor.getRegister(userId,page, new OnCoursesResult() {
+            @Override
+            public void onSuccess(ArrayList<Result> listData) {
+                data.addAll(listData);
+                view.hideProgress();
+                if (data.size() == 0) {
+                    view.showNoDataAvailable();
+                    view.hideProgress();
+                } else {
+                    if (page < NetworkHistoryInteractor.totalPage - 1) {
+                         view.showLoadingMoreData();
+                        view.hideProgress();
+                        view.setData(listData);
+                    } else {
+                        view.hideLoadingMoreData();
+                        view.hideProgress();
                         view.setData(listData);
                     }
                 }

@@ -1,10 +1,12 @@
 package inc.talentedinc.model;
 
+import java.io.Serializable;
+
 /**
  * Created by MMM on 6/8/2018.
  */
 
-public class InstructorSkills {
+public class InstructorSkills implements Serializable{
 
     private int instructorId;
 
