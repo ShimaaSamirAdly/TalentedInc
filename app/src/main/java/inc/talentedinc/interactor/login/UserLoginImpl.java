@@ -27,10 +27,15 @@ public class UserLoginImpl implements UserLoginInter {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response != null) {
+                    if(response.code() != 200) {
 
-                    Log.i("nela ", response.raw().toString());
+                        Log.i("nela ", response.raw().toString());
 
-                    onresult.onSucess(response.body());
+                        onresult.onSucess(response.body());
+                    }
+                    else{
+                        onresult.onFailure();
+                    }
                 }
             }
 
