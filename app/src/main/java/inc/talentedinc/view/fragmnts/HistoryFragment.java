@@ -270,21 +270,29 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void setRateResult() {
         rateDialog.dismiss();
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
     }
 
     @Override
     public void setLikeResult() {
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
     @Override
     public void setDisLikeResult() {
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 

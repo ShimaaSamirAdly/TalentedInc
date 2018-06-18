@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -57,6 +58,7 @@ public interface ApiHomeEndpoint {
                                   @Query("courseId") int courseId,
                                   @Query("courseDate")String date);
     // like
+    @Headers("Cache-Control: no-cache")
     @POST(APIUrls.LIKE)
     Call<BaseResponse> setLike(@Header("Authorization") String token,
                                @Query("userId") int userId,
@@ -64,12 +66,14 @@ public interface ApiHomeEndpoint {
                                @Query("courseDate")String date);
 
     // disLike
+    @Headers("Cache-Control: no-cache")
     @DELETE(APIUrls.DISLIKE)
     Call<BaseResponse> setDisLike(@Header("Authorization") String token,
                                   @Query("userId") int userId,
                                   @Query("courseId") int courseId,
                                   @Query("courseDate")String date);
     // comment
+    @Headers("Cache-Control: no-cache")
     @POST(APIUrls.COMMENT)
     Call<BaseResponse> setComment(@Header("Authorization") String token,
                                   @Query("userId") int userId,
@@ -77,6 +81,7 @@ public interface ApiHomeEndpoint {
                                   @Query("courseDate")String date,
                                   @Query("comment")String comment);
     // rate
+    @Headers("Cache-Control: no-cache")
     @POST(APIUrls.RATE)
     Call<BaseResponse> setRate(@Header("Authorization") String token,
                                @Query("userId") int userId,

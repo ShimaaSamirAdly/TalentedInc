@@ -166,12 +166,13 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                             }else {
                                 ActionUtils.showToast(getActivity(), "connection error");
                             }
+                        }else {
+                            page=0;
+                        //    presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
                         }
                     }
                 });
-//        if (mLastSearchQuery.equals("")){
-//            page=0;
-//        }
+
         presenter.getCategoties();
     }
 
@@ -351,24 +352,30 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
     @Override
     public void setLikeResult() {
-        UpComingCoursesViewHolder.likeButton.setLiked(false);
+       /* UpComingCoursesViewHolder.likeButton.setLiked(false);
         int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
+        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN+1));*/
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
-        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN+1));
     }
 
     @Override
     public void setDisLikeResult() {
-        UpComingCoursesViewHolder.likeButton.setLiked(true);
+       /* UpComingCoursesViewHolder.likeButton.setLiked(true);
         int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
-        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN-1));
+        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN-1));*/
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
     }
 
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
-        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvComments.getText().toString());
-        UpComingCoursesViewHolder.tvComments.setText(String.valueOf(resultN++));
+       /* int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvComments.getText().toString());
+        UpComingCoursesViewHolder.tvComments.setText(String.valueOf(resultN++));*/
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
+
     }
 
     @Override

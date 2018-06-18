@@ -269,21 +269,26 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
     @Override
     public void setRateResult() {
         rateDialog.dismiss();
+        presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     @Override
     public void setLikeResult() {
-
+        presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     @Override
     public void setDisLikeResult() {
+        presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
     }
 
     @Override
