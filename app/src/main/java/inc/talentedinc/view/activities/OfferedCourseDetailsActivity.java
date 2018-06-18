@@ -71,6 +71,11 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
         offeredCourseDuration = (TextView) findViewById(R.id.duration_txt);
         offeredCourseApplicants = (TextView) findViewById(R.id.no_applicants_txt);
         requestButton = (Button) findViewById(R.id.btnRegister);
+        if(offeredCourseDetailed.isRequested()){
+            requestButton.setText("Cancel");
+        }else {
+            requestButton.setText("Request");
+        }
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,10 +175,12 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
             case 0:
                 Toast.makeText(this, "Error requesting course Try again later!", Toast.LENGTH_SHORT).show();
                 requestButton.setText("Request");
+                offeredCourseDetailed.setRequested(false);
                 break;
             case 1:
                 Toast.makeText(this,"Your request has been sent successfully!",Toast.LENGTH_SHORT).show();
                 requestButton.setText("Cancel");
+                offeredCourseDetailed.setRequested(true);
                 break;
         }
     }
