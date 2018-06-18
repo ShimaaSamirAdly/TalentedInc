@@ -32,8 +32,6 @@ public class NetworkUpComingCoursesInteractor implements UpComingCoursesInteract
 
     @Override
     public void getUpComingCourses(int userId,int page, final OnCoursesResult onCoursesResult) {
-//       dummyData();
-//        onCoursesResult.onSuccess(data);
 
         Call<CoursesResponse> call;
         call = mApi.getUpComing(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId,page);

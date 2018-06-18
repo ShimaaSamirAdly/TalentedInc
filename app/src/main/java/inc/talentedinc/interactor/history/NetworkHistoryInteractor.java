@@ -114,6 +114,7 @@ public class NetworkHistoryInteractor implements HistoryInteractor {
     public void getHistory(int userId ,int page, final OnCoursesResult onCoursesResult) {
 //        dummyData();
 //        onCoursesResult.onSuccess(data);
+       // Log.i("TOKKEN",SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()));
 
         Call<CoursesResponse> call;
         call = mApi.getHistory(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userId,APIUrls.finishedCourses,page);
