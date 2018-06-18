@@ -115,6 +115,9 @@
     <string name="workspace_rate">Rate Workspace</string>
     <string name="PhotoAlbum">Photo Album</string>
     <string name="my_courses_btn">My Offered Courses</string>
+
+    <string name="SignUpButton">Sign Up</string>
+
     <!--................................................................................-->
 
 </resources>

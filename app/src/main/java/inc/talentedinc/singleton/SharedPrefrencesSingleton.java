@@ -15,6 +15,9 @@ public class SharedPrefrencesSingleton {
 
     private static volatile SharedPreferences sharedPreferences;
     private static final String prefName = "UserPref";
+    private static final String TOKEN = "token";
+
+
 
 
     public static SharedPreferences getInstance(Context context){
@@ -58,5 +61,23 @@ public class SharedPrefrencesSingleton {
         prefsEditor.commit();
     }
 
+
+    public static void setSharedPrefToken(Context context, String token){
+
+        SharedPreferences preferences = SharedPrefrencesSingleton.getInstance(context);
+        SharedPreferences.Editor prefsEditor = preferences.edit();
+        prefsEditor.remove(TOKEN);
+        String tokenRes = token;
+        prefsEditor.putString(TOKEN, tokenRes);
+        prefsEditor.commit();
+    }
+
+    public static String getSharedPrefToken(Context context){
+
+        sharedPreferences = getInstance(context);
+        String token = sharedPreferences.getString(TOKEN, "");
+
+        return token;
+    }
 
 }

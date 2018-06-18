@@ -8,6 +8,7 @@ import inc.talentedinc.model.User;
 import inc.talentedinc.model.UserLogin;
 import inc.talentedinc.model.response.MainResponse;
 import inc.talentedinc.singleton.AppRetrofit;
+import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,12 +28,19 @@ public class UserLoginImpl implements UserLoginInter {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response != null) {
-                    response.headers().get("Token");
-                    Log.i("TOKEN",response.headers().get("Token"));
+                    //response.headers().get("Token");
+                   // Log.i("TOKEN",response.headers().get("Token"));
+                    if(response.code() != 200) {
+                        Log.i("TOKEN",response.headers().get("Token"));
+                      //  SharedPrefrencesSingleton.se
 
-                    Log.i("nela ", response.raw().toString());
+                        Log.i("nela ", response.raw().toString());
 
-                    onresult.onSucess(response.body());
+                        onresult.onSucess(response.body());
+                    }
+                    else{
+                        onresult.onFailure();
+                    }
                 }
             }
 

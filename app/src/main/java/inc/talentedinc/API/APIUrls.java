@@ -25,7 +25,7 @@ public class APIUrls {
    public static final String RATE="/publishedCourses/rate";
 //*****************************************************************************************
 
-    // public static final String BASE_URL = "https://tal-company.herokuapp.com";
+
    public static final String WORK_SPACE_PROFILE = "workspace/getprofileworkspace" ;
 
     //alaa
