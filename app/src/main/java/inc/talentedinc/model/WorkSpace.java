@@ -72,9 +72,9 @@ public class WorkSpace implements Serializable {
     @SerializedName("workSpacePhonesCollection")
     @Expose
     private List<Object> workSpacePhonesCollection = null;
-    @SerializedName("workSpaceImagesCollection")
+    @SerializedName("images")
     @Expose
-    private List<Object> workSpaceImagesCollection = null;
+    private List<String> images = null;
 
     public Integer getWorkSpaceId() {
         return workSpaceId;
@@ -236,12 +236,14 @@ public class WorkSpace implements Serializable {
         this.workSpacePhonesCollection = workSpacePhonesCollection;
     }
 
-    public List<Object> getWorkSpaceImagesCollection() {
-        return workSpaceImagesCollection;
+
+    public List<String> getImages() {
+        return images;
     }
 
-    public void setWorkSpaceImagesCollection(List<Object> workSpaceImagesCollection) {
-        this.workSpaceImagesCollection = workSpaceImagesCollection;
+    public void setImages(List<String> images) {
+        this.images = images;
     }
+
 
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import inc.talentedinc.R;
@@ -68,6 +69,7 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
     @Override
     public void sendWorkSpaceData(WorkSpace workSpace) {
         this.workSpace = workSpace ;
+        Log.i("imagesWork",workSpace.getImages().get(0)) ;
         setWorkspaceData();
 
     }
@@ -80,8 +82,21 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
 
     private void setWorkspaceData(){
 
-        List<Object> photos =  workSpace.getWorkSpaceImagesCollection();
-        if (photos  != null) {
+        workSapceAddress.setText(workSpace.getAddress());
+        workSpaceName.setText(workSpace.getName());
+        workSpaceHolidays.setText(workSpace.getHoliday());
+        workSpaceOpeningTime.setText(workSpace.getStartTime());
+        workSpaceClosingTime.setText(workSpace.getClosingTime());
+        workSpaceFaceBookUrl.setText(workSpace.getFacebookPageUrl());
+        workSpaceEmail.setText(workSpace.getEmail());
+
+
+
+        List<String> photos =  new ArrayList<>();
+           photos =  workSpace.getImages() ;
+
+        if (photos.size() > 0 ) {
+
             String photo1 = (String) photos.get(0);
             String photo2 = (String) photos.get(1);
             String photo3 = (String) photos.get(2);
@@ -93,27 +108,21 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
                     .into(workSpaceLogo);
 
             Glide.with(this)
-                    .load("" + photo1)
+                    .load("" + workSpace.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(workSpacePhoto1);
 
             Glide.with(this)
-                    .load("" + photo2)
+                    .load("" + workSpace.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(workSpacePhoto2);
             Glide.with(this)
-                    .load("" + photo3)
+                    .load("" + workSpace.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(workSpacePhoto3);
         }
 
-        workSapceAddress.setText(workSpace.getAddress());
-        workSpaceName.setText(workSpace.getName());
-        workSpaceHolidays.setText(workSpace.getHoliday());
-        workSpaceOpeningTime.setText(workSpace.getStartTime());
-        workSpaceClosingTime.setText(workSpace.getClosingTime());
-        workSpaceFaceBookUrl.setText(workSpace.getFacebookPageUrl());
-        workSpaceEmail.setText(workSpace.getEmail());
+
 
 
 

@@ -30,7 +30,8 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private View itemView;
     private TextView txtName;
     private TextView txtonInstructorName;
-    private TextView txtDate , tvLikes , tvComments;
+    private TextView txtDate ;
+    private TextView tvLikes , tvComments;
     private CircleImageView img;
     private Result courseModel;
     private ImageView imgRte;
@@ -53,13 +54,11 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         txtDate = itemView.findViewById(R.id.textView20);
         tvLikes =itemView.findViewById(R.id.textView13);
         tvComments =itemView.findViewById(R.id.textView14);
-
         img = itemView.findViewById(R.id.imageView);
         img.setOnClickListener(this);
         etComment=itemView.findViewById(R.id.editText);
         etComment.setOnClickListener(this);
         imgRte = itemView.findViewById(R.id.imageView2);
-
         imgRte.setOnClickListener(this);
         likeButton = itemView.findViewById(R.id.thumb_button);
         likeButton.setOnLikeListener(this);
@@ -75,7 +74,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         tvLikes.setText(String.valueOf(courseModel.getNumberOfLikes()));
         tvComments.setText(String.valueOf(courseModel.getNumberOfComments()));
 //        if(courseModel.getImageUrl()!=null ) {
-            Glide.with(context).load(courseModel.getImageUrl()).centerCrop().placeholder(R.drawable.default_course).into(img);
+            Glide.with(context).load(courseModel.getImageUrl()).centerCrop().into(img);
 //        }
         if (courseModel.getLiked()){
             likeButton.setLiked(true);
@@ -92,7 +91,6 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
             else
                 imgRte.setVisibility(View.VISIBLE);
         }
-
     }
 
     @Override
@@ -108,7 +106,11 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
                 break;
 //                comment
             case R.id.editText:
-                listener.onCommentClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
+                if (ActionUtils.isInternetConnected(context)) {
+                    int resultN =Integer.parseInt(tvComments.getText().toString());
+                    tvComments.setText(String.valueOf(resultN+1));
+                    listener.onCommentClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate());
+                }
                 break;
                 // to details
             case R.id.imageView:
@@ -123,9 +125,11 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     @Override
     public void liked(LikeButton likeButton) {
-        if (ActionUtils.isInternetConnected(context))
-        listener.onLikeClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
-        else {
+        if (ActionUtils.isInternetConnected(context)) {
+            int resultN =Integer.parseInt(tvLikes.getText().toString());
+            tvLikes.setText(String.valueOf(resultN+1));
+            listener.onLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate());
+        } else {
             ActionUtils.showToast(context,"Connection Error");
             likeButton.setLiked(true);
         }
@@ -134,9 +138,12 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     @Override
     public void unLiked(LikeButton likeButton) {
-        if (ActionUtils.isInternetConnected(context))
-            listener.onDisLikeClick(courseModel.getOfferedCourseId(),courseModel.getPublishedDate());
-        else {
+        if (ActionUtils.isInternetConnected(context)){
+            int resultN = Integer.parseInt(tvLikes.getText().toString());
+            tvLikes.setText(String.valueOf(resultN - 1));
+            listener.onDisLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate());
+
+    } else {
             ActionUtils.showToast(context,"Connection Error");
             likeButton.setLiked(false);
         }

@@ -16,7 +16,7 @@ public class Course implements Serializable {
     private Integer noOfApplicant ;
     private String description ;
     private Categories categoryId ;
-    private Integer duration;
+    private Integer durationHours ;
     private Instructor instructorId ;
 //  private Integer instructorId ;
 
@@ -38,11 +38,12 @@ public class Course implements Serializable {
     }
 
     public void setDuration(Integer duration) {
-        this.duration = duration;
+
+        this.durationHours = duration;
     }
 
     public Integer getDuration() {
-        return duration;
+        return durationHours;
     }
 
 

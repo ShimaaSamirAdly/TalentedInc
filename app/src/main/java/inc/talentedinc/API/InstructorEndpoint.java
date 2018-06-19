@@ -14,5 +14,5 @@ import retrofit2.http.POST;
 public interface InstructorEndpoint {
 
     @POST("/instructors/add")
-    Call<User> becomeInstructor(@Header("Authorization") String token, @Body Instructor instructor);
+    Call<Void> becomeInstructor(@Header("Authorization") String token, @Body Instructor instructor);
 }

@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,6 +70,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private User gmailUser ;
     private Button signUp ;
     private User signedUpUser ;
+    private ImageView googleImg;
+    private ImageView fbImg;
 
 
 //--------------------------------------------------------------------------------------------------//
@@ -84,6 +87,10 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        googleImg = findViewById(R.id.google);
+        fbImg = findViewById(R.id.fb);
+        googleImg.setOnClickListener(this);
+        fbImg.setOnClickListener(this);
 
         //---------------------------------Alaa--------------------------------------------------//
 
@@ -249,7 +256,15 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                 }
                 break;
 
-
+            case R.id.google:
+                signIn();
+                break;
+              //  break;
+            /////
+            ///
+            case R.id.fb:
+                loginButton.performClick();
+                break;
         }
     }
     //------------------------------------------------------------------------------------//

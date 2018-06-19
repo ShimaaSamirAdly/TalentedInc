@@ -82,6 +82,11 @@ public class SignUpPresenterImpl implements SignUpPresenter, CategoriesListener,
         Toast.makeText(context, "No InternetConnection", Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void onFailedSignUp(String status) {
+        Toast.makeText(context, status, Toast.LENGTH_LONG).show();
+    }
+
 
     @Override
     public void onSuccess(int userId) {

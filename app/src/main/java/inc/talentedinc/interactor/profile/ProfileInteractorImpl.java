@@ -30,6 +30,7 @@ public class ProfileInteractorImpl implements ProfileInteractor {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.i("resp", Integer.toString(response.code()));
                 if(response.code() == 200) {
+
                     listener.onSuccess(user);
                 }else{
                     listener.onFailedConnection();
@@ -55,7 +56,7 @@ public class ProfileInteractorImpl implements ProfileInteractor {
                 if(response.code() == 200) {
                     Log.i("curentUser", ""+response.code());
                     User user = response.body();
-                    Log.i("userInt", user.getCity());
+                    Log.i("resp", Integer.toString(user.getUserType()));
                     listener.onGetCurrentUser(user);
                 }else{
                     Log.i("curentUser", ""+response.code());

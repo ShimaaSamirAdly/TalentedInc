@@ -43,9 +43,11 @@ import inc.talentedinc.presenter.UpComingCoursesPresenter;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ValidationUtility;
 import inc.talentedinc.view.activities.HomeActivity;
+import inc.talentedinc.view.activities.OthersProfileActivity;
 import inc.talentedinc.view.activities.UpComingDetailsActivity;
 import inc.talentedinc.utilitis.ActionUtils;
 import inc.talentedinc.utilitis.EndlessRecyclerOnScrollListener;
+import inc.talentedinc.viewholder.UpComingCoursesViewHolder;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -101,6 +103,8 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     private void initView(View v){
 
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.UPCOMING);
+        HomeActivity.KEY=HomeActivity.UPCOMING;
+
         // hide keyboard when launch screen
         imgFilter= v.findViewById(R.id.imgFilter);
         imgFilter.setOnClickListener(this);
@@ -131,7 +135,7 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
             }
         });
 
-        presenter.setView(2,page, this);
+        presenter.setView(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page, this);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager/*recyclerView.getLayoutManager()*/) {
             @Override
             public void onLoadMore() {
@@ -153,29 +157,34 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                         //upcomingCoursesAdapter.clearData();
                         String newSearchQuery = textViewTextChangeEvent.text() + "";
                         if( !mLastSearchQuery.equals(newSearchQuery) &&  !newSearchQuery.equals(null)
-                                && !newSearchQuery.equals("search") ) {
+                                && !newSearchQuery.equals("search") && !newSearchQuery.equals("")) {
                             // isSearch=true;
                             mLastSearchQuery = newSearchQuery;
                             if (ActionUtils.isInternetConnected(getActivity())) {
                                   dataResult.clear();
                                 upcomingCoursesAdapter.clearData();
                                 page =0;
-                                presenter.getSearchByName(2,mLastSearchQuery, page);
+                                presenter.getSearchByName(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),mLastSearchQuery, page);
                             }else {
                                 ActionUtils.showToast(getActivity(), "connection error");
                             }
+                        }else {
+                           dataResult.clear();
+                            upcomingCoursesAdapter.clearData();
+                            page=0;
+                            presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
                         }
                     }
                 });
 
         presenter.getCategoties();
-
     }
 
     private void loadMoreData() {
         upcomingCoursesAdapter.setLoading(true);
         page++;
-        presenter.getHomeData(2,page);
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     private void commentDialog(final int courseId , final String courseDate){
@@ -183,8 +192,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
         View dialogView = this.getLayoutInflater().inflate(R.layout.custom_comment_dialog, null);
         builder.setView(dialogView);
-
-
         commentDialog = builder.create();
         if (dialogView != null) {
             final EditText etComment= dialogView.findViewById(R.id.etComment);
@@ -350,16 +357,31 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
     @Override
     public void setLikeResult() {
+       /* UpComingCoursesViewHolder.likeButton.setLiked(false);
+        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
+        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN+1));*/
+     //   presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+        Log.i("tttt]","test");
+       // getFragmentManager().beginTransaction().detach(this).attach(this).commit();
 
     }
 
     @Override
     public void setDisLikeResult() {
-
+       /* UpComingCoursesViewHolder.likeButton.setLiked(true);
+        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
+        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN-1));*/
+//        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+       /* Fragment currentFragment = */getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
     }
 
     @Override
     public void setCommentResult() {
+        commentDialog.dismiss();
+       /* int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvComments.getText().toString());
+        UpComingCoursesViewHolder.tvComments.setText(String.valueOf(resultN++));*/
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
@@ -394,6 +416,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     @Override
     public void onInstructorClick(int instructorId) {
         //// switch to instructor Profile
+        Intent intentUser = new Intent(getActivity(), OthersProfileActivity.class);
+        intentUser.putExtra("userId", instructorId);
+        startActivity(intentUser);
     }
 
     @Override
