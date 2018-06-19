@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -116,6 +117,7 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
 //        user.setInstructor(instructor);
 
         instructor.setUserId(user.getUserId());
+
 
         presenter.becomeInstructor(instructor);
     }

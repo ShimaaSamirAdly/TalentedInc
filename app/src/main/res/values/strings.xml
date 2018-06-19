@@ -87,9 +87,9 @@
     <!--...............................Alaa................................................-->
 
     <string name="OpenFrom">Open from</string>
-    <string name="openTime">8</string>
+    <string name="openTime">8:00 AM</string>
     <string name="To">to</string>
-    <string name="closingTime">10</string>
+    <string name="closingTime">10:00 PM</string>
     <string name="closed">Closed</string>
     <string name="holidays">Friday,Saterday</string>
     <string name="BasicInfo">Basic Info</string>
