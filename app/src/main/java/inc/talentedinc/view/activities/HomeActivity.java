@@ -105,6 +105,7 @@ public class HomeActivity extends AppCompatActivity{
 //        navigation.getMenu().getItem(0).setChecked(true);
         fab = findViewById(R.id.fab);
 
+
         /****************************Shimaa***********************************/
         becomeInstructor = findViewById(R.id.becomeInstructor);
         becomeInstructor.setOnClickListener(new View.OnClickListener() {

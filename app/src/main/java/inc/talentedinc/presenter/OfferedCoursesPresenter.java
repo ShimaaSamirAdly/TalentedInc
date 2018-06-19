@@ -9,12 +9,13 @@ import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
+import inc.talentedinc.view.callbackinterfaces.RequestListener;
 
 public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Serializable {
 
-    String BASE_URL = "https://f940191e-5b7a-4c0d-8e45-05b482b2e6e8.mock.pstmn.io/";
-    EndlessScrollHandler endlessScrollHandler;
-    OfferedCoursesFetcher offeredCoursesFetcher;
+    private EndlessScrollHandler endlessScrollHandler;
+    private OfferedCoursesFetcher offeredCoursesFetcher;
+    private RequestListener requestListener;
 
     public OfferedCoursesPresenter() {
         initializeInteractor();
@@ -22,6 +23,11 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
 
     public OfferedCoursesPresenter(EndlessScrollHandler endlessScrollHandler) {
         this.endlessScrollHandler = endlessScrollHandler;
+        initializeInteractor();
+    }
+
+    public OfferedCoursesPresenter(RequestListener requestListener) {
+        this.requestListener = requestListener;
         initializeInteractor();
     }
 
@@ -48,7 +54,11 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
 
     @Override
     public void makeToastRequestResult(int result,int position) {
-        endlessScrollHandler.makeToastRequestResult(result,position);
+        if(endlessScrollHandler != null) {
+            endlessScrollHandler.makeToastRequestResult(result, position);
+        }else if (requestListener != null){
+            requestListener.makeToastRequestResult(result,position);
+        }
     }
 
     @Override
@@ -68,12 +78,20 @@ public class OfferedCoursesPresenter implements OfferedCoursesPresenterInt, Seri
 
     @Override
     public void requestCanceled(int position) {
-        endlessScrollHandler.courseRequestCanceled(position);
+        if(endlessScrollHandler != null) {
+            endlessScrollHandler.courseRequestCanceled(position);
+        }else if(requestListener != null){
+            requestListener.courseRequestCanceled(position);
+        }
     }
 
     @Override
     public void errorCancelingRequest(int position) {
-        endlessScrollHandler.errorCancelingCopurse(position);
+        if(endlessScrollHandler != null) {
+            endlessScrollHandler.errorCancelingCopurse(position);
+        }else if(requestListener != null){
+            requestListener.errorCancelingCopurse(position);
+        }
     }
 
     @Override
