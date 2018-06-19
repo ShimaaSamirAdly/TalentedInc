@@ -23,7 +23,6 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
     private LinearLayoutManager coursesLayoutManager;
     private MyOfferedCourseViewAdapter offeredCoursesViewAdapter;
     private MyOfferedCoursePresenter myOfferedCoursePresenter;
-    private OfferedCourseDetailed acceptedOfferedCourse;
     public static String MY_OFFERED_COURSE_OBJECT = "my_offered_course_object";
     private ProgressBar myProgressBar;
 
@@ -48,9 +47,14 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
         myOfferedCoursePresenter = new MyOfferedCoursePresenter(this);
         offeredCoursesViewAdapter.setOfferedCoursesPresenter(myOfferedCoursePresenter);
         coursesRecyclerView.setAdapter(offeredCoursesViewAdapter);
+        //get Offered courses from api
         myOfferedCoursePresenter.fetchCourses(SharedPrefrencesSingleton.getSharedPrefUser(this).getUserId());
     }
 
+    /*
+     * this method view the fetched courses in recycler view
+     * @Param  ArrayList<OfferedCourseDetailed> myOfferedCourses
+     */
     @Override
     public void viewMyOfferedCourses(ArrayList<OfferedCourseDetailed> myOfferedCourses) {
         myProgressBar.setVisibility(View.GONE);
@@ -58,9 +62,12 @@ public class MyOfferedCourses extends AppCompatActivity implements MyOfferedCour
         offeredCoursesViewAdapter.notifyDataSetChanged();
     }
 
+    /*
+    * this method goes to the selected workspace profile activity
+    * @Param  OfferedCourseDetailed offeredCourseDetailed
+     */
     @Override
     public void gotoCoursesRequestsActivity(OfferedCourseDetailed offeredCourseDetailed) {
-        //go to requests activity
         Intent intent = new Intent(this,MyOfferedCoursesRequestsActivity.class);
         intent.putExtra(MyOfferedCourses.MY_OFFERED_COURSE_OBJECT,offeredCourseDetailed);
         startActivity(intent);

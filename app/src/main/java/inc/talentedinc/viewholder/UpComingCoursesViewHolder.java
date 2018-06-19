@@ -38,6 +38,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
     private LikeButton likeButton;
     private TextView etComment;
     private String s;
+    private int position;
     public UpComingCoursesViewHolder(String s,View itemView , HomeListener listener , Context context) {
         super(itemView);
         this.s=s;
@@ -66,7 +67,8 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
 
     }
 
-    public void setData(Result course){
+    public void setData(Result course , int position){
+        this.position= position;
         this.courseModel=course;
         txtName.setText(courseModel.getName());
         txtonInstructorName.setText(courseModel.getNameOfInstructor());
@@ -91,6 +93,13 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
             else
                 imgRte.setVisibility(View.VISIBLE);
         }
+        if (course.getCourseStatus()==0 || course.isRegistered()){
+            imgRte.setVisibility(View.GONE);
+
+        }
+        if (course.getCourseStatus()==2 && !course.isRated() && course.isRegistered()){
+            imgRte.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -109,7 +118,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
                 if (ActionUtils.isInternetConnected(context)) {
                     int resultN =Integer.parseInt(tvComments.getText().toString());
                     tvComments.setText(String.valueOf(resultN+1));
-                    listener.onCommentClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate());
+                    listener.onCommentClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate(),position);
                 }
                 break;
                 // to details
@@ -128,7 +137,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         if (ActionUtils.isInternetConnected(context)) {
             int resultN =Integer.parseInt(tvLikes.getText().toString());
             tvLikes.setText(String.valueOf(resultN+1));
-            listener.onLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate());
+            listener.onLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate(),position);
         } else {
             ActionUtils.showToast(context,"Connection Error");
             likeButton.setLiked(true);
@@ -141,7 +150,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         if (ActionUtils.isInternetConnected(context)){
             int resultN = Integer.parseInt(tvLikes.getText().toString());
             tvLikes.setText(String.valueOf(resultN - 1));
-            listener.onDisLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate());
+            listener.onDisLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate(),position);
 
     } else {
             ActionUtils.showToast(context,"Connection Error");

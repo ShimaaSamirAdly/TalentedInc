@@ -27,9 +27,10 @@ import inc.talentedinc.presenter.OfferedCoursesPresenter;
 import inc.talentedinc.presenter.OfferedCoursesPresenterInt;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.view.callbackinterfaces.EndlessScrollHandler;
+import inc.talentedinc.view.callbackinterfaces.RequestListener;
 import inc.talentedinc.view.fragmnts.OfferedCoursesFragment;
 
-public class OfferedCourseDetailsActivity extends AppCompatActivity implements EndlessScrollHandler{
+public class OfferedCourseDetailsActivity extends AppCompatActivity implements RequestListener{
 
     private OfferedCourseDetailed offeredCourseDetailed;
     private ImageView offeredCourseImage;
@@ -150,26 +151,6 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
     }
 
     @Override
-    public void showData(ArrayList<OfferedCourseDetailed> courses) {
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-
-    }
-
-    @Override
-    public void showProgressBar() {
-
-    }
-
-    @Override
-    public void makeErrorToast() {
-
-    }
-
-    @Override
     public void makeToastRequestResult(int result,int position) {
         switch (result) {
             case 0:
@@ -183,14 +164,6 @@ public class OfferedCourseDetailsActivity extends AppCompatActivity implements E
                 offeredCourseDetailed.setRequested(true);
                 break;
         }
-    }
-
-    @Override
-    public void gotoDetailedCourseView(OfferedCourseDetailed offeredCourseDetailed) {
-    }
-
-    @Override
-    public void dataFinished() {
     }
 
     @Override

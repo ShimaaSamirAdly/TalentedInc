@@ -57,7 +57,7 @@ public class MyOfferedCourseViewAdapter extends RecyclerView.Adapter<OfferedCour
                 offeredCoursesPresenter.gotoDetailedCourseView(offeredCourses.get(position));
             }
         });
-
+        //course image
         if(offeredCourses.get(position).getImageUrl() != null) {
             Glide.
                     with(myContext).

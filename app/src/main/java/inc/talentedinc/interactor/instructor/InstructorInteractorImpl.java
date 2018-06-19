@@ -29,10 +29,10 @@ public class InstructorInteractorImpl implements InstructorInteractor {
 
     public void becomeInstructor(final Instructor instructor, final InstructorListener listener){
 
-            Call<User> call = instructorEndpoint.becomeInstructor(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructor);
-            call.enqueue(new Callback<User>() {
+            Call<Void> call = instructorEndpoint.becomeInstructor(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructor);
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<User> call, Response<User> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     Log.i("connectingInstructor", ""+response.code());
                     if(response.code() == 200) {
                         listener.onSuccessPending(instructor);
@@ -42,8 +42,8 @@ public class InstructorInteractorImpl implements InstructorInteractor {
                 }
 
                 @Override
-                public void onFailure(Call<User> call, Throwable t) {
-                    Log.i("conn", t.getMessage());
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.i("connectingInstructor", t.getMessage());
                 }
             });
         }

@@ -10,7 +10,7 @@ public class Categories implements Serializable{
 
     private int categoryId;
     private String name;
-    private String imgUrl;
+    private String imageUrl;
 
     public Categories(int categoryId, String name) {
         this.categoryId = categoryId;
@@ -26,7 +26,7 @@ public class Categories implements Serializable{
     }
 
     public String getImgUrl() {
-        return imgUrl;
+        return imageUrl;
     }
 
     public void setCategoryId(int categoryId) {
@@ -38,7 +38,7 @@ public class Categories implements Serializable{
     }
 
     public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+        this.imageUrl = imgUrl;
     }
 
 //    ********************************* Asmaa **********************

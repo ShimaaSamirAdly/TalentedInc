@@ -108,16 +108,16 @@ public class WorkSpaceProfile extends AppCompatActivity  implements WorkSpacePro
                     .into(workSpaceLogo);
 
             Glide.with(this)
-                    .load("" + photo1)
+                    .load("" + workSpace.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(workSpacePhoto1);
 
             Glide.with(this)
-                    .load("" + photo2)
+                    .load("" + workSpace.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(workSpacePhoto2);
             Glide.with(this)
-                    .load("" + photo3)
+                    .load("" + workSpace.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(workSpacePhoto3);
         }

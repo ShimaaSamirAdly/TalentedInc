@@ -336,6 +336,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
                 portofolioAdapter = new PortofolioAdapter(getActivity(), (List<InstructorImages>) user.getInstructor().getInstructorImagesCollection());
                 portofolioGridView.setAdapter(portofolioAdapter);
 
+            videosLayout.removeAllViews();
            videosUrls = user.getInstructor().getInstructorUrlsCollection();
             Iterator iter = videosUrls.iterator();
             while (iter.hasNext()){

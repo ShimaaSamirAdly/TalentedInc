@@ -223,7 +223,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         }
         commentDialog.show();
     }
-
     private void filterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -239,21 +238,16 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
             // Drop down layout style - list view with radio button
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             // attaching data adapter to spinner
             spinnerCategories.setAdapter(dataAdapter);
-            Log.i("category", categories.get(0));
-
             Button okBtn = dialogView.findViewById(R.id.btnFilter);
             okBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  Log.i("sPINNER", spinnerCities.getSelectedItem().toString());
                     dataResult.clear();
                     upcomingCoursesAdapter.clearData();
                   page=0;
                   presenter.getSearchByFilter(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),spinnerCategories.getSelectedItem().toString(), spinnerCities.getSelectedItem().toString(),page);
-
                 }
             });
 
@@ -359,29 +353,27 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
        /* UpComingCoursesViewHolder.likeButton.setLiked(false);
         int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
         UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN+1));*/
-     //   presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
-        Log.i("tttt]","test");
-       // getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-
+      //  presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     @Override
     public void setDisLikeResult() {
-       /* UpComingCoursesViewHolder.likeButton.setLiked(true);
-        int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
-        UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN-1));*/
-//        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
-       /* Fragment currentFragment = */getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+
+       // presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
-       /* int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvComments.getText().toString());
-        UpComingCoursesViewHolder.tvComments.setText(String.valueOf(resultN++));*/
-        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
+//        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
 
+    }
+
+    @Override
+    public void setFilterResult() {
+        filterDialog.dismiss();
     }
 
     @Override
@@ -397,18 +389,18 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     }
 
     @Override
-    public void onLikeClick(int courseId , String courseDate) {
+    public void onLikeClick(int courseId , String courseDate, int position) {
         // presenter
             presenter.setLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
     }
 
     @Override
-    public void onDisLikeClick(int courseId, String courseDate) {
+    public void onDisLikeClick(int courseId, String courseDate , int position) {
         presenter.setDisLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
     }
 
     @Override
-    public void onCommentClick(int courseId , String courseDate) {
+    public void onCommentClick(int courseId , String courseDate, int position) {
         commentDialog(courseId,courseDate);
     }
 

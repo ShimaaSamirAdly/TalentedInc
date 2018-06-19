@@ -269,12 +269,18 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void setRateResult() {
         rateDialog.dismiss();
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
     }
 
     @Override
     public void setLikeResult() {
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
 
@@ -282,6 +288,9 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     @Override
     public void setDisLikeResult() {
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
 
@@ -290,8 +299,16 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
+
+    }
+
+    @Override
+    public void setFilterResult() {
 
     }
 
@@ -308,19 +325,19 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     @Override
-    public void onLikeClick(int courseId, String courseDate) {
+    public void onLikeClick(int courseId, String courseDate , int position) {
         presenter.setLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
 
     }
 
     @Override
-    public void onDisLikeClick(int courseId, String courseDate) {
+    public void onDisLikeClick(int courseId, String courseDate, int position) {
         presenter.setDisLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
 
     }
 
     @Override
-    public void onCommentClick(int courseId, String courseDate) {
+    public void onCommentClick(int courseId, String courseDate, int position) {
         commentDialog(courseId,courseDate);
     }
 
