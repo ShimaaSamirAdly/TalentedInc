@@ -270,6 +270,9 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
     @Override
     public void setRateResult() {
         rateDialog.dismiss();
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
@@ -280,6 +283,9 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
 
     @Override
     public void setDisLikeResult() {
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
 
@@ -288,6 +294,9 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
+        dataResult.clear();
+        upcomingCoursesAdapter.clearData();
+        page =0;
         presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
 
     }
