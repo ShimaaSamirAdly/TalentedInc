@@ -311,6 +311,11 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     @Override
+    public void setFilterResult() {
+
+    }
+
+    @Override
     public void onCourseClicked(Result result) {
         Intent switchToDetails = new Intent(getActivity(),UpComingDetailsActivity.class);
         switchToDetails.putExtra(UpComingDetailsActivity.COURSE, (Serializable)  result);
@@ -323,19 +328,19 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     }
 
     @Override
-    public void onLikeClick(int courseId, String courseDate) {
+    public void onLikeClick(int courseId, String courseDate , int position) {
         presenter.setLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
 
     }
 
     @Override
-    public void onDisLikeClick(int courseId, String courseDate) {
+    public void onDisLikeClick(int courseId, String courseDate, int position) {
         presenter.setDisLike(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),courseId,courseDate);
 
     }
 
     @Override
-    public void onCommentClick(int courseId, String courseDate) {
+    public void onCommentClick(int courseId, String courseDate, int position) {
         commentDialog(courseId,courseDate);
     }
 

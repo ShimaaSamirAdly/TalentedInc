@@ -119,6 +119,7 @@ public class UpComingCoursesPresenter {
             public void onSuccess(ArrayList<Result> listData) {
                 data.addAll(listData);
                 view.hideProgress();
+                view.setFilterResult();
                 if (data.size() == 0) {
                     view.showNoDataAvailable();
                     view.hideProgress();
@@ -229,6 +230,7 @@ public class UpComingCoursesPresenter {
         void setLikeResult();
         void setDisLikeResult();
         void setCommentResult();
+        void setFilterResult();
     }
 
 }
