@@ -38,6 +38,7 @@ public class RequstsAdapter extends RecyclerView.Adapter<RequestsViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RequestsViewHolder holder, final int position) {
 
+        //workspace name
         holder.getWorkspaceName().setText(requestingWorkspaces.get(position).getName());
         holder.getWorkspaceName().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,7 @@ public class RequstsAdapter extends RecyclerView.Adapter<RequestsViewHolder> {
                 requestsPresenter.gotoWorkspace(requestingWorkspaces.get(position).getWorkSpaceId());
             }
         });
+        //accept button
         holder.getAcceptButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +57,6 @@ public class RequstsAdapter extends RecyclerView.Adapter<RequestsViewHolder> {
 
     @Override
     public int getItemCount() {
-
         return requestingWorkspaces.size();
     }
 

@@ -63,6 +63,7 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
         }else {
             holder.getRequestOfferedCourseBtn().setText("Request");
         }
+        //request course button
         holder.getRequestOfferedCourseBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +84,7 @@ public class OfferedCoursesViewAdapter extends RecyclerView.Adapter<OfferedCours
                 offeredCoursesPresenter.gotoDetailedCourseView(offeredCourses.get(position));
             }
         });
-
+        //course image
         if(offeredCourses.get(position).getImageUrl() != null) {
             Glide.
                     with(myContext).

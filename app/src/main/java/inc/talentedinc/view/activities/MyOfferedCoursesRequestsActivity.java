@@ -56,6 +56,10 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
         requestsPresenter.fetchCourseRequests(myOfferedCourse.getOfferedCourseId());
     }
 
+    /*
+    this methods view the requests on an offered course
+    @Param ArrayList<OfferedCourseWorkspace> offeredCourseWorkspaces
+     */
     @Override
     public void viewRequests(ArrayList<OfferedCourseWorkspace> offeredCourseWorkspaces) {
         requestsProgBar.setVisibility(View.GONE);
@@ -63,6 +67,9 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
         requestsViewAdapter.notifyDataSetChanged();
     }
 
+    /*
+    this methods listens to the press on accept button
+     */
     @Override
     public void workspaceAcceptedSuccessfully() {
         Intent intent = new Intent(this,MyOfferedCourses.class);
@@ -70,6 +77,10 @@ public class MyOfferedCoursesRequestsActivity extends AppCompatActivity implemen
         finish();
     }
 
+    /*
+     * this method goes to the selected workspace profile activity
+     * @Param  OfferedCourseDetailed offeredCourseDetailed
+     */
     @Override
     public void gotoWorkspaceProfile(int workspaceId) {
         Intent intent = new Intent(this,WorkSpaceProfile.class);
