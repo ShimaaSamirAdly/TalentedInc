@@ -198,7 +198,7 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     @Override
     public void showProgress() {
-        isLoading = true;
+        isLoading = false;
         progressView.setVisibility(View.VISIBLE);
     }
 
