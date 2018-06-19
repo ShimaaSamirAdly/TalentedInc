@@ -252,9 +252,8 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                     dataResult.clear();
                     upcomingCoursesAdapter.clearData();
                   page=0;
-                  presenter.getSearchByFilter(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),"Photography", spinnerCities.getSelectedItem().toString(),page);
+                  presenter.getSearchByFilter(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),spinnerCategories.getSelectedItem().toString(), spinnerCities.getSelectedItem().toString(),page);
 
-                  filterDialog.dismiss();
                 }
             });
 

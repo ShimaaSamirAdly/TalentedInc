@@ -61,9 +61,6 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     public static final String History = "history";
 
 
-
-
-
     public HistoryFragment() {
         // Required empty public constructor
     }
