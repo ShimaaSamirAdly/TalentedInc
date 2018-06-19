@@ -88,6 +88,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     private void initView(View v){
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.HISTORY);
+        HomeActivity.KEY=HomeActivity.HISTORY;
+
         linearLayoutSearch =v.findViewById(R.id.ll2);
         linearLayoutSearch.setVisibility(View.GONE);
         recyclerView= v.findViewById(R.id.my_recycler_view);

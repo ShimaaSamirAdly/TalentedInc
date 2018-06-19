@@ -57,10 +57,9 @@ public class PortofolioAdapter extends BaseAdapter {
         Log.i("setView", "adapter");
         ImageView imageView = grid.findViewById(R.id.img);
 
-
-        Glide.with(context)
-                .load(imagesUrl.get(position).getImageUrl())
-                .into(imageView);
+            Glide.with(context)
+                    .load(imagesUrl.get(position).getImageUrl())
+                    .into(imageView);
 //            imageView.setLayoutParams(new ViewGroup.LayoutParams(150, 150));
 //            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 //            imageView.setPadding(8, 8, 8, 8);

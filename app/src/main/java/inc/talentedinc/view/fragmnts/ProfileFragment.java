@@ -128,7 +128,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
 
 //        ***************************** Asmaa ***************************************
-//        ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
+     //   initView();
 
         /******************************Shimaa*******************************************/
         validator = new SignupValidator();
@@ -330,9 +330,11 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 //            ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
             setInstructorButtonGone();
             setInstructorUserView();
+          //  Log.i("TESTUSER", (List<InstructorImages>)user.getInstructor().getInstructorImagesCollection()+"");
 
-            portofolioAdapter = new PortofolioAdapter(getActivity(), (List<InstructorImages>)user.getInstructor().getInstructorImagesCollection());
-            portofolioGridView.setAdapter(portofolioAdapter);
+
+                portofolioAdapter = new PortofolioAdapter(getActivity(), (List<InstructorImages>) user.getInstructor().getInstructorImagesCollection());
+                portofolioGridView.setAdapter(portofolioAdapter);
 
            videosUrls = user.getInstructor().getInstructorUrlsCollection();
             Iterator iter = videosUrls.iterator();
@@ -429,7 +431,6 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
 
         }else {
             ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.GONE);
-            ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
             initView();
             profilePresenter.getCurrentUser();
 
@@ -556,7 +557,7 @@ public class ProfileFragment extends Fragment implements AdapterView.OnItemSelec
     void initView(){
 
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.PROGILE);
-        ((HomeActivity)getActivity()).fab.setVisibility(View.GONE);
+         HomeActivity.KEY=HomeActivity.PROGILE;
 //        ((HomeActivity) getActivity()).becomeInstructor.setVisibility(View.VISIBLE);
     }
 

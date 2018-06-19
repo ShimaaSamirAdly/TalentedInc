@@ -43,7 +43,7 @@ public class NetworkHistoryInteractor implements HistoryInteractor {
                 if (response.code()== APIUrls.SUCCESS) {
                     totalPage = response.body().getTotalNumberOfPages();
                     Log.i("ttttttt", response.body().getTotalNumberOfUpComingCourses() + "");
-                    if (response.body().getResult().size() != 0) {
+                    if (response.body().getResult().size() > 0) {
                         for (int i = 0; i < response.body().getResult().size(); i++) {
                             data.add(response.body().getResult().get(i));
                         }
@@ -70,7 +70,7 @@ public class NetworkHistoryInteractor implements HistoryInteractor {
                 if (response.code()== APIUrls.SUCCESS) {
                     totalPage = response.body().getTotalNumberOfPages();
                     Log.i("ttttttt", response.body().getTotalNumberOfUpComingCourses() + "");
-                    if (response.body().getResult().size() != 0) {
+                    if (response.body().getResult().size() > 0) {
                         for (int i = 0; i < response.body().getResult().size(); i++) {
                             if (response.body().getResult().get(i).getCourseStatus()==0)
                             data.add(response.body().getResult().get(i));

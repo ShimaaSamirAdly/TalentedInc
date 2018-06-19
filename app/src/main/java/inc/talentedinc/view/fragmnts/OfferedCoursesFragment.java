@@ -57,6 +57,7 @@ public class OfferedCoursesFragment extends Fragment implements EndlessScrollHan
         //***************************** Asmaa ***************************************
 
         ((HomeActivity) getActivity()).whichFragment(HomeActivity.OFFERD);
+        HomeActivity.KEY=HomeActivity.OFFERD;
         // *****************************  ***************************************
 
         myProgressBar = (ProgressBar) view.findViewById(R.id.offered_course_pBar);

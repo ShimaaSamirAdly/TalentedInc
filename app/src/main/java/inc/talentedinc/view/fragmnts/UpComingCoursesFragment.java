@@ -103,6 +103,8 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
     private void initView(View v){
 
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.UPCOMING);
+        HomeActivity.KEY=HomeActivity.UPCOMING;
+
         // hide keyboard when launch screen
         imgFilter= v.findViewById(R.id.imgFilter);
         imgFilter.setOnClickListener(this);
@@ -167,8 +169,10 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                                 ActionUtils.showToast(getActivity(), "connection error");
                             }
                         }else {
+                            dataResult.clear();
+                            upcomingCoursesAdapter.clearData();
                             page=0;
-                        //    presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+                            presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
                         }
                     }
                 });
@@ -355,7 +359,9 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
        /* UpComingCoursesViewHolder.likeButton.setLiked(false);
         int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
         UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN+1));*/
-        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+     //   presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+        Log.i("tttt]","test");
+       // getFragmentManager().beginTransaction().detach(this).attach(this).commit();
 
     }
 
@@ -364,8 +370,8 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
        /* UpComingCoursesViewHolder.likeButton.setLiked(true);
         int resultN = Integer.parseInt(UpComingCoursesViewHolder.tvLikes.getText().toString());
         UpComingCoursesViewHolder.tvLikes.setText(String.valueOf(resultN-1));*/
-        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
-
+//        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+       /* Fragment currentFragment = */getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
     }
 
     @Override
