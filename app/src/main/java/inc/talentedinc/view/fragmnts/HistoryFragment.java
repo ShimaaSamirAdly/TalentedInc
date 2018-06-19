@@ -88,6 +88,8 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
 
     private void initView(View v){
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.HISTORY);
+        HomeActivity.KEY=HomeActivity.HISTORY;
+
         linearLayoutSearch =v.findViewById(R.id.ll2);
         linearLayoutSearch.setVisibility(View.GONE);
         recyclerView= v.findViewById(R.id.my_recycler_view);
@@ -270,21 +272,29 @@ public class HistoryFragment extends Fragment implements UpComingCoursesPresente
     @Override
     public void setRateResult() {
         rateDialog.dismiss();
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
     }
 
     @Override
     public void setLikeResult() {
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
     @Override
     public void setDisLikeResult() {
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 

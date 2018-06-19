@@ -86,6 +86,7 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
 
     private void initView(View v){
         ((HomeActivity)getActivity()).whichFragment(HomeActivity.NOTIFICATION);
+        HomeActivity.KEY=HomeActivity.NOTIFICATION;
 
         linearLayoutSearch =v.findViewById(R.id.ll2);
         linearLayoutSearch.setVisibility(View.GONE);
@@ -269,21 +270,26 @@ public class RegisterFragment extends Fragment implements UpComingCoursesPresent
     @Override
     public void setRateResult() {
         rateDialog.dismiss();
+        presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     @Override
     public void setLikeResult() {
-
+        presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
     }
 
     @Override
     public void setDisLikeResult() {
+        presenter.getRegister(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
 
     }
 
     @Override
     public void setCommentResult() {
         commentDialog.dismiss();
+        presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
     }
 
     @Override

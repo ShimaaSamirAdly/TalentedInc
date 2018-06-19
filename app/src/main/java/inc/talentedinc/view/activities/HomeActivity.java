@@ -25,13 +25,16 @@ import inc.talentedinc.view.fragmnts.RegisterFragment;
 import inc.talentedinc.view.fragmnts.UpComingCoursesFragment;
 
 public class HomeActivity extends AppCompatActivity{
-    public FloatingActionButton fab;
+    public static FloatingActionButton fab;
     public BottomNavigationView navigation;
     public static final String UPCOMING ="upcoming";
     public static final String HISTORY ="history";
     public static final String OFFERD ="offerd";
     public static final String PROGILE ="PROFILE";
     public static final String NOTIFICATION ="notification";
+    public static String KEY ;
+
+
 
     /****************************** Shimaa**************************/
 
@@ -101,10 +104,9 @@ public class HomeActivity extends AppCompatActivity{
                 }
                 else {
                     navigation.setVisibility(View.VISIBLE);
-                    if (SharedPrefrencesSingleton.getSharedPrefUser(HomeActivity.this).getUserType()==2){
+                    if (SharedPrefrencesSingleton.getSharedPrefUser(HomeActivity.this).getUserType()==2 && !KEY.equals(PROGILE)){
                         fab.show();
                     }
-                  //  fab.show();
                 }
             }
         });
@@ -156,6 +158,7 @@ public class HomeActivity extends AppCompatActivity{
 
                 break;
             case PROGILE:
+                fab.hide();
                 navigation.getMenu().getItem(3).setChecked(true);
                 break;
             case OFFERD:

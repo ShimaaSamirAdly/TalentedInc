@@ -102,9 +102,13 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         result=(Result) getIntent().getExtras().getSerializable(COURSE);
         Log.i("IDID",SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId()+"");
         Log.i("IDID2",result.getInstructorId().getUserId()+"");
-       if (SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId().equals( result.getInstructorId().getUserId()) ){
+       if (SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId().equals( result.getInstructorId().getUserId()) ||
+               result.getCourseStatus()==1){
             btnRegister.setVisibility(View.GONE);
-        }
+        }else{
+           btnRegister.setVisibility(View.VISIBLE);
+
+       }
         presenter.setView(result,this);
     }
 
@@ -188,10 +192,10 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                 if (comments.get(i).getTime()!=null){
                     commentTvTime.setText(comments.get(i).getTime());
                 }
-                if (!comments.get(i).getUserImageOfComment().equals(null)){
+              //  if (!comments.get(i).getUserImageOfComment().equals(null)){
                     Glide.with(this).load(comments.get(i).getUserImageOfComment()).centerCrop()
                             .into(commentUserImg);
-                }
+               // }
                 a.addView(child);
             }
             myRoot.addView(a);
