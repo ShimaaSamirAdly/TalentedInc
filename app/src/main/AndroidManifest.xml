@@ -63,6 +63,7 @@
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -77,6 +78,7 @@
         <!--sign up activity-->
         <activity
             android:name=".view.activities.SignUpActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
@@ -88,11 +90,14 @@
 
         <!--offered course details activity-->
         <activity android:name=".view.activities.OfferedCourseDetailsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".view.activities.MyOfferedCourses"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".view.activities.MyOfferedCoursesRequestsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <!-- ........................................................................ -->
 
@@ -101,30 +106,42 @@
 
         //******************** Shimaa ****************************************
 
-        <activity android:name=".view.activities.SignUpInterests" />
-        <activity android:name=".view.activities.OthersProfileActivity"
+        <activity android:name=".view.activities.SignUpInterests"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".view.activities.BecomeInstructorActivity">
+        <activity android:name=".view.activities.OthersProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".view.activities.BecomeInstructorActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
-        <activity android:name=".view.activities.UpdateInterestsActivity" />
-        <activity android:name=".view.activities.FollowersActivity"></activity>
+        <activity android:name=".view.activities.UpdateInterestsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".view.activities.FollowersActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         //**********************************************************************
         <!-- -.................................alaa............................................. -->
         <activity android:name=".view.activities.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activities.CreateCourseActivity" android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.activities.WorkSpaceProfile" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".view.activities.CreateCourseActivity"   android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.activities.WorkSpaceProfile"   android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN" />-->
             <!--<category android:name="android.intent.category.LAUNCHER" />-->

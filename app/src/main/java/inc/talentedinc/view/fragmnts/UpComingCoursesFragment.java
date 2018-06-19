@@ -169,10 +169,11 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
                                 ActionUtils.showToast(getActivity(), "connection error");
                             }
                         }else {
-                            dataResult.clear();
+                           dataResult.clear();
                             upcomingCoursesAdapter.clearData();
                             page=0;
                             presenter.getHomeData(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),page);
+
                         }
                     }
                 });

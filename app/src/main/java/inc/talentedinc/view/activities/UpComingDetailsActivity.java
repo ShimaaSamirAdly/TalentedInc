@@ -105,7 +105,10 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
        if (SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId().equals( result.getInstructorId().getUserId()) ||
                result.getCourseStatus()==1){
             btnRegister.setVisibility(View.GONE);
-        }
+        }else{
+           btnRegister.setVisibility(View.VISIBLE);
+
+       }
         presenter.setView(result,this);
     }
 
