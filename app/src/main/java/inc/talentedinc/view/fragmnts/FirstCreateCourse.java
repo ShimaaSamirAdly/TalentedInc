@@ -136,7 +136,12 @@ public class FirstCreateCourse extends Fragment implements SetDateTextView {
             Log.i("currentMonth",""+currentMonth);
             Log.i("elDate",startParts[1]);
 
-        if ( Integer.parseInt(startParts[1]) >= currentMonth+1 && Integer.parseInt(startParts[0]) == Integer.parseInt(currentParts[2]) ) {
+            boolean flag = true ;
+            if(Integer.parseInt(startParts[1]) == currentMonth+1 && Integer.parseInt(startParts[2]) < Integer.parseInt(currentParts[0])){
+                flag = false ;
+            }
+
+        if ( Integer.parseInt(startParts[1]) >= currentMonth+1 && Integer.parseInt(startParts[0]) == Integer.parseInt(currentParts[2]) && flag ) {
 
             if (Integer.parseInt(startParts[1]) == Integer.parseInt(endParts[1]) ) {
                 if (Integer.parseInt(startParts[2]) < Integer.parseInt(endParts[2])) {
