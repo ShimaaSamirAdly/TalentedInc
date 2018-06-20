@@ -45,7 +45,7 @@ public class NetworkHistoryInteractor implements HistoryInteractor {
                     Log.i("ttttttt", response.body().getTotalNumberOfUpComingCourses() + "");
                     if (response.body().getResult().size() > 0) {
                         for (int i = 0; i < response.body().getResult().size(); i++) {
-                            if (response.body().getResult().get(i).getCourseStatus()==1 ||response.body().getResult().get(i).getCourseStatus()==1) {
+                            if (response.body().getResult().get(i).getCourseStatus()==1 ||response.body().getResult().get(i).getCourseStatus()==2) {
                                 data.add(response.body().getResult().get(i));
                             }
                         }

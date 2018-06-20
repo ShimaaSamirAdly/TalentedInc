@@ -94,16 +94,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         //---------------------------------Alaa--------------------------------------------------//
 
-
         signedUpUser = SharedPrefrencesSingleton.getSharedPrefUser(this);
         if(signedUpUser != null){
             Intent intent = new Intent(this , HomeActivity.class);
             startActivity(intent);
             finish();
         }
-
-
-
 
         btnSignIn = findViewById(R.id.sign_in_button);
         signUp = findViewById(R.id.signUpBtn);
@@ -117,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             }
         });
 
-
         btnSignIn.setOnClickListener(this);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -130,8 +125,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         loginBtn = findViewById(R.id.login_btn);
         loginBtn.setOnClickListener(this);
-
-
 
         //------------------------------------------------------------------------------------//
 
@@ -161,9 +154,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             }
         });
 
-
         // to generate hash key
-
 
                 try {
             PackageInfo info = getPackageManager().getPackageInfo(
@@ -177,11 +168,8 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         } catch (PackageManager.NameNotFoundException e) {
 
         } catch (NoSuchAlgorithmException e) {
-
         }
-
         /***************************************************************************************/
-
     }
 
     private void signIn() {
@@ -191,8 +179,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
     //------------------------------------------------------------------------------------//
     //------------------------------------Alaa--------------------------------------------//
-
-
     private void handleSignInResult(GoogleSignInResult result) {
         Log.i("StatusGmail", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
@@ -214,7 +200,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
             Log.i("userData", "Name: " + personName + ", email: " + email
                     );
 
-
         } else {
             // Signed out, show unauthenticated UI.
             Log.i("ErrorGmail",result.getStatus().toString());
@@ -231,14 +216,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         switch (id) {
             case R.id.sign_in_button:
                 signIn();
-
                 break;
 
             case  R.id.login_btn :
 
                 email = findViewById(R.id.email_text);
                 password = findViewById(R.id.password_text);
-
 
                 if (email.getText() != null && email.getText().toString().matches(emailPattern) && password.getText() != null){
 

@@ -223,7 +223,6 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
         }
         commentDialog.show();
     }
-
     private void filterDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
@@ -239,21 +238,16 @@ public class UpComingCoursesFragment extends Fragment implements UpComingCourses
 
             // Drop down layout style - list view with radio button
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             // attaching data adapter to spinner
             spinnerCategories.setAdapter(dataAdapter);
-            //Log.i("category", categories.get(0));
-
             Button okBtn = dialogView.findViewById(R.id.btnFilter);
             okBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                 // Log.i("sPINNER", spinnerCities.getSelectedItem().toString());
                     dataResult.clear();
                     upcomingCoursesAdapter.clearData();
-                    page=0;
+                  page=0;
                   presenter.getSearchByFilter(SharedPrefrencesSingleton.getSharedPrefUser(getActivity()).getUserId(),spinnerCategories.getSelectedItem().toString(), spinnerCities.getSelectedItem().toString(),page);
-
                 }
             });
 

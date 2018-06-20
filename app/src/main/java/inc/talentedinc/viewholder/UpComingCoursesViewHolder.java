@@ -97,6 +97,9 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
             imgRte.setVisibility(View.GONE);
 
         }
+        if (course.getCourseStatus()==2 && !course.isRated() && course.isRegistered()){
+            imgRte.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
