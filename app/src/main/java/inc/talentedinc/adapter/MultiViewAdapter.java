@@ -137,6 +137,7 @@ public class MultiViewAdapter extends RecyclerView.Adapter {
                         @Override
                         public void onClick(View v) {
                             presenter.createInstructor(skills, imgPaths, url.getText().toString());
+                            listener.getFBButton().performClick();
                         }
                     });
             }

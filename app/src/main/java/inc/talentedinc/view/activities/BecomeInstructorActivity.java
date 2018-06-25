@@ -19,8 +19,22 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import inc.talentedinc.R;
 import inc.talentedinc.adapter.MultiViewAdapter;
@@ -43,6 +57,9 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
     private ImageView img;
     private int imgIndex;
     private BecomeInstructorPresenter presenter;
+    private CallbackManager callbackManager;
+    private LoginButton loginButton;
+    private Instructor instructor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +67,7 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
         setContentView(R.layout.activity_edit_profile);
 
         user = SharedPrefrencesSingleton.getSharedPrefUser(this);
+        instructor = new Instructor();
 
         presenter = new BecomeInstructorPresenterImpl(this, this);
 
@@ -64,6 +82,32 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(adapter);
 
+//        ..........................................mina.......................................
+
+        //facebook login
+        callbackManager = CallbackManager.Factory.create();
+        loginButton = (LoginButton) findViewById(R.id.fb_login);
+        //setting permissions
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email", "user_birthday"));
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                makeGraphCall(loginResult);
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Log.i("fbfb",exception.toString());
+                exception.printStackTrace();
+            }
+        });
+
+//        ....................................................................................................
     }
 
     @Override
@@ -75,6 +119,7 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.i("res", "onResult");
@@ -106,6 +151,11 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_REQUEST);
     }
 
+    @Override
+    public Button getFBButton() {
+        return loginButton;
+    }
+
 
     public void emptyFieldsError(){
 
@@ -116,10 +166,13 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
 
 //        user.setInstructor(instructor);
 
-        instructor.setUserId(user.getUserId());
+        this.instructor = instructor;
+//        this.instructor.setUserId(user.getUserId());
+        this.instructor.setUser(user);
 
 
-        presenter.becomeInstructor(instructor);
+
+//        presenter.becomeInstructor(instructor);
     }
 
     public void switchToHome(){
@@ -128,4 +181,48 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
+
+//    ..............................................mina...........................................
+
+    //make graph call with user access token to get profile data
+    private void makeGraphCall(final LoginResult loginResult) {
+        GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        if (object != null) {
+                            //user to send to interests activity
+                            createUser(object, loginResult);
+                        }
+                    }
+                });
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,name,email,gender,birthday");
+        request.setParameters(parameters);
+        request.executeAsync();
+    }
+
+
+    // create user from facebook data to pass to interests activity
+    private void createUser(JSONObject userJson, LoginResult loginResult) {
+
+        String fbId = null;
+        try {
+            fbId = userJson.getString("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        loginResult.getAccessToken().getToken();
+
+//        presenter.setFaceBookData(fbId, loginResult.getAccessToken().getToken());
+        this.instructor.getUser().setFbToken(fbId);
+        this.instructor.getUser().setFbToken(loginResult.getAccessToken().getToken());
+        Log.i("fbInstructor", fbId);
+        Log.i("fbInstructor", loginResult.getAccessToken().getToken());
+
+        presenter.becomeInstructor(instructor);
+
+    }
+
+//    ...................................................................................................
 }

@@ -107,6 +107,8 @@ public class HomeActivity extends AppCompatActivity{
                     if (SharedPrefrencesSingleton.getSharedPrefUser(HomeActivity.this).getUserType()==2 && !KEY.equals(PROGILE)){
                         fab.show();
                     }
+                    if(SharedPrefrencesSingleton.getSharedPrefUser(HomeActivity.this).getUserType()==0 ||SharedPrefrencesSingleton.getSharedPrefUser(HomeActivity.this).getUserType()==1)
+                        fab.hide();
                 }
             }
         });
