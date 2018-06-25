@@ -87,7 +87,7 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
             instructor.setInstructorUrlsCollection(instructorVideos);
             instructor.setSkillsCollection(instructorSkills);
 
-            becomeInstructor(instructor);
+//            becomeInstructor(instructor);
 
         }else{
 
@@ -97,6 +97,8 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
 
     @Override
     public void becomeInstructor(Instructor instructor) {
+
+        Log.i("skillscount", ""+instructor.getSkillsCollection().size());
 
         instructorInteractor.becomeInstructor(instructor, this);
     }

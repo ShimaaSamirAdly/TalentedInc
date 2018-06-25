@@ -37,6 +37,6 @@ public class HomeAdapter extends EndlessAdapter<Result> {
 
     @Override
     protected void bindMyViewController(RecyclerView.ViewHolder holder, int position) {
-        ((UpComingCoursesViewHolder)holder).setData(getDataItem(position));
+        ((UpComingCoursesViewHolder)holder).setData(getDataItem(position),position);
     }
 }

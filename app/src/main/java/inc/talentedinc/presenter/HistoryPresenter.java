@@ -54,7 +54,7 @@ public class HistoryPresenter {
 
     public void getHomeData(int userId,final int page){
         data.clear();
-        view.showProgress();
+      //  view.showProgress();
        historyInteractor.getHistory(userId,page, new OnCoursesResult() {
             @Override
             public void onSuccess(ArrayList<Result> listData) {
@@ -86,7 +86,7 @@ public class HistoryPresenter {
 
     public void getRegister(int userId,final int page){
         data.clear();
-        view.showProgress();
+       // view.showProgress();
         historyInteractor.getRegister(userId,page, new OnCoursesResult() {
             @Override
             public void onSuccess(ArrayList<Result> listData) {
