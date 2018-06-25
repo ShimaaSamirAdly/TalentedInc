@@ -88,15 +88,15 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         Log.i("TESTTEST", course.getPublishedDate()+"");
         if (s.equals(HomeAdapter.HISTORY)){
             imgRte.setVisibility(View.VISIBLE);
-            if (course.isRated())
+            if (course.getRated())
                 imgRte.setVisibility(View.GONE);
             else
                 imgRte.setVisibility(View.VISIBLE);
         }
-        if (course.getCourseStatus()==0 || course.isRegistered()){
+        if (course.getCourseStatus()==0 || course.getRegistered()){
             imgRte.setVisibility(View.GONE);
         }
-        if (course.getCourseStatus()==2 && !course.isRated() && course.isRegistered()){
+        if (course.getCourseStatus()==2 && !course.getRated() && course.getRegistered()){
             imgRte.setVisibility(View.VISIBLE);
         }
     }
@@ -110,7 +110,7 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
                 break;
 //                instractur Name
             case R.id.textView15:
-                listener.onInstructorClick(courseModel.getInstructorId().getUserId());
+                listener.onInstructorClick(courseModel.getIdOfInstructor());
                 break;
 //                comment
             case R.id.editText:

@@ -8,8 +8,7 @@ package inc.talentedinc.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Result implements Serializable
-{
+public class Result implements Serializable {
     private Integer offeredCourseId;
     private String name;
     private Integer durationHours;
@@ -19,19 +18,20 @@ public class Result implements Serializable
     private Integer noOfApplicant;
     private Integer cost;
     private String imageUrl;
-    private CategoryId categoryId;
-    private InstructorId instructorId;
-    private HostingWorkSpaceId hostingWorkSpaceId;
+    private String categoryName;
+    private String workSpaceName;
+    private Integer idOfInstructor;
+    private Integer idOfWorkSpace;
     private Integer numberOfLikes;
     private Integer numberOfComments;
     private Boolean liked;
-    private boolean registered;
-    private boolean rated;
+    private Boolean registered;
+    private Boolean rated;
     private Integer courseStatus;
     private String nameOfInstructor;
-    private ArrayList<CourseComment> courseComments ;
+    private String workSpaceAddress;
+    private ArrayList<CourseComment> courseComments;
     private String publishedDate;
-    private final static long serialVersionUID = -8458613531321444255L;
 
     public Integer getOfferedCourseId() {
         return offeredCourseId;
@@ -73,14 +73,6 @@ public class Result implements Serializable
         this.endDate = endDate;
     }
 
-    public boolean isRated() {
-        return rated;
-    }
-
-    public void setRated(boolean rated) {
-        this.rated = rated;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -113,28 +105,36 @@ public class Result implements Serializable
         this.imageUrl = imageUrl;
     }
 
-    public CategoryId getCategoryId() {
-        return categoryId;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryId(CategoryId categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public InstructorId getInstructorId() {
-        return instructorId;
+    public String getWorkSpaceName() {
+        return workSpaceName;
     }
 
-    public void setInstructorId(InstructorId instructorId) {
-        this.instructorId = instructorId;
+    public void setWorkSpaceName(String workSpaceName) {
+        this.workSpaceName = workSpaceName;
     }
 
-    public HostingWorkSpaceId getHostingWorkSpaceId() {
-        return hostingWorkSpaceId;
+    public Integer getIdOfInstructor() {
+        return idOfInstructor;
     }
 
-    public void setHostingWorkSpaceId(HostingWorkSpaceId hostingWorkSpaceId) {
-        this.hostingWorkSpaceId = hostingWorkSpaceId;
+    public void setIdOfInstructor(Integer idOfInstructor) {
+        this.idOfInstructor = idOfInstructor;
+    }
+
+    public Integer getIdOfWorkSpace() {
+        return idOfWorkSpace;
+    }
+
+    public void setIdOfWorkSpace(Integer idOfWorkSpace) {
+        this.idOfWorkSpace = idOfWorkSpace;
     }
 
     public Integer getNumberOfLikes() {
@@ -161,20 +161,28 @@ public class Result implements Serializable
         this.liked = liked;
     }
 
-    public ArrayList<CourseComment> getCourseComments() {
-        return courseComments;
-    }
-
-    public void setCourseComments(ArrayList<CourseComment> courseComments) {
-        this.courseComments = courseComments;
-    }
-
-    public boolean isRegistered() {
+    public Boolean getRegistered() {
         return registered;
     }
 
-    public void setRegistered(boolean registered) {
+    public void setRegistered(Boolean registered) {
         this.registered = registered;
+    }
+
+    public Boolean getRated() {
+        return rated;
+    }
+
+    public void setRated(Boolean rated) {
+        this.rated = rated;
+    }
+
+    public Integer getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(Integer courseStatus) {
+        this.courseStatus = courseStatus;
     }
 
     public String getNameOfInstructor() {
@@ -185,6 +193,14 @@ public class Result implements Serializable
         this.nameOfInstructor = nameOfInstructor;
     }
 
+    public ArrayList<CourseComment> getCourseComments() {
+        return courseComments;
+    }
+
+    public void setCourseComments(ArrayList<CourseComment> courseComments) {
+        this.courseComments = courseComments;
+    }
+
     public String getPublishedDate() {
         return publishedDate;
     }
@@ -193,11 +209,11 @@ public class Result implements Serializable
         this.publishedDate = publishedDate;
     }
 
-    public Integer getCourseStatus() {
-        return courseStatus;
+    public String getWorkSpaceAddress() {
+        return workSpaceAddress;
     }
 
-    public void setCourseStatus(Integer courseStatus) {
-        this.courseStatus = courseStatus;
+    public void setWorkSpaceAddress(String workSpaceAddress) {
+        this.workSpaceAddress = workSpaceAddress;
     }
 }

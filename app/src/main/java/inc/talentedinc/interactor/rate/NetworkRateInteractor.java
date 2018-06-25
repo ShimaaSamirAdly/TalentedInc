@@ -3,6 +3,7 @@ package inc.talentedinc.interactor.rate;
 import inc.talentedinc.API.APIUrls;
 import inc.talentedinc.API.ApiHomeEndpoint;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
+import inc.talentedinc.model.request.RateRequest;
 import inc.talentedinc.model.response.BaseResponse;
 import inc.talentedinc.singleton.AppRetrofit;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
@@ -20,9 +21,9 @@ public class NetworkRateInteractor implements RateInteractor {
     private ApiHomeEndpoint mApi = AppRetrofit.getInstance().getHomeApi();
 
     @Override
-    public void setRate(int userIid, int courseId, String courseDate, float courseRate, float instructorRate, float workSpaceRate, final OnCommentLikeRateResult onCommentLikeRateResult) {
+    public void setRate(RateRequest rateRequest, final OnCommentLikeRateResult onCommentLikeRateResult) {
         Call<BaseResponse> call;
-        call = mApi.setRate(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate,courseRate,instructorRate,workSpaceRate);
+        call = mApi.setRate(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),rateRequest);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
