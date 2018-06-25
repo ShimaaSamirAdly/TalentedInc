@@ -3,6 +3,7 @@ package inc.talentedinc.interactor.register;
 import inc.talentedinc.API.APIUrls;
 import inc.talentedinc.API.ApiHomeEndpoint;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
+import inc.talentedinc.model.request.MainRequest;
 import inc.talentedinc.model.response.BaseResponse;
 import inc.talentedinc.singleton.AppRetrofit;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
@@ -20,9 +21,9 @@ public class NetworkRegisterInteractor implements RegisterInteractor {
     private ApiHomeEndpoint mApi = AppRetrofit.getInstance().getHomeApi();
 
     @Override
-    public void setRegister(int userIid, int courseId, String courseDate, final OnCommentLikeRateResult onCommentLikeRateResult) {
+    public void setRegister(MainRequest mainRequest, final OnCommentLikeRateResult onCommentLikeRateResult) {
         Call<BaseResponse> call;
-        call = mApi.setRegisterCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate);
+        call = mApi.setRegisterCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),mainRequest);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
@@ -44,9 +45,9 @@ public class NetworkRegisterInteractor implements RegisterInteractor {
     }
 
     @Override
-    public void unRegister(int userIid, int courseId, String courseDate, final OnCommentLikeRateResult onCommentLikeRateResult) {
+    public void unRegister(MainRequest mainRequest, final OnCommentLikeRateResult onCommentLikeRateResult) {
         Call<BaseResponse> call;
-        call = mApi.unRegister(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate);
+        call = mApi.unRegister(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),mainRequest);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

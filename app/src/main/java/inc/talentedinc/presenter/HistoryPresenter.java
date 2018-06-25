@@ -13,6 +13,9 @@ import inc.talentedinc.interactor.upcoming.UpComingCoursesInteractor;
 import inc.talentedinc.listener.OnCommentLikeRateResult;
 import inc.talentedinc.listener.OnCoursesResult;
 import inc.talentedinc.model.Result;
+import inc.talentedinc.model.request.CommentRequest;
+import inc.talentedinc.model.request.MainRequest;
+import inc.talentedinc.model.request.RateRequest;
 import inc.talentedinc.model.response.BaseResponse;
 
 /**
@@ -116,7 +119,12 @@ public class HistoryPresenter {
     }
 
     public void setComment(int userIid,int courseId,String courseDate , String comment){
-        commentLikeInteractor.setComment(userIid, courseId, courseDate,comment, new OnCommentLikeRateResult() {
+        CommentRequest commentRequest = new CommentRequest();
+        commentRequest.setUserId(userIid);
+        commentRequest.setCourseId(courseId);
+        commentRequest.setCourseDate(courseDate);
+        commentRequest.setComment(comment);
+        commentLikeInteractor.setComment(commentRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -130,7 +138,11 @@ public class HistoryPresenter {
     }
 
     public void setLike(int userIid,int courseId,String courseDate){
-        commentLikeInteractor.setLike(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+        MainRequest mainRequest= new MainRequest();
+        mainRequest.setUserId(userIid);
+        mainRequest.setCourseId(courseId);
+        mainRequest.setCourseDate(courseDate);
+        commentLikeInteractor.setLike(mainRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -145,7 +157,14 @@ public class HistoryPresenter {
     }
 
     public void setRate(int userIid,int courseId,String courseDate , float courseRate,float instructorRate ,float workSpaceRate ){
-        rateInteractor.setRate(userIid, courseId, courseDate,courseRate,instructorRate,workSpaceRate, new OnCommentLikeRateResult() {
+        RateRequest rateRequest = new RateRequest();
+        rateRequest.setUserId(userIid);
+        rateRequest.setCourseId(courseId);
+        rateRequest.setCourseDate(courseDate);
+        rateRequest.setCourseRate(courseRate);
+        rateRequest.setWorkSpaceRate(workSpaceRate);
+        rateRequest.setInstructorRate(instructorRate);
+        rateInteractor.setRate(rateRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -160,7 +179,11 @@ public class HistoryPresenter {
     }
 
     public void setDisLike(int userIid,int courseId,String courseDate){
-        commentLikeInteractor.setDisLike(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+        MainRequest mainRequest= new MainRequest();
+        mainRequest.setUserId(userIid);
+        mainRequest.setCourseId(courseId);
+        mainRequest.setCourseDate(courseDate);
+        commentLikeInteractor.setDisLike(mainRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());

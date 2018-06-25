@@ -220,7 +220,7 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
         Log.i("fbInstructor", fbId);
         Log.i("fbInstructor", loginResult.getAccessToken().getToken());
 
-        presenter.becomeInstructor(instructor);
+        presenter.becomeInstructor(this.instructor);
 
     }
 

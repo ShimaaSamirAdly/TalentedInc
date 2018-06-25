@@ -14,6 +14,8 @@ import inc.talentedinc.listener.OnCommentLikeRateResult;
 import inc.talentedinc.listener.OnCoursesResult;
 import inc.talentedinc.model.Categories;
 import inc.talentedinc.model.Result;
+import inc.talentedinc.model.request.CommentRequest;
+import inc.talentedinc.model.request.MainRequest;
 import inc.talentedinc.model.response.BaseResponse;
 
 /**
@@ -167,7 +169,12 @@ public class UpComingCoursesPresenter {
     }
 
     public void setComment(int userIid,int courseId,String courseDate , String comment){
-        commentLikeInteractor.setComment(userIid, courseId, courseDate,comment, new OnCommentLikeRateResult() {
+        CommentRequest commentRequest = new CommentRequest();
+        commentRequest.setUserId(userIid);
+        commentRequest.setCourseId(courseId);
+        commentRequest.setCourseDate(courseDate);
+        commentRequest.setComment(comment);
+        commentLikeInteractor.setComment(commentRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -182,7 +189,11 @@ public class UpComingCoursesPresenter {
     }
 
     public void setLike(int userIid,int courseId,String courseDate){
-        commentLikeInteractor.setLike(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+        MainRequest mainRequest= new MainRequest();
+        mainRequest.setUserId(userIid);
+        mainRequest.setCourseId(courseId);
+        mainRequest.setCourseDate(courseDate);
+        commentLikeInteractor.setLike(mainRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -197,7 +208,11 @@ public class UpComingCoursesPresenter {
     }
 
     public void setDisLike(int userIid,int courseId,String courseDate){
-        commentLikeInteractor.setDisLike(userIid, courseId, courseDate, new OnCommentLikeRateResult() {
+        MainRequest mainRequest= new MainRequest();
+        mainRequest.setUserId(userIid);
+        mainRequest.setCourseId(courseId);
+        mainRequest.setCourseDate(courseDate);
+        commentLikeInteractor.setDisLike(mainRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -224,8 +239,6 @@ public class UpComingCoursesPresenter {
         void errorMsg();
         void showCategoriesError(String msg);
         void showToast(String s);
-
-
         void setRateResult();
         void setLikeResult();
         void setDisLikeResult();

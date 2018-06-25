@@ -13,21 +13,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.like.LikeButton;
 import com.like.OnAnimationEndListener;
 import com.like.OnLikeListener;
 import com.rey.material.widget.ProgressView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import inc.talentedinc.R;
 import inc.talentedinc.factory.Factory;
 import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
-import inc.talentedinc.model.offeredcourse.OfferedCourse;
 import inc.talentedinc.presenter.UpComingDetailsPresenter;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
 import inc.talentedinc.utilitis.ActionUtils;
@@ -101,8 +98,8 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
         result = new Result();
         result=(Result) getIntent().getExtras().getSerializable(COURSE);
         Log.i("IDID",SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId()+"");
-        Log.i("IDID2",result.getInstructorId().getUserId()+"");
-       if (SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId().equals( result.getInstructorId().getUserId()) ||
+        Log.i("IDID2",result.getIdOfInstructor()+"");
+       if (SharedPrefrencesSingleton.getSharedPrefUser(UpComingDetailsActivity.this).getUserId().equals( result.getIdOfInstructor()) ||
                result.getCourseStatus()==1){
             btnRegister.setVisibility(View.GONE);
         }else{
@@ -288,18 +285,18 @@ public class UpComingDetailsActivity extends AppCompatActivity implements UpComi
                 break;
             case R.id.tvCourseUser:
                 //switch to Instructor profile
-                Log.i("profileUser", result.getInstructorId().getUserId()+"");
+                Log.i("profileUser", result.getIdOfInstructor()+"");
 
                 Intent intentUser = new Intent(this, OthersProfileActivity.class);
-                intentUser.putExtra("userId", result.getInstructorId().getUserId());
+                intentUser.putExtra("userId", result.getIdOfInstructor());
                 startActivity(intentUser);
 //                result
                 break;
             case R.id.course_creator_txt:
                 //switch to workSpace profile
-                Log.i("workspace", result.getHostingWorkSpaceId().getWorkSpaceId()+"");
+                Log.i("workspace", result.getIdOfWorkSpace()+"");
                 Intent intentWork = new Intent(this, WorkSpaceProfile.class);
-                intentWork.putExtra(WorkSpaceProfile.workSpaceID, result.getHostingWorkSpaceId().getWorkSpaceId().toString());
+                intentWork.putExtra(WorkSpaceProfile.workSpaceID, result.getIdOfWorkSpace().toString());
                 startActivity(intentWork);
 //                result
                 break;

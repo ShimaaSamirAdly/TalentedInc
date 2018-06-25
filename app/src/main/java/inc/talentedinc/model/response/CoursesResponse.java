@@ -1,18 +1,18 @@
 
 package inc.talentedinc.model.response;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
+import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
 
-public class CoursesResponse implements Serializable
-{
+public class CoursesResponse {
+
     private Integer pageNumber;
     private Integer totalNumberOfUpComingCourses;
     private Integer totalNumberOfPages;
     private ArrayList<Result> result;
-    private final static long serialVersionUID = 3413976361207597581L;
 
     public Integer getPageNumber() {
         return pageNumber;
