@@ -5,9 +5,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import inc.talentedinc.API.GetOfferedCourses;
-import inc.talentedinc.model.MinaCourse;
-import inc.talentedinc.model.User;
-import inc.talentedinc.model.offeredcourse.OfferedCourse;
+import inc.talentedinc.model.offeredcourse.InstructorAcceptOrCancelRequest;
+import inc.talentedinc.model.offeredcourse.InstructorRequestOfferedCourse;
 import inc.talentedinc.model.offeredcourse.OfferedCourseDetailed;
 import inc.talentedinc.model.offeredcourse.OfferedCourseWorkspace;
 import inc.talentedinc.model.offeredcourse.OfferedCoursesResponse;
@@ -74,7 +73,7 @@ public class OfferedCoursesFetcher {
 
     public void requestCourse(Integer offeredCourseId, Integer instructorId, final int position) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .instructorRequestOfferedCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId, offeredCourseId)
+                .instructorRequestOfferedCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),new InstructorRequestOfferedCourse(instructorId, offeredCourseId))
                 .enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
@@ -94,7 +93,8 @@ public class OfferedCoursesFetcher {
 
     public void cancelCourse(Integer offeredCourseId, Integer instructorId, final int position){
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .cancelCourseRequest(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),instructorId,offeredCourseId).enqueue(new Callback<Void>() {
+                .cancelCourseRequest(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()), new InstructorAcceptOrCancelRequest(instructorId,offeredCourseId))
+                .enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.code() == 200) {
@@ -166,7 +166,8 @@ public class OfferedCoursesFetcher {
 
     public void acceptCourse(int courseId, Integer workSpaceId) {
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .acceptCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),courseId, workSpaceId).enqueue(new Callback<Void>() {
+                .acceptCourse(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),new InstructorAcceptOrCancelRequest(courseId, workSpaceId))
+                .enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
