@@ -95,7 +95,6 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
         }
         if (course.getCourseStatus()==0 || course.isRegistered()){
             imgRte.setVisibility(View.GONE);
-
         }
         if (course.getCourseStatus()==2 && !course.isRated() && course.isRegistered()){
             imgRte.setVisibility(View.VISIBLE);
@@ -151,7 +150,6 @@ public class UpComingCoursesViewHolder extends RecyclerView.ViewHolder implement
             int resultN = Integer.parseInt(tvLikes.getText().toString());
             tvLikes.setText(String.valueOf(resultN - 1));
             listener.onDisLikeClick(courseModel.getOfferedCourseId(), courseModel.getPublishedDate(),position);
-
     } else {
             ActionUtils.showToast(context,"Connection Error");
             likeButton.setLiked(false);
