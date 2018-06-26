@@ -13,7 +13,9 @@ public class APIUrls {
    public static final String finishedCourses ="finishedCourses";
    public static final String BASE_URL="https://tal-company.herokuapp.com";
 
+
   // public static final String BASE_URL="http://172.16.5.177:3000";
+
 
 
    public static final String UPCOMING="/publishedCourses/upComing";

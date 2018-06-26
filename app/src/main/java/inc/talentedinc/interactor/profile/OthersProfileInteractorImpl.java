@@ -10,6 +10,7 @@ import inc.talentedinc.listener.UserProfileListener;
 import inc.talentedinc.model.Followers;
 import inc.talentedinc.model.OtherUsers;
 import inc.talentedinc.model.User;
+import inc.talentedinc.model.request.FollowRequest;
 import inc.talentedinc.presenter.profile.OthersProfilePresenter;
 import inc.talentedinc.singleton.AppRetrofit;
 import inc.talentedinc.singleton.SharedPrefrencesSingleton;
@@ -56,7 +57,11 @@ public class OthersProfileInteractorImpl implements OthersProfileInteractor {
     @Override
     public void followUser(int currentUserId, int followingUserId, final OthersProfileListener listener) {
 
-        Call<Void> call = profileEndpoint.followUser(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),currentUserId, followingUserId);
+        FollowRequest followRequest = new FollowRequest();
+        followRequest.setId(currentUserId);
+        followRequest.setUserToFollowId(followingUserId);
+
+        Call<Void> call = profileEndpoint.followUser(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()), followRequest);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

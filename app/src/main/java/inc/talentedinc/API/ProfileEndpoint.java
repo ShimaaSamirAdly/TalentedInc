@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import inc.talentedinc.model.Followers;
 import inc.talentedinc.model.OtherUsers;
 import inc.talentedinc.model.User;
+import inc.talentedinc.model.request.FollowRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -32,7 +33,7 @@ public interface ProfileEndpoint {
     Call<User> getCurrentUserProfile(@Header("Authorization") String token,@Path("id") int userId, @Header("Cache-Control") String cacheControl);
 
     @POST("/users/followUser")
-    Call<Void> followUser(@Header("Authorization") String token,@Query("id") int currentUserId, @Query("userToFollowId") int followedUserId);
+    Call<Void> followUser(@Header("Authorization") String token, @Body FollowRequest followRequest);
 
     @DELETE("/users/unFollowUser")
     Call<Void> unfollowUser(@Header("Authorization") String token,@Query("id") int currentUserId, @Query("userToUnFollowId") int followedUserId);

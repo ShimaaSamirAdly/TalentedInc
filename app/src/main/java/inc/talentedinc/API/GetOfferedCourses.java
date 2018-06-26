@@ -36,5 +36,5 @@ public interface GetOfferedCourses {
     Call<Void> acceptCourse(@Header("Authorization") String token, @Body InstructorAcceptOrCancelRequest instructorAcceptOrCancelRequest);
 
     @DELETE("InstructorReqOfferedCourse/cancelCourseRequest")
-    Call<Void> cancelCourseRequest(@Header("Authorization") String token,@Body InstructorAcceptOrCancelRequest instructorAcceptOrCancelRequest);
+    Call<Void> cancelCourseRequest(@Header("Authorization") String token,@Query("courseId")Integer courseId,@Query("instructorId")Integer insructorId);
 }

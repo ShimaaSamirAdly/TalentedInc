@@ -93,7 +93,7 @@ public class OfferedCoursesFetcher {
 
     public void cancelCourse(Integer offeredCourseId, Integer instructorId, final int position){
         AppRetrofit.getInstance().getRetrofitInstance().create(GetOfferedCourses.class)
-                .cancelCourseRequest(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()), new InstructorAcceptOrCancelRequest(instructorId,offeredCourseId))
+                .cancelCourseRequest(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()), instructorId,offeredCourseId)
                 .enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

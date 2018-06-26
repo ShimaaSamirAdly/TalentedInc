@@ -104,6 +104,11 @@ public class BecomeInstructorPresenterImpl implements BecomeInstructorPresenter,
     }
 
     @Override
+    public void setFaceBookData(String fbId, String token) {
+
+    }
+
+    @Override
     public void onSuccessUploadImage(String imageUrl) {
 
         instructorImages.add(new InstructorImages(imageUrl));

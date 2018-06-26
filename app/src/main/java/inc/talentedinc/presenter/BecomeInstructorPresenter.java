@@ -15,4 +15,6 @@ public interface BecomeInstructorPresenter {
     public void createInstructor(ArrayList<String> skills, ArrayList<Uri>imgs, String url);
 
     public void becomeInstructor(Instructor instructor);
+
+    public void setFaceBookData(String fbId, String token);
 }
