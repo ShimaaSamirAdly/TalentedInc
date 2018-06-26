@@ -167,7 +167,7 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
 //        user.setInstructor(instructor);
 
         this.instructor = instructor;
-//        this.instructor.setUserId(user.getUserId());
+        this.instructor.setUserId(user.getUserId());
         this.instructor.setUser(user);
 
 
@@ -215,10 +215,10 @@ public class BecomeInstructorActivity extends AppCompatActivity implements Adapt
         loginResult.getAccessToken().getToken();
 
 //        presenter.setFaceBookData(fbId, loginResult.getAccessToken().getToken());
-        this.instructor.getUser().setFbToken(fbId);
+        this.instructor.getUser().setFbId(fbId);
         this.instructor.getUser().setFbToken(loginResult.getAccessToken().getToken());
-        Log.i("fbInstructor", fbId);
-        Log.i("fbInstructor", loginResult.getAccessToken().getToken());
+//        Log.i("fbInstructor", fbId);
+        Log.i("fbInstructor", this.instructor.getUser().getFirstName());
 
         presenter.becomeInstructor(this.instructor);
 
