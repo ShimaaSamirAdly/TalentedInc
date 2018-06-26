@@ -45,9 +45,9 @@ public class NetworkRegisterInteractor implements RegisterInteractor {
     }
 
     @Override
-    public void unRegister(MainRequest mainRequest, final OnCommentLikeRateResult onCommentLikeRateResult) {
+    public void unRegister(int userIid,int courseId,String courseDate, final OnCommentLikeRateResult onCommentLikeRateResult) {
         Call<BaseResponse> call;
-        call = mApi.unRegister(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),mainRequest);
+        call = mApi.unRegister(SharedPrefrencesSingleton.getSharedPrefToken(getApplicationContext()),userIid,courseId,courseDate);
         call.clone().enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

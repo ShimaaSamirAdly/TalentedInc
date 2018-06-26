@@ -1,13 +1,14 @@
 
 package inc.talentedinc.model.response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import inc.talentedinc.model.CourseComment;
 import inc.talentedinc.model.Result;
 
-public class CoursesResponse {
+public class CoursesResponse implements Serializable {
 
     private Integer pageNumber;
     private Integer totalNumberOfUpComingCourses;

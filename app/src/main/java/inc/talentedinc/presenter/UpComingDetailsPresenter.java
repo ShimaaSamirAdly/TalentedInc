@@ -109,11 +109,7 @@ public class UpComingDetailsPresenter {
 
     public void disLike(int userIid,int courseId,String courseDate){
         view.showProgress();
-        MainRequest mainRequest= new MainRequest();
-        mainRequest.setUserId(userIid);
-        mainRequest.setCourseId(courseId);
-        mainRequest.setCourseDate(courseDate);
-        commentLikeInteractor.setDisLike(mainRequest, new OnCommentLikeRateResult() {
+        commentLikeInteractor.setDisLike(userIid,courseId,courseDate, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -158,11 +154,7 @@ public class UpComingDetailsPresenter {
     }
     public void unRegister(int userIid,int courseId,String courseDate){
         view.showProgress();
-        MainRequest mainRequest= new MainRequest();
-        mainRequest.setUserId(userIid);
-        mainRequest.setCourseId(courseId);
-        mainRequest.setCourseDate(courseDate);
-        registerInteractor.unRegister(mainRequest, new OnCommentLikeRateResult() {
+        registerInteractor.unRegister(userIid,courseId,courseDate,new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());
@@ -174,8 +166,6 @@ public class UpComingDetailsPresenter {
             public void onFailure() {
                 view.showToast("Failure");
                 view.hideProgress();
-
-
             }
         });
 
@@ -186,9 +176,9 @@ public class UpComingDetailsPresenter {
         rateRequest.setUserId(userIid);
         rateRequest.setCourseId(courseId);
         rateRequest.setCourseDate(courseDate);
-        rateRequest.setCourseRate(courseRate);
-        rateRequest.setWorkSpaceRate(workSpaceRate);
-        rateRequest.setInstructorRate(instructorRate);
+        rateRequest.setCourseRate((int) courseRate);
+        rateRequest.setWorkSpaceRate((int) workSpaceRate);
+        rateRequest.setInstructorRate((int) instructorRate);
         rateInteractor.setRate(rateRequest, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
@@ -229,7 +219,5 @@ public class UpComingDetailsPresenter {
         void setCourseImage(String image);
 
     }
-
-
 
 }

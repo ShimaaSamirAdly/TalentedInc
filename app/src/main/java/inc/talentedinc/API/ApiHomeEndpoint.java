@@ -56,7 +56,9 @@ public interface ApiHomeEndpoint {
     // unRegister course
     @DELETE(APIUrls.UNREGISTER_COURSE)
     Call<BaseResponse> unRegister(@Header("Authorization") String token,
-                                  @Body MainRequest mainRequest);
+                                  @Query("userId")int userId,
+                                  @Query("courseId")int courseId,
+                                  @Query("courseDate") String courseDate);
     // like
     @Headers("Cache-Control: no-cache")
     @POST(APIUrls.LIKE)
@@ -67,7 +69,9 @@ public interface ApiHomeEndpoint {
     @Headers("Cache-Control: no-cache")
     @DELETE(APIUrls.DISLIKE)
     Call<BaseResponse> setDisLike(@Header("Authorization") String token,
-                                  @Body MainRequest mainRequest);
+                                  @Query("userId")int userId,
+                                  @Query("courseId")int courseId,
+                                  @Query("courseDate") String courseDate);
     // comment
     @Headers("Cache-Control: no-cache")
     @POST(APIUrls.COMMENT)

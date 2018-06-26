@@ -28,9 +28,6 @@ public class APIUrls {
    public static final String RATE="/publishedCourses/rate";
 //*****************************************************************************************
 
-    public static final String API_KEY = "005f422fa64ad9f31cd41964b94b2cf3";
-
-
    public static final String WORK_SPACE_PROFILE = "workspace/getWorkSpaceProgile" ;
 
     //alaa

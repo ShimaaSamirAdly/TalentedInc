@@ -7,32 +7,31 @@ import java.io.Serializable;
  */
 
 public class RateRequest extends MainRequest implements Serializable {
-    private Float courseRate;
-    private Float instructorRate;
-    private Float workSpaceRate;
+    private int courseRate;
+    private int instructorRate;
+    private int workSpaceRate;
 
-
-    public Float getCourseRate() {
+    public int getCourseRate() {
         return courseRate;
     }
 
-    public void setCourseRate(Float courseRate) {
+    public void setCourseRate(int courseRate) {
         this.courseRate = courseRate;
     }
 
-    public Float getInstructorRate() {
+    public int getInstructorRate() {
         return instructorRate;
     }
 
-    public void setInstructorRate(Float instructorRate) {
+    public void setInstructorRate(int instructorRate) {
         this.instructorRate = instructorRate;
     }
 
-    public Float getWorkSpaceRate() {
+    public int getWorkSpaceRate() {
         return workSpaceRate;
     }
 
-    public void setWorkSpaceRate(Float workSpaceRate) {
+    public void setWorkSpaceRate(int workSpaceRate) {
         this.workSpaceRate = workSpaceRate;
     }
 }

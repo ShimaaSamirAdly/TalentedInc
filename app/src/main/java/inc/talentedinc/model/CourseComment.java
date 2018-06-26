@@ -2,7 +2,9 @@
 package inc.talentedinc.model;
 
 
-public class CourseComment {
+import java.io.Serializable;
+
+public class CourseComment implements Serializable{
 
     private Integer userIdOfComment;
     private String comment;

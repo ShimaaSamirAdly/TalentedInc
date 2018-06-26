@@ -208,11 +208,7 @@ public class UpComingCoursesPresenter {
     }
 
     public void setDisLike(int userIid,int courseId,String courseDate){
-        MainRequest mainRequest= new MainRequest();
-        mainRequest.setUserId(userIid);
-        mainRequest.setCourseId(courseId);
-        mainRequest.setCourseDate(courseDate);
-        commentLikeInteractor.setDisLike(mainRequest, new OnCommentLikeRateResult() {
+        commentLikeInteractor.setDisLike(userIid, courseId,courseDate, new OnCommentLikeRateResult() {
             @Override
             public void onSuccess(BaseResponse response) {
                 view.showToast(response.getStatus());

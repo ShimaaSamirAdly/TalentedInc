@@ -10,7 +10,7 @@ import inc.talentedinc.model.request.MainRequest;
 
 public interface CommentLikeInteractor {
     void setLike(MainRequest mainRequest, OnCommentLikeRateResult onCommentLikeRateResult);
-    void setDisLike(MainRequest mainRequest,OnCommentLikeRateResult onCommentLikeRateResult);
+    void setDisLike(int userIid,int courseId,String courseDate,OnCommentLikeRateResult onCommentLikeRateResult);
 
     void setComment(CommentRequest commentRequest, OnCommentLikeRateResult onCommentLikeRateResult);
 

@@ -9,7 +9,7 @@ import inc.talentedinc.model.request.MainRequest;
 
 public interface RegisterInteractor {
     void setRegister(MainRequest mainRequest, OnCommentLikeRateResult onCommentLikeRateResult);
-    void unRegister(MainRequest mainRequest, OnCommentLikeRateResult onCommentLikeRateResult);
+    void unRegister(int userIid,int courseId,String courseDate, OnCommentLikeRateResult onCommentLikeRateResult);
 
 
 }
